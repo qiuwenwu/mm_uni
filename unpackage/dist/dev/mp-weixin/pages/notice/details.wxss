@@ -1,0 +1,14 @@
+
+.page_notice {
+	text-align: center;
+}
+.page_notice>view {
+	margin-top: 1rem;
+}
+.title {
+	font-size: 1.3rem;
+}
+.time {
+	color: var(--color_grey);
+}
+

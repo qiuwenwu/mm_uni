@@ -1,0 +1,1 @@
+<view class="page_user" id="user_collect"><list_collect vue-id="4b96dc07-1" list="{{list}}" bind:__l="__l"></list_collect></view>

@@ -1,0 +1,45 @@
+
+.list_comment.data-v-ca325bd8 {
+	padding: 0 0.6rem;
+}
+.item_comment.data-v-ca325bd8 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	padding: 0.5rem 0;
+}
+.item_comment+.item_comment.data-v-ca325bd8 {
+	border-top: 1px solid #DBDBDB;
+}
+.left_block.data-v-ca325bd8 {
+	display: inline-block;
+	padding: 0.3rem;
+	padding-right: 0.5rem;
+}
+.right_block.data-v-ca325bd8 {
+	display: inline-block;
+	width: calc(100% - 2.5rem);
+}
+.time.data-v-ca325bd8 {
+	color: #999;
+}
+.top_comment.data-v-ca325bd8 {
+	margin-bottom: 0.6rem;
+}
+.time.data-v-ca325bd8 {
+	text-align: right;
+	margin-top: 3px;
+	font-size: 12px;
+	position: relative;
+	left: 1.5rem;
+	-webkit-transform: scale(0.8);
+	        transform: scale(0.8);
+}
+.top_comment .nickname.data-v-ca325bd8 {
+	color: var(--color_grey);
+	font-size: 0.8rem;
+}
+.content.data-v-ca325bd8 {
+	font-size: 0.8rem;
+}
+

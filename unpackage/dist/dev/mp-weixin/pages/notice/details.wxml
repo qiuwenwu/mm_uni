@@ -1,0 +1,1 @@
+<view class="page_notice pa" id="notice_details"><view class="title">{{''+obj.title+''}}</view><view class="time">{{''+obj.create_time+''}}</view><view class="content" style="text-align:left;"><rich-text nodes="{{obj.content}}"></rich-text></view></view>

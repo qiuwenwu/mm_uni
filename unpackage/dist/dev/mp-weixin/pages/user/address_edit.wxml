@@ -1,0 +1,1 @@
+<view class="page_user" id="user_address_edit"><form_address vue-id="7caea776-1" form="{{obj}}" bind:__l="__l"></form_address></view>

@@ -1,0 +1,20 @@
+
+.page_article.data-v-5bc39240 {
+	padding-bottom: 1rem;
+}
+.bar_title.data-v-5bc39240 {
+	background: none;
+}
+.recommend.data-v-5bc39240 {
+	margin: 0.5rem;
+	border-radius: 0.5rem;
+	border: 1px solid #dbdbdb;
+	overflow: hidden;
+}
+.link.data-v-5bc39240 {
+	text-align: center;
+	padding: 0.5rem 0;
+	border: 1px solid #DBDBDB;
+	border-radius: 0.5rem;
+}
+

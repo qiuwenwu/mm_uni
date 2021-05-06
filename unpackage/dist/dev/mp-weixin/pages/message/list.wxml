@@ -1,0 +1,1 @@
+<view class="list_message"><block wx:for="{{list}}" wx:for-item="o" wx:for-index="i" wx:key="i"><view class="item_message"><view class="user_info"><view>{{o.nickname}}</view><view class="time">{{o.create_time}}</view></view><view class="content"><rich-text nodes="{{o.content}}"></rich-text></view></view></block></view>

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "产品详情",
+  "usingComponents": {
+    "div_goods": "/components/diy/div_goods",
+    "list_comment": "/components/diy/list_comment",
+    "bar_title": "/components/diy/bar_title",
+    "bar_buy": "/components/diy/bar_buy"
+  }
+}

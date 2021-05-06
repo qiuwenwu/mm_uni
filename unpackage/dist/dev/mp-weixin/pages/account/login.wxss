@@ -1,0 +1,26 @@
+
+.btns.data-v-c3562c44 {
+	margin-bottom: 0.2rem;
+}
+.btns-link.data-v-c3562c44 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	padding: 0 1rem;
+}
+.link_register.data-v-c3562c44 {
+	text-align: left;
+}
+.link_login.data-v-c3562c44 {
+	text-align: right;
+}
+.btn_login.data-v-c3562c44 {
+	background-color: #fff;
+}
+.button-hover.data-v-c3562c44 {
+	background-color: #DBDBDB;
+}
+

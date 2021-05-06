@@ -1,0 +1,1 @@
+<view class="page_cart data-v-4850ef84" id="cart_index"><list_cart vue-id="7c64fbfc-1" list="{{list}}" class="data-v-4850ef84" bind:__l="__l"></list_cart></view>

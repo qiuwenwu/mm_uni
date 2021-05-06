@@ -1,0 +1,27 @@
+
+.list_message {
+	background-color: #f8f8f8;
+	min-height: 100vh;
+}
+.item_message {
+	background-color: #FFFFFF;
+	margin-bottom: 1rem;
+}
+.user_info {
+	text-align: center;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid #eee;
+}
+.time{
+	font-size: 0.7rem;
+	margin-top: 0.5rem;
+}
+.content {
+	width: 100%;
+	padding: 0.8rem;
+}
+.content rich-text {
+	width: 100%;
+	word-break: break-all;
+}
+

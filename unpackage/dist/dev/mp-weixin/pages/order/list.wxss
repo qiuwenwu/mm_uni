@@ -1,0 +1,6 @@
+
+.page_order{
+	background-color: #f8f8f8;
+	min-height: 100vh;
+}
+

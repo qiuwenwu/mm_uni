@@ -1,0 +1,1 @@
+<view class="page_order" id="order_list"><list_order vue-id="439118e4-1" list="{{list_diff}}" bind:__l="__l"></list_order></view>

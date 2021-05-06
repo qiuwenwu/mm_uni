@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "收货地址管理",
+  "usingComponents": {
+    "form_address": "/components/diy/form_address"
+  }
+}
