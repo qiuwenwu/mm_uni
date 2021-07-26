@@ -1,17 +1,12 @@
 
-.page_article.data-v-5bc39240 {
-	padding-bottom: 1rem;
-}
-.bar_title.data-v-5bc39240 {
+#article_details .bar_title {
 	background: none;
 }
-.recommend.data-v-5bc39240 {
-	margin: 0.5rem;
-	border-radius: 0.5rem;
-	border: 1px solid #dbdbdb;
+#article_details .recommend {
+	background-color: #fff;
 	overflow: hidden;
 }
-.link.data-v-5bc39240 {
+#article_details .link {
 	text-align: center;
 	padding: 0.5rem 0;
 	border: 1px solid #DBDBDB;

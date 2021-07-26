@@ -1,26 +1,49 @@
 <template>
 	<view class="page_user" id="user_password">
-		<uni-forms :rules="rules" :value="form" ref="form" validate-trigger="bind" err-show-type="undertext">
-			<uni-group title="" top="0">
-				<uni-forms-item name="o_password" required label="原密码">
-					<uni-easyinput type="password" :inputBorder="true" v-model="form.o_password" placeholder="请输入原密码"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="password" required label="密码">
-					<uni-easyinput type="password" :inputBorder="true" v-model="form.password" placeholder="请输入新密码"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="confirm_password" required label="确认密码">
-					<uni-easyinput type="password" :inputBorder="true" v-model="form.confirm_password" placeholder="请再次输入密码"></uni-easyinput>
-				</uni-forms-item>
-			</uni-group>
-		</uni-forms>
-		<view class="btns">
-			<button class="button" @click="change_password()">登录</button>
-		</view>
+		
+		<!-- 修改密码模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							<!-- 修改密码模块(结束) -->
+							<uni-forms :rules="rules" :value="form" ref="form" validate-trigger="bind"
+								err-show-type="undertext">
+								<uni-group title="" top="0">
+									<uni-forms-item name="o_password" required label="原密码">
+										<uni-easyinput type="password" :inputBorder="true" v-model="form.o_password"
+											placeholder="请输入原密码"></uni-easyinput>
+									</uni-forms-item>
+									<uni-forms-item name="password" required label="密码">
+										<uni-easyinput type="password" :inputBorder="true" v-model="form.password"
+											placeholder="请输入新密码"></uni-easyinput>
+									</uni-forms-item>
+									<uni-forms-item name="confirm_password" required label="确认密码">
+										<uni-easyinput type="password" :inputBorder="true"
+											v-model="confirm_password" placeholder="请再次输入密码"></uni-easyinput>
+									</uni-forms-item>
+								</uni-group>
+							</uni-forms>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							<view class="btns">
+								<button class="button" @click="change_password()">登录</button>
+							</view>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
 	</view>
 </template>
 
 <script>
-	import mixin from "../../mixins/page.js";
+	import mixin from "@/mixins/page.js";
 
 	export default {
 		mixins: [mixin],
@@ -32,11 +55,10 @@
 					"user_group": []
 				},
 				form: {
-					username: '',
 					o_password: '',
-					password: '',
-					confirm_password: ''
+					password: ''
 				},
+				confirm_password: "",
 				rules: {
 					o_password: {
 						rules: [{
@@ -79,22 +101,17 @@
 		},
 		methods: {
 			change_password() {
-				if (this.form.password !== this.form.confirm_password){
-					console.log("------------");
-					this.$toast("密码不相同","error")
+				if (this.form.password !== this.confirm_password) {
+					this.$toast("密码不相同", "error")
 					return
 				}
 				this.$refs["form"]
 					.submit()
 					.then(res => {
-						var form = this.form
-						console.log(this.user);
-						form.username = this.user.username
-						console.log(form);
-						this.$post("~/api/change_password?", form, (res) => {
+						var form = this.form;
+						this.$post("~/api/user/change_password?", form, (res) => {
 							if (res.result) {
-								console.log(res.result);
-								this.$nav('//pages/index/index')
+								this.$nav('/pages/root/index')
 							} else if (res.error) {
 								this.$toast(res.error.message, 'error')
 							}

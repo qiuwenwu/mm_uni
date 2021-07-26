@@ -1,65 +1,79 @@
 <template>
 	<view class="page_user" id="user_info">
-		<view class="item_info">
-			<view class="flex_box">
-				<view>
-					<text>头像</text>
-				</view>
-				<view class="right_wrap">
-					<image style="width: 3rem;height: 3rem;" :src="$fullUrl(user.avatar) || '../../static/img/default.png'" mode="scaleToFill"></image>
-				</view>
-			</view>
-		</view>
-		<view class="item_info" style="margin-bottom: 5rem;">
-			<view class="flex_box" style="position: relative;">
-				<view>
-					<text>昵称</text>
-				</view>
-				<view class="right_wrap" :style="'display:'+display_name+';'">
-					<text style="font-size: 1.2rem;color: var(--color_grey);">{{user.nickname}}</text>
-				</view>
-
-				<view class="input_nickname" :style="'display:'+display_input+';'">
-					<view class="btn_save" @click="save_nickname()">保存</view>
-					<input type="text" id="nickname" v-model="form.nickname" :focus="focus_input" />
-				</view>
-			</view>
-		</view>
-		<view  @click="change_avatar()" class="item_info">
-			<view class="flex_box" style="height:1rem;font-size: 0.8rem;">
-				<view>
-					<text>修改头像</text>
-				</view>
-				<view class="right_wrap">
-					<uni-icons class="forward" type="forward" size="20"></uni-icons>
-				</view>
-			</view>
-		</view>
-		<view @click="change_nickname()" class="item_info">
-			<view class="flex_box" style="height:1rem;font-size: 0.8rem;">
-				<view>
-					<text>修改昵称</text>
-				</view>
-				<view class="right_wrap">
-					<uni-icons class="forward" type="forward" size="20"></uni-icons>
-				</view>
-			</view>
-		</view>
-		<navigator url="./password" class="item_info">
-			<view class="flex_box" style="height:1rem;font-size: 0.8rem;">
-				<view>
-					<text>修改密码</text>
-				</view>
-				<view class="right_wrap">
-					<uni-icons class="forward" type="forward" size="20"></uni-icons>
-				</view>
-			</view>
-		</navigator>
-	</view>
+		
+		<!-- 信息修改模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							
+								<view class="item_info">
+									<view class="flex_box">
+										<view>
+											<text>头像</text>
+										</view>
+										<view class="right_wrap">
+											<image style="width: 3rem;height: 3rem;" :src="$fullUrl(user.avatar) || '@/static/img/default.png'" mode="scaleToFill"></image>
+										</view>
+									</view>
+								</view>
+								<view class="item_info" style="margin-bottom: 5rem;">
+									<view class="flex_box" style="position: relative;">
+										<view>
+											<text>昵称</text>
+										</view>
+										<view class="right_wrap" :style="'display:'+display_name+';'">
+											<text style="font-size: 1.2rem;color: var(--color_grey);">{{user.nickname}}</text>
+										</view>
+							
+										<view class="input_nickname" :style="'display:'+display_input+';'">
+											<view class="btn_save" @click="save_nickname()">保存</view>
+											<input type="text" id="nickname" v-model="form.nickname" :focus="focus_input" />
+										</view>
+									</view>
+								</view>
+								<view  @click="change_avatar()" class="item_info">
+									<view class="flex_box" style="height:1rem;font-size: 0.8rem;">
+										<view>
+											<text>修改头像</text>
+										</view>
+										<view class="right_wrap">
+											<uni-icons class="forward" type="forward" size="20"></uni-icons>
+										</view>
+									</view>
+								</view>
+								<view @click="change_nickname()" class="item_info">
+									<view class="flex_box" style="height:1rem;font-size: 0.8rem;">
+										<view>
+											<text>修改昵称</text>
+										</view>
+										<view class="right_wrap">
+											<uni-icons class="forward" type="forward" size="20"></uni-icons>
+										</view>
+									</view>
+								</view>
+								<navigator url="./password" class="item_info">
+									<view class="flex_box" style="height:1rem;font-size: 0.8rem;">
+										<view>
+											<text>修改密码</text>
+										</view>
+										<view class="right_wrap">
+											<uni-icons class="forward" type="forward" size="20"></uni-icons>
+										</view>
+									</view>
+								</navigator>
+							
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 信息修改模块(结束) --></view>
 </template>
 
 <script>
-	import mixin from "../../mixins/page.js";
+	import mixin from "@/mixins/page.js";
 	export default {
 		mixins: [mixin],
 		data() {
@@ -101,7 +115,7 @@
 								var filename = filename_arr[filename_arr.length - 1]
 								// 改用户表中的头像
 								var avatar = "/static/upload/" + filename
-								_self.$post('~/api/user/set?user_id=' + _self.user.user_id, {
+								_self.$post('~/api/account/user?method=set&user_id=' + _self.user.user_id, {
 									avatar
 								}, res => {
 									console.log(res);
@@ -134,7 +148,7 @@
 			save_nickname() {
 				var user = this.user
 				var nickname = this.form.nickname
-				this.$post('~/api/user/set?user_id=' + user.user_id, {
+				this.$post('~/api/user?method=set&user_id=' + user.user_id, {
 					nickname
 				}, res => {
 					console.log(res);

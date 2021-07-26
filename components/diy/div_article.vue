@@ -8,6 +8,7 @@
 			<text class="time">{{ obj[vm.create_time] }}</text>
 		</view>
 		<view class="desc">{{ obj[vm.description] }}</view>
+		<!-- 文本内容 -->
 		<rich-text class="rich_text" :nodes="obj[vm.content]"></rich-text>
 		<view class="tag_block">
 			标签：<text class="tag">{{ obj[vm.tag] }}</text>
@@ -32,8 +33,8 @@
 				</view>
 			</view>
 			<text class="see">
-				<text style="padding-right: 1rem;">{{ obj[vm.hits] }}点击</text>
-				<text>{{ praise_len }}点赞</text>
+				<text v-if="obj[vm.hits] && obj[vm.hits] >= 0" style="padding-right: 1rem;">{{ obj[vm.hits] }}点击</text>
+				<text v-if="obj[vm.praise_len] && obj[vm.praise_len] >= 0">{{ obj[vm.praise_len] }}点赞</text>
 			</text>
 		</uni-view>
 	</view>
@@ -85,14 +86,14 @@
 				}
 				if (!this.check_praised) {
 					this.check_praised = true
-					this.$post('~/api/praise/add?', body, (res) => {
+					this.$post('~/api/cms/praise?method=add&', body, (res) => {
 						this.obj.praise_len += 1
 						console.log(this.obj.praise_len);
 						console.log(res);
 					})
 				} else {
 					this.check_praised = false
-					this.$get('~/api/praise/del', body, (res) => {
+					this.$get('~/api/cms/praise?method=del&', body, (res) => {
 						this.obj.praise_len -= 1
 						console.log(res);
 					})
@@ -115,13 +116,13 @@
 				}
 				if (!this.check_collected) {
 					this.check_collected = true
-					this.$post('~/api/collect/add?', body, (res) => {
+					this.$post('~/api/user/collect?method=add&', body, (res) => {
 						this.$toast("收藏成功");
 						console.log(res);
 					})
 				} else {
 					this.check_collected = false
-					this.$get('~/api/collect/del', body, (res) => {
+					this.$get('~/api/collect?method=del&', body, (res) => {
 						this.$toast("取消收藏");
 					})
 				}
@@ -143,6 +144,7 @@
 
 	.div_article {
 		padding: 1.5rem 1rem;
+		overflow: hidden;
 	}
 
 	.aside {
@@ -210,7 +212,7 @@
 
 	.div_article .left_block {
 		display: flex;
-		justify-content: start;
+		justify-content: flex-start;
 		align-items: center;
 	}
 

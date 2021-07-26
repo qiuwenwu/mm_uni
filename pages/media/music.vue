@@ -1,15 +1,19 @@
 <template>
 	<view class="page_media" id="media_music">
-		<view class="container">
-			<view class="row">
-				<view class="col">
-					<view class="page-section page-section-gap" style="text-align: center;">
-						<audio style="text-align: left" :src="current.src" :poster="current.poster" :name="current.name" :author="current.author"
-						 :action="audioAction" controls></audio>
-					</view>
-				</view>
-			</view>
-		</view>
+		<!-- 音乐模块(开始) -->
+		<mm_warp>
+			<mm_container>
+				<mm_row>
+					<mm_col class="col-12 col-sm-6 col-md-4">
+						<mm_view class="audio">
+							<audio style="text-align: left" :src="current.src" :poster="current.poster" :name="current.name" :author="current.author"
+							 :action="audioAction" controls></audio>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 音乐模块(结束) -->
 	</view>
 </template>
 

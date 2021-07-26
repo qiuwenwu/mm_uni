@@ -1,8 +1,8 @@
 <template>
 	<view class="list_menu">
-		<view v-if="$check_action(o[vm.url],'get')" v-for="(o, i) in list" :key="i" class="item_menu">
+		<view v-if="$check_action(o[vm.url],'get')" v-for="(o, i) in list_menu" :key="i" class="item_menu">
 			<navigator :url="'/pages'+o[vm.url]" class="menu" hover-class="hover">
-				<image style="width: 2.5rem; height: 2.5rem;" :src="$fullUrl(o[vm.img]) || '../../static/img/default.png'" mode="widthFix"></image>
+				<image class="image" :src="$fullImgUrl(o[vm.img])" mode="widthFix"></image>
 				<text class="name">{{ o[vm.name] }}</text>
 			</navigator>
 		</view>
@@ -10,9 +10,11 @@
 </template>
 
 <script>
+	import mixin from "@/mixins/component.js"
 	export default {
+		mixins:[mixin],
 		props: {
-			list: {
+			list_menu: {
 				type: Array,
 				default: function() {
 					return [];
@@ -34,29 +36,37 @@
 	}
 </script>
 
-<style scoped>
-	image {
+<style>
+	.list_menu image {
 		border-radius: 1rem;
 	}
 
 	.list_menu {
 		display: flex;
-		justify-content: start;
+		justify-content: flex-start;
+		flex-wrap: wrap;
 		text-align: center;
 		background-color: #fff;
-		overflow: scroll;
 		padding: 0.5rem 0;
 	}
-	.item_menu {
-		flex: 0 0 20%;
+	.list_menu .item_menu {
+		flex: 0 0 25%;
 	}
-	.menu {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+	@media (min-width:768px){
+		.list_menu .item_menu {
+			flex: 1;
+		}
 	}
 
-	.menu text {
-		font-size: 0.1rem;
+	.list_menu .menu text {
+		font-size: 1rem;
+	}
+	.list_menu .menu image{
+		 width: 100%; 
+		 height: 100%;
+	}
+	.list_menu .menu image:hover{
+		transform: scale(1.2);
+		transition: 0.2 all;
 	}
 </style>

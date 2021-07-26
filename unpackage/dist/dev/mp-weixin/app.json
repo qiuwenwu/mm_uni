@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/root/index",
     "pages/comment/edit",
     "pages/web/index",
     "pages/media/music",
@@ -18,7 +18,7 @@
     "pages/goods/details",
     "pages/cart/index",
     "pages/cart/list",
-    "pages/message/index",
+    "pages/message/edit",
     "pages/message/list",
     "pages/notice/list",
     "pages/notice/details",
@@ -46,7 +46,7 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/root/index",
         "text": "首页",
         "iconPath": "static/img/home_a.png",
         "selectedIconPath": "static/img/home_b.png"
@@ -79,5 +79,5 @@
   },
   "permission": {},
   "usingComponents": {},
-  "sitemapLocation": "sitemap66.json"
+  "sitemapLocation": "sitemap.json"
 }

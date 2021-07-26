@@ -1,14 +1,17 @@
 
-.page_notice {
+#notice_details .mm_container{
+	background-color: #fff;
+}
+#notice_details .page_notice {
 	text-align: center;
 }
-.page_notice>view {
+#notice_details .page_notice>view {
 	margin-top: 1rem;
 }
-.title {
+#notice_details .title {
 	font-size: 1.3rem;
 }
-.time {
+#notice_details .time {
 	color: var(--color_grey);
 }
 

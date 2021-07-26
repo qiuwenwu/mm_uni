@@ -1,31 +1,47 @@
 <template>
-	<view class="page_notice pa" id="notice_details">
-		<view class="title">
-			{{obj.title}}
-		</view>
-		<view class="time">
-			{{obj.create_time}}
-		</view>
-		<view class="content" style="text-align: left;">
-			<rich-text :nodes="obj.content"></rich-text>
-		</view>
+	<view class="page_notice" id="notice_details">
+		<!-- 公告模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="notice_view">
+							<view class="title">
+								{{obj.title}}
+							</view>
+							<view class="time">
+								{{obj.create_time}}
+							</view>
+							<view class="content" style="text-align: left;">
+								<rich-text :nodes="obj.content"></rich-text>
+							</view>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 公告模块(结束) -->
 	</view>
 </template>
 
 <script>
-	import mixin from "../../mixins/page.js";
+	import mixin from "@/mixins/page.js";
 
 	export default {
 		mixins: [mixin],
 		data() {
 			return {
-				url_get_obj: "~/api/notice/get_obj?",
+				url_get_obj: "~/api/user/notice?method=get_obj&",
 				field: "notice_id",
 				query: {
 					notice_id: 0
 				},
 				href: 'https://uniapp.dcloud.io/component/README?id=uniui',
-				obj: {}
+				obj: {
+					title:"标题",
+					create_time:"时间",
+					content:"文本"
+				}
 			}
 		},
 		methods: {
@@ -37,19 +53,22 @@
 </script>
 
 <style>
-	.page_notice {
+	#notice_details .mm_container{
+		background-color: #fff;
+	}
+	#notice_details .page_notice {
 		text-align: center;
 	}
 
-	.page_notice>view {
+	#notice_details .page_notice>view {
 		margin-top: 1rem;
 	}
 
-	.title {
+	#notice_details .title {
 		font-size: 1.3rem;
 	}
 
-	.time {
+	#notice_details .time {
 		color: var(--color_grey);
 	}
 </style>

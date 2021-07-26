@@ -1,29 +1,31 @@
 <template>
 	<view class="page_media" id="media_video">
-		<view class="container">
-			<view class="row">
-				<view class="col">
-					<view class="video-show uni-padding-wrap uni-common-mt">
-						<view>
-							<video id="myVideo" :src="src" @error="videoErrorCallback" :danmu-list="danmuList" enable-danmu danmu-btn
-							 controls></video>
+		<!-- 视频模块(开始) -->
+		<mm_warp>
+			<mm_container>
+				<mm_row>
+					<mm_col>
+						<mm_view class="yyy">
+							<video id="myVideo" :src="src" @error="videoErrorCallback" :danmu-list="danmuList"
+								enable-danmu danmu-btn controls></video>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+				<mm_row>
+					<mm_col>
+						<!-- #ifndef MP-ALIPAY -->
+						<view class="form">
+							<input v-model="danmuValue" class="uni-input" type="text" placeholder="在此处输入弹幕内容" />
 						</view>
-					</view>
-				</view>
-			</view>
-			<view class="row">
-				<view class="col">
-					<!-- #ifndef MP-ALIPAY -->
-					<view class="form">
-						<input v-model="danmuValue" class="uni-input" type="text" placeholder="在此处输入弹幕内容" />
-					</view>
-					<view class="uni-btn-v">
-						<button @click="sendDanmu" class="page-body-button">发送弹幕</button>
-					</view>
-					<!-- #endif -->
-				</view>
-			</view>
-		</view>
+						<view class="uni-btn-v">
+							<button @click="sendDanmu" class="page-body-button">发送弹幕</button>
+						</view>
+						<!-- #endif -->
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 视频模块(结束) -->
 	</view>
 </template>
 
@@ -82,14 +84,17 @@
 	#myVideo {
 		width: 100%;
 	}
+
 	#media_video {
 		height: calc(100vh - 2.75rem);
 		position: relative;
 		width: 100%;
 	}
+
 	#media_video .form {
 		margin-top: 1rem;
 	}
+
 	#media_video input {
 		height: 2.75rem;
 		border: 1px solid #dbdbdb;

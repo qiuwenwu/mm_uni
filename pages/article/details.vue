@@ -1,36 +1,49 @@
 <template>
 	<view class="page_article" id="article_details">
-		<view v-if="$check_action('/article/details','get')">
-			<div_article style="background-color: #fff;" :obj="obj" class="mb"></div_article>
-			<!-- 推荐文章 -->
-			<div class="recommend" style="background-color: #fff;">
-				<bar_title title="喜欢此内容的人还喜欢"></bar_title>
-				<list_article :list="list_article"></list_article>
-			</div>
-			<!-- /推荐文章 -->
-
-			<!-- 文章评论列表 -->
-			<bar_title v-if="$check_action('/comment/list','get')" title="文章点评"></bar_title>
-			<list_comment v-if="$check_action('/comment/list','get')" style="background-color: #fff;"
-				:list="list_comment" :obj="form_comment"></list_comment>
-			<!-- /文章评论列表 -->
-			<!-- 发表评论 -->
-			<view class="pa" v-if="$check_action('/comment/list','add')">
-				<navigator class="link"
-					:url="'/pages/comment/edit?source_table=article&source_field=article_id&source_id=' + obj.article_id">
-					发表评论</navigator>
-			</view>
-		</view>
+		
+		<!-- 文章详情模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="details_view">
+							<template v-if="$check_action('/article/details','get')">
+								<div_article style="background-color: #fff;" :obj="obj" class="mb"></div_article>
+								<!-- 推荐文章 -->
+								<div class="recommend">
+									<bar_title title="喜欢此内容的人还喜欢"></bar_title>
+									<list_article :list="list_article"></list_article>
+								</div>
+								<!-- /推荐文章 -->
+							
+								<!-- 文章评论列表 -->
+								<bar_title v-if="$check_action('/comment/list','get')" title="文章点评"></bar_title>
+								<list_comment v-if="$check_action('/comment/list','get')" style="background-color: #fff;"
+									:list="list_comment" :obj="form_comment"></list_comment>
+								<!-- /文章评论列表 -->
+								<!-- 发表评论 -->
+								<view class="pa" v-if="$check_action('/comment/list','add')">
+									<navigator class="link"
+										:url="'/pages/comment/edit?source_table=article&source_field=article_id&source_id=' + obj.article_id">
+										发表评论</navigator>
+								</view>
+							</template>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 文章详情模块(结束) -->
 	</view>
 </template>
 
 <script>
-	import bar_title from "../../components/diy/bar_title.vue";
-	import list_article from "../../components/diy/list_article.vue";
-	import div_article from "../../components/diy/div_article.vue";
-	import list_comment from "../../components/diy/list_comment.vue";
+	import bar_title from "@/components/diy/bar_title.vue";
+	import list_article from "@/components/diy/list_article.vue";
+	import div_article from "@/components/diy/div_article.vue";
+	import list_comment from "@/components/diy/list_comment.vue";
 
-	import mixin from "../../mixins/page.js";
+	import mixin from "@/mixins/page.js";
 
 	export default {
 		mixins: [mixin],
@@ -42,12 +55,25 @@
 		},
 		data() {
 			return {
-				url_get_obj: "~/api/article/get_obj?",
+				url_get_obj: "~/api/cms/article?method=get_obj&",
 				field: "article_id",
 				query: {
 					article_id: 0
 				},
-				obj: {},
+				obj: {
+					article_id: 0,
+					title: "",
+					type: "",
+					hits: 0,
+					create_time: "",
+					update_time: "",
+					source: "",
+					url: "",
+					tag: "",
+					content: "",
+					img: "",
+					description: ""
+				},
 				list_article: [],
 				list_comment: [],
 				form: {
@@ -80,7 +106,7 @@
 			},
 			// 获取文章
 			get_article() {
-				this.$get("~/api/article/get_list?", {
+				this.$get("~/api/cms/article?", {
 					"page": 1,
 					"size": 2
 				}, (json) => {
@@ -100,7 +126,7 @@
 					orderby: "create_time desc",
 					reply_to_id: "0",
 				}
-				this.$get("~/api/comment/get_list?", query, (json) => {
+				this.$get("~/api/comment?", query, (json) => {
 					if (json.result) {
 						var list_comment = json.result.list
 						list_comment.map((o) => {
@@ -121,7 +147,7 @@
 					for (let idx = 0; idx < list.length; idx++) {
 						const obj = list[idx];
 						this.$get(
-							"~/api/comment/get_list?", {
+							"~/api/comment?", {
 								source_table: "article",
 								source_field: "article_id",
 								source_id: obj.article_id,
@@ -155,8 +181,7 @@
 			 * 添加访问量
 			 */
 			add_hits(obj) {
-				console.log("-------------------");
-				this.$post('~/api/article/set?article_id=' + obj.article_id, {
+				this.$post('~/api/cms/article?method=set&article_id=' + obj.article_id, {
 					hits: obj.hits + 1
 				}, res => {
 					obj.hits += 1
@@ -171,23 +196,18 @@
 	}
 </script>
 
-<style scoped>
-	.page_article {
-		padding-bottom: 1rem;
-	}
+<style>
 
-	.bar_title {
+	#article_details .bar_title {
 		background: none;
 	}
 
-	.recommend {
-		margin: 0.5rem;
-		border-radius: 0.5rem;
-		border: 1px solid #dbdbdb;
+	#article_details .recommend {
+		background-color: #fff;
 		overflow: hidden;
 	}
 
-	.link {
+	#article_details .link {
 		text-align: center;
 		padding: 0.5rem 0;
 		border: 1px solid #DBDBDB;

@@ -45,8 +45,8 @@
   color: #333;
 }
 .uni-group__content.data-v-0c0bc38a {
-  padding: 15px;
-  background-color: #FFF;
+  padding: 4px;
+  background-color: initial;
 }
 .group-conent-padding.data-v-0c0bc38a {
   padding: 0 15px;
@@ -68,6 +68,7 @@
   margin: 10px;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.08);
+  -webkit-box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.08);
 }
 

@@ -1,53 +1,63 @@
 <template>
 	<view class="page_forum" id="forum_index">
-		<view v-if="$check_action('/forum/list','get')">
-			<!-- 替换组件的搜索图标 -->
-			<uni-search-bar placeholder="搜索帖子" @confirm="search" @cancel="cancel" cancelText="取消"
-				@input="input($event, 'title')">
-				<uni-icons slot="searchIcon" color="#999999" size="18" type="home" />
-			</uni-search-bar>
-			<view class="top_handle">
-				<view class="dropdown_box">
-					<!-- 筛选栏 -->
-					<view class="dropdown_forum">
-						<mm_dropdown :filter_type="type_names" @handle_item="filter_item"
-							:dropdown_title="filter_title"></mm_dropdown>
-					</view>
-					<!-- /筛选栏 -->
-					<!-- 排序 -->
-					<view class="dropdown_forum">
-						<mm_dropdown :dropdown_title="sort_title" @handle_item="sort_item" :sort_list="sort_list">
-						</mm_dropdown>
-					</view>
-					<!-- /排序 -->
-				</view>
-			</view>
-			<!-- 论坛列表 -->
-			<list_forum style="background-color: #fff;" :list="list" class="mb"></list_forum>
-			<!-- /论坛列表 -->
-			<!-- 分页器 -->
-			<uni-pagination class="pager" show-icon="true" :total="count" :pageSize="query.size" :current="query.page"
-				@change="page_change"></uni-pagination>
-			<!-- /分页器 -->
-		</view>
+		<!-- 论坛列表模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<!-- 替换组件的搜索图标 -->
+						<uni-search-bar placeholder="搜索帖子" @confirm="search" @cancel="cancel" cancelText="取消"
+							@input="input($event, 'title')">
+							<uni-icons slot="searchIcon" color="#999999" size="18" type="home" />
+						</uni-search-bar>
+					</mm_col>
+				</mm_row>
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							<template v-if="$check_action('/forum/list','get')">
+								<!-- 论坛列表 -->
+								<list_forum style="background-color: #fff;" :list="list" class="mb"></list_forum>
+								<!-- /论坛列表 -->
+							</template>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 论坛列表模块(结束) -->
+		<!-- 分页器模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							<!-- 分页器 -->
+							<uni-pagination class="pager" show-icon="true" :total="count" :pageSize="query.size"
+								:current="query.page" @change="page_change"></uni-pagination>
+							<!-- /分页器 -->
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 分页器模块(结束) -->
 	</view>
 </template>
 
 <script>
-	import mixin from "../../mixins/page.js"
-	import list_forum from "../../components/diy/list_forum.vue"
-	import mm_dropdown from "../../components/diy/mm_dropdown.vue"
-	
+	import mixin from "@/mixins/page.js"
+	import list_forum from "@/components/diy/list_forum.vue"
+
 
 	export default {
 		mixins: [mixin],
 		components: {
 			list_forum,
-			mm_dropdown,
 		},
 		data() {
 			return {
-				url_get_list: "~/api/forum/get_list?",
+				url_get_list: "~/api/forum?",
 				list: [],
 				query: {
 					title: "",
@@ -83,7 +93,7 @@
 			 */
 			get_forum_type() {
 				this.$get(
-					"~/api/forum_type/get_list", {
+					"~/api/forum_type?", {
 						page: 1,
 						size: "0",
 					},

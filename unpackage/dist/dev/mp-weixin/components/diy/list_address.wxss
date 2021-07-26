@@ -12,8 +12,6 @@
 }
 .item_address {
 	background-color: #fff;
-	padding: 0 0.8rem;
-	margin: 0.8rem;
 	border-radius: 1rem;
 }
 .address_info {
@@ -126,15 +124,10 @@
 	color: #fff;
 	font-size: 0.9rem;
 	background-color: #FA4E28;
-	position: fixed;
-	bottom: 1rem;
-	left: 50%;
-	-webkit-transform: translate(-50%);
-	        transform: translate(-50%);
-	width: 85%;
 	height: 2.2rem;
 	line-height: 2.2rem;
-	text-align: center;
 	border-radius: 1rem;
+	margin: 0 auto;
+	text-align: center;
 }
 

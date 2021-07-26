@@ -1,12 +1,31 @@
 
-page.data-v-4850ef84{
+page.data-v-4850ef84 {
 	overflow: hidden;
 }
-.page_cart.data-v-4850ef84{
+.page_cart.data-v-4850ef84 {
 	padding-top: 0.8rem;
-	padding-bottom:  5rem;
+	padding-bottom: 5rem;
 	height: 100vh;
 	background-color: #F8F8F8;
 	overflow: scroll;
+}
+.uni-collapse.data-v-4850ef84 {
+	background-color: inherit;
+}
+.top_handle.data-v-4850ef84 {
+	position: relative;
+	height: 2.6rem;
+	width: 100%;
+}
+.collapses_box.data-v-4850ef84 {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	position: absolute;
+	z-index: 1000;
+}
+.collapse_item.data-v-4850ef84 {
+	font-size: 14px;
 }
 

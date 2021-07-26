@@ -1,66 +1,97 @@
 <template>
 	<view class="page_account" id="account_register">
-		<uni-forms :rules="rules" :value="form" ref="form" validate-trigger="bind" err-show-type="undertext">
-			<uni-group top="0">
-				<uni-forms-item name="username" required label="用户名">
-					<uni-easyinput type="text" :inputBorder="true" v-model="form.username" placeholder="请输入用户名"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="password" required label="密码">
-					<uni-easyinput type="password" :inputBorder="true" v-model="form.password" placeholder="请输入密码"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="confirm_password" required label="确认密码">
-					<uni-easyinput type="password" :inputBorder="true" v-model="form.confirm_password" placeholder="请再次输入密码"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="email" label="邮箱">
-					<uni-easyinput type="text" v-model="form.email" placeholder="请输入邮箱"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="nickname" label="昵称">
-					<uni-easyinput type="text" v-model="form.phone" placeholder="请输入手机"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="user_group" label="身份">
-					<view class="group_selector">
-						<picker mode="selector" :range="list" range-key="name" @change="select_group">
-							{{user_group? user_group: '选择身份' }}
-							<uni-icons style="padding-left: 0.5rem;" type="arrowdown" size="16"></uni-icons>
-						</picker>
-					</view>
-				</uni-forms-item>
-			</uni-group>
-		</uni-forms>
-
+		<mm_warp>
+			<mm_container>
+				<mm_row class="row">
+					<mm_col class="col-12 col-sm-6 col-md-4 col-xl-3">
+						<mm_view class="register_view">
+							<uni-forms class="form_register" :rules="rules" :value="form" ref="form"
+								validate-trigger="bind" err-show-type="undertext">
+								<view class="title">
+									<text>注册</text>
+								</view>
+								<uni-forms-item name="username" required label="用户名">
+									<uni-easyinput type="text" :inputBorder="true" v-model="form.username"
+										placeholder="请输入用户名"></uni-easyinput>
+								</uni-forms-item>
+								<uni-forms-item name="password" required label="密码">
+									<uni-easyinput type="password" :inputBorder="true" v-model="form.password"
+										placeholder="请输入密码"></uni-easyinput>
+								</uni-forms-item>
+								<uni-forms-item name="confirm_password" required label="确认密码">
+									<uni-easyinput type="password" :inputBorder="true" v-model="form.confirm_password"
+										placeholder="请再次输入密码"></uni-easyinput>
+								</uni-forms-item>
+								<uni-forms-item name="email" label="邮箱">
+									<uni-easyinput type="text" v-model="form.email" placeholder="请输入邮箱">
+									</uni-easyinput>
+								</uni-forms-item>
+								<uni-forms-item name="nickname" label="昵称">
+									<uni-easyinput type="text" v-model="form.phone" placeholder="请输入手机">
+									</uni-easyinput>
+								</uni-forms-item>
+								<uni-forms-item name="user_group" label="身份">
+									<view class="group_selector">
+										<picker mode="selector" :range="list" range-key="name" @change="select_group">
+											{{user_group? user_group: '选择身份' }}
+											<uni-icons style="padding-left: 0.5rem;" type="arrowdown" size="16">
+											</uni-icons>
+										</picker>
+									</view>
+								</uni-forms-item>
+								<view class="btn_register" @click="register()">立即注册</view>
+							</uni-forms>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
 		<!-- 商家 -->
-		<uni-forms v-if="user_group === '商家'" :rules="rules_business" :value="form_business" ref="form_business"
-		 validate-trigger="bind" err-show-type="undertext">
-			<uni-group top="0">
-				<uni-forms-item name="business_name" required label="商家名称">
-					<uni-easyinput type="text" :inputBorder="true" v-model="form.business_name" placeholder="请输入商家名称"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="business_phone" required label="商家电话">
-					<uni-easyinput type="text" :inputBorder="true" v-model="form.business_phone" placeholder="请输入商家电话"></uni-easyinput>
-				</uni-forms-item>
-				<uni-forms-item name="id_card" required label="身份证">
-					<uni-easyinput type="text" :inputBorder="true" v-model="form.id_card" placeholder="请输入身份证"></uni-easyinput>
-				</uni-forms-item>
-			</uni-group>
-		</uni-forms>
+		<mm_warp id="">
+			<mm_container>
+				<mm_row>
+					<mm_col>
+						<mm_view class="yyy">
+							<uni-forms v-if="user_group === '商家'" :rules="rules_business" :value="form_business"
+								ref="form_business" validate-trigger="bind" err-show-type="undertext">
+								<uni-group top="0">
+									<view class="title">
+										<text>注册</text>
+									</view>
+									<uni-forms-item name="business_name" required label="商家名称">
+										<uni-easyinput type="text" :inputBorder="true" v-model="form.business_name"
+											placeholder="请输入商家名称"></uni-easyinput>
+									</uni-forms-item>
+									<uni-forms-item name="business_phone" required label="商家电话">
+										<uni-easyinput type="text" :inputBorder="true" v-model="form.business_phone"
+											placeholder="请输入商家电话"></uni-easyinput>
+									</uni-forms-item>
+									<uni-forms-item name="id_card" required label="身份证">
+										<uni-easyinput type="text" :inputBorder="true" v-model="form.id_card"
+											placeholder="请输入身份证"></uni-easyinput>
+									</uni-forms-item>
+									<view class="btn_register" @click="register()">立即注册</view>
+								</uni-group>
+							</uni-forms>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
 		<!-- /商家 -->
-
-		<view class="btns">
-			<button class="button" @click="register()">立即注册</button>
-		</view>
 	</view>
+
 </template>
 
 
 <script>
-	import mixin from "../../mixins/page.js"
+	import mixin from "@/mixins/page.js"
 	export default {
-		components: {
-		},
+		components: {},
 		mixins: [mixin],
 		data() {
 			return {
-				url_get_list: "~/api/user_group/get_list",
+				url_get_list: "~/api/user_group?",
 				form: {
 					username: '',
 					password: '',
@@ -193,7 +224,7 @@
 				var bl = false
 				try {
 					await this.$refs["form_business"].submit();
-					this.$post('~/api/business/add?', this.form_business, (res) => {
+					this.$post('~/api/user/business?method=add&', this.form_business, (res) => {
 						if (res.result) {
 							console.log(res);
 						} else if (res.error) {
@@ -276,15 +307,52 @@
 </script>
 
 <style>
-	picker {
+	#account_register .mm_container{
+		padding: 2rem 1rem 0;
+	}
+	#account_register .row{
+		justify-content: center;
+	}
+	
+	#account_register .register_view {
+		background-color: rgb(255,255,255,0.8);
+		overflow: hidden;
+		border-radius: 0.5rem;
+	}
+
+	#account_register picker {
 		box-sizing: border-box;
 		font-size: 1rem;
 		width: 100%;
-		height: 36px;
-		line-height: 36px;
+		height: 2rem;
+		line-height: 2rem;
 		background-color: #FFF;
 		border: 1px solid #ddd;
-		border-radius: 10rpx;
+		border-radius: 0.25rem;
 		text-align: center;
 	}
+
+
+	#account_register .title {
+		display: none;
+	}
+
+	#account_register .btn_register {
+		text-align: center;
+		padding: var(--padding_small);
+		background-color: var(--color_blue);
+		color: var(--color_white);
+		border-radius: var(--radius_small);
+		margin: var(--margin_base) 0;
+	}
+
+	#account_register .title {
+		display: block;
+		color: var(--color_primary_h);
+		padding-bottom: var(--padding_mini);
+		border-bottom: 2px solid var(--color_dark);
+		font-size: var(--font_big);
+		margin-bottom: var(--margin_base);
+	}
+
 </style>

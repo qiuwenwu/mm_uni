@@ -1,25 +1,60 @@
 <template>
 	<view class="page_forum" id="forum_details">
-		<view v-if="$check_action('/forum/details','get')">
-			<div_forum :obj="obj" style="background-color: #fff;" class="mb"></div_forum>
+		
+		<template v-if="$check_action('/forum/details','get')">
+			<!-- 论坛详情模块(开始) -->
+			<mm_warp>
+				<mm_container class="container">
+					<mm_row>
+						<mm_col>
+							<mm_view class="">
+								<div_forum :obj="obj" style="background-color: #fff;" class="mb"></div_forum>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 论坛详情模块(结束) -->
 
-			<!-- 文章评论列表 -->
-			<bar_title v-if="$check_action('/comment/list','get')" title="论坛评论"></bar_title>
-			<list_comment v-if="$check_action('/comment/list','get')" style="background-color: #fff;" :list="list_comment" :obj="form_comment"></list_comment>
-			<!-- /文章评论列表 -->
-			<!-- 发表评论 -->
-			<view class="pa" v-if="$check_action('/comment/list','add')">
-				<navigator style="background-color: #fff;" class="link" :url="'/pages/comment/edit?source_table=forum&source_field=forum_id&source_id=' + obj.forum_id">我来评论</navigator>
-			</view>
-		</view>
+			<!-- 评论列表(开始) -->
+			<mm_warp>
+				<mm_container class="container">
+					<mm_row>
+						<mm_col>
+							<mm_view class="">
+								<bar_title v-if="$check_action('/comment/list','get')" title="论坛评论"></bar_title>
+								<list_comment v-if="$check_action('/comment/list','get')" style="background-color: #fff;" :list="list_comment" :obj="form_comment"></list_comment>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 评论列表(结束) -->
+			<!-- 发表评论模块(开始) -->
+			<mm_warp>
+				<mm_container class="container">
+					<mm_row>
+						<mm_col>
+							<mm_view class="">
+								<!-- 发表评论 -->
+								<template class="" v-if="$check_action('/comment/list','add')">
+									<navigator style="background-color: #fff;" class="link" :url="'/pages/comment/edit?source_table=forum&source_field=forum_id&source_id=' + obj.forum_id">我来评论</navigator>
+								</template>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 发表评论模块(结束) -->
+		</template>
 	</view>
 </template>
 
 <script>
-	import bar_title from "../../components/diy/bar_title.vue";
-	import div_forum from "../../components/diy/div_forum.vue";
-	import list_comment from "../../components/diy/list_comment.vue";
-	import mixin from "../../mixins/page.js";
+	import bar_title from "@/components/diy/bar_title.vue";
+	import div_forum from "@/components/diy/div_forum.vue";
+	import list_comment from "@/components/diy/list_comment.vue";
+	import mixin from "@/mixins/page.js";
 	export default {
 		mixins: [mixin],
 		components: {
@@ -29,12 +64,29 @@
 		},
 		data() {
 			return {
-				url_get_obj: "~/api/forum/get_obj?",
+				url_get_obj: "~/api/user/forum?method=get_obj&",
 				field: "forum_id",
 				query: {
 					forum_id: 0
 				},
-				obj: {},
+				obj: {
+					forum_id: 0,
+					display: 0,
+					user_id: 0,
+					nickname: "",
+					hits: 0,
+					title: "",
+					keywords: "",
+					description: "",
+					url: "",
+					tag: "",
+					img: "",
+					content: "",
+					create_time: "",
+					update_time: "",
+					avatar: "",
+					type: "",
+				},
 				list_comment: [],
 				form: {
 					content: ""
@@ -74,7 +126,7 @@
 					orderby: "create_time desc",
 					reply_to_id: "0",
 				}
-				this.$get("~/api/comment/get_list?", query, (json) => {
+				this.$get("~/api/comment?", query, (json) => {
 					if (json.result) {
 						var list_comment = json.result.list
 						list_comment.map((o) => {
@@ -95,7 +147,7 @@
 					for (let idx = 0; idx < list.length; idx++) {
 						const obj = list[idx];
 						this.$get(
-							"~/api/comment/get_list?", {
+							"~/api/comment?", {
 								source_table: "forum",
 								source_field: "forum_id",
 								source_id: obj.forum_id,
@@ -130,7 +182,7 @@
 			 */
 			add_hits(obj) {
 				console.log("-------------------");
-				this.$post('~/api/forum/set?forum_id=' + obj.forum_id, {
+				this.$post('~/api/forum/thread?method=set&forum_id=' + obj.forum_id, {
 					hits: obj.hits + 1
 				}, res => {
 					obj.hits += 1

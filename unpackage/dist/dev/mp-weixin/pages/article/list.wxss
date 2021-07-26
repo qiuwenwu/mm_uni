@@ -1,5 +1,32 @@
 
-.pager.data-v-f6c3e0e0 {
+#article_list {
+}
+#article_list .pager {
 	margin-top: 1rem;
+}
+#article_list .list_orderby {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	        justify-content: flex-end;
+	background-color: #FFFFFF;
+	border-top: 5px double #ccc;
+	border-bottom: 5px double #ccc;
+	margin-right: -1px;
+}
+#article_list .list_orderby .bar_orderby {
+	border-left: 1px solid #ccc;
+}
+#article_list .warp_article{
+	background-color:#fff;
+}
+#article_list .tab_view {
+	background-color: #FFFFFF;
+	margin: 0 auto;
+}
+#article_list .dropdown_article {
+	line-height: 40px;
 }
 

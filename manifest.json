@@ -56,7 +56,11 @@
             "urlCheck" : false
         },
         "usingComponents" : true,
-        "permission" : {}
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于小程序定位到你所在位置和搜寻附近服务人员"
+            }
+        }
     },
     "h5" : {
         "router" : {

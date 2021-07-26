@@ -58,7 +58,7 @@
 			// 选择默认地址
 			async choose_default(address_id, user_id, i) {
 				await new Promise((resolve, reject) => {
-					this.$post(`~/api/address/set?user_id=${user_id}`, {
+					this.$post(`~/api/user/address?method=set&user_id=${user_id}`, {
 						default: 0
 					}, (res) => {
 						console.log(res);
@@ -66,7 +66,7 @@
 						resolve()
 					})
 				})
-				this.$post(`~/api/address/set?user_id=${user_id}&address_id=${address_id}`, {
+				this.$post(`~/api/user/address?method=set&user_id=${user_id}&address_id=${address_id}`, {
 					default: 1
 				}, (res) => {
 					console.log("修改成功");
@@ -75,7 +75,7 @@
 			},
 			// 删除
 			del_address(address_id, index) {
-				this.$get("~/api/address/del", {
+				this.$get("~/api/address?method=del&", {
 					address_id
 				}, (res) => {
 					this.list.splice(index, 1);
@@ -109,8 +109,6 @@
 
 	.item_address {
 		background-color: #fff;
-		padding: 0 0.8rem;
-		margin: 0.8rem;
 		border-radius: 1rem;
 	}
 
@@ -208,14 +206,10 @@
 		color: #fff;
 		font-size: 0.9rem;
 		background-color: #FA4E28;
-		position: fixed;
-		bottom: 1rem;
-		left: 50%;
-		transform: translate(-50%);
-		width: 85%;
 		height: 2.2rem;
 		line-height: 2.2rem;
-		text-align: center;
 		border-radius: 1rem;
+		margin: 0 auto;
+		text-align: center;
 	}
 </style>

@@ -40,4 +40,35 @@
 .pager.data-v-059a7405 {
 	margin-top: 1rem;
 }
+.uni-collapse.data-v-059a7405 {
+	background-color: inherit;
+}
+.top_handle.data-v-059a7405 {
+	position: relative;
+	height: 2.6rem;
+	width: 100%;
+}
+.dropdown_box.data-v-059a7405 {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	position: absolute;
+	z-index: 1000;
+}
+.dropdown_forum.data-v-059a7405 {
+	line-height: 40px;
+}
+.dropdown_forum .dropdown_title.data-v-059a7405 {
+	padding-left: 10px;
+	background-color: var(--bg_white);
+}
+.dropdown_item.data-v-059a7405 {
+	font-size: 14px;
+	padding-left: 20px;
+	background-color: var(--bg_white);
+}
+.icon_dropdown.data-v-059a7405 {
+	margin-left: 10px;
+}
 

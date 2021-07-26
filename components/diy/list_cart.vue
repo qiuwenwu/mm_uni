@@ -2,6 +2,7 @@
 	<view class="cart_block">
 		<view class="list_cart">
 			<view class="item_cart" v-for="(o,i) in list" :key="i">
+				<!-- 多选按钮 -->
 				<view class="choose_btn" :class="{active:o[vm.selected]}" @click="select_func(i)">
 					<view class="btn_circle">
 						<uni-icons style="color: #fff;font-size: 0.3rem;" v-if="o[vm.selected]" type="checkmarkempty">
@@ -9,39 +10,31 @@
 					</view>
 				</view>
 				<view class="cart_body">
-					<view class="img_block">
-						<image style="width: 4.5rem;height: 4.5rem;" :src="$fullUrl(o[vm.img]) || '../../static/img/default.png' "mode="scaleToFill"></image>
-					</view>
+					<image style="width: 4.5rem;height: 4.5rem;" :src="$fullImgUrl(o[vm.img])" mode="scaleToFill">
+					</image>
 
-					<view class="right_info">
-						<view class="title ellipsis_2">
-							{{o[vm.title]}}
-						</view>
-						<view class="btn_del" @click="del_cart(o,i)" v-if="$check_action('/cart/list','del')">
-							<uni-icons type="trash" color="var(--color_grey)"></uni-icons>
+					<view class="info">
+						<view class="top_info">
+							<view class="title">{{o[vm.title]}}</view>
+							<view class="btn_del" @click="del_cart(o,i)" v-if="$check_action('/cart/list','del')">
+								<uni-icons type="trash" color="var(--color_grey)"></uni-icons>
+							</view>
 						</view>
 						<view class="bottom_price">
 							<view class="price">
 								<text>￥{{ o[vm.price] }}</text>
 								<text class="price_ago">￥{{ o[vm.price_ago] }}</text>
 							</view>
-							<view class="handle_num" v-if="$check_action('/cart/details','set')">
-								<view class="subtract" @click="sub_num(o,i)">
-									<text>-</text>
-								</view>
-								<view class="num">
-									{{o[vm.num]}}
-								</view>
-								<view class="add" @click="add_num(o)">
-									<text>+</text>
-								</view>
-							</view>
+							<template v-if="$check_action('/cart/details','set')">
+								<numbox v-model="o.num" :min="1" @change="change_num(arguments,i,o)"></numbox>
+							</template>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
 
+		<!-- 结算栏 -->
 		<view class="bar_settle" v-if="$check_action('/order/list','add')">
 			<view class="choose_btn" :class="{active:selectedAll}">
 				<view class="btn_circle" @click="select_all()">
@@ -53,10 +46,10 @@
 			<view class="right_settle">
 				<view class="sum_block">
 					<text>共计：</text>
-					<text class="sum">￥{{count}}</text>
+					<text class="sum">￥{{sum_price}}</text>
 				</view>
 				<view class="settle">
-					<button class="btn_settle" color="#fff" @click="settle_all()" size="mini">购买</button>
+					<button class="btn_settle" @click="settle_all()" size="mini">购买</button>
 				</view>
 			</view>
 		</view>
@@ -64,7 +57,11 @@
 </template>
 
 <script>
+	import numbox from "@/components/diy/numbox.vue"
 	export default {
+		components: {
+			numbox
+		},
 		props: {
 			list: {
 				type: Array,
@@ -93,12 +90,10 @@
 			}
 		},
 		data() {
-			return {
-				sum_price: 0
-			}
+			return {}
 		},
 		computed: {
-			count() {
+			sum_price() {
 				var sum_price = 0
 				this.list.map(o => {
 					if (o.selected) {
@@ -112,61 +107,29 @@
 			}
 		},
 		methods: {
-			// 增加数量
-			add_num(obj) {
+			change_num(arr, idx, obj) {
+				console.log(arr[0]);
+				var num = Number(arr[0])
 				var {
 					cart_id,
-					num,
 					price,
 					price_count
 				} = obj
-				num += 1
-				price_count += price
-				this.$post(`~/api/cart/set?cart_id=${cart_id}`, {
+				this.$post(`~/api/mall/cart?method=set&cart_id=${cart_id}`, {
 					num,
 					price,
 					price_count
 				}, (res) => {
 					this.list.map(o => {
 						if (o.cart_id === cart_id) {
-							o.num += 1,
-								o.price_count += price
+							o.price_count = num * price
 						}
 					})
 				})
+
 			},
-			// 减少数量
-			sub_num(obj, i) {
-				var {
-					cart_id,
-					num,
-					price,
-					price_count
-				} = obj
-				num -= 1
-				price_count -= price
-				if (num === 0) {
-					this.$get(`~/api/cart/del?cart_id=${cart_id}`, {}, (res) => {
-						this.list.splice(i, 1)
-					})
-				} else {
-					this.$post(`~/api/cart/set?cart_id=${cart_id}`, {
-						num,
-						price,
-						price_count
-					}, (res) => {
-						this.list.map(o => {
-							if (o.cart_id === cart_id) {
-								o.num -= 1
-								o.price_count -= price
-							}
-						})
-					})
-				}
-			},
-			// 删除购物车
 			del_cart(o, i) {
-				this.$get(`~/api/cart/del?cart_id=${o.cart_id}`, {}, (res) => {
+				this.$get(`~/api/mall/cart?method=del&cart_id=${o.cart_id}`, {}, (res) => {
 					this.list.splice(i, 1)
 				})
 			},
@@ -217,7 +180,7 @@
 
 				// 获取联系方式
 				var address_promise = new Promise((resolve, reject) => {
-					this.$get('~/api/address/get_obj?', {
+					this.$get('~/api/user/address?method=get_obj&', {
 						user_id,
 						default: 1
 					}, res => {
@@ -256,7 +219,7 @@
 				}
 				// 发送添加订单请求
 				await new Promise((resolve, reject) => {
-					this.$post('~/api/order/add?', body, (res) => {
+					this.$post('~/api/mall/order?method=add&', body, (res) => {
 						if (res.result) {
 							this.$toast("加入订单成功");
 							resolve()
@@ -265,7 +228,7 @@
 				})
 				// 删除购物车
 				await new Promise((resolve, reject) => {
-					this.$get('~/api/cart/del?', {
+					this.$get('~/api/cart?method=del&', {
 						cart_id
 					}, (res) => {
 						if (res.result) {
@@ -302,20 +265,8 @@
 	}
 </script>
 
-<style scoped>
-	.ellipsis_2 {
-		text-overflow: -o-ellipsis-lastline;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		line-clamp: 2;
-		-webkit-box-orient: vertical;
-	}
-
+<style>
 	.list_cart {
-		padding: 0 0.3rem;
-		margin: 0 0.5rem;
 		background-color: #fff;
 		border-radius: 1rem;
 		margin-bottom: 5rem;
@@ -323,7 +274,7 @@
 
 	.list_cart .item_cart {
 		display: flex;
-		justify-content: start;
+		justify-content: flex-start;
 		align-items: center;
 		padding: 0.6rem;
 	}
@@ -369,30 +320,37 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: stretch;
-		width: 90%;
+		flex: 1;
 	}
 
-	.list_cart .right_info {
-		width: calc(100% - 4.5rem);
+	.list_cart .info {
+		flex: 1;
 		padding-left: 0.6rem;
 		position: relative;
 		display: flex;
-		justify-content: space-between;
 		flex-direction: column;
+		justify-content: space-between;
 	}
-
+	.list_cart .top_info{
+		display: flex;
+	}
 	.list_cart .title {
-		font-size: 0.6rem;
-		width: 85%;
+		flex: 1;
+		font-size: var(font_mini);
+		text-overflow: -o-ellipsis-lastline;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		-webkit-box-orient: vertical;
 	}
+	
 
 	.list_cart .btn_del {
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 2.2rem;
-		height: 2.2rem;
-		line-height: 2.2rem;
+		width: 2rem;
+		height: 2rem;
+		line-height: 2rem;
 		text-align: center;
 	}
 
@@ -415,16 +373,6 @@
 		color: #999;
 	}
 
-	.list_cart .handle_num {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
-
-	.list_cart .handle_num>view {
-		width: 1.2rem;
-		text-align: center;
-	}
 
 	.list_cart .subtract,
 	.add {
@@ -443,11 +391,6 @@
 		width: 1.4rem;
 	}
 
-	.bar_settle {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-	}
 
 	.bar_settle {
 		width: 100%;
@@ -518,7 +461,7 @@
 	.bar_settle .btn_settle {
 		color: #fff;
 		border-radius: 5rem;
-		background-color: var(--color_red);
+		background-color: var(--color_primary);
 	}
 
 	.bar_settle .button-hover {

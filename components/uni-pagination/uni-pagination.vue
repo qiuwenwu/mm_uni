@@ -10,7 +10,7 @@
 		</view>
 		<view class="uni-pagination__num">
 			<view class="uni-pagination__num-current">
-				<text class="uni-pagination__num-current-text" style="color:#007aff">{{ currentIndex }}</text><text class="uni-pagination__num-current-text">/{{ maxPage || 0 }}</text>
+				<text class="uni-pagination__num-current-text" style="color:var(--color_primary)">{{ currentIndex }}</text><text class="uni-pagination__num-current-text">/{{ maxPage || 0 }}</text>
 			</view>
 		</view>
 		<view class="uni-pagination__btn" :class="currentIndex === maxPage ? 'uni-pagination--disabled' : 'uni-pagination--enabled'"

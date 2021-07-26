@@ -1,77 +1,121 @@
 <template>
 	<view class="page_article" id="article_list">
-		<view v-if="$check_action('/article/list','get')">
-			<!-- 替换组件的搜索图标 -->
-			<uni-search-bar placeholder="搜索文章" @confirm="search" @cancel="cancel" cancelText="取消"
-				@input="input($event, 'title')">
-				<uni-icons slot="searchIcon" color="#999999" size="18" type="home" />
-			</uni-search-bar>
-			<view class="top_handle">
-				<view class="dropdown_box">
-					<!-- 筛选栏 -->
-					<view class="dropdown_article">
-						<mm_dropdown :filter_type="type_names" @handle_item="filter_item"
-							:dropdown_title="filter_title"></mm_dropdown>
-					</view>
-					<!-- /筛选栏 -->
-					<!-- 排序 -->
-					<view class="dropdown_article">
-						<mm_dropdown :dropdown_title="sort_title" @handle_item="sort_item" :sort_list="sort_list">
-						</mm_dropdown>
-					</view>
-					<!-- /排序 -->
-				</view>
-			</view>
-			<!-- 文章列表 -->
-			<list_article style="background-color: #fff;" :list="list" class="mb"></list_article>
-			<!-- /文章列表 -->
-			<!-- 分页器 -->
-			<uni-pagination class="pager" show-icon="true" :total="count" :pageSize="query.size" :current="query.page"
-				@change="page_change"></uni-pagination>
-			<!-- /分页器 -->
-		</view>
+
+		<template v-if="$check_action('/article/list','get')">
+			<!-- 筛选模块(开始) -->
+			<mm_warp class="warp_article">
+				<mm_container class="container">
+					<mm_row>
+						<mm_col>
+							<mm_view class="search_bar">
+								<!-- 替换组件的搜索图标 -->
+								<uni-search-bar radius="2rem" placeholder="搜索文章" @confirm="search" @cancel="cancel" cancelText="取消"
+									@input="input($event, 'title')">
+									<uni-icons slot="searchIcon" color="#999999" size="18" type="home" />
+								</uni-search-bar>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+					<mm_row>
+						<mm_col>
+							<mm_view class="tab_view">
+								<!-- 筛选栏 -->
+								<list_tab activeColor="var(--color_primary)" lineColor="var(--color_primary)"
+									:list="types" v-model="query['type']" @change="changeTab('type')"></list_tab>
+								<!-- /筛选栏 -->
+							</mm_view>
+						</mm_col>
+					</mm_row>
+					<mm_row>
+						<mm_col>
+							<mm_view>
+								<!-- 排序 -->
+								<view class="list_orderby">
+									<bar_orderby :text="o.name" v-model:direction="o.direction"
+										v-for="(o,i) in list_orderby" :key="i" @handle="handleOrderby">
+									</bar_orderby>
+								</view>
+								<!-- /排序 -->
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 筛选模块(结束) -->
+			<!-- 文章列表模块(开始) -->
+			<mm_warp class="warp_article">
+				<mm_container class="container">
+					<mm_row>
+						<mm_col>
+							<mm_view style="padding-top: 0.5rem;">
+								<!-- 文章列表 -->
+								<list_article style="background-color: #fff;" :list="list" class="mb"></list_article>
+								<!-- /文章列表 -->
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 文章列表模块(结束) -->
+			<!-- 换页器模块(开始) -->
+			<mm_warp>
+				<mm_container class="container">
+					<mm_row>
+						<mm_col>
+							<mm_view class="pager_view">
+								<!-- 分页器 -->
+								<uni-pagination class="pager" show-icon="true" :total="count" :pageSize="query.size"
+									:current="query.page" @change="page_change"></uni-pagination>
+								<!-- /分页器 -->
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 换页器模块(结束) -->
+		</template>
 	</view>
 </template>
 
 <script>
-	import list_article from "../../components/diy/list_article.vue";
-	import mixin from "../../mixins/page.js";
+	import list_article from "@/components/diy/list_article.vue";
+	import bar_orderby from "@/components/diy/bar_orderby.vue"
+	import list_tab from "@/components/diy/list_tab.vue"
+	import mixin from "@/mixins/page.js";
 
 	export default {
 		mixins: [mixin],
 		components: {
-			list_article
+			list_article,
+			bar_orderby,
+			list_tab
 		},
 		data() {
 			return {
-				url_get_list: "~/api/article/get_list?",
+				url_get_list: "~/api/cms/article?",
 				list: [],
 				query: {
 					title: "",
 					page: 1,
-					size: 4
+					size: 4,
+					type: "",
 				},
-				list_article_type: [],
-				type_names: [],
-				filter_title: '筛选',
-				sort_title: '排序',
-				sort_list: [{
-						name: '热度从高到低',
-						value: '`hits` desc'
+				list_orderby: [{
+						name: '点击量',
+						direction: "",
+						command_asc: '`hits` asc',
+						command_desc: '`hits` desc'
 					},
 					{
-						name: '热度从低到高',
-						value: '`hits` asc'
+						name: '日期',
+						direction: "",
+						command_asc: '`create_time` asc',
+						command_desc: '`create_time` desc'
 					},
-					{
-						name: '更新时间从高到低',
-						value: '`create_time` desc'
-					},
-					{
-						name: '价更新时间从低到高',
-						value: '`create_time` asc'
-					},
-
+				],
+				// 分类
+				types: [
+					"全部"
 				]
 			}
 		},
@@ -81,15 +125,16 @@
 			 */
 			get_article_type() {
 				this.$get(
-					"~/api/article_type/get_list", {
+					"~/api/article_type?", {
 						page: 1,
 						size: "0",
 					},
 					(res) => {
 						if (res.result) {
-							this.list_article_type = res.result.list;
-							this.type_names.push("全部")
-							this.list_article_type.map(o => this.type_names.push(o.name))
+							let list = res.result.list;
+							list.map(obj => {
+								this.types.push(obj.name)
+							})
 						}
 					}
 				);
@@ -110,19 +155,9 @@
 					this.search();
 				}
 			},
-			/**
-			 *下拉排序 
-			 */
-			sort_item(o) {
-				this.query.orderby = o.name.value;
-				this.search()
-			},
 			input(e, key) {
 				this.query[key] = e.value;
 			},
-			// page_change(e) {
-			// 	console.log(e);
-			// },
 			search() {
 				this.query.page = 1;
 				this.get_list();
@@ -131,6 +166,38 @@
 				console.log("eer");
 				this.query.title = "";
 				this.search();
+			},
+			// 控制排序
+			handleOrderby(o) {
+				// console.log(o);
+				// 取出对应的orderby
+
+				// 重置其他排序的direction
+				this.list_orderby.map(val => {
+					if (val.name !== o.text) {
+						return val.direction = ""
+					}
+				})
+
+				// 找到对应的排序项，发送排序请求
+				var obj_orderby = this.list_orderby.find(val => val.name === o.text)
+				if (o.direction === "") {
+					this.query.orderby = ""
+					this.search()
+				} else if (o.direction === "up") {
+					this.query.orderby = obj_orderby.command_desc
+					this.search()
+				} else if (o.direction === "down") {
+					this.query.orderby = obj_orderby.command_asc
+					this.search()
+				}
+			},
+			// 改变分类标签
+			changeTab(key) {
+				if (this.query[key] === "全部") {
+					this.query.type = "";
+				}
+				this.search()
 			}
 		},
 		mounted() {
@@ -139,33 +206,37 @@
 	}
 </script>
 
-<style scoped>
-	.pager {
+<style>
+	#article_list {
+	}
+
+	#article_list .pager {
 		margin-top: 1rem;
 	}
 
-	.uni-collapse {
-		background-color: inherit;
-	}
-
-	.top_handle {
-		position: relative;
-		height: 2.6rem;
-		width: 100%;
-	}
-
-	.dropdown_box {
-		width: 100%;
+	#article_list .list_orderby {
 		display: flex;
-		position: absolute;
-		z-index: 1000;
+		justify-content: flex-end;
+		background-color: #FFFFFF;
+		border-top: 5px double #ccc;
+		border-bottom: 5px double #ccc;
+		margin-right: -1px;
 	}
 
-	.dropdown_box>* {
-		flex: 1
+	#article_list .list_orderby .bar_orderby {
+		border-left: 1px solid #ccc;
+	}
+	#article_list .warp_article{
+		background-color:#fff;
 	}
 
-	.dropdown_article {
+
+	#article_list .tab_view {
+		background-color: #FFFFFF;
+		margin: 0 auto;
+	}
+
+	#article_list .dropdown_article {
 		line-height: 40px;
 	}
 </style>

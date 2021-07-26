@@ -236,7 +236,7 @@
 					content
 				})
 				console.log(body);
-				this.$post('~/api/comment/add?', body, (res) => {
+				this.$post('~/api/user/comment?method=add&', body, (res) => {
 					if (res.result) {
 						this.$toast(res.result, 'success');
 						var url = this.$redirect();

@@ -42,6 +42,5 @@
 }
 .btn_save {
 	margin-top: 0.5rem;
-	color: var(--color_primary);
 }
 

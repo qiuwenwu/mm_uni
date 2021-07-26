@@ -1,26 +1,50 @@
 
-.btns.data-v-c3562c44 {
-	margin-bottom: 0.2rem;
+#account_login .mm_container {
+	padding: 2rem 1rem 0;
 }
-.btns-link.data-v-c3562c44 {
+#account_login .row {
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+}
+#account_login .login_view {
+	background-color: rgb(255, 255, 255, 0.8);
+	overflow: hidden;
+	border-radius: 0.5rem;
+}
+#account_login .btn_login {
+	text-align: center;
+	background-color: var(--color_blue);
+	color: var(--color_white);
+	border-radius: var(--radius_small);
+	padding: var(--padding_small);
+	margin: var(--margin_base) 0;
+}
+#account_login .btns-link {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
 	-webkit-box-pack: justify;
 	-webkit-justify-content: space-between;
 	        justify-content: space-between;
-	padding: 0 1rem;
 }
-.link_register.data-v-c3562c44 {
+#account_login .btns-link>navigator {
+	color: var(--color_grey);
+	width: 100%;
+	font-size: var(--font_small);
+}
+#account_login .link_register {
 	text-align: left;
 }
-.link_login.data-v-c3562c44 {
+#account_login .link_forgot {
 	text-align: right;
 }
-.btn_login.data-v-c3562c44 {
-	background-color: #fff;
-}
-.button-hover.data-v-c3562c44 {
-	background-color: #DBDBDB;
+#account_login .title {
+	display: block;
+	color: var(--color_primary_h);
+	padding-bottom: var(--padding_mini);
+	border-bottom: 2px solid var(--color_dark);
+	font-size: var(--font_big);
+	margin-bottom: var(--margin_base);
 }
 

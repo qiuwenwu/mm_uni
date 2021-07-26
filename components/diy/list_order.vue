@@ -87,7 +87,7 @@
 		methods: {
 			// 删除订单
 			del_order(order_number, i) {
-				this.$get("~/api/order/del", {
+				this.$get("~/api/mall/order?method=del&", {
 					order_number
 				}, (res) => {
 					this.list.splice(i, 1)

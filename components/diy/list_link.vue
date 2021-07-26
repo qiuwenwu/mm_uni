@@ -49,7 +49,7 @@
 
 <style scoped>
 	.row {
-		justify-content: start;
+		justify-content: flex-start;
 	}
 
 	.link {

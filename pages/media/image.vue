@@ -1,14 +1,16 @@
 <template>
 	<view class="page_media" id="media_image">
-		<view class="container">
-			<view class="row">
-				<view class="col">
-					<view class="image-show">
-						<image :mode="mode" :src="src" @error="imageError"></image>
-					</view>
-				</view>
-			</view>
-		</view>
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col class="col-12 col-sm-6 col-md-4">
+						<mm_view class="image">
+							<image :mode="mode" :src="src" @error="imageError"></image>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
 	</view>
 </template>
 

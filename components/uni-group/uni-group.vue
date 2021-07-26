@@ -99,9 +99,9 @@
 	}
 
 	.uni-group__content {
-		padding: 15px;
+		padding: 4px;
 		// padding-bottom: 5px;
-		background-color: #FFF;
+		background-color: initial;
 	}
 
 	.group-conent-padding {

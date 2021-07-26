@@ -1,77 +1,91 @@
 <template>
 	<view class="page_order" id="order_details">
-		<view v-if="$check_action('/order/details','get')">
-			<view class="state">
-				{{state}}
-			</view>
-			<view class="contact_info">
-				<view class="line_1">
-					<uni-icons class="icon_address" size="16" color="var(--color_grey)" type="location-filled">
-					</uni-icons>
-					<text class="name">{{contact_name}}</text>
-					<text class="phone"> {{contact_phone}}</text>
-				</view>
-				<text class="line_2">{{contact_address}}</text>
-			</view>
+		<!-- 订单细节模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							<template v-if="$check_action('/order/details','get')">
+								<view class="state">
+									{{state}}
+								</view>
+								<view class="contact_info">
+									<view class="line_1">
+										<uni-icons class="icon_address" size="16" color="var(--color_grey)"
+											type="location-filled">
+										</uni-icons>
+										<text class="name">{{contact_name}}</text>
+										<text class="phone"> {{contact_phone}}</text>
+									</view>
+									<text class="line_2">{{contact_address}}</text>
+								</view>
 
-			<view class="goods_list" v-for="(obj,idx) in list" :key="idx">
-				<view class="item_goods flex_sbc">
-					<view class="img_block">
-						<image style="width: 4.5rem;height:4.5rem;" :src="$fullUrl(obj.img) || '../../static/img/default.png'" mode="scaleToFill"></image>
-					</view>
-					<view class="middle_info">
-						<view class="title ellipsis_2">
-							{{obj.title}}
-						</view>
-						<view class="priceAndNum">
-							<text class="price">
-								￥{{obj.price}}
-							</text>
-							<text class="num">
-								×{{obj.num}}
-							</text>
-						</view>
-					</view>
-				</view>
+								<view class="goods_list" v-for="(obj,idx) in list" :key="idx">
+									<view class="item_goods flex_sbc">
+										<view class="img_block">
+											<image style="width: 4.5rem;height:4.5rem;"
+												:src="$fullUrl(obj.img) || '@/static/img/default.png'"
+												mode="scaleToFill"></image>
+										</view>
+										<view class="middle_info">
+											<view class="title ellipsis_2">
+												{{obj.title}}
+											</view>
+											<view class="priceAndNum">
+												<text class="price">
+													￥{{obj.price}}
+												</text>
+												<text class="num">
+													×{{obj.num}}
+												</text>
+											</view>
+										</view>
+									</view>
 
-				<view class="num_info">
-				</view>
-			</view>
+									<view class="num_info">
+									</view>
+								</view>
 
-			<view class="sum_price flex_sbc">
-				<text>需付款</text> <text style="color: var(--color_red);font-weight: 600;">￥{{sum_price}}</text>
-			</view>
-			<!-- <view class="btn_block">
-				<view class="btn_refund" @click="refund()" v-if="$check_action('/order/details','set')">退款</view>
-			</view> -->
+								<view class="sum_price flex_sbc">
+									<text>需付款</text> <text
+										style="color: var(--color_red);font-weight: 600;">￥{{sum_price}}</text>
+								</view>
 
-			<view class="btn_block">
-				<view v-if="$check_action('/order/details', 'set')">
-					<view class="btn_refund" v-if="state === '待付款'" @click="goto_pay()">
-						去支付
-					</view>
-					<view v-if="state === '已签收' || state === '待发货'" class="btn_refund" @click="refund()">
-						申请退款
-					</view>
-					<view v-if="state === '待退款'" class="btn_refund" @click="cancel_refund()">
-						取消退款申请
-					</view>
-				</view>
-			</view>
-			<view class="bottom_order">
-				<view class="order_num flex_sbc">
-					<text>订单编号：</text><text>{{order_number}}</text>
-				</view>
-				<view class="time flex_sbc">
-					<text>下单时间：</text><text>{{create_time}}</text>
-				</view>
-			</view>
-		</view>
+								<view class="btn_block">
+									<view v-if="$check_action('/order/details', 'set')">
+										<view class="btn_refund" v-if="state === '待付款'" @click="goto_pay()">
+											去支付
+										</view>
+										<view v-if="state === '已签收' || state === '待发货'" class="btn_refund"
+											@click="refund()">
+											申请退款
+										</view>
+										<view v-if="state === '待退款'" class="btn_refund" @click="cancel_refund()">
+											取消退款申请
+										</view>
+									</view>
+								</view>
+								<view class="bottom_order">
+									<view class="order_num flex_sbc">
+										<text>订单编号：</text><text>{{order_number}}</text>
+									</view>
+									<view class="time flex_sbc">
+										<text>下单时间：</text><text>{{create_time}}</text>
+									</view>
+								</view>
+							</template>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 订单细节模块(结束) -->
 	</view>
 </template>
 
 <script>
-	import mixin from "../../mixins/page.js"
+	import mixin from "@/mixins/page.js"
 
 	export default {
 		mixins: [mixin],
@@ -82,7 +96,7 @@
 					"signIn": true,
 					"user_group": []
 				},
-				url_get_list: "~/api/order/get_list",
+				url_get_list: "~/api/order?",
 				field: "order_number",
 				query: {
 					order_number: ""
@@ -118,7 +132,7 @@
 			 */
 			refund() {
 				this.$post(
-					"~/api/order/set?order_number=" + this.order_number, {
+					"~/api/mall/order?method=set&order_number=" + this.order_number, {
 						state: "待退款",
 					},
 					(res) => {
@@ -131,7 +145,7 @@
 			 */
 			cancel_refund() {
 				this.$post(
-					"~/api/order/set?order_number=" + this.order_number, {
+					"~/api/mall/order?method=set&order_number=" + this.order_number, {
 						state: "待发货",
 					},
 					(res) => {

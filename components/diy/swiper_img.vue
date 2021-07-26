@@ -1,19 +1,19 @@
 <template>
-	<view class="swiper_img page-section swiper">
-		<view class="page-section-spacing">
-			<swiper class="swiper" :indicator-color="indicatorColor" :indicator-active-color="indicatorActiveColor" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-				<swiper-item v-for="(o, i) in list" :key="i">
-					<image v-if="o[vm.img]" :src="$fullUrl(o[vm.img]) || '../../static/img/default.png'"></image><text class="title" v-if="show_title && o[vm.title]">{{ o[vm.title] }}</text>
-				</swiper-item>
-			</swiper>
-		</view>
+	<view class="swiper_img">
+		<swiper class="swiper" :indicator-color="indicatorColor" :indicator-active-color="indicatorActiveColor"
+			:indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+			<swiper-item v-for="(o, i) in list" :key="i">
+				<image v-if="o[vm.img]" :src="$fullImgUrl(o[vm.img])"></image><text class="title"
+					v-if="show_title && o[vm.title]">{{ o[vm.title] }}</text>
+			</swiper-item>
+		</swiper>
 	</view>
 </template>
 
 <script>
 	export default {
 		props: {
-			show_title:  {
+			show_title: {
 				type: String,
 				default: ""
 			},
@@ -37,8 +37,8 @@
 			return {
 				background: ['color1', 'color2', 'color3'],
 				indicatorDots: true,
-				indicatorColor:"rgba(0, 0, 0, .3)",
-				indicatorActiveColor:"#fff",
+				indicatorColor: "rgba(0, 0, 0, .3)",
+				indicatorActiveColor: "#fff",
 				autoplay: true,
 				interval: 2000,
 				duration: 500
@@ -61,12 +61,19 @@
 	}
 </script>
 
-<style scoped>
-	image {
+<style>
+	@media (min-width:768px) {
+		.swiper_img .swiper {
+			height: 250px;
+		}
+	}
+
+	.swiper_img image {
 		width: 100%;
 		height: 100%;
 	}
-	.title {
+
+	.swiper_img .title {
 		position: absolute;
 		bottom: 0;
 		left: 0;

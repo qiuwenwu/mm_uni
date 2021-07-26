@@ -1,0 +1,10 @@
+
+.textarea.data-v-0dfde70b {
+	border: 1px solid rgb(229, 229, 229);
+	background-color: rgb(255, 255, 255);
+	width: calc(100% - 1rem);
+	border-radius: .25rem;
+	padding: .5rem;
+	font-size: 0.875rem;
+}
+

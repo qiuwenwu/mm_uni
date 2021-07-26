@@ -1,0 +1,124 @@
+
+.bar_goods_nav {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	height: 50px;
+	background-color: #fff;
+	z-index: 900;
+}
+.bar_goods_nav .cart-sub-left {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	padding: 0 5px;
+}
+.bar_goods_nav .cart-sub-right {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+.bar_goods_nav .right {
+	margin: 5px 0;
+	margin-right: 10px;
+	border-radius: 100px;
+	overflow: hidden;
+}
+.bar_goods_nav .cart-button-left {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	position: relative;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	margin: 0 10px;
+}
+.bar_goods_nav .icon {
+	width: 18px;
+	height: 18px;
+}
+.bar_goods_nav .image {
+	width: 18px;
+	height: 18px;
+}
+.bar_goods_nav .text {
+	margin-top: 3px;
+	font-size: 12px;
+	color: #646566;
+}
+.bar_goods_nav .cart-button-right {
+
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.bar_goods_nav .cart-button-right-text {
+	font-size: 14px;
+	color: #fff;
+}
+.bar_goods_nav .cart-button-right:active {
+	opacity: 0.7;
+}
+.bar_goods_nav .dot-box {
+
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	position: absolute;
+	right: -2px;
+	top: 2px;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.bar_goods_nav .dot {
+	padding: 0 4px;
+	line-height: 15px;
+	color: #ffffff;
+	text-align: center;
+	font-size: 12px;
+	background-color: #ff0000;
+	border-radius: 15px;
+}
+.bar_goods_nav .dots {
+	padding: 0 4px;
+	border-radius: 15px;
+}
+

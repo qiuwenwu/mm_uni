@@ -15,12 +15,12 @@
 			<text>详细地址</text>
 			<textarea type="text" style="height: 3rem;" v-model="form[vm.address]" />
 			</view>
-		<button class="btn_save" type="default" @click="save_address()">保存</button>
+		<button type="primary" class="btn_save" @click="save_address()">保存</button>
 	</view>
 </template>
 
 <script>
-	import mixin from "../../mixins/component.js";
+	import mixin from "@/mixins/component.js";
 	export default {
 		mixins: [mixin],
 		props: {
@@ -46,14 +46,14 @@
 				var {address,name,phone,address_id,user_id} = this.form
 				user_id = this.user.user_id
 				if(address_id){
-					this.$post(`~/api/address/set?address_id=${address_id}`,{address,name,phone,user_id},(res)=>{
+					this.$post(`~/api/user/address?method=set&address_id=${address_id}`,{address,name,phone,user_id},(res)=>{
 						console.log(res);
 						uni.navigateBack({
 							delta: 1
 						});
 					})
 				}else{
-					this.$post(`~/api/address/add?`,{address,name,phone,user_id},(res)=>{
+					this.$post(`~/api/user/address?method=add&`,{address,name,phone,user_id},(res)=>{
 						console.log(res);
 						uni.navigateBack({
 							delta: 1
@@ -105,6 +105,5 @@
 	
 	.btn_save {
 		margin-top: 0.5rem;
-		color: var(--color_primary);
 	}
 </style>

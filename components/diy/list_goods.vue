@@ -1,71 +1,81 @@
 <template>
 	<view class="list_goods">
 		<!-- 表格 -->
-		<view class="list_goods_table">
-			<view class="change_table" @click="show_table()">
-				{{ title }}
+		<view class="goods_table">
+			<view class="btn_change_table" @click="show_table()">
+				{{ title_btn_change }}
 			</view>
 			<view class="goods_table_block" v-show="is_opened">
 				<uni-table stripe border emptyText="暂无更多数据">
 					<uni-tr>
-						<uni-th align="center">图片</uni-th>
-						<uni-th align="center">标题</uni-th>
-						<uni-th align="center">价格</uni-th>
-						<uni-th align="center">原价</uni-th>
-						<uni-th align="center">购物车</uni-th>
+						<uni-th align="center" class="uni-th">图片</uni-th>
+						<uni-th align="center" class="uni-th">价格</uni-th>
+						<uni-th align="center" class="uni-th">原价</uni-th>
+						<uni-th align="center" class="uni-th">标题</uni-th>
+						<uni-th align="center" class="uni-th">销量</uni-th>
+						<uni-th align="center" class="uni-th">点击量</uni-th>
+						<uni-th align="center" class="uni-th">详情</uni-th>
 					</uni-tr>
 					<uni-tr v-for="(o, i) in list" :key="i">
 						<uni-td class="image" align="center">
-							<image style="width:4rem;height: 4rem;" :src="$fullUrl(o[vm.img]) || '../../static/img/default.png'" mode="scaleToFill">
+							<image style="width:4rem;height: 4rem;" :src="$fullImgUrl(o[vm.img])" mode="scaleToFill">
 							</image>
 						</uni-td>
+						<uni-td align="center">
+							￥{{ o[vm.price] |keepTwoNum}}
+						</uni-td>
+						<uni-td align="center">￥{{ o[vm.price_ago]  |keepTwoNum}}</uni-td>
 						<uni-td class="title" align="center">
 							{{ o[vm.title] }}
 						</uni-td>
-						<uni-td class="price" align="center">
-							￥{{ o[vm.price] }}
-						</uni-td>
-						<uni-td class="price_ago" align="center">￥{{ o[vm.price_ago] }}</uni-td>
-						<uni-td class="cart" align="center">
-							<uni-icons type="cart"></uni-icons>
+						<uni-td align="center">{{ o[vm.sales] }}</uni-td>
+						<uni-td align="center">{{ o[vm.hits] }}</uni-td>
+						<uni-td align="center">
+							<view @click="nav_goods_details(o[vm.goods_id])" style="cursor: pointer;">查看详情</view>
 						</uni-td>
 					</uni-tr>
 				</uni-table>
 			</view>
 		</view>
 		<!-- /表格 -->
-		<view class="goods_block">
+		
+		<!-- 列表 -->
+		<view class="goods_list">
 			<view class="row" v-show="!is_opened">
-				<view v-for="(o, i) in list" :key="i" :class="'col-' + col" class="col">
-					<navigator :url="'/pages/goods/details?goods_id=' + o[vm.goods_id]" class="goods">
-						<view class="goods_img_box">
-							<image :src="$fullUrl(o[vm.img]) || '../../static/img/default.png'" mode="widthFix" class="goods_img"></image>
+				<view v-for="(o, i) in list" :key="i" class="col-6 col-md-3">
+					<navigator class="goods_item" :url="'/pages/goods/details?goods_id=' + o[vm.goods_id]">
+						<view class="media">
+							<image class="image" :src="$fullImgUrl(o[vm.img])" style="height: 10rem;"></image>
 						</view>
-						<view class="good_bottom">
-							<view class="title_wrap"><text class="ellipsis_2">{{ o[vm.title] }}</text></view>
-							<view style="position: relative;">
-								<text style="font-size: 0.5rem;color:var(--color_grey)"></text><text
-									class="price">￥{{ o[vm.price] }}</text><text
-									class="price_ago">￥{{ o[vm.price_ago] }}</text>
-								<uni-icons class="icon_cart" type="cart" size="14"></uni-icons>
+						<view class="bottom">
+							<view class="title">
+								{{ o[vm.title] }}
+							</view>
+							<view>
+								<view class="price">
+									￥{{ o[vm.price] |keepTwoNum}}
+								</view>
+								<view class="price_ago">
+									￥{{ o[vm.price_ago]  |keepTwoNum}}
+								</view>
+								<uni-icons class="icon_cart" type="cart" size="20" color="var(--color_primary)">
+								</uni-icons>
 							</view>
 						</view>
 					</navigator>
 				</view>
+			</view>
 		</view>
-		</view>
-		
+
 	</view>
 
 </template>
 
 <script>
+	import mixin from "@/mixins/component.js"
 	export default {
+		mixins: [mixin],
 		props: {
-			url: {
-				type: String,
-				default: '/pages/goods/details?goods_id='
-			},
 			list: {
 				type: Array,
 				default: function() {
@@ -80,7 +90,9 @@
 						img: "img",
 						title: "title",
 						price: "price",
-						price_ago: "price_ago"
+						price_ago: "price_ago",
+						sales: "sales",
+						hits: "hits"
 					}
 				}
 			},
@@ -90,15 +102,17 @@
 			}
 		},
 		data() {
-			var col = 12 / this.span;
 			return {
-				col,
 				is_opened: false,
-				title: '切换成表格'
+				title_btn_change: '切换成表格'
 			}
 
 		},
 		methods: {
+			nav_goods_details(goods_id) {
+				this.$nav('/pages/goods/details?goods_id=' + goods_id)
+				console.log(goods_id);
+			},
 			show_table() {
 				this.is_opened = !this.is_opened
 				if (this.is_opened === true) {
@@ -107,7 +121,14 @@
 					this.title = '切换成表格'
 				}
 			}
-		}
+		},
+		filters: {
+			//过滤器 保留两位
+			keepTwoNum: function(value) {
+				value = Number(value);
+				return value.toFixed(2)
+			}
+		},
 	}
 </script>
 
@@ -120,96 +141,62 @@
 		-webkit-box-orient: vertical;
 	}
 
-	.goods {
-		padding: 0.5rem;
-		border: 1rpx solid #eee;
-		border-radius: 5rpx;
-		background-color: #fff;
+	.btn_change_table {
+		margin-left: auto;
+		font-weight: bold;
+		padding: 0.5rem 0;
+		width: 100px;
+		text-align: center;
+		font-size: 0.875rem;
+		border: 1px solid #CCCCCC;
+		border-radius: 1rem;
+		margin-bottom: 0.25rem;
 	}
-
-	.goods .goods_img_box {
-		height: 136px;
-		width: auto;
-	}
-
-	.goods .goods_img_box .goods_img {
-		height: 100% !important;
-		width: 100% !important;
-
-	}
-
-	.good_bottom {
-		padding: 0.2rem 0.5rem;
-		padding-bottom: 0.5rem;
-		font-size: 0.8rem;
-
-	}
-
-	.title_wrap {
-		margin-bottom: 0.3rem;
-	}
-
-	.price {
-		color: var(--color_primary_b);
+	.uni-th {
 		font-weight: 600;
 	}
 
+	.row {
+		margin-left: -1rem;
+		margin-right: -1rem;
+	}
+
+	.goods_item {
+		padding: var(--padding_base);
+	}
+
+	.title {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		margin-bottom: var(--margin_small);
+	}
+
+	image {
+		width: 100%;
+	}
+
+	.image:hover {
+		transform: rotate(360deg);
+		transition: all 0.5s ease-in-out;
+	}
+
+	.price {
+		display: inline-block;
+		color: var(--color_primary);
+	}
+	.goods_list .price{
+		margin-right: 0.5rem;
+	}
+
 	.price_ago {
-		margin-left: .3rem;
+		font-size: var(--font_mini);
+		color: var(--color_grey);
+		display: inline-block;
 		text-decoration: line-through;
-		font-size: 0.4rem;
-		color: #999;
 	}
 
 	.icon_cart {
-		position: absolute;
-		right: 0;
-	}
-
-	.list_goods .list_goods_table {
-		width: 100%;
-		padding: 5px 0;
-		background-color: #fff;
-	}
-
-	.list_goods .list_goods_table .change_table {
-		font-weight: bold;
-		font-size: 0.8rem ;
-		margin-left: 7px;
-		padding: 5px;
-		width: 100px;
-		/* border: 1px solid var(--color_border);
-		border-radius: 5px; */
-	}
-
-	.list_goods .list_goods_table .goods_table_block .uni-table-td {
-		padding: 8px;
-	}
-
-	.list_goods .list_goods_table .goods_table_block .image {
-		width: 5%;
-
-	}
-
-	.list_goods .list_goods_table .goods_table_block .title {
-		overflow: hidden;
-		width: 20%;
-		font-size: 0.5rem;
-	}
-
-	.list_goods .list_goods_table .goods_table_block .price {
-		width: 12%;
-		font-size: 0.5rem;
-	}
-
-	.list_goods .list_goods_table .goods_table_block .price_ago {
-		width: 12%;
-		font-size: 0.5rem;
-		text-decoration: line-through;
-	}
-
-	.list_goods .list_goods_table .goods_table_block .cart {
-		width: 12%;
-		font-size: 0.5rem;
+		float: right;
 	}
 </style>

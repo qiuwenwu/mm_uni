@@ -1,12 +1,26 @@
 <template>
 	<view class="page_user" id="user_address">
-		<list_address v-if="$check_action('/address/list','get')" :list="list"></list_address>
+		
+		<!-- 地址列表模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							
+							<list_address v-if="$check_action('/address/list','get')" :list="list"></list_address>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 地址列表模块(结束) -->
 	</view>
 </template>
 
 <script>
-	import list_address from "../../components/diy/list_address.vue";
-	import mixin from "../../mixins/page.js";
+	import list_address from "@/components/diy/list_address.vue";
+	import mixin from "@/mixins/page.js";
 	
 	export default {
 		mixins: [mixin],
@@ -20,7 +34,7 @@
 					"signIn": true,
 					"user_group": []
 				},
-				url_get_list: "~/api/address/get_list?",
+				url_get_list: "~/api/address?",
 				query: {
 					user_id: 0
 				},

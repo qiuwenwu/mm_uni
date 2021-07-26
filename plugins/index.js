@@ -1,36 +1,16 @@
-import sdk from './sdk.js';
+/**
+ * @fileOverview 该文件为插件主文件, 主要用于引入其他插件
+ * @author <a href="http://www.fman.top">自由人网络</a>
+ * @version 1.0
+ */
+import sdk from './mm_sdk.js';
 import expand from './expand.js';
-import component from './component.js'
+import component from './core.js';
+import lang from './lang/index.js'
 
-uni.db = {
-	get(key) {
-		var value;
-		try {
-			value = uni.getStorageSync(key);
-		} catch (e) {
-			console.log("读取失败！");
-		}
-		return value;
-	},
-	set(key, value) {
-		try {
-			uni.setStorageSync(key, value);
-		} catch (e) {
-			console.log("保存失败！");
-			value = null;
-		}
-		return value
-	},
-	del(key) {
-		try {
-			uni.removeStorageSync(key);
-		} catch (e) {
-			console.log("读取失败！");
-		}
-	}
-}
 export default {
 	install(Vue, options) {
 		Vue.use(component, options);
+		Vue.use(lang, options);
 	}
 }

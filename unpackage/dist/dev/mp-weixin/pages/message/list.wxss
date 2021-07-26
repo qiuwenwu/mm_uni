@@ -1,27 +1,54 @@
 
-.list_message {
+#message_list .list_message.data-v-029480c2 {
 	background-color: #f8f8f8;
 	min-height: 100vh;
 }
-.item_message {
+#message_list .item_message.data-v-029480c2 {
 	background-color: #FFFFFF;
 	margin-bottom: 1rem;
 }
-.user_info {
+#message_list .user_info.data-v-029480c2 {
 	text-align: center;
 	padding: 0.5rem 0;
 	border-bottom: 1px solid #eee;
 }
-.time{
+#message_list .time.data-v-029480c2 {
 	font-size: 0.7rem;
 	margin-top: 0.5rem;
 }
-.content {
+#message_list .content.data-v-029480c2 {
 	width: 100%;
 	padding: 0.8rem;
 }
-.content rich-text {
+#message_list .content rich-text.data-v-029480c2 {
 	width: 100%;
 	word-break: break-all;
+}
+#message_list .reply_btn.data-v-029480c2 {
+	text-align: right;
+	padding: 5px 15px;
+}
+#message_list .list_reply_block.data-v-029480c2 {
+	margin-left: 4rem;
+}
+#message_list .list_reply_block .list_reply_box.data-v-029480c2 {
+	padding: 5px 0;
+}
+#message_list .list_reply_block .reply_left .nickname.data-v-029480c2 {
+	color: var(--color_grey);
+	font-size: 0.8rem;
+}
+#message_list .list_reply_block .reply_left .reply_time.data-v-029480c2 {
+	float: right;
+	font-size: 10px;
+	-webkit-transform: scale(0.8);
+	        transform: scale(0.8);
+	color: var(--color_grey);
+}
+#message_list .list_reply_block .content.data-v-029480c2 {
+	word-break: break-all;
+}
+#message_list .line.data-v-029480c2 {
+	border-bottom: 1px solid var(--color_border);
 }
 

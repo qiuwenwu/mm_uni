@@ -92,9 +92,8 @@
 	color: var(--color_grey);
 	font-size: 0.7rem;
 }
-.bottom_order.data-v-37bddec3 {
-}
-.bottom_order .sum_price_block.data-v-37bddec3{
+.bottom_order.data-v-37bddec3 {}
+.bottom_order .sum_price_block.data-v-37bddec3 {
 	padding: 0.4rem 0;
 }
 .btn_del.data-v-37bddec3 {

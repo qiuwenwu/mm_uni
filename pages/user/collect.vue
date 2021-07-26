@@ -1,35 +1,47 @@
 <template>
 	<view class="page_user" id="user_collect">
-		<!-- 搜索栏 -->
-		<uni-search-bar placeholder="搜索产品" @confirm="search" @cancel="cancel" cancelText="取消"
-			@input="input($event, 'title')">
-			<uni-icons slot="searchIcon" color="#999999" size="18" type="home" />
-		</uni-search-bar>
-		<!-- /搜索栏 -->
-		<view class="top_handle">
-			<view class="dropdown_box">
-				<!-- 筛选栏 -->
-				<view class="dropdown_collect">
-					<mm_dropdown :sort_list="type_names" @handle_item="filter_item" :dropdown_title="filter_title">
-					</mm_dropdown>
-				</view>
-				<!-- /筛选栏 -->
-			</view>
-		</view>
-		<list_collect :list="list"></list_collect>
+		
+		<!-- 筛选模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							<!-- 搜索栏 -->
+							<uni-search-bar placeholder="搜索产品" @confirm="search" @cancel="cancel" cancelText="取消"
+								@input="input($event, 'title')">
+								<uni-icons slot="searchIcon" color="#999999" size="18" type="home" />
+							</uni-search-bar>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 筛选模块(结束) -->
+		<!-- 收藏列表模块(开始) -->
+		<mm_warp>
+			<mm_container class="container">
+				<mm_row>
+					<mm_col>
+						<mm_view class="">
+							<list_collect :list="list"></list_collect>
+						</mm_view>
+					</mm_col>
+				</mm_row>
+			</mm_container>
+		</mm_warp>
+		<!-- 收藏列表模块(结束) -->
 	</view>
 </template>
 
 <script>
-	import list_collect from "../../components/diy/list_collect.vue";
-	import mixin from "../../mixins/page.js";
-	import mm_dropdown from "../../components/diy/mm_dropdown.vue"
+	import list_collect from "@/components/diy/list_collect.vue";
+	import mixin from "@/mixins/page.js";
 
 	export default {
 		mixins: [mixin],
 		components: {
 			list_collect,
-			mm_dropdown,
 		},
 		data() {
 			return {
@@ -38,7 +50,7 @@
 					"signIn": true,
 					"user_group": []
 				},
-				url_get_list: "~/api/collect/get_list?",
+				url_get_list: "~/api/collect?",
 				query: {
 					user_id: 0
 				},

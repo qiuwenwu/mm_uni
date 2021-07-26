@@ -1,5 +1,6 @@
 
 .bar_title.data-v-67da3474 {
+	position: relative;
 	background-color: #fff;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -13,16 +14,18 @@
 	margin-bottom: 2px;
 }
 .title.data-v-67da3474 {
+	margin: 0 auto;
 	color: var(--color_primary);
-}
-navigator.data-v-67da3474 {
-	padding: 0.5rem 0.75rem;
+	font-weight: 600;
 }
 .more.data-v-67da3474 {
+	position: absolute;
+	right: 0;
 	font-size: 0.875rem;
 	color: var(--color_primary);
 	height: 100%;
 	overflow: hidden;
+	font-weight: 600;
 }
 
 

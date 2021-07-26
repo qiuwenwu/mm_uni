@@ -7,7 +7,7 @@
 			console.log('App Show')
 			var token = uni.db.get("token")
 			this.$store.commit("user_set", {
-				token:token
+				token: token
 			})
 		},
 		onHide: function() {
@@ -18,8 +18,9 @@
 
 
 <style>
-	@import url("./static/css/theme.css");
-	@import url("./static/css/common.css");
+	@import url("./static/css/mm_theme.css");
+	@import url("./static/css/mm_common.css");
+
 	view {
 		box-sizing: border-box;
 	}
@@ -27,15 +28,92 @@
 	body {
 		font-family: Arial, Helvetica, sans-serif;
 	}
+
+	uni-page-body {
+		height: 100%;
+	}
+
+	html {
+		font-size: 16px !important;
+	}
+
 	page {
-		background-color: #f8f8f8;
+		background-color: #F8F8F8;
 	}
-	.pages-cart-index{
+
+	uni-page-head .uni-page-head {
+		z-index: 5000;
+	}
+
+	.uni-top-window {
+		z-index: 5000;
+	}
+
+	.uni-scroll-view ::-webkit-scrollbar {
+		display: none;
+	}
+
+	.page_account {
+		height: 100%;
+	}
+
+	.page_account .mm_warp {
+		background: url(static/img/bg_account.jpg) no-repeat;
+		background-size: 100% 100%;
+		height: 100vh;
+	}
+
+	.banner_container {
+		margin: 0;
+	}
+
+	.container {
+		margin: 0 auto;
+	}
+
+
+	@media (max-width:576px) {
+		.container {
+			margin: 0 var(--margin_base);
+		}
+	}
+
+	@media (min-width: 1200px) {
+		uni-tabbar.uni-tabbar-bottom {
+			position: initial;
+			display: none;
+		}
+
+		uni-page-head {
+			display: none;
+		}
+
+		uni-page-wrapper {
+			height: 100% !important;
+		}
+
+		body {
+			height: 100%;
+		}
+
+		/* 
+		.page_header {
+			display: block;
+		} */
+	}
+
+	[class^="btn_"] {
+		cursor: pointer;
+	}
+
+	.pages-cart-index {
 		overflow: hidden;
 	}
-	.pages-cart-list{
+
+	.pages-cart-list {
 		overflow: hidden;
 	}
+
 	/*每个页面公共css */
 	.container {
 		padding: 0;

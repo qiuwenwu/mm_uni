@@ -2,15 +2,16 @@
 	<view class="page_comment" id="comment_edit">
 		<!-- 评论区 -->
 		<view class="form_editor">
-
-			<view class="container">
-				<view class="comment_auth">
+			<view class="container_edit">
+				<view class="comment_auth" v-if="query.nickname">
 					对 {{ query.nickname }} 回复...
+					
 				</view>
 				<editor id="editor" show-img-size :read-only="isEdit" show-img-resize show-img-toolbar
 					class="ql-container" :placeholder="placeholder" @statuschange="onStatusChange"
 					@ready="onEditorReady" :value="editoValue">
 				</editor>
+				<view class="btn_publish" @click="publish()" type="default">发表</view>
 			</view>
 			<view class="toolbar" @touchend.stop="format" :style="'bottom: ' + (isIOS ? keyboardHeight : 0) + 'px'">
 				<i class="iconfont icon-charutupian" @touchend.stop="insertImage"></i>
@@ -80,17 +81,15 @@
 					data-name="direction" data-value="rtl"></i>
 				<i class="iconfont icon-baocun" @tap="store" id="1"></i>
 
-				<button class="btn_publish" @click="publish()" type="default">发表</button>
 			</view>
 			<t-color-picker ref="colorPicker" :color="color" @confirm="confirm" @cancel="cancel"></t-color-picker>
 		</view>
 		<!-- /评论区 -->
-
 	</view>
 </template>
 
 <script>
-	import mixin from "../../mixins/page.js"
+	import mixin from "@/mixins/page.js"
 	import tColorPicke from '@/components/diy/t-color-picker.vue';
 	var _self;
 
@@ -249,6 +248,7 @@
 					}
 				});
 			},
+			// 发送按钮
 			async publish() {
 				var content_promise = new Promise((resolve, reject) => {
 					this.editorCtx.getContents({
@@ -269,25 +269,27 @@
 					content
 				})
 				console.log(body);
-				this.$post('~/api/comment/add?', body, (res) => {
+				this.$post('~/api/user/comment?method=add&', body, (res) => {
 					if (res.result) {
 						this.$toast(res.result, 'success');
+						console.log(res.result, 'success');
 						var url = this.$redirect();
 						this.$nav(url);
 					} else if (res.error) {
+						console.log(res.error.message, 'error');
 						this.$toast(res.error.message, 'error');
 					}
 				})
 				//插入一条留言
-				this.$post('~/api/message/add?', body, (res) => {
-					if (res.result) {
-						this.$toast(res.result, 'success');
-						var url = this.$redirect();
-						this.$nav(url);
-					} else if (res.error) {
-						this.$toast(res.error.message, 'error');
-					}
-				})
+				// this.$post('~/api/message?method=add&', body, (res) => {
+				// 	if (res.result) {
+				// 		this.$toast(res.result, 'success');
+				// 		var url = this.$redirect();
+				// 		this.$nav(url);
+				// 	} else if (res.error) {
+				// 		this.$toast(res.error.message, 'error');
+				// 	}
+				// })
 			}
 		}
 	}
@@ -295,8 +297,21 @@
 
 <style scoped>
 	@import "/static/css/editor.css";
-
+	#editor{
+		background-color: #fff;
+	}
 	.comment_auth {
 		padding-left: 10px;
+	}
+	.btn_publish{
+		padding: 0.5rem 0.25rem;
+		font-weight: 600;
+		font-size: 1.25rem;
+		border-radius: 2rem;
+		background-color: var(--color_primary);
+		color: #fff;
+		text-align: center;
+		margin: 0 1rem ;
+		margin-top: 1rem;
 	}
 </style>

@@ -1,5 +1,27 @@
 
+.uni-collapse.data-v-b227d520 {
+	background-color: inherit;
+}
 .pager.data-v-b227d520 {
 	margin-top: 1rem;
+}
+.tab_view.data-v-b227d520 {
+	background-color: #FFFFFF;
+	margin: 0 auto;
+}
+.list_orderby.data-v-b227d520 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	        justify-content: flex-end;
+	background-color: #FFFFFF;
+	border-top: 5px double #ccc;
+	border-bottom: 5px double #ccc;
+	margin-right: -1px;
+}
+.list_orderby .bar_orderby.data-v-b227d520 {
+	border-left: 1px solid #ccc;
 }
 

@@ -1,10 +1,17 @@
 <template>
 	<view class="div_goods">
-		<swiper class="swiper" indicator-active-color="#fff" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-			<swiper-item v-for="(o_img,i) in swiper_img" :key="i">
-				<image style="width: 100%;" :src="$fullUrl(obj[vm.img]) || '../../static/img/default.png'"></image>
-			</swiper-item>
-		</swiper>
+		<template v-if="swiper_img.length">
+			<swiper class="swiper" indicator-active-color="#fff" :indicator-dots="indicatorDots" :autoplay="autoplay"
+				:interval="interval" :duration="duration">
+
+				<swiper-item v-for="(o_img,i) in swiper_img" :key="i">
+					<image style="width: 100%;" :src="$fullImgUrl(o_img)"></image>
+				</swiper-item>
+			</swiper>
+		</template>
+		<template v-else>
+			<image :src="$fullImgUrl(obj[vm.img])" style="width: 100%;" mode=""></image>
+		</template>
 		<view class="wrap">
 			<view class="title">
 				<text>{{obj[vm.title]}}</text>

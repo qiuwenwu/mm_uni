@@ -1,6 +1,6 @@
 <template>
 	<view class="swiper_notice">
-		<uni-icons class="icon_sound" type="sound" size="20"></uni-icons>
+		<uni-icons class="icon_sound" type="sound" size="20" color="var(--color_primary)"></uni-icons>
 		<swiper class="notice" :autoplay="autoplay" :interval="interval" :duration="duration" :vertical="true">
 			<swiper-item v-for="(o, i) in list" :key="i">
 				<view class="swiper-item">

@@ -1,9 +1,8 @@
 
-.page_cart.data-v-457cfe48{
+.page_cart.data-v-457cfe48 {
 	padding-top: 0.8rem;
-	padding-bottom:  5rem;
+	padding-bottom: 5rem;
 	height: 100vh;
 	background-color: #F8F8F8;
-	overflow: scroll;
 }
 

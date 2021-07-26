@@ -3,32 +3,46 @@ export default {
 		return {
 			// 标题
 			title: "",
+
 			// 地址
 			url: "",
+
 			// 添加地址
 			url_add: "",
+
 			// 删除地址
 			url_del: "",
+
 			// 修改地址
 			url_set: "",
+
 			// 查询对象地址
 			url_get_obj: "",
+
 			// 查询列表地址
 			url_get_list: "",
+
 			// 表单提交地址
 			url_submit: "",
+
 			// 上传提交地址
 			url_upload: "",
+
 			// 导入数据地址
 			url_import: "",
+
 			// 导出数据地址
 			url_export: "",
+
 			// 获取的列表
 			list: [],
+
 			// 提交表单
 			form: {},
+
 			// 线上对象
 			obj: {},
+
 			// 查询参数
 			query: {
 				// 当前页面
@@ -36,6 +50,7 @@ export default {
 				// 页面大小
 				// size: 10
 			},
+
 			// 配置
 			config: {
 				// 默认当前页面
@@ -43,58 +58,83 @@ export default {
 				// 默认页面大小
 				size: 10
 			},
+
 			// 加载进度
 			loading: 0,
+
 			// 显示进度
 			showing: 0,
+
 			// 提交进度
 			posting: 0,
+
 			// 查询结果匹配数统计
 			count: 0,
+
 			// 显示隐藏，true显示，false隐藏
 			show: false,
+
 			// 响应成功或失败
 			bl: false,
+
 			// 显示方式
 			display: "",
+
 			// 关键字段
 			field: "",
+
 			// 响应提示
 			tip: "",
+
 			// 默认请求方式
 			mode: "list",
+
 			// 清除列表
 			clear_list: true,
+
 			// 响应错误消息
 			message: "",
+
 			// 选中集
 			selects: "",
+
 			// 当前页, 用于跳转页面
 			page_now: 1,
+
 			// 选择项状态
 			select_state: false,
+
 			// 排序键，用于拖拽修改排序
 			sort_key: "display",
+
 			// 修改条件
 			query_set: {},
+
 			// 展开的上级id
 			opens: [],
+
 			// 上级ID: father_id
 			father_id: "father_id",
+
 			// 选中集合
 			selection: [],
+
 			// 登录权限
 			oauth: {
 				"signIn": false,
 				"gm": 0,
 				"user_admin": []
 			},
+
+			// 用户信息
 			user: this.$store.state.user,
+
 			// 修改提示
 			tip_show: true
 		};
 	},
 	methods: {
+
 		/**
 		 * @description 保存对象
 		 * @param {String} key 键
@@ -103,6 +143,7 @@ export default {
 		save_obj: function save_obj(key, obj) {
 			uni.setStorageSync(key, obj)
 		},
+
 		/**
 		 * @description 查询对象
 		 * @param {String} key 键
@@ -111,6 +152,7 @@ export default {
 		load_obj: function load_obj(key) {
 			return uni.getStorageSync(key)
 		},
+
 		/**
 		 * @description 事件管理, 用于管理函数
 		 * @param {String} name 事件名
@@ -130,6 +172,7 @@ export default {
 				return null;
 			}
 		},
+
 		/**
 		 * 回调函数(中控)
 		 * @param {String} name 函数名
@@ -154,6 +197,7 @@ export default {
 				return null;
 			}
 		},
+
 		/**
 		 * @description 添加数据
 		 * @param {Object} param 要添加的数据
@@ -171,6 +215,7 @@ export default {
 			}
 			return ret;
 		},
+
 		/**
 		 * @description 删除数据
 		 * @param {Object} param 查询条件
@@ -187,6 +232,7 @@ export default {
 			}
 			return ret;
 		},
+
 		del_show: function(o, id) {
 			var _this = this;
 			uni.confirm('删除后将无法回复!<br/>是否确定要删除?', function() {
@@ -201,6 +247,7 @@ export default {
 				// console.log('取消删除!')
 			})
 		},
+
 		/**
 		 * @description 修改数据
 		 * @param {Object} param 修改项
@@ -224,6 +271,7 @@ export default {
 			}
 			return ret;
 		},
+
 		/**
 		 * 修改前事件
 		 * @param {Object} param
@@ -239,6 +287,7 @@ export default {
 			}
 			return pm;
 		},
+
 		/**
 		 * 批量修改
 		 */
@@ -258,6 +307,7 @@ export default {
 				}, true);
 			});
 		},
+
 		/**
 		 * @description 查询多条数据
 		 * @param {Object} query 查询条件
@@ -275,6 +325,7 @@ export default {
 			}
 			return ret;
 		},
+
 		/**
 		 * @description 查询一条数据
 		 * @param {Object} query 查询条件
@@ -294,6 +345,7 @@ export default {
 			}
 			return ret;
 		},
+
 		sort: function sort(param, func) {
 			var pm = this.events("sort_before", Object.assign({}, param)) || param;
 			var msg = this.events("sort_check", pm);
@@ -303,25 +355,33 @@ export default {
 			}
 			return ret;
 		},
+
 		/**
 		 * 检测授权，有权限后回调函数
 		 * @param {Function} func 回调函数
 		 */
 		check_auth: function check_auth(func) {
-			var auth = this.$store.state.web.auth
-			if(!auth.length){
-				this.$get_auth(this.user.user_group)
+			// 取出权限
+			var auth = this.$store.state.web.auth;
+			// 权限长度不为空
+			if (!auth || auth.length === 0) {
+				this.$get_auth(this.user.user_group);
 			}
 			
+			// 判断用户ID
 			if (!this.user.user_id) {
 				var token = uni.db.get("token");
 				if (token) {
+					// 存储token
 					this.$store.commit("user_set", {
 						token
 					});
+					// 获取登录态
 					this.$get_user(() => {
+						// 判断
 						if (this.oauth.signIn) {
 							if (this.user.user_id) {
+								// 执行获取权限并存储
 								this.$get_auth(this.user.user_group)
 								func();
 							} else {
@@ -329,11 +389,10 @@ export default {
 									url: "/pages/account/login"
 								})
 							}
-						} else {
-							func();
 						}
 					});
 				} else {
+					// 前往登录页
 					if (this.oauth.signIn) {
 						uni.navigateTo({
 							url: "/pages/account/login"
@@ -354,6 +413,7 @@ export default {
 				func()
 			}
 		},
+
 		/**
 		 * 初始化
 		 * @param {Object} param 参数
@@ -370,6 +430,7 @@ export default {
 			}
 			return ret;
 		},
+
 		submit: function submit(param, func) {
 			if (!param) {
 				param = this.form;
@@ -384,6 +445,7 @@ export default {
 			}
 			return ret;
 		},
+
 		/**
 		 * 提交前事件
 		 * @param {Object} param 提交参数
@@ -391,6 +453,7 @@ export default {
 		submit_before: function(param) {
 			return param;
 		},
+
 		upload: function upload(param, func) {
 			var pm = this.events("upload_before", Object.assign({}, param)) || param;
 			var msg = this.events("upload_check", pm);
@@ -402,6 +465,7 @@ export default {
 			}
 			return ret;
 		},
+
 		/**
 		 * @description 添加数据
 		 * @param {Object} value 要添加的数据
@@ -423,6 +487,7 @@ export default {
 				}
 			});
 		},
+
 		/**
 		 * @description 删除数据
 		 * @param {Object} query 查询条件
@@ -445,6 +510,7 @@ export default {
 				}
 			});
 		},
+
 		/**
 		 * 删除之后事件
 		 * @param {Object} json 返回的结果
@@ -455,6 +521,7 @@ export default {
 				func();
 			}
 		},
+
 		/**
 		 * @description 修改数据
 		 * @param {Object} value 要修改的数据
@@ -483,6 +550,7 @@ export default {
 				}
 			});
 		},
+
 		/**
 		 * 修改成功时执行
 		 * @param {Object} json 结果
@@ -493,6 +561,7 @@ export default {
 				func(json);
 			}
 		},
+
 		/**
 		 * @description 查询数据
 		 * @param {Object} query 查询参数
@@ -501,6 +570,7 @@ export default {
 		get: function get(query, func) {
 			this.get_main(query, func);
 		},
+
 		/**
 		 * @description 查询数据(主程序)
 		 * @param {Object} query 查询参数
@@ -517,6 +587,7 @@ export default {
 				this.get_create(query, func);
 			}
 		},
+
 		/**
 		 * 验证请求
 		 * @param {Object} param 请求参数
@@ -535,6 +606,7 @@ export default {
 				return "缺少查询条件";
 			}
 		},
+
 		/**
 		 * @description 查询一条数据(主程序)
 		 * @param {Object} query 查询条件
@@ -593,6 +665,7 @@ export default {
 				}
 			});
 		},
+
 		/**
 		 * @description 获取到对象后事件
 		 * @param {Object} json 响应结果
@@ -602,6 +675,7 @@ export default {
 				func(json);
 			}
 		},
+
 		/**
 		 * @description 查询多条数据(主程序)
 		 * @param {Object} query 查询条件
@@ -636,6 +710,7 @@ export default {
 				}
 			});
 		},
+
 		/**
 		 * @description 获取到列表事件
 		 * @param {Object} res 响应结果
@@ -645,6 +720,7 @@ export default {
 				func(res, url);
 			}
 		},
+
 		/**
 		 * 搜索
 		 * @param {Object} query 查询条件
@@ -658,10 +734,11 @@ export default {
 			if (url) {
 				this.query.page = 1;
 				this.count = 0;
-				uni.route.push("?" + this.toUrl(this.query));
+				// uni.route.push("?" + this.toUrl(this.query));
 				this.first(query, func);
 			}
 		},
+
 		get_create: function get_create(query, func) {
 			if (query) {
 				uni.push(this.query, query);
@@ -673,6 +750,7 @@ export default {
 				this.first(query, func);
 			}
 		},
+
 		/**
 		 * @description 查询多条数据 (首次)
 		 * @param {Object} query 查询条件
@@ -688,6 +766,7 @@ export default {
 				this.get_list(query, func);
 			}
 		},
+
 		/**
 		 * @description 查询下一页数据
 		 * @param {Function} func 回调函数
@@ -713,6 +792,7 @@ export default {
 				}
 			});
 		},
+
 		/**
 		 * @description 查询上一页数据
 		 * @param {Function} func 回调函数
@@ -738,6 +818,7 @@ export default {
 				}
 			});
 		},
+
 		/**
 		 * 清除数据
 		 * @param {Object} query
@@ -745,6 +826,7 @@ export default {
 		clear: function clear(query) {
 			uni.clear(query);
 		},
+
 		/**
 		 * 重置
 		 */
@@ -799,6 +881,7 @@ export default {
 				});
 			}
 		},
+
 		/**
 		 * 提交前验证事件
 		 * @param {Object} 请求参数
@@ -807,6 +890,7 @@ export default {
 		submit_check: function submit_check(param) {
 			return null;
 		},
+
 		/**
 		 * @description 获取到对象后事件
 		 * @param {Object} json 响应结果
@@ -820,6 +904,7 @@ export default {
 				delta: 2
 			});
 		},
+
 		/**
 		 * 上下翻页
 		 * @param {Number} n 加减页码
@@ -828,6 +913,7 @@ export default {
 			var page = this.query.page + n;
 			this.goTo(page);
 		},
+
 		/**
 		 * 跳转指定页
 		 * @param {Number} page 页码
@@ -856,7 +942,7 @@ export default {
 				this.first(query);
 			}
 		},
-		
+
 		/**
 		 * @description 转查询参数
 		 * @param {Object} obj 被转换的对象
@@ -866,6 +952,7 @@ export default {
 		toUrl: function toUrl(obj, url) {
 			return uni.toUrl(obj, url);
 		},
+
 		/**
 		 * 初始化前函数
 		 */
@@ -875,6 +962,7 @@ export default {
 			}
 			return query;
 		},
+
 		/**
 		 * 初始化
 		 */
@@ -885,6 +973,7 @@ export default {
 				_this.get(_this.query);
 			});
 		},
+
 		/**
 		 * 初始化后函数
 		 */
@@ -893,6 +982,7 @@ export default {
 				func();
 			}
 		},
+
 		/**
 		 * @description 上传文件
 		 * @param {Function} func 回调函数
@@ -919,6 +1009,7 @@ export default {
 				});
 			}
 		},
+
 		/**
 		 * @description 上传完成时
 		 * @param {Object} json 响应结果
@@ -936,6 +1027,7 @@ export default {
 				func();
 			}
 		},
+
 		/**
 		 * 结束前
 		 * @param {Object} param 参数
@@ -943,6 +1035,7 @@ export default {
 		end_before: function end_before(param) {
 			// this.reset();
 		},
+
 		/**
 		 * 选择项全改
 		 */
@@ -960,6 +1053,7 @@ export default {
 			}
 			this.select_state = bl;
 		},
+
 		/**
 		 * 选择项改变
 		 * @param {String|Number} id 选择的ID
@@ -985,6 +1079,7 @@ export default {
 				this.selects = s;
 			}
 		},
+
 		/**
 		 * 选择项含有
 		 * @param {String|Number} id 选择的ID
@@ -993,6 +1088,7 @@ export default {
 			var ids = '|' + this.selects + '|';
 			return ids.indexOf('|' + id + '|') !== -1;
 		},
+
 		/**
 		 * 选中
 		 * @param {Number} index 项目索引
@@ -1001,6 +1097,7 @@ export default {
 			this.select = index;
 			uni.db.set('select', index, 120);
 		},
+
 		/**
 		 * 页面改变时
 		 * @param {Object} e 事件
@@ -1017,6 +1114,7 @@ export default {
 			}
 			this.goTo(n)
 		},
+
 		/**
 		 * 获取名称
 		 * @param {Array} list 用来取名的列表
@@ -1057,6 +1155,7 @@ export default {
 			}
 			return value.replace('|', '');
 		},
+
 		/**
 		 * 取消并返回
 		 */
@@ -1065,6 +1164,7 @@ export default {
 				delta: 2
 			});
 		},
+
 		/**
 		 * 导入数据
 		 * @param {Object} file 文件
@@ -1087,6 +1187,7 @@ export default {
 				});
 			}
 		},
+
 		/**
 		 * 导出数据
 		 */
@@ -1110,6 +1211,7 @@ export default {
 				});
 			}
 		},
+
 		/**
 		 * 判断是否有下级
 		 * @param {Number} id 字段ID
@@ -1131,6 +1233,7 @@ export default {
 			}
 			return bl;
 		},
+
 		/**
 		 * 改变展开项
 		 * @param {Number} id 唯一主键
@@ -1147,6 +1250,7 @@ export default {
 			}
 			uni.db.set('opens', this.opens);
 		},
+
 		/**
 		 * 判断是否存在
 		 * @param {Number} id 唯一主键
@@ -1155,6 +1259,7 @@ export default {
 		opens_has: function opens_has(id) {
 			return this.opens.indexOf(id) !== -1;
 		},
+
 		/**
 		 * 判断子孙级别, 最大支持5次分叉
 		 * @param {Number} fid 祖辈ID
@@ -1186,34 +1291,51 @@ export default {
 			}
 			return lv;
 		},
+		
+		to_form(url,key){
+			uni.db.set("form_" + key,this.obj);
+			this.$nav(url);
+		},
+		
 		selectionChange(val) {
 			this.selection = val;
 		},
+
 		select_tpl_home() {
 
 		},
+
 		select_tpl_admin() {
 
+		},
+		get_form(key){
+			var form = uni.db.get("form_" + key);
+			if(Object.keys(this.form).length > 0){
+				uni.push(this.form, form);
+			}
 		}
 	},
+
 	computed: {
 		/**
 		 * 分页数量
 		 */
 		page_count: function page_count() {
-			return Math.ceil(this.count / this.query.size);
+			// return Math.ceil(this.count / this.query.size);
+			return
 		}
 	},
-	onLoad() {
-		this.showing = 0;
-		if (this.table_key) {
-			var obj = this.load_obj(this.table_key)
 
-			if (obj) {
-				uni.push(this.form, obj)
-			}
-		}
+	onLoad() {
+		this.get_form();
+		this.showing = 0;
+		var routes = getCurrentPages();
+		var query = routes[routes.length - 1].options
+		this.check_auth(() => {
+			this.init(query);
+		})
 	},
+
 	onShow() {
 		this.showing = 100;
 		var routes = getCurrentPages();
@@ -1222,6 +1344,7 @@ export default {
 			this.init(query);
 		})
 	},
+
 	onHide() {
 		this.events('end_before');
 	}

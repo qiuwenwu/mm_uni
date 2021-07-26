@@ -47,7 +47,7 @@
 		},
 		methods: {
 			del_collect(collect_id, index) {
-				this.$get("~/api/collect/del", {
+				this.$get("~/api/user/collect?method=del&", {
 					collect_id
 				}, (res) => {
 					this.list.splice(index, 1);

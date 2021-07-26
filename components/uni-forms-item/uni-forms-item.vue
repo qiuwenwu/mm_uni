@@ -339,7 +339,6 @@
 		color: #333;
 		font-size: 14px;
 		margin-bottom: 22px;
-		background-color: #fff;
 	}
 
 	.uni-forms-item__inner {
