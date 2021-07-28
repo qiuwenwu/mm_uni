@@ -18,8 +18,15 @@
 
 
 <style>
-	@import url("./static/css/mm_theme.css");
-	@import url("./static/css/mm_common.css");
+	@import "./static/css/font-awesome.min.css";
+	@import "./static/css/mm_base.css";
+	@import "./static/css/mm_common.css";
+	@import "./static/css/mm_layout.css";
+	@import "./static/css/mm_component.css";
+	@import "./static/css/mm_bar_component.css";
+	@import "./static/css/mm_list_component.css";
+	@import "./static/css/mm_nav_component.css";
+	@import "./static/css/mm_theme.css";
 
 	view {
 		box-sizing: border-box;

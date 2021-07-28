@@ -13,13 +13,6 @@
 #app {
 	position: absolute;
 	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-
-.mm_page {
-	height: 100%;
-	overflow: auto;
 }
 
 .mm_warp {
@@ -151,7 +144,6 @@ footer.hide-x {
 
 /* 栅格 */
 .mm_container {
-	width: 100%;
 	max-width: 77rem;
 	margin-right: auto;
 	margin-left: auto
@@ -708,7 +700,6 @@ ol.mm_list li::before {
 }
 
 @media (min-width:576px) {
-
 	.mm_side~header,
 	.mm_side~footer {
 		width: calc(100% - 12rem);

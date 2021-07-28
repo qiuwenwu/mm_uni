@@ -213,7 +213,7 @@
 	font-family: "Helvetica Neue";
 	font-style: normal;
 	font-weight: 400;
-	src: url(../fonts/HelveticaNeue.eot) format(embedded-opentype), url(../fonts/HelveticaNeue.woff2) format(woff2), url(../fonts/HelveticaNeue.woff) format(woff), url(../fonts/HelveticaNeue.ttf) format(truetype), url(../fonts/HelveticaNeue.svg) format(svg);
+	src: url(/static/fonts/HelveticaNeue.eot) format(embedded-opentype), url(/static/fonts/HelveticaNeue.woff2) format(woff2), url(/static/fonts/HelveticaNeue.woff) format(woff), url(/static/fonts/HelveticaNeue.ttf) format(truetype), url(/static/fonts/HelveticaNeue.svg) format(svg);
 }
 
 * {
@@ -230,17 +230,13 @@
 }
 
 html {
-	height: 100%;
-	overflow: hidden;
 	font-family: "Helvetica Neue", helvetica, arial, sans-serif;
 	line-height: 1.5;
 }
 
 body {
-	height: 100vh;
 	color: var(--color_base);
 	line-height: 1.65;
-	overflow: hidden;
 }
 
 /** 不可见元素 **/

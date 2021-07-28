@@ -1,6 +1,16 @@
 <template>
-	<view class="page_index" id="page_index">
-		{{ $t('common.vip.lv0') }}
+	<mm_page class="page_index" id="page_index">
+		<!-- XXX列表(开始) -->
+		<mm_card class="yyy">
+			<view class="card_head">
+			</view>
+			<view class="card_body">
+				
+			</view>
+			<view class="card_foot">
+			</view>
+		</mm_card>
+		<!-- XXX列表(结束) -->
 		<!-- 广告模块(开始) -->
 		<mm_warp id="">
 			<mm_container class="container">
@@ -201,7 +211,7 @@
 			</mm_container>
 		</mm_warp>
 		<!-- 版权模块(结束) -->
-	</view>
+	</mm_page>
 </template>
 
 <script>
@@ -343,6 +353,10 @@
 			this.get_goods()
 			this.get_link()
 			this.get_notice()
+		},
+		onPageScroll(e){
+			console.log(e.scrollTop);
+			console.log(document.getElementById("notice").offsetTop)
 		}
 	}
 </script>
