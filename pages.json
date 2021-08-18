@@ -1,22 +1,17 @@
 {
-	"topWindow": {
-		"path": "components/windows/page_header.vue",
-		"style": {
-			"height": "60px"
-		},
-		"matchMedia": {
-			"minWidth": 1200 //生效条件，当窗口宽度大于768px时显示
-		}
-	},
+	// "topWindow": {
+	// 	"path": "components/windows/page_header.vue",
+	// 	"style": {
+	// 		"height": "60px"
+	// 	},
+	// 	"matchMedia": {
+	// 		"minWidth": 1200 //生效条件，当窗口宽度大于768px时显示
+	// 	}
+	// },
 	"pages": [{
 			"path": "pages/root/index",
 			"style": {
-				"navigationBarTitleText": "首页"
-			}
-		}, {
-			"path": "pages/comment/edit",
-			"style": {
-				"navigationBarTitleText": "评论"
+				"navigationBarTitleText": "金牌保姆"
 			}
 		},
 		{
@@ -69,41 +64,6 @@
 				"navigationBarTitleText": "文章详情"
 			}
 		}, {
-			"path": "pages/forum/index",
-			"style": {
-				"navigationBarTitleText": "社区"
-			}
-		}, {
-			"path": "pages/forum/list",
-			"style": {
-				"navigationBarTitleText": "论坛列表"
-			}
-		}, {
-			"path": "pages/forum/details",
-			"style": {
-				"navigationBarTitleText": "论坛详情"
-			}
-		}, {
-			"path": "pages/goods/list",
-			"style": {
-				"navigationBarTitleText": "产品展示"
-			}
-		}, {
-			"path": "pages/goods/details",
-			"style": {
-				"navigationBarTitleText": "产品详情"
-			}
-		}, {
-			"path": "pages/cart/index",
-			"style": {
-				"navigationBarTitleText": "购物车"
-			}
-		}, {
-			"path": "pages/cart/list",
-			"style": {
-				"navigationBarTitleText": "购物车"
-			}
-		}, {
 			"path": "pages/message/edit",
 			"style": {
 				"navigationBarTitleText": "留言板编辑页"
@@ -124,22 +84,8 @@
 			"style": {
 				"navigationBarTitleText": "公告"
 			}
-		}, {
-			"path": "pages/order/index",
-			"style": {
-				"navigationBarTitleText": "我的订单"
-			}
-		}, {
-			"path": "pages/order/list",
-			"style": {
-				"navigationBarTitleText": "我的订单"
-			}
-		}, {
-			"path": "pages/order/details",
-			"style": {
-				"navigationBarTitleText": "订单详情"
-			}
-		}, {
+		},
+		{
 			"path": "pages/user/index",
 			"style": {
 				"navigationBarTitleText": "我"
@@ -192,16 +138,10 @@
 				"selectedIconPath": "static/img/home_b.png"
 			},
 			{
-				"pagePath": "pages/order/index",
-				"text": "订单",
-				"iconPath": "static/img/order_a.png",
-				"selectedIconPath": "static/img/order_b.png"
-			},
-			{
-				"pagePath": "pages/cart/index",
-				"text": "购物车",
-				"iconPath": "static/img/cart_a.png",
-				"selectedIconPath": "static/img/cart_b.png"
+				"pagePath": "pages/info/index",
+				"text": "资讯",
+				"iconPath": "static/img/info_a.png",
+				"selectedIconPath": "static/img/info_b.png"
 			},
 			{
 				"pagePath": "pages/forum/index",

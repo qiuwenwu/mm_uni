@@ -1,3 +1,4 @@
+
 /* == 数字原型函数 == */
 (function() {
 	/**
@@ -573,59 +574,6 @@
 
 /* == 数组原型函数 == */
 (function() {
-
-  /**
-   * @description 判断对象是否相似
-   * @param {Object} obj 被判断对象
-   * @param {Object} query 用作判断的对象
-   * @param {Boolean} all 是否完全相同
-   * @return {Boolean} 相似返回true，否则返回false
-   */
-  function as(obj, query, all) {
-    if (obj) {
-      var bl = true;
-      var type = typeof(obj);
-      if (type !== typeof(query)) {
-        // 如果类型不一致 则两个无相似
-        bl = false;
-      } else if (type === 'string' || type === 'bool' || type === 'number') {
-        bl = obj === query;
-      } else if (obj.constructor == Array) {
-        // 如果都是数组
-        var lh = obj.length;
-        if (all && lh !== query.length) {
-          // 要求完全一致 而长度不一致 说明不相似
-          bl = false;
-        } else {
-          // 否则判断数组里的每个成员是否相似
-          for (var i = 0; i < lh; i++) {
-            if (!as(obj[i], query[i])) {
-              bl = false;
-              break;
-            }
-          }
-        }
-      } else {
-        // 如果类型为对象
-        if (all && Object.getOwnPropertyNames(obj).length !== Object.getOwnPropertyNames(query).length) {
-          // 如果要求完全一致, 而属性长度不一致，则不相似
-          bl = false;
-        } else {
-          // 否则都为对象则判断其值是否一致
-          for (var k in query) {
-            if (!as(obj[k], query[k], all)) {
-              bl = false;
-              break;
-            }
-          }
-        }
-      }
-      return bl;
-    } else {
-      return false;
-    }
-  }
-
 	/**
 	 * 列表转树形列表
 	 * @param {Array} list 列表
@@ -719,7 +667,7 @@
 	 * @description 数组转字符串
 	 * @param {String} splitStr 分隔符
 	 * @param {String} key 对象属性名
-	 * @return {String} 字符串
+	 * @return {String} 字符串 
 	 */
 	Array.prototype.toStr = function(splitStr, key) {
 		var arr = this;

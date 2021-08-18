@@ -49,14 +49,14 @@
                 "ad" : {},
                 "oauth" : {
                     "weixin" : {
-                        "appid" : "",
-                        "appsecret" : "",
+                        "appid" : "wx9f7452d224c8cdcd",
+                        "appsecret" : "3323849619b81b190ff722e99673ba90",
                         "UniversalLinks" : ""
                     }
                 },
                 "share" : {
                     "weixin" : {
-                        "appid" : "",
+                        "appid" : "wx9f7452d224c8cdcd",
                         "UniversalLinks" : ""
                     }
                 },
