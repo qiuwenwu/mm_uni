@@ -1,126 +1,107 @@
 <template>
-	<view class="page_user" id="user_password">
-		
-		<!-- 修改密码模块(开始) -->
-		<mm_warp>
-			<mm_container class="container">
-				<mm_row>
-					<mm_col>
-						<mm_view class="">
-							<!-- 修改密码模块(结束) -->
-							<uni-forms :rules="rules" :value="form" ref="form" validate-trigger="bind"
-								err-show-type="undertext">
-								<uni-group title="" top="0">
-									<uni-forms-item name="o_password" required label="原密码">
-										<uni-easyinput type="password" :inputBorder="true" v-model="form.o_password"
-											placeholder="请输入原密码"></uni-easyinput>
-									</uni-forms-item>
-									<uni-forms-item name="password" required label="密码">
-										<uni-easyinput type="password" :inputBorder="true" v-model="form.password"
-											placeholder="请输入新密码"></uni-easyinput>
-									</uni-forms-item>
-									<uni-forms-item name="confirm_password" required label="确认密码">
-										<uni-easyinput type="password" :inputBorder="true"
-											v-model="confirm_password" placeholder="请再次输入密码"></uni-easyinput>
-									</uni-forms-item>
-								</uni-group>
-							</uni-forms>
-						</mm_view>
-					</mm_col>
-				</mm_row>
-				<mm_row>
-					<mm_col>
-						<mm_view class="">
-							<view class="btns">
-								<button class="button" @click="change_password()">登录</button>
-							</view>
-						</mm_view>
-					</mm_col>
-				</mm_row>
-			</mm_container>
-		</mm_warp>
-	</view>
+	<mm_page class="page_user" id="user_password">
+		<mm_main>
+			<!-- 编辑表单(开始) -->
+			<mm_warp id="menu">
+				<mm_container>
+					<mm_row>
+						<mm_col class="col-12 col-sm-6 col-md-4">
+							<mm_view class="yyy">
+			
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 编辑表单(结束) -->
+			
+			<!-- 按钮列表(开始) -->
+			<mm_warp id="buttons">
+				<mm_container>
+					<mm_row>
+						<mm_col class="col-12">
+							<mm_view>
+								<button>立 即 发 布</button>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 按钮列表(结束) -->
+		</mm_main>
+	</mm_page>
 </template>
 
 <script>
-	import mixin from "@/mixins/page.js";
-
+	import mixin_page from "@/mixins/page.js";
 	export default {
-		mixins: [mixin],
+		mixins: [
+			mixin_page
+		],
 		data() {
 			return {
-				// 登录权限
-				oauth: {
-					"signIn": true,
-					"user_group": []
-				},
-				form: {
-					o_password: '',
-					password: ''
-				},
-				confirm_password: "",
-				rules: {
-					o_password: {
-						rules: [{
-								required: true,
-								errorMessage: '请输入原密码'
-							},
-							{
-								minLength: 5,
-								maxLength: 16,
-								errorMessage: '密码长度在 {minLength} 到 {maxLength} 个字符'
-							}
-						]
-					},
-					password: {
-						rules: [{
-								required: true,
-								errorMessage: '请输入修改密码'
-							},
-							{
-								minLength: 5,
-								maxLength: 16,
-								errorMessage: '密码长度在 {minLength} 到 {maxLength} 个字符'
-							}
-						]
-					},
-					confirm_password: {
-						rules: [{
-								required: true,
-								errorMessage: '请输入确认密码'
-							},
-							{
-								minLength: 5,
-								maxLength: 16,
-								errorMessage: '确认密码长度在 {minLength} 到 {maxLength} 个字符'
-							}
-						]
+				message: 'Hello',
+				// 定时器
+				timer: null,
+				// 请求链接
+				url: "",
+				// 获取单条数据链接
+				url_get_obj: "",
+				// 获取列表链接
+				url_get_list: "",
+				// 查询条件
+				query: {},
+				// 表的主字段
+				field: "xxx_id",
+				// 获取到对象
+				obj: {},
+				// 获取到的列表
+				list: [],
+				// 操作表单
+				form: {},
+				// 筛选关键词
+				keyword: ""
+			}
+		},
+		computed: {
+			/**
+			 * 新列表
+			 */
+			list_new() {
+				var list = this.list;
+				var lt = [];
+				for (var i = 0; i < list.length; i++) {
+					var o = list[i];
+					if (o.keyword == this.keyword) {
+						lt.push(o);
 					}
 				}
+				return lt;
 			}
 		},
 		methods: {
-			change_password() {
-				if (this.form.password !== this.confirm_password) {
-					this.$toast("密码不相同", "error")
-					return
-				}
-				this.$refs["form"]
-					.submit()
-					.then(res => {
-						var form = this.form;
-						this.$post("~/api/user/change_password?", form, (res) => {
-							if (res.result) {
-								this.$nav('/pages/root/index')
-							} else if (res.error) {
-								this.$toast(res.error.message, 'error')
-							}
-						})
-					})
-			}
+			
+		},
+		/**
+		 * 加载页面时
+		 */
+		onLoad() {
+		},
+		/**
+		 * 页面显示时
+		 */
+		onShow() {
+			// 添加动画
+		},
+		/**
+		 * 页面销毁时
+		 */
+		onUnload() {
 		}
 	}
 </script>
 
-<style scoped>
+<style>
+	#user_password #id_name {}
 </style>
+

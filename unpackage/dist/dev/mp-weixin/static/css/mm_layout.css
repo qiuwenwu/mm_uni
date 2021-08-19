@@ -13,13 +13,6 @@
 #app {
 	position: absolute;
 	width: 100%;
-	height: 100%;
-	overflow: hidden;
-}
-
-.mm_page {
-	height: 100%;
-	overflow: auto;
 }
 
 .mm_warp {
@@ -151,7 +144,6 @@ footer.hide-x {
 
 /* 栅格 */
 .mm_container {
-	width: 100%;
 	max-width: 77rem;
 	margin-right: auto;
 	margin-left: auto
@@ -220,10 +212,6 @@ footer.hide-x {
 .card_head {
 	position: relative;
 	padding: var(--padding_small) var(--padding_base);
-}
-
-.card_head~.card_body {
-	border-top: 1px solid rgba(125, 125, 125, 0.25);
 }
 
 .card_foot {
@@ -302,10 +290,6 @@ ol.mm_list li::before {
 	padding: var(--padding_small);
 	overflow: hidden;
 	height: 100%;
-}
-
-.item-tb .media~.doc {
-	padding-top: 0;
 }
 
 .mm_item .title {
@@ -396,11 +380,6 @@ ol.mm_list li::before {
 	margin-left: -1px;
 }
 
-.mm_group>input~.mm_btn,
-.mm_group>input~[class*=mm_btn_] {
-	flex: inherit;
-}
-
 .mm_group>span,
 .mm_group>.unit,
 .mm_group>.title {
@@ -468,16 +447,6 @@ ol.mm_list li::before {
 	position: absolute;
 	bottom: 0;
 	width: 100%;
-}
-
-.mm_info.item-rtb.img-base .media~.title::after,
-.mm_info.item-rtb.img-base .media~.content::after {
-	width: calc(100% - var(--img_size_base) - var(--margin_base) * 2 - var(--padding_base));
-}
-
-.mm_info.item-rtb.img-big .media~.title::after,
-.mm_info.item-rtb.img-big .media~.content::after {
-	width: calc(100% - var(--img_size_big) - var(--margin_base) * 2 - var(--padding_base));
 }
 
 .mm_info .content img {
@@ -708,7 +677,6 @@ ol.mm_list li::before {
 }
 
 @media (min-width:576px) {
-
 	.mm_side~header,
 	.mm_side~footer {
 		width: calc(100% - 12rem);

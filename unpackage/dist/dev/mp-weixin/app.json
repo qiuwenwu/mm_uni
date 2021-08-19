@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/root/index",
-    "pages/comment/edit",
+    "pages/card/details",
     "pages/web/index",
     "pages/media/music",
     "pages/media/image",
@@ -9,75 +9,70 @@
     "pages/account/forgot",
     "pages/account/login",
     "pages/account/register",
-    "pages/article/list",
-    "pages/article/details",
-    "pages/forum/index",
-    "pages/forum/list",
-    "pages/forum/details",
-    "pages/goods/list",
-    "pages/goods/details",
-    "pages/cart/index",
-    "pages/cart/list",
+    "pages/info/index",
+    "pages/info/details",
+    "pages/info/edit",
+    "pages/news/index",
+    "pages/news/details",
+    "pages/news/edit",
     "pages/message/edit",
     "pages/message/list",
     "pages/notice/list",
     "pages/notice/details",
-    "pages/order/index",
-    "pages/order/list",
-    "pages/order/details",
     "pages/user/index",
     "pages/user/password",
+    "pages/user/card",
     "pages/user/info",
+    "pages/user/phone",
+    "pages/user/email",
     "pages/user/collect",
+    "pages/user/publish",
     "pages/user/address",
     "pages/user/address_edit"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "长盛",
+    "navigationBarTitleText": "梅州之声",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
   "tabBar": {
-    "color": "#8a8a8a",
-    "selectedColor": "#3388FF",
+    "color": "#333333",
+    "selectedColor": "#8E7566",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/root/index",
         "text": "首页",
-        "iconPath": "static/img/home_a.png",
-        "selectedIconPath": "static/img/home_b.png"
+        "iconPath": "static/img/home.png",
+        "selectedIconPath": "static/img/home_a.png"
       },
       {
-        "pagePath": "pages/order/index",
-        "text": "订单",
-        "iconPath": "static/img/order_a.png",
-        "selectedIconPath": "static/img/order_b.png"
+        "pagePath": "pages/info/index",
+        "text": "资讯",
+        "iconPath": "static/img/shopping.png",
+        "selectedIconPath": "static/img/shopping_a.png"
       },
       {
-        "pagePath": "pages/cart/index",
-        "text": "购物车",
-        "iconPath": "static/img/cart_a.png",
-        "selectedIconPath": "static/img/cart_b.png"
-      },
-      {
-        "pagePath": "pages/forum/index",
-        "text": "社区",
-        "iconPath": "static/img/forum_a.png",
-        "selectedIconPath": "static/img/forum_b.png"
+        "pagePath": "pages/news/index",
+        "text": "新闻",
+        "iconPath": "static/img/news.png",
+        "selectedIconPath": "static/img/news_a.png"
       },
       {
         "pagePath": "pages/user/index",
-        "text": "我的",
-        "iconPath": "static/img/my_a.png",
-        "selectedIconPath": "static/img/my_b.png"
+        "text": "我",
+        "iconPath": "static/img/my.png",
+        "selectedIconPath": "static/img/my_a.png"
       }
     ]
   },
-  "permission": {},
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序定位到你所在位置和搜寻附近服务人员"
+    }
+  },
+  "usingComponents": {}
 }

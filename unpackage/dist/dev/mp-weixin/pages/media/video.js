@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/media/video"],{
 
 /***/ 63:
-/*!*************************************************************************!*\
-  !*** E:/github/1_doing/mm_uni/main.js?{"page":"pages%2Fmedia%2Fvideo"} ***!
-  \*************************************************************************/
+/*!***********************************************************************!*\
+  !*** E:/github/other/mm_uni/main.js?{"page":"pages%2Fmedia%2Fvideo"} ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_video.default);
 /***/ }),
 
 /***/ 64:
-/*!******************************************************!*\
-  !*** E:/github/1_doing/mm_uni/pages/media/video.vue ***!
-  \******************************************************/
+/*!****************************************************!*\
+  !*** E:/github/other/mm_uni/pages/media/video.vue ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/media/video.vue"
 /***/ }),
 
 /***/ 65:
-/*!*************************************************************************************************!*\
-  !*** E:/github/1_doing/mm_uni/pages/media/video.vue?vue&type=template&id=ee45f2b2&scoped=true& ***!
-  \*************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** E:/github/other/mm_uni/pages/media/video.vue?vue&type=template&id=ee45f2b2&scoped=true& ***!
+  \***********************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 66:
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/github/1_doing/mm_uni/pages/media/video.vue?vue&type=template&id=ee45f2b2&scoped=true& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/github/other/mm_uni/pages/media/video.vue?vue&type=template&id=ee45f2b2&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96,19 +96,19 @@ var components
 try {
   components = {
     mm_warp: function() {
-      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_warp */ "components/mm_uni_ui/base/mm_warp").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_warp.vue */ 267))
+      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_warp */ "components/mm_uni_ui/base/mm_warp").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_warp.vue */ 263))
     },
     mm_container: function() {
-      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_container */ "components/mm_uni_ui/base/mm_container").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_container.vue */ 272))
+      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_container */ "components/mm_uni_ui/base/mm_container").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_container.vue */ 268))
     },
     mm_row: function() {
-      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_row */ "components/mm_uni_ui/base/mm_row").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_row.vue */ 277))
+      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_row */ "components/mm_uni_ui/base/mm_row").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_row.vue */ 273))
     },
     mm_col: function() {
-      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_col */ "components/mm_uni_ui/base/mm_col").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_col.vue */ 282))
+      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_col */ "components/mm_uni_ui/base/mm_col").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_col.vue */ 278))
     },
     mm_view: function() {
-      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_view */ "components/mm_uni_ui/base/mm_view").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_view.vue */ 287))
+      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_view */ "components/mm_uni_ui/base/mm_view").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_view.vue */ 283))
     }
   }
 } catch (e) {
@@ -142,9 +142,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 67:
-/*!*******************************************************************************!*\
-  !*** E:/github/1_doing/mm_uni/pages/media/video.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/*!*****************************************************************************!*\
+  !*** E:/github/other/mm_uni/pages/media/video.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -158,9 +158,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 68:
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/github/1_doing/mm_uni/pages/media/video.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/github/other/mm_uni/pages/media/video.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -249,9 +249,9 @@ var _default =
 /***/ }),
 
 /***/ 69:
-/*!***************************************************************************************************************!*\
-  !*** E:/github/1_doing/mm_uni/pages/media/video.vue?vue&type=style&index=0&id=ee45f2b2&scoped=true&lang=css& ***!
-  \***************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** E:/github/other/mm_uni/pages/media/video.vue?vue&type=style&index=0&id=ee45f2b2&scoped=true&lang=css& ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -265,9 +265,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 70:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/github/1_doing/mm_uni/pages/media/video.vue?vue&type=style&index=0&id=ee45f2b2&scoped=true&lang=css& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/github/other/mm_uni/pages/media/video.vue?vue&type=style&index=0&id=ee45f2b2&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

@@ -62,12 +62,7 @@
 
 	.page_account {
 		height: 100%;
-	}
-
-	.page_account .mm_warp {
-		background: url(static/img/bg_account.jpg) no-repeat;
-		background-size: 100% 100%;
-		height: 100vh;
+		min-height: 100vh;
 	}
 
 	.banner_container {

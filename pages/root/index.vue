@@ -1,243 +1,158 @@
 <template>
-	<mm_page class="page_index" id="page_index">
+	<mm_page class="page_root" id="root_index">
 		<mm_main>
-			<!-- 轮播图模块(开始) -->
+			<!-- 轮播图(开始) -->
 			<mm_warp id="banner">
-				<mm_container class="container">
+				<mm_container>
 					<mm_row>
-						<mm_col class="col-12">
-							<mm_view>
-								
+						<mm_col class="col-12 col-sm-6 col-md-4">
+							<mm_view class="pa">
+								<!-- 轮播图 -->
+								<swiper_image :list="list_slide"></swiper_image>
+								<!-- /轮播图 -->
 							</mm_view>
 						</mm_col>
 					</mm_row>
 				</mm_container>
 			</mm_warp>
-			<!-- 轮播图模块(结束) -->
+			<!-- 轮播图(结束) -->
 
-			<!-- 菜单模块(开始) -->
+			<!-- 菜单栏(开始) -->
 			<mm_warp id="menu">
-				<mm_container class="container">
+				<mm_container>
 					<mm_row>
-						<mm_col class="col-12">
-							<mm_view class="view_menu">
-								<!-- 菜单 -->
-								<list_menu :list_menu="list_menu"></list_menu>
-								<!-- /菜单 -->
+						<mm_col class="col-12 col-sm-6 col-md-4">
+							<mm_view class="yyy">
+
 							</mm_view>
 						</mm_col>
 					</mm_row>
 				</mm_container>
 			</mm_warp>
-			<!-- 菜单模块(结束) -->
+			<!-- 菜单栏(结束) -->
 
-			<!-- 广告模块(开始) -->
-			<mm_warp id="ad">
-				<mm_container class="container">
+			<!-- 搜索栏(开始) -->
+			<mm_warp id="search">
+				<mm_container>
 					<mm_row>
-						<mm_col class="ad">
-							<mm_view>
-								<!-- 顶部广告 -->
-								<view v-if="$check_action('/ad/list','get')" style="margin-bottom: 1rem;">
-									<list_ad :list="list_ad" location="顶部广告"></list_ad>
+						<mm_col class="col-12 col-sm-6 col-md-4">
+							<mm_view class="yyy">
+
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 搜索栏(结束) -->
+
+			<!-- 名片列表(开始) -->
+			<mm_warp id="name_card">
+				<mm_container>
+					<mm_row>
+						<mm_col class="col-12 col-sm-6 col-md-4">
+							<!-- 名片(开始) -->
+							<mm_card class="name_card">
+								<view class="card_head">
+
 								</view>
-								<!-- /顶部广告 -->
-							</mm_view>
-						</mm_col>
-					</mm_row>
-				</mm_container>
-			</mm_warp>
-			<!-- 广告模块(结束) -->
+								<view class="card_body">
 
-			<!-- 链接模块(开始) -->
-			<mm_warp id="">
-				<mm_container class="container">
-					<mm_row>
-						<mm_col>
-							<mm_view>
-								<!-- 友情链接 -->
-								<list_link v-if="$check_action('/link/list','get')" :list="list_link"></list_link>
-								<!-- /友情链接 -->
-							</mm_view>
-						</mm_col>
-					</mm_row>
-				</mm_container>
-			</mm_warp>
-			<!-- 链接模块(结束) -->
+								</view>
+								<view class="card_foot">
 
-			<!-- 版权模块(开始) -->
-			<mm_warp id="copyright">
-				<mm_container class="container">
-					<mm_row>
-						<mm_col>
-							<mm_view>
-								<!-- 版权信息 -->
-								<view class="copyright"><text>@版权归属 XX 所有</text></view>
-								<!-- /版权信息 -->
-							</mm_view>
+								</view>
+							</mm_card>
+							<!-- 名片(结束) -->
 						</mm_col>
 					</mm_row>
 				</mm_container>
 			</mm_warp>
-			<!-- 版权模块(结束) -->
+			<!-- 名片列表(结束) -->
 		</mm_main>
 	</mm_page>
 </template>
 
 <script>
-	import mixin from "@/mixins/page.js";
+	import swiper_image from "@/components/mm_uni_ui/swiper/swiper_image.vue";
+	
+	import mixin_page from "@/mixins/page.js";
 	export default {
-		mixins: [mixin],
+		mixins: [
+			mixin_page
+		],
 		components: {
-			list_ad,
-			list_link,
-			swiper_img,
-			swiper_notice
+			swiper_image
 		},
 		data() {
 			return {
-				str: "<div>测试一下</div>",
-				list_ad: [],
-				list_slide: [],
-				list_menu: [],
-				list_link: [],
-				list_notice: []
+				message: 'Hello',
+				// 定时器
+				timer: null,
+				// 请求链接
+				url: "",
+				// 获取单条数据链接
+				url_get_obj: "",
+				// 获取列表链接
+				url_get_list: "",
+				// 查询条件
+				query: {},
+				// 表的主字段
+				field: "xxx_id",
+				// 获取到对象
+				obj: {},
+				// 获取到的列表
+				list: [],
+				// 操作表单
+				form: {},
+				// 筛选关键词
+				keyword: "",
+				list_slide: [{
+					img: "/sys/img/img_1627018321917.png"
+				},
+				{
+					img: "/sys/img/img_1627018321917.png"
+				},
+				{
+					img: "/sys/img/img_1627018321917.png"
+				}]
+			}
+		},
+		computed: {
+			/**
+			 * 新列表
+			 */
+			list_new() {
+				var list = this.list;
+				var lt = [];
+				for (var i = 0; i < list.length; i++) {
+					var o = list[i];
+					if (o.keyword == this.keyword) {
+						lt.push(o);
+					}
+				}
+				return lt;
 			}
 		},
 		methods: {
-			/**
-			 * 获取轮播图
-			 */
-			get_slides() {
-				this.$get("~/api/sys/banner?", {}, (json) => {
-					if (json.result && json.result.list) {
-						console.log("轮播图", json.result.list);
-						this.list_slide = json.result.list;
-					}
-				})
-			},
-			/**
-			 * 获取导航栏
-			 */
-			get_menu() {
-				this.$get("~/api/sys/nav?", {
-					"page": 1,
-					"size": "0",
-					"": ""
-				}, (json) => {
-					if (json.result && json.result.list) {
-						this.list_menu = json.result.list;
-					}
-				})
-			},
-			/**
-			 * 获取文章
-			 */
-			get_article() {
-				this.$get("~/api/cms/article?", {
-					"page": 1,
-					"size": 5
-				}, (json) => {
-					if (json.result && json.result.list) {
-						console.log("文章", json.result.list);
-						this.list_article = json.result.list;
-					}
-				})
-			},
-			/**
-			 * 获取广告
-			 */
-			get_ad() {
-				this.$get("~/api/sys/ad?", {
-					"page": 1,
-					"size": 5
-				}, (json) => {
-					if (json.result && json.result.list) {
-						console.log("广告", json.result.list);
-						this.list_ad = json.result.list;
-					}
-				})
-			},
-			/**
-			 * 获取商品
-			 */
-			get_goods() {
-				this.$get("~/api/mall/goods?", {
-					"page": 1,
-					"size": 4
-				}, (json) => {
-					if (json.result && json.result.list) {
-						console.log("商品", json.result.list);
-						this.list_goods = json.result.list;
-					}
-				})
-			},
-			/**
-			 * 获取链接列表
-			 */
-			get_link() {
-				this.$get("~/api/sys/link?", {
-					"page": 1,
-					"size": 3
-				}, (json) => {
-					if (json.result && json.result.list) {
-						console.log("链接", json.result.list);
-						this.list_link = json.result.list;
-					}
-				})
-			},
-			/**
-			 * 获取公告列表
-			 */
-			get_notice() {
-				this.$get("~/api/sys/notice?", {
-					"page": 1,
-					"size": 3
-				}, (json) => {
-					if (json.result && json.result.list) {
-						console.log("公告", json.result.list);
-						this.list_notice = json.result.list;
-					}
-				})
-			}
+
 		},
-		onLoad() {
-			this.get_menu()
-			this.get_slides()
-			this.get_article()
-			this.get_goods()
-			this.get_link()
-			this.get_notice()
+		/**
+		 * 加载页面时
+		 */
+		onLoad() {},
+		/**
+		 * 页面显示时
+		 */
+		onShow() {
+			this.$getList("list_slide", "~/api/city/ad");
 		},
-		onPageScroll(e) {
-			console.log(e.scrollTop);
-			console.log(document.getElementById("notice").offsetTop)
-		}
+		/**
+		 * 页面销毁时
+		 */
+		onUnload() {}
 	}
 </script>
 
 <style>
-	@media (min-width:768px) {
-		#page_index .view_menu {
-			margin: 0 auto;
-			width: 75%;
-		}
-	}
-
-	#page_index .container {}
-
-	#page_index .view_menu {
-		margin-bottom: 1rem;
-	}
-
-	#page_index .mm_container {
-		background-color: #FFFFFF;
-	}
-
-	#page_index .copyright {
-		text-align: center;
-		padding: 1rem 0;
-		color: #999;
-		font-size: 0.875rem;
-	}
+	#root_index #id_name {}
 </style>

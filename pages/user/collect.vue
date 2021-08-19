@@ -1,130 +1,107 @@
 <template>
-	<view class="page_user" id="user_collect">
-		
-		<!-- 筛选模块(开始) -->
-		<mm_warp>
-			<mm_container class="container">
-				<mm_row>
-					<mm_col>
-						<mm_view class="">
-							<!-- 搜索栏 -->
-							<uni-search-bar placeholder="搜索产品" @confirm="search" @cancel="cancel" cancelText="取消"
-								@input="input($event, 'title')">
-								<uni-icons slot="searchIcon" color="#999999" size="18" type="home" />
-							</uni-search-bar>
-						</mm_view>
-					</mm_col>
-				</mm_row>
-			</mm_container>
-		</mm_warp>
-		<!-- 筛选模块(结束) -->
-		<!-- 收藏列表模块(开始) -->
-		<mm_warp>
-			<mm_container class="container">
-				<mm_row>
-					<mm_col>
-						<mm_view class="">
-							<list_collect :list="list"></list_collect>
-						</mm_view>
-					</mm_col>
-				</mm_row>
-			</mm_container>
-		</mm_warp>
-		<!-- 收藏列表模块(结束) -->
-	</view>
+	<mm_page class="page_user" id="user_collect">
+		<mm_main>
+			<!-- 编辑表单(开始) -->
+			<mm_warp id="menu">
+				<mm_container>
+					<mm_row>
+						<mm_col class="col-12 col-sm-6 col-md-4">
+							<mm_view class="yyy">
+			
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 编辑表单(结束) -->
+			
+			<!-- 按钮列表(开始) -->
+			<mm_warp id="buttons">
+				<mm_container>
+					<mm_row>
+						<mm_col class="col-12">
+							<mm_view>
+								<button>立 即 发 布</button>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 按钮列表(结束) -->
+		</mm_main>
+	</mm_page>
 </template>
 
 <script>
-	import list_collect from "@/components/diy/list_collect.vue";
-	import mixin from "@/mixins/page.js";
-
+	import mixin_page from "@/mixins/page.js";
 	export default {
-		mixins: [mixin],
-		components: {
-			list_collect,
-		},
+		mixins: [
+			mixin_page
+		],
 		data() {
 			return {
-				// 登录权限
-				oauth: {
-					"signIn": true,
-					"user_group": []
-				},
-				url_get_list: "~/api/collect?",
-				query: {
-					user_id: 0
-				},
+				message: 'Hello',
+				// 定时器
+				timer: null,
+				// 请求链接
+				url: "",
+				// 获取单条数据链接
+				url_get_obj: "",
+				// 获取列表链接
+				url_get_list: "",
+				// 查询条件
+				query: {},
+				// 表的主字段
+				field: "xxx_id",
+				// 获取到对象
+				obj: {},
+				// 获取到的列表
 				list: [],
-				type_names: [{
-						name: '全部',
-						value: 0
-					},
-					{
-						name: '文章',
-						value: 'article'
-					},
-					{
-						name: '商品',
-						value: 'goods'
-					},
-					{
-						name: '论坛',
-						value: 'forum'
-					},
-				],
-				filter_title: '排序',
+				// 操作表单
+				form: {},
+				// 筛选关键词
+				keyword: ""
+			}
+		},
+		computed: {
+			/**
+			 * 新列表
+			 */
+			list_new() {
+				var list = this.list;
+				var lt = [];
+				for (var i = 0; i < list.length; i++) {
+					var o = list[i];
+					if (o.keyword == this.keyword) {
+						lt.push(o);
+					}
+				}
+				return lt;
 			}
 		},
 		methods: {
-			/**
-			 * 下拉收藏选择
-			 */
-			filter_item(o) {
-				this.query.source_table = o.name.value;
-				this.search();
-			},
-			get_list_before(param) {
-				param.user_id = this.user.user_id
-				return param
-			},
-			page_change(e) {
-				console.log(e);
-			},
-			search() {
-				this.query.page = 1;
-				this.get_list();
-			},
-			cancel() {
-				this.title = "";
-				this.search();
-			},
-			input(e, key) {
-				this.query[key] = e.value;
-			},
+			
+		},
+		/**
+		 * 加载页面时
+		 */
+		onLoad() {
+		},
+		/**
+		 * 页面显示时
+		 */
+		onShow() {
+			// 添加动画
+		},
+		/**
+		 * 页面销毁时
+		 */
+		onUnload() {
 		}
-
 	}
 </script>
 
-<style scoped>
-	.top_handle {
-		position: relative;
-		height: 2.6rem;
-		width: 100%;
-	}
-
-	.dropdown_box {
-		width: 100%;
-		display: flex;
-		position: absolute;
-		z-index: 1000;
-	}
-
-	.dropdown_box>* {
-		flex: 1
-	}
-
-	.dropdown_collect {
-		line-height: 40px;
-	}
+<style>
+	#user_collect #id_name {}
 </style>
+

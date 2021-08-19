@@ -1,14 +1,14 @@
 
-#account_register .mm_container{
+#account_register .mm_container {
 	padding: 2rem 1rem 0;
 }
-#account_register .row{
+#account_register .row {
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
 #account_register .register_view {
-	background-color: rgb(255,255,255,0.8);
+	background-color: rgb(255, 255, 255, 0.8);
 	overflow: hidden;
 	border-radius: 0.5rem;
 }
@@ -43,5 +43,4 @@
 	font-size: var(--font_big);
 	margin-bottom: var(--margin_base);
 }
-
 

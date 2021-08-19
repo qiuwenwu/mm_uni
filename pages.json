@@ -11,7 +11,13 @@
 	"pages": [{
 			"path": "pages/root/index",
 			"style": {
-				"navigationBarTitleText": "金牌保姆"
+				"navigationBarTitleText": "梅州之声"
+			}
+		},
+		{
+			"path": "pages/card/details",
+			"style": {
+				"navigationBarTitleText": "名片详情"
 			}
 		},
 		{
@@ -54,16 +60,38 @@
 				"navigationBarTitleText": "注册"
 			}
 		}, {
-			"path": "pages/article/list",
+			"path": "pages/info/index",
 			"style": {
-				"navigationBarTitleText": "文章列表"
+				"navigationBarTitleText": "同城资讯"
 			}
 		}, {
-			"path": "pages/article/details",
+			"path": "pages/info/details",
 			"style": {
-				"navigationBarTitleText": "文章详情"
+				"navigationBarTitleText": "资讯详情"
 			}
 		}, {
+			"path": "pages/info/edit",
+			"style": {
+				"navigationBarTitleText": "发布资讯"
+			}
+		},
+		{
+			"path": "pages/news/index",
+			"style": {
+				"navigationBarTitleText": "同城新闻"
+			}
+		}, {
+			"path": "pages/news/details",
+			"style": {
+				"navigationBarTitleText": "新闻详情"
+			}
+		}, {
+			"path": "pages/news/edit",
+			"style": {
+				"navigationBarTitleText": "发布新闻"
+			}
+		},
+		{
 			"path": "pages/message/edit",
 			"style": {
 				"navigationBarTitleText": "留言板编辑页"
@@ -96,14 +124,34 @@
 				"navigationBarTitleText": "修改密码"
 			}
 		}, {
+			"path": "pages/user/card",
+			"style": {
+				"navigationBarTitleText": "我的名片"
+			}
+		}, {
 			"path": "pages/user/info",
 			"style": {
 				"navigationBarTitleText": "基本信息"
 			}
 		}, {
+			"path": "pages/user/phone",
+			"style": {
+				"navigationBarTitleText": "我的手机"
+			}
+		}, {
+			"path": "pages/user/email",
+			"style": {
+				"navigationBarTitleText": "我的邮箱"
+			}
+		}, {
 			"path": "pages/user/collect",
 			"style": {
 				"navigationBarTitleText": "我的收藏"
+			}
+		}, {
+			"path": "pages/user/publish",
+			"style": {
+				"navigationBarTitleText": "我的发布"
 			}
 		}, {
 			"path": "pages/user/address",
@@ -119,7 +167,7 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "长盛",
+		"navigationBarTitleText": "梅州之声",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
 		"app-plus": {
@@ -127,33 +175,33 @@
 		}
 	},
 	"tabBar": {
-		"color": "#8a8a8a",
-		"selectedColor": "#3388FF",
+		"color": "#333333",
+		"selectedColor": "#8E7566",
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
 				"pagePath": "pages/root/index",
 				"text": "首页",
-				"iconPath": "static/img/home_a.png",
-				"selectedIconPath": "static/img/home_b.png"
+				"iconPath": "static/img/home.png",
+				"selectedIconPath": "static/img/home_a.png"
 			},
 			{
 				"pagePath": "pages/info/index",
 				"text": "资讯",
-				"iconPath": "static/img/info_a.png",
-				"selectedIconPath": "static/img/info_b.png"
+				"iconPath": "static/img/shopping.png",
+				"selectedIconPath": "static/img/shopping_a.png"
 			},
 			{
-				"pagePath": "pages/forum/index",
-				"text": "社区",
-				"iconPath": "static/img/forum_a.png",
-				"selectedIconPath": "static/img/forum_b.png"
+				"pagePath": "pages/news/index",
+				"text": "新闻",
+				"iconPath": "static/img/news.png",
+				"selectedIconPath": "static/img/news_a.png"
 			},
 			{
 				"pagePath": "pages/user/index",
-				"text": "我的",
-				"iconPath": "static/img/my_a.png",
-				"selectedIconPath": "static/img/my_b.png"
+				"text": "我",
+				"iconPath": "static/img/my.png",
+				"selectedIconPath": "static/img/my_a.png"
 			}
 		]
 	},

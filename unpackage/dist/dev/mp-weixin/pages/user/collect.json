@@ -1,13 +1,12 @@
 {
   "navigationBarTitleText": "我的收藏",
   "usingComponents": {
+    "mm_page": "/components/mm_uni_ui/base/mm_page",
+    "mm_main": "/components/mm_uni_ui/base/mm_main",
     "mm_warp": "/components/mm_uni_ui/base/mm_warp",
     "mm_container": "/components/mm_uni_ui/base/mm_container",
     "mm_row": "/components/mm_uni_ui/base/mm_row",
     "mm_col": "/components/mm_uni_ui/base/mm_col",
-    "mm_view": "/components/mm_uni_ui/base/mm_view",
-    "uni-search-bar": "/components/uni-search-bar/uni-search-bar",
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "list_collect": "/components/diy/list_collect"
+    "mm_view": "/components/mm_uni_ui/base/mm_view"
   }
 }

@@ -1,86 +1,88 @@
 <template>
 	<view class="page_account" id="account_register">
-		<mm_warp>
-			<mm_container>
-				<mm_row class="row">
-					<mm_col class="col-12 col-sm-6 col-md-4 col-xl-3">
-						<mm_view class="register_view">
-							<uni-forms class="form_register" :rules="rules" :value="form" ref="form"
-								validate-trigger="bind" err-show-type="undertext">
-								<view class="title">
-									<text>注册</text>
-								</view>
-								<uni-forms-item name="username" required label="用户名">
-									<uni-easyinput type="text" :inputBorder="true" v-model="form.username"
-										placeholder="请输入用户名"></uni-easyinput>
-								</uni-forms-item>
-								<uni-forms-item name="password" required label="密码">
-									<uni-easyinput type="password" :inputBorder="true" v-model="form.password"
-										placeholder="请输入密码"></uni-easyinput>
-								</uni-forms-item>
-								<uni-forms-item name="confirm_password" required label="确认密码">
-									<uni-easyinput type="password" :inputBorder="true" v-model="form.confirm_password"
-										placeholder="请再次输入密码"></uni-easyinput>
-								</uni-forms-item>
-								<uni-forms-item name="email" label="邮箱">
-									<uni-easyinput type="text" v-model="form.email" placeholder="请输入邮箱">
-									</uni-easyinput>
-								</uni-forms-item>
-								<uni-forms-item name="nickname" label="昵称">
-									<uni-easyinput type="text" v-model="form.phone" placeholder="请输入手机">
-									</uni-easyinput>
-								</uni-forms-item>
-								<uni-forms-item name="user_group" label="身份">
-									<view class="group_selector">
-										<picker mode="selector" :range="list" range-key="name" @change="select_group">
-											{{user_group? user_group: '选择身份' }}
-											<uni-icons style="padding-left: 0.5rem;" type="arrowdown" size="16">
-											</uni-icons>
-										</picker>
-									</view>
-								</uni-forms-item>
-								<view class="btn_register" @click="register()">立即注册</view>
-							</uni-forms>
-						</mm_view>
-					</mm_col>
-				</mm_row>
-			</mm_container>
-		</mm_warp>
-		<!-- 商家 -->
-		<mm_warp id="">
-			<mm_container>
-				<mm_row>
-					<mm_col>
-						<mm_view class="yyy">
-							<uni-forms v-if="user_group === '商家'" :rules="rules_business" :value="form_business"
-								ref="form_business" validate-trigger="bind" err-show-type="undertext">
-								<uni-group top="0">
+		<mm_main>
+			<mm_warp>
+				<mm_container>
+					<mm_row class="row">
+						<mm_col class="col-12 col-sm-6 col-md-4 col-xl-3">
+							<mm_view class="register_view">
+								<uni-forms class="form_register" :rules="rules" :value="form" ref="form"
+									validate-trigger="bind" err-show-type="undertext">
 									<view class="title">
 										<text>注册</text>
 									</view>
-									<uni-forms-item name="business_name" required label="商家名称">
-										<uni-easyinput type="text" :inputBorder="true" v-model="form.business_name"
-											placeholder="请输入商家名称"></uni-easyinput>
+									<uni-forms-item name="username" required label="用户名">
+										<uni-easyinput type="text" :inputBorder="true" v-model="form.username"
+											placeholder="请输入用户名"></uni-easyinput>
 									</uni-forms-item>
-									<uni-forms-item name="business_phone" required label="商家电话">
-										<uni-easyinput type="text" :inputBorder="true" v-model="form.business_phone"
-											placeholder="请输入商家电话"></uni-easyinput>
+									<uni-forms-item name="password" required label="密码">
+										<uni-easyinput type="password" :inputBorder="true" v-model="form.password"
+											placeholder="请输入密码"></uni-easyinput>
 									</uni-forms-item>
-									<uni-forms-item name="id_card" required label="身份证">
-										<uni-easyinput type="text" :inputBorder="true" v-model="form.id_card"
-											placeholder="请输入身份证"></uni-easyinput>
+									<uni-forms-item name="confirm_password" required label="确认密码">
+										<uni-easyinput type="password" :inputBorder="true"
+											v-model="form.confirm_password" placeholder="请再次输入密码"></uni-easyinput>
+									</uni-forms-item>
+									<uni-forms-item name="email" label="邮箱">
+										<uni-easyinput type="text" v-model="form.email" placeholder="请输入邮箱">
+										</uni-easyinput>
+									</uni-forms-item>
+									<uni-forms-item name="nickname" label="昵称">
+										<uni-easyinput type="text" v-model="form.phone" placeholder="请输入手机">
+										</uni-easyinput>
+									</uni-forms-item>
+									<uni-forms-item name="user_group" label="身份">
+										<view class="group_selector">
+											<picker mode="selector" :range="list" range-key="name"
+												@change="select_group">
+												{{user_group? user_group: '选择身份' }}
+												<uni-icons style="padding-left: 0.5rem;" type="arrowdown" size="16">
+												</uni-icons>
+											</picker>
+										</view>
 									</uni-forms-item>
 									<view class="btn_register" @click="register()">立即注册</view>
-								</uni-group>
-							</uni-forms>
-						</mm_view>
-					</mm_col>
-				</mm_row>
-			</mm_container>
-		</mm_warp>
-		<!-- /商家 -->
+								</uni-forms>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 商家 -->
+			<mm_warp id="">
+				<mm_container>
+					<mm_row>
+						<mm_col>
+							<mm_view class="yyy">
+								<uni-forms v-if="user_group === '商家'" :rules="rules_business" :value="form_business"
+									ref="form_business" validate-trigger="bind" err-show-type="undertext">
+									<uni-group top="0">
+										<view class="title">
+											<text>注册</text>
+										</view>
+										<uni-forms-item name="business_name" required label="商家名称">
+											<uni-easyinput type="text" :inputBorder="true" v-model="form.business_name"
+												placeholder="请输入商家名称"></uni-easyinput>
+										</uni-forms-item>
+										<uni-forms-item name="business_phone" required label="商家电话">
+											<uni-easyinput type="text" :inputBorder="true" v-model="form.business_phone"
+												placeholder="请输入商家电话"></uni-easyinput>
+										</uni-forms-item>
+										<uni-forms-item name="id_card" required label="身份证">
+											<uni-easyinput type="text" :inputBorder="true" v-model="form.id_card"
+												placeholder="请输入身份证"></uni-easyinput>
+										</uni-forms-item>
+										<view class="btn_register" @click="register()">立即注册</view>
+									</uni-group>
+								</uni-forms>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- /商家 -->
+		</mm_main>
 	</view>
-
 </template>
 
 
@@ -307,15 +309,16 @@
 </script>
 
 <style>
-	#account_register .mm_container{
+	#account_register .mm_container {
 		padding: 2rem 1rem 0;
 	}
-	#account_register .row{
+
+	#account_register .row {
 		justify-content: center;
 	}
-	
+
 	#account_register .register_view {
-		background-color: rgb(255,255,255,0.8);
+		background-color: rgb(255, 255, 255, 0.8);
 		overflow: hidden;
 		border-radius: 0.5rem;
 	}
@@ -354,5 +357,4 @@
 		font-size: var(--font_big);
 		margin-bottom: var(--margin_base);
 	}
-
 </style>

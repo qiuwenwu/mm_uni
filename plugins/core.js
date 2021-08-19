@@ -24,33 +24,43 @@ export default {
 			},
 			methods: {
 				/**
+				 *  快速获取列表
+				 */
+				$getList(key, url) {
+					this.$get(url, {}, (json) => {
+						if (json.default) {
+							this[key] = json.default.list;
+						}
+					});
+				},
+				/**
 				 *  改变时间
 				 */
-				$changeTime(o){
-				    for (var k in o) {
-				        if (k.indexOf('time') !== -1) {
-				            if (typeof(k) == 'string') {
-				                var val = o[k];
-				                if (val || val.indexOf('T') !== -1) {
-				                    var v = new Date(o[k]);
-				                    o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-				                } else if (/\d+/.test(val)) {
-				                    if (o[k].length == 10) {
-				                        var v = new Date(o[k] * 1000);
-				                        o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-				                    } else if (o[k].length == 13) {
-				                        var v = new Date(o[k] * 1000);
-				                        o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-				                    }
-				                } else if (typeof(k) == 'number') {
-				                    var v = new Date(o[k]);
-				                    o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-				                }
-				            }
-				        }
-				    }
+				$changeTime(o) {
+					for (var k in o) {
+						if (k.indexOf('time') !== -1) {
+							if (typeof(k) == 'string') {
+								var val = o[k];
+								if (val || val.indexOf('T') !== -1) {
+									var v = new Date(o[k]);
+									o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+								} else if (/\d+/.test(val)) {
+									if (o[k].length == 10) {
+										var v = new Date(o[k] * 1000);
+										o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+									} else if (o[k].length == 13) {
+										var v = new Date(o[k] * 1000);
+										o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+									}
+								} else if (typeof(k) == 'number') {
+									var v = new Date(o[k]);
+									o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+								}
+							}
+						}
+					}
 				},
-				
+
 				$message(content, type = "none") {
 					uni.showToast({
 						title: content,
@@ -238,13 +248,13 @@ export default {
 				 * @return {String} 新地址
 				 */
 				$fullImgUrl(url) {
-					if(url){
+					if (url) {
 						return this.$fullUrl(url)
-					}else{
+					} else {
 						return "/static/img/logo.png"
 					}
 				},
-				
+
 				/**
 				 * GET请求
 				 * @param {String} url 请求地址
@@ -373,9 +383,9 @@ export default {
 					this.$get("~/api/sys/auth?", {
 						user_group
 					}, (json) => {
-						if(json&&json.result&&json.result.list){
-                            this.$store.commit("set_auth", json.result.list);
-                        }
+						if (json && json.result && json.result.list) {
+							this.$store.commit("set_auth", json.result.list);
+						}
 					});
 				},
 

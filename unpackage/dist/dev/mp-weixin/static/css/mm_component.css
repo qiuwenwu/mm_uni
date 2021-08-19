@@ -288,10 +288,6 @@
   line-height: 1;
 }
 
-.control_textarea textarea:focus~.btn_expand {
-  display: inline-block;
-  opacity: 1;
-}
 
 .control_textarea .tox-tinymce {
   display: none;
@@ -1444,8 +1440,6 @@ table .mm_btn {
   color: inherit;
 }
 
-.mm_tip .btn:hover~.box,
-.mm_tip .btn:focus~.box,
 .mm_tip .active .box {
   height: initial;
   opacity: 1;

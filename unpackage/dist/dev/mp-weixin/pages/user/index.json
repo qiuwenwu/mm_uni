@@ -1,12 +1,12 @@
 {
   "navigationBarTitleText": "我",
   "usingComponents": {
+    "mm_page": "/components/mm_uni_ui/base/mm_page",
+    "mm_main": "/components/mm_uni_ui/base/mm_main",
     "mm_warp": "/components/mm_uni_ui/base/mm_warp",
     "mm_container": "/components/mm_uni_ui/base/mm_container",
     "mm_row": "/components/mm_uni_ui/base/mm_row",
     "mm_col": "/components/mm_uni_ui/base/mm_col",
-    "mm_view": "/components/mm_uni_ui/base/mm_view",
-    "uni-icons": "/components/uni-icons/uni-icons",
-    "nav_quick": "/components/diy/nav_quick"
+    "mm_view": "/components/mm_uni_ui/base/mm_view"
   }
 }

@@ -872,7 +872,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2060,9 +2060,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 11:
-/*!*************************************************!*\
-  !*** E:/github/1_doing/mm_uni/plugins/index.js ***!
-  \*************************************************/
+/*!***********************************************!*\
+  !*** E:/github/other/mm_uni/plugins/index.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2086,12 +2086,13 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ./lang/index.js */ 1
 /***/ }),
 
 /***/ 12:
-/*!**************************************************!*\
-  !*** E:/github/1_doing/mm_uni/plugins/mm_sdk.js ***!
-  \**************************************************/
+/*!************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/mm_sdk.js ***!
+  \************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+/* WEBPACK VAR INJECTION */(function(uni) {
 /* == 数字原型函数 == */
 (function () {
   /**
@@ -2260,7 +2261,7 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ./lang/index.js */ 1
                * @return {String} 加密后的字符串
                */
   String.prototype.md5 = function () {
-    return $.md5(this + '');
+    return uni.md5(this + '');
   };
 
   /**
@@ -2667,68 +2668,15 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ./lang/index.js */ 1
 
 /* == 数组原型函数 == */
 (function () {
-
   /**
-               * @description 判断对象是否相似
-               * @param {Object} obj 被判断对象
-               * @param {Object} query 用作判断的对象
-               * @param {Boolean} all 是否完全相同
-               * @return {Boolean} 相似返回true，否则返回false
+               * 列表转树形列表
+               * @param {Array} list 列表
+               * @param {String} id ID字段
+               * @param {Number} value ID对应值
+               * @param {String} father_id 上级ID字段
+               * @param {String} sub 子类字段
+               * @return {Array} 返回属性值
                */
-  function as(obj, query, all) {
-    if (obj) {
-      var bl = true;
-      var type = typeof obj;
-      if (type !== typeof query) {
-        // 如果类型不一致 则两个无相似
-        bl = false;
-      } else if (type === 'string' || type === 'bool' || type === 'number') {
-        bl = obj === query;
-      } else if (obj.constructor == Array) {
-        // 如果都是数组
-        var lh = obj.length;
-        if (all && lh !== query.length) {
-          // 要求完全一致 而长度不一致 说明不相似
-          bl = false;
-        } else {
-          // 否则判断数组里的每个成员是否相似
-          for (var i = 0; i < lh; i++) {
-            if (!as(obj[i], query[i])) {
-              bl = false;
-              break;
-            }
-          }
-        }
-      } else {
-        // 如果类型为对象
-        if (all && Object.getOwnPropertyNames(obj).length !== Object.getOwnPropertyNames(query).length) {
-          // 如果要求完全一致, 而属性长度不一致，则不相似
-          bl = false;
-        } else {
-          // 否则都为对象则判断其值是否一致
-          for (var k in query) {
-            if (!as(obj[k], query[k], all)) {
-              bl = false;
-              break;
-            }
-          }
-        }
-      }
-      return bl;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-     * 列表转树形列表
-     * @param {Array} list 列表
-     * @param {String} id ID字段
-     * @param {Number} value ID对应值
-     * @param {String} father_id 上级ID字段
-     * @param {String} sub 子类字段
-     * @return {Array} 返回属性值
-     */
   function toTree(list, id) {var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;var father_id = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'father_id';var sub = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'sub';
     var arr = [];
     for (var i = 0; i < list.length; i++) {
@@ -2813,7 +2761,7 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ./lang/index.js */ 1
       * @description 数组转字符串
       * @param {String} splitStr 分隔符
       * @param {String} key 对象属性名
-      * @return {String} 字符串
+      * @return {String} 字符串 
       */
   Array.prototype.toStr = function (splitStr, key) {
     var arr = this;
@@ -3354,13 +3302,14 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ./lang/index.js */ 1
     return obj;
   };
 })();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
 /***/ 13:
-/*!**************************************************!*\
-  !*** E:/github/1_doing/mm_uni/plugins/expand.js ***!
-  \**************************************************/
+/*!************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/expand.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3372,12 +3321,42 @@ var _index = _interopRequireDefault(__webpack_require__(/*! ./lang/index.js */ 1
 
 /* == 基础函数 == */
 /**
-                  * @description 判断对象是否相似
-                  * @param {Object} obj 被判断对象
-                  * @param {Object} query 用作判断的对象
-                  * @param {Boolean} all 是否完全相同
-                  * @return {Boolean} 相似返回true，否则返回false
+                  * @description 延迟执行（休眠）
+                  * @param {Number} milliSeconds 毫秒
+                  * @param {Object} obj 判断对象或函数
+                  * @param {String} key 判断的对象属性, 为存在的情况下提成退出循环
+                  * @example var obj = {ok: false}; sleep(2000, obj, 'ok');
+                  * @example sleep(2000);
                   */
+function sleep(milliSeconds, obj, key) {
+  var endTime = new Date().getTime() + milliSeconds;
+  if (obj) {
+    if (key) {
+      while (new Date().getTime() < endTime) {
+        if (obj[key]) {
+          continue;
+        }
+      }
+    } else {
+      var func = obj;
+      while (new Date().getTime() < endTime) {
+        if (!func()) {
+          continue;
+        }
+      }
+    }
+  } else {
+    while (new Date().getTime() < endTime) {}
+  }
+}
+
+/**
+   * @description 判断对象是否相似
+   * @param {Object} obj 被判断对象
+   * @param {Object} query 用作判断的对象
+   * @param {Boolean} all 是否完全相同
+   * @return {Boolean} 相似返回true，否则返回false
+   */
 function as(obj, query, all) {
   if (obj) {
     var bl = true;
@@ -3423,16 +3402,32 @@ function as(obj, query, all) {
   }
 }
 
-uni.as = as;
+/**
+   * @description 测试函数执行速度
+   * @param {Function()} func 测试的函数
+   * @param {Number} times = [value] 测试次数
+   */
+function speeds(func, times) {
+  if (!times) {
+    times = 1000000;
+  }
+  var t1 = new Date().valueOf();
+  for (var i = 0; i < times; i++) {
+    func();
+  }
+  var t2 = new Date().valueOf();
+  var s = t2 - t1;
+  console.log('耗时' + s + '毫秒, 平均' + s / times + 'ms/次');
+}
 
 
 /**
-              * @description 添加对象属性
-              * @param {Object} objA 被添加的对象
-              * @param {Object} objB 用作添加的对象
-              * @param {Boolean} bl 是否补充没有的对象
-              * @return {Object} 新对象
-              */
+   * @description 添加对象属性
+   * @param {Object} objA 被添加的对象
+   * @param {Object} objB 用作添加的对象
+   * @param {Boolean} bl 是否补充没有的对象
+   * @return {Object} 新对象
+   */
 function push(objA, objB, bl) {
   if (!objA || !objB) {
     return;
@@ -3515,13 +3510,11 @@ function push(objA, objB, bl) {
   return objA;
 }
 
-uni.push = push;
-
 /**
-                  * @description 清空对象值
-                  * @param {Object} obj 对象
-                  * @return {Object} 返回对象自身
-                  */
+   * @description 清空对象值
+   * @param {Object} obj 对象
+   * @return {Object} 返回对象自身
+   */
 function clear(obj) {
   if (obj) {
     for (var k in obj) {
@@ -3553,14 +3546,12 @@ function clear(obj) {
   return obj;
 }
 
-uni.clear = clear;
-
 /**
-                    * @description 转为json字符串
-                    * @param {Object} obj 被转换的对象
-                    * @param {Boolean} format 是否格式化
-                    * @return {String} json格式字符串
-                    */
+   * @description 转为json字符串
+   * @param {Object} obj 被转换的对象
+   * @param {Boolean} format 是否格式化
+   * @return {String} json格式字符串
+   */
 function toJson(obj, format) {
   if (format) {
     return JSON.stringify(obj, null, 4);
@@ -3600,14 +3591,12 @@ function toUrl(obj, url) {
   }
 };
 
-uni.toUrl = toUrl;
-
 /**
-                    * @description 拷贝对象
-                    * @param {Object} obj 被拷贝的对象
-                    * @param {Boolean} has 是否非空拷贝，如果含有数据才拷贝，不含数据不拷贝
-                    * @return {Object} 新对象
-                    */
+    * @description 拷贝对象
+    * @param {Object} obj 被拷贝的对象
+    * @param {Boolean} has 是否非空拷贝，如果含有数据才拷贝，不含数据不拷贝
+    * @return {Object} 新对象
+    */
 function copy(obj, has) {
   var newObj = {};
   if (has) {
@@ -3625,15 +3614,25 @@ function copy(obj, has) {
   return newObj;
 };
 
-uni.copy = copy;
-
+/**
+    * @description 查看所有属性
+    * @param {Object} obj 查看的对象
+    * @param {String} file 保存位置
+    */
+function keys(obj, file) {
+  var text = "";
+  for (var k in obj) {
+    text += k + '\r\n';
+  }
+  console.log(text);
+}
 
 /**
-                  * @description 删除对象空属性
-                  * @param {Object} obj 对象
-                  * @param {Object} includeZero 是否包括0
-                  * @return {Object} 返回新对象
-                  */
+   * @description 删除对象空属性
+   * @param {Object} obj 对象
+   * @param {Object} includeZero 是否包括0
+   * @return {Object} 返回新对象 
+   */
 function delete_prop(obj, includeZero) {
   var o = Object.assign({}, obj);
   if (includeZero) {
@@ -3654,42 +3653,1351 @@ function delete_prop(obj, includeZero) {
   return o;
 }
 
-uni.delete_prop = delete_prop;
 
-uni.db = {
-  get: function get(key) {
-    var value;
-    try {
-      value = uni.getStorageSync(key);
-    } catch (e) {
-      console.log("读取失败！");
+
+/**
+   * @namespace
+   * @property {Object} pool 数据连接池, 用于存储有关数据库的操作类
+   * @property {Object} task 任务池, 用于存储定时任务操作类
+   * @property {Object} api API接口，用于存储有关接口的操作类
+   * @property {Object} val 全局变量，用于存储全局的配置 
+   * @property {Object} dict 字典，用于查询变量替换名
+   * @property {Object} lang 语言包, 用于全局的语言替换
+   * @property {String} sleep 延迟(休眠)
+   * @property {Function()} speed 测试执行速度函数
+   * @property {Function(Object, Object, Boolean):Boolean} as 判断对象是否相似
+   * @property {Function(Object, Object):Boolean} push 为对象添加属性
+   * @property {Function(Object):String} toJson 对象转json字符串
+   * @property {Function(Object):String} toUrl 对象转url字符串
+   * @property {Function(Object):Object} copy 复制一个新对象
+   * @property {Function(Object):String} keys 查询获取对象属性键
+   */
+var funcs = {
+  // 数据连接池, 用于存储有关数据库的操作类
+  pool: {},
+  // 任务池, 用于存储定时任务操作类
+  task: {},
+  // API接口，用于存储有关接口的操作类
+  api: {},
+  // 全局变量，用于存储全局的配置
+  val: {
+    // 默认作用域, sys表示系统
+    scope: "sys" },
+
+  /**
+                     * @description 字典，用于查询变量替换名
+                     * @property {String} session_id session的ID
+                     * @property {String} user_id 用户的ID，用于数据库时查询用户唯一标识
+                     */
+  dict: {
+    session_id: "mm:uuid",
+    user_id: "user_id",
+    token: "x-auth-token" },
+
+  /**
+                              * @description 语言包, 用于全局的语言替换
+                              * @property {String} now = [chinese|english] 当前语言
+                              * @property {Object} chinese 中文语言包
+                              * @property {Object} english 英文语言包
+                              */
+  lang: {
+    now: "chinese",
+    chinese: {},
+    english: {} },
+
+  // 延迟
+  sleep: sleep,
+  // 测试执行速度函数
+  speeds: speeds,
+  // 判断对象是否相似
+  as: as,
+  // 添加对象
+  push: push,
+  // 清空对象值
+  clear: clear,
+  // 对象转json字符串
+  toJson: toJson,
+  // 对象转url字符串
+  toUrl: toUrl,
+  // 复制一个新对象
+  copy: copy,
+  // 查询获取对象属性键
+  keys: keys,
+  // 删除对象属性
+  delete: delete_prop };
+
+push(uni, funcs, true);
+
+
+/**
+                         * 定时任务管理器
+                         */
+(function () {
+  function Timer() {
+    /**
+                     * @description 回调对象集合
+                     * @example 
+                     * [{
+                    	 // 名称
+                    	 name: "",
+                    	 // 执行函数
+                    	 async run(){}
+                    	}]
+                     */
+    var list = [];
+
+    // 定时器核心
+    this.core;
+
+    /**
+                * @description 执行
+                */
+    Timer.prototype.run = function () {
+      var len = list.length;
+      for (var i = 0; i < len; i++) {
+        var run = list[i].run;
+        if (run) {
+          run();
+        }
+      }
+    };
+
+    /**
+        * @description 启动
+        */
+    Timer.prototype.start = function () {
+      var _this = this;
+      if (!this.core) {
+        this.core = setInterval(this.run, 1000);
+      }
+    };
+
+    /**
+        * @description 结束
+        */
+    Timer.prototype.end = function () {
+      clearInterval(this.core);
+      this.core = undefined;
+    };
+
+    /**
+        * @description 添加定时执行任务
+        */
+    Timer.prototype.add = function (obj) {
+      if (typeof obj === "object") {
+        if (obj.name && obj.run && typeof obj.run === 'function') {
+          list.push(obj);
+        }
+      }
+    };
+    /**
+        * @description 删除定时执行任务
+        */
+    Timer.prototype.del = function (name) {
+      if (typeof obj === "object") {
+        list.del({
+          name: name },
+        true);
+      }
+    };
+  };
+  uni.timer = new Timer();
+})();
+
+
+/* MD5加密类 */
+(function () {
+  /* md5加密（开始） */
+  var hexcase = 0;
+  /* hex output format. 0 - lowercase; 1 - uppercase  */
+  var b64pad = "";
+  /* base-64 pad character. "=" for strict RFC compliance */
+  var chrsz = 8;
+  /* bits per input character. 8 - ASCII; 16 - Unicode  */
+
+  /*
+                                                            * Perform a simple self-test to see if the VM is working
+                                                            */
+  function md5_vm_test() {
+    return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72";
+  }
+  /*
+     * Calculate the MD5 of an array of little-endian words, and a bit length
+     */
+  function core_md5(x, len) {
+    /* append padding */
+    x[len >> 5] |= 0x80 << len % 32;
+    x[(len + 64 >>> 9 << 4) + 14] = len;
+    var a = 1732584193;
+    var b = -271733879;
+    var c = -1732584194;
+    var d = 271733878;
+    for (var i = 0; i < x.length; i += 16) {
+      var olda = a;
+      var oldb = b;
+      var oldc = c;
+      var oldd = d;
+      a = md5_ff(a, b, c, d, x[i + 0], 7, -680876936);
+      d = md5_ff(d, a, b, c, x[i + 1], 12, -389564586);
+      c = md5_ff(c, d, a, b, x[i + 2], 17, 606105819);
+      b = md5_ff(b, c, d, a, x[i + 3], 22, -1044525330);
+      a = md5_ff(a, b, c, d, x[i + 4], 7, -176418897);
+      d = md5_ff(d, a, b, c, x[i + 5], 12, 1200080426);
+      c = md5_ff(c, d, a, b, x[i + 6], 17, -1473231341);
+      b = md5_ff(b, c, d, a, x[i + 7], 22, -45705983);
+      a = md5_ff(a, b, c, d, x[i + 8], 7, 1770035416);
+      d = md5_ff(d, a, b, c, x[i + 9], 12, -1958414417);
+      c = md5_ff(c, d, a, b, x[i + 10], 17, -42063);
+      b = md5_ff(b, c, d, a, x[i + 11], 22, -1990404162);
+      a = md5_ff(a, b, c, d, x[i + 12], 7, 1804603682);
+      d = md5_ff(d, a, b, c, x[i + 13], 12, -40341101);
+      c = md5_ff(c, d, a, b, x[i + 14], 17, -1502002290);
+      b = md5_ff(b, c, d, a, x[i + 15], 22, 1236535329);
+      a = md5_gg(a, b, c, d, x[i + 1], 5, -165796510);
+      d = md5_gg(d, a, b, c, x[i + 6], 9, -1069501632);
+      c = md5_gg(c, d, a, b, x[i + 11], 14, 643717713);
+      b = md5_gg(b, c, d, a, x[i + 0], 20, -373897302);
+      a = md5_gg(a, b, c, d, x[i + 5], 5, -701558691);
+      d = md5_gg(d, a, b, c, x[i + 10], 9, 38016083);
+      c = md5_gg(c, d, a, b, x[i + 15], 14, -660478335);
+      b = md5_gg(b, c, d, a, x[i + 4], 20, -405537848);
+      a = md5_gg(a, b, c, d, x[i + 9], 5, 568446438);
+      d = md5_gg(d, a, b, c, x[i + 14], 9, -1019803690);
+      c = md5_gg(c, d, a, b, x[i + 3], 14, -187363961);
+      b = md5_gg(b, c, d, a, x[i + 8], 20, 1163531501);
+      a = md5_gg(a, b, c, d, x[i + 13], 5, -1444681467);
+      d = md5_gg(d, a, b, c, x[i + 2], 9, -51403784);
+      c = md5_gg(c, d, a, b, x[i + 7], 14, 1735328473);
+      b = md5_gg(b, c, d, a, x[i + 12], 20, -1926607734);
+      a = md5_hh(a, b, c, d, x[i + 5], 4, -378558);
+      d = md5_hh(d, a, b, c, x[i + 8], 11, -2022574463);
+      c = md5_hh(c, d, a, b, x[i + 11], 16, 1839030562);
+      b = md5_hh(b, c, d, a, x[i + 14], 23, -35309556);
+      a = md5_hh(a, b, c, d, x[i + 1], 4, -1530992060);
+      d = md5_hh(d, a, b, c, x[i + 4], 11, 1272893353);
+      c = md5_hh(c, d, a, b, x[i + 7], 16, -155497632);
+      b = md5_hh(b, c, d, a, x[i + 10], 23, -1094730640);
+      a = md5_hh(a, b, c, d, x[i + 13], 4, 681279174);
+      d = md5_hh(d, a, b, c, x[i + 0], 11, -358537222);
+      c = md5_hh(c, d, a, b, x[i + 3], 16, -722521979);
+      b = md5_hh(b, c, d, a, x[i + 6], 23, 76029189);
+      a = md5_hh(a, b, c, d, x[i + 9], 4, -640364487);
+      d = md5_hh(d, a, b, c, x[i + 12], 11, -421815835);
+      c = md5_hh(c, d, a, b, x[i + 15], 16, 530742520);
+      b = md5_hh(b, c, d, a, x[i + 2], 23, -995338651);
+      a = md5_ii(a, b, c, d, x[i + 0], 6, -198630844);
+      d = md5_ii(d, a, b, c, x[i + 7], 10, 1126891415);
+      c = md5_ii(c, d, a, b, x[i + 14], 15, -1416354905);
+      b = md5_ii(b, c, d, a, x[i + 5], 21, -57434055);
+      a = md5_ii(a, b, c, d, x[i + 12], 6, 1700485571);
+      d = md5_ii(d, a, b, c, x[i + 3], 10, -1894986606);
+      c = md5_ii(c, d, a, b, x[i + 10], 15, -1051523);
+      b = md5_ii(b, c, d, a, x[i + 1], 21, -2054922799);
+      a = md5_ii(a, b, c, d, x[i + 8], 6, 1873313359);
+      d = md5_ii(d, a, b, c, x[i + 15], 10, -30611744);
+      c = md5_ii(c, d, a, b, x[i + 6], 15, -1560198380);
+      b = md5_ii(b, c, d, a, x[i + 13], 21, 1309151649);
+      a = md5_ii(a, b, c, d, x[i + 4], 6, -145523070);
+      d = md5_ii(d, a, b, c, x[i + 11], 10, -1120210379);
+      c = md5_ii(c, d, a, b, x[i + 2], 15, 718787259);
+      b = md5_ii(b, c, d, a, x[i + 9], 21, -343485551);
+      a = safe_add(a, olda);
+      b = safe_add(b, oldb);
+      c = safe_add(c, oldc);
+      d = safe_add(d, oldd);
     }
-    return value;
-  },
-  set: function set(key, value) {
-    try {
-      uni.setStorageSync(key, value);
-    } catch (e) {
-      console.log("保存失败！");
-      value = null;
+    return Array(a, b, c, d);
+  }
+  /*
+     * These functions implement the four basic operations the algorithm uses.
+     */
+  function md5_cmn(q, a, b, x, s, t) {
+    return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
+  }
+
+  function md5_ff(a, b, c, d, x, s, t) {
+    return md5_cmn(b & c | ~b & d, a, b, x, s, t);
+  }
+
+  function md5_gg(a, b, c, d, x, s, t) {
+    return md5_cmn(b & d | c & ~d, a, b, x, s, t);
+  }
+
+  function md5_hh(a, b, c, d, x, s, t) {
+    return md5_cmn(b ^ c ^ d, a, b, x, s, t);
+  }
+
+  function md5_ii(a, b, c, d, x, s, t) {
+    return md5_cmn(c ^ (b | ~d), a, b, x, s, t);
+  }
+  /*
+     * Calculate the HMAC-MD5, of a key and some data
+     */
+  function core_hmac_md5(key, data) {
+    var bkey = str2binl(key);
+    if (bkey.length > 16) bkey = core_md5(bkey, key.length * chrsz);
+    var ipad = Array(16),
+    opad = Array(16);
+    for (var i = 0; i < 16; i++) {
+      ipad[i] = bkey[i] ^ 0x36363636;
+      opad[i] = bkey[i] ^ 0x5C5C5C5C;
     }
-    return value;
-  },
-  del: function del(key) {
-    try {
-      uni.removeStorageSync(key);
-    } catch (e) {
-      console.log("读取失败！");
+    var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
+    return core_md5(opad.concat(hash), 512 + 128);
+  }
+  /*
+     * Add integers, wrapping at 2^32. This uses 16-bit operations internally
+     * to work around bugs in some JS interpreters.
+     */
+  function safe_add(x, y) {
+    var lsw = (x & 0xFFFF) + (y & 0xFFFF);
+    var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+    return msw << 16 | lsw & 0xFFFF;
+  }
+  /*
+     * Bitwise rotate a 32-bit number to the left.
+     */
+  function bit_rol(num, cnt) {
+    return num << cnt | num >>> 32 - cnt;
+  }
+  /*
+     * Convert a string to an array of little-endian words
+     * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
+     */
+  function str2binl(str) {
+    var bin = Array();
+    var mask = (1 << chrsz) - 1;
+    for (var i = 0; i < str.length * chrsz; i += chrsz) {
+      bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << i % 32;
     }
-  } };
+    return bin;
+  }
+  /*
+     * Convert an array of little-endian words to a string
+     */
+  function binl2str(bin) {
+    var str = "";
+    var mask = (1 << chrsz) - 1;
+    for (var i = 0; i < bin.length * 32; i += chrsz) {
+      str += String.fromCharCode(bin[i >> 5] >>> i % 32 & mask);
+    }
+    return str;
+  }
+  /*
+     * Convert an array of little-endian words to a hex string.
+     */
+  function binl2hex(binarray) {
+    var hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
+    var str = "";
+    for (var i = 0; i < binarray.length * 4; i++) {
+      str += hex_tab.charAt(binarray[i >> 2] >> i % 4 * 8 + 4 & 0xF) + hex_tab.charAt(binarray[i >> 2] >> i % 4 * 8 & 0xF);
+    }
+    return str;
+  }
+  /*
+     * Convert an array of little-endian words to a base-64 string
+     */
+  function binl2b64(binarray) {
+    var tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    var str = "";
+    for (var i = 0; i < binarray.length * 4; i += 3) {
+      var triplet = (binarray[i >> 2] >> 8 * (i % 4) & 0xFF) << 16 | (binarray[i + 1 >> 2] >> 8 * ((i + 1) % 4) & 0xFF) <<
+      8 | binarray[i + 2 >> 2] >> 8 * ((i + 2) % 4) & 0xFF;
+      for (var j = 0; j < 4; j++) {
+        if (i * 8 + j * 6 > binarray.length * 32) str += b64pad;else
+        str += tab.charAt(triplet >> 6 * (3 - j) & 0x3F);
+      }
+    }
+    return str;
+  }
+
+  uni.hex_md5 = function hex_md5(s) {
+    return binl2hex(core_md5(str2binl(s), s.length * chrsz));
+  };
+  uni.b64_md5 = function b64_md5(s) {
+    return binl2b64(core_md5(str2binl(s), s.length * chrsz));
+  };
+  uni.str_md5 = function str_md5(s) {
+    return binl2str(core_md5(str2binl(s), s.length * chrsz));
+  };
+  uni.hex_hmac_md5 = function hex_hmac_md5(key, data) {
+    return binl2hex(core_hmac_md5(key, data));
+  };
+  uni.b64_hmac_md5 = function b64_hmac_md5(key, data) {
+    return binl2b64(core_hmac_md5(key, data));
+  };
+  uni.str_hmac_md5 = function str_hmac_md5(key, data) {
+    return binl2str(core_hmac_md5(key, data));
+  };
+
+  uni.md5 = uni.hex_md5;
+})();
+
+(function () {
+  /* == 网络请求 == */
+  uni.http = {
+    /**
+                * @description GET请求——json
+                * @param {String} url 请求地址
+                * @param {Function} fun 回调函数
+                * @param {Object} headers 协议头
+                * @return {Object} 同步请求返回请求结果，否则返回undefined
+                */
+    get: function get(url, fun, headers) {
+      var json;
+      var hp = {
+        type: 'GET',
+        url: url,
+        async: fun !== null,
+        // xhrFields: {
+        // 	withCredentials: true
+        // },
+        // crossDomain: true,
+        success: function success(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        error: function error(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        complete: function complete(XHR, TS) {
+          XHR = null;
+        } };
+
+      if (headers) {
+        hp.headers = headers;
+      }
+      uni.ajax(hp);
+      return json;
+    },
+    /**
+        * @description POST请求
+        * @param {String} url 请求地址
+        * @param {Object} param 请求参数
+        * @param {Function} fun 回调函数
+        * @param {Object} headers 协议头
+        * @param {String} type 内容类型
+        * @return {Object} 同步请求返回请求结果，否则返回undefined
+        */
+    post: function post(url, param, fun, headers, type) {
+      var contentType;
+      var pm;
+      if (type === 'xml') {
+        contentType = "text/xml; charset=utf-8";
+        pm = param;
+      } else if (type === 'form') {
+        contentType = "application/x-www-form-urlencoded; charset=utf-8";
+        pm = param;
+      } else {
+        contentType = "application/json; charset=utf-8";
+        pm = JSON.stringify(param);
+      }
+      var json;
+      var hp = {
+        type: 'POST',
+        url: url,
+        async: fun !== null,
+        // xhrFields: {
+        // 	withCredentials: true
+        // },
+        // crossDomain: true,
+        data: pm,
+        dataType: "json",
+        contentType: contentType,
+        success: function success(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        error: function error(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        complete: function complete(XHR, TS) {
+          XHR = null;
+        } };
+
+      if (headers) {
+        hp.headers = headers;
+      }
+      uni.ajax(hp);
+      return json;
+    },
+    /**
+        * @description 上传文件
+        * @param {String} url 请求地址
+        * @param {Object} file input file文件
+        * @param {Function} fun 回调函数
+        * @param {Object} headers 协议头
+        * @return {Object} 同步请求返回请求结果，否则返回undefined
+        */
+    upload: function upload(url, file, fun, headers) {
+      var form = new FormData();
+      form.append("file", file);
+      var json;
+      var hp = {
+        type: 'POST',
+        url: url,
+        async: fun !== null,
+        data: form,
+        dataType: "json",
+        contentType: false,
+        processData: false,
+        success: function success(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        error: function error(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        complete: function complete(XHR, TS) {
+          XHR = null;
+        } };
+
+      if (headers) {
+        hp.headers = headers;
+      }
+      uni.ajax(hp);
+      return json;
+    } };
+
+
+  /* 缓存 */
+  uni.cookies = {
+    /**
+                   * @description 设置域
+                   * @param {String} url 地址
+                   */
+    domain: function domain(url) {
+      if (url) {
+        _domain = url;
+      }
+      return ";path=/";
+    },
+    /**
+        * @description 设置缓存
+        * @param {String} name 缓存对象
+        * @param {Object} value 缓存值
+        * @param {Number} minutes 缓存时长，单位: 分钟
+        * @param {String} domain 作用域
+        */
+    set: function set(name, value, minutes, domain) {
+      if (!domain) {
+        domain = uni.cookies.domain();
+      }
+      var time = new Date();
+      if (minutes) {
+        time.setTime(time.getTime() + minutes * 60000);
+        document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + time.toGMTString();
+      } else {
+        time.setTime(time.getTime() + 7 * 24 * 3600 * 60000);
+        document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + time.toGMTString();
+      }
+    },
+
+    /**
+        * @description 获取cookie
+        * @param {String} name 名称
+        */
+    get: function get(name) {
+      var value = null;
+      var str = document.cookie;
+      var arr = str.split("; ");
+      for (var i = 0; i < arr.length; i++) {
+        var ar = arr[i].split("=");
+        if (ar[0] == name) {
+          value = decodeURIComponent(ar[1]);
+          break;
+        }
+      }
+      return value;
+    },
+
+    /**
+        * @description 删除cookie
+        * @param {String} name 名称
+        */
+    del: function del(name) {
+      this.set(name, "", -1);
+    } };
+
+
+  /**
+          * @description 设置或查询cookie缓存
+          * @param {String} key 缓存对象名
+          * @param {Object} value 缓存值
+          * @param {Number} minutes 缓存时长，单位: 分钟
+          */
+  uni.cookie = function (key, value, minutes) {
+    if (value != undefined) {
+      if (!minutes) {
+        if (value == null) {
+          minutes = 0;
+        } else {
+          minutes = 120;
+        }
+      }
+      uni.cookies.set(key, value, minutes);
+    } else {
+      return uni.cookies.get(key);
+    }
+  };
+
+  /* === 多媒体 === */
+  uni.file = {
+    /**
+                * @description 上传文件
+                * @param {String} url 提交网址
+                * @param {Object} obj 对象
+                * @param {Function} func 函数
+                * @param {Object} headers 协议头
+                */
+    upload: function upload(url, obj, func, headers) {
+      var formData = new FormData();
+      for (var k in obj) {
+        formData.append(k, obj[k]);
+      }
+      var hp = {
+        type: 'POST',
+        url: url,
+        data: formData,
+        processData: false,
+        contentType: false,
+        async: func !== null,
+        xhrFields: {
+          withCredentials: true },
+
+        success: function success(json, status) {
+          if (func) {
+            if (json) {
+              json["obj"] = obj;
+            }
+            func(json, status);
+          }
+        },
+        complete: function complete(XHR, TS) {
+          XHR = null;
+        } };
+
+
+      if (headers) {
+        hp.headers = headers;
+      }
+      uni.ajax(hp);
+    } };
+
+})();
+
+/* 通讯 */
+(function () {
+  uni.html = {
+    tag: function tag(_tag, prop, value) {
+      var obj;
+      var list = document.getElementsByTagName(_tag);
+      var len = list.length;
+      for (var i = 0; i < len; i++) {
+        var o = list[i];
+        if (o && o.getAttribute(prop) && o.getAttribute(prop).has(value)) {
+          obj = o;
+          break;
+        }
+      }
+      return obj;
+    } };
+
+
+  /**
+          * 本地临时缓存,关闭浏览器后小时
+          */
+  uni.cache = {
+    /**
+                 * 设置值
+                 * @param {String} key 键
+                 * @param {Object} value 值
+                 */
+    set: function set(key, value) {
+      window.sessionStorage.setItem(key, value);
+    },
+    /**
+        * 获取值
+        * @param {String} key 键
+        * @return {Object} 值
+        */
+    get: function get(key) {
+      return window.sessionStorage.getItem(key);
+    },
+    /**
+        * 删除值
+        * @param {Object} key 键
+        */
+    del: function del(key) {
+      window.sessionStorage.removeItem(key);
+    },
+    /**
+        * 清除所有缓存
+        */
+    clear: function clear() {
+      window.sessionStorage.clear();
+    } };
+
+
+  /**
+          * 本地数据库存储
+          */
+  uni.db = {
+    /**
+              * 设置值
+              * @param {String} key 键
+              * @param {Object} value 值
+              * @param {Number} longTime 保存时长（单位:分钟）
+              */
+    set: function set(key, value, longTime) {
+      var expires = null;
+      if (longTime) {
+        var time = Date.now();
+        expires = time + longTime * 60000;
+      }
+      var data = {
+        value: value,
+        expires: expires };
+
+      window.localStorage.setItem(key, JSON.stringify(data));
+    },
+    /**
+        * 获取值
+        * @param {String} key 键
+        * @return {Object} 值
+        */
+    get: function get(key) {
+      var value;
+      var text = window.localStorage.getItem(key);
+      if (text && text.indexOf('{') === 0) {
+        try {
+          var data = JSON.parse(text);
+          if (data) {
+            if (data.expires) {
+              var time = new Date(data.expires);
+              if (time > Date.now()) {
+                value = data.value;
+              } else {
+                window.localStorage.removeItem(key);
+              }
+            } else {
+              value = data.value;
+            }
+          }
+        } catch (e) {
+          console.log(e);
+          value = text;
+        }
+      } else {
+        value = text;
+      }
+      return value;
+    },
+    /**
+        * 删除值
+        * @param {Object} key 键
+        */
+    del: function del(key) {
+      window.localStorage.removeItem(key);
+    } };
+
+
+  /**
+          * web socket通讯组
+          */
+  uni.ws = {};
+
+  /* 封装 WebSocket 实例化的方法  */
+  var CreateWebSocket = function (url) {
+    return function (url) {
+      var ws;
+      try {
+        if (window.WebSocket) {
+          ws = new WebSocket(url);
+        } else if (window.MozWebSocket) {
+          ws = new MozWebSocket(url);
+        };
+      } catch (e) {
+        //TODO handle the exception
+      }
+      return ws;
+    };
+  }();
+
+  /**
+        * 等待连接成功, 然后发送消息
+        */
+  function connect(_this) {
+    if (_this.try_connect) {
+      return;
+    }
+    _this.try_connect = true;
+    var ws = CreateWebSocket(_this.url);
+    ws.onmessage = function (event) {
+      _this.message(event);
+    };
+    ws.onclose = function () {
+      reconnect(_this);
+    };
+    ws.onerror = function (event) {
+      _this.noticy("error", event);
+    };
+    ws.onopen = function () {
+      _this.try_connect = false;
+      var arr = _this.arr_message;
+      var len = arr.length;
+      for (var i = 0; i < len; i++) {
+        if (ws.readyState === 1) {
+          _this.ws.send(arr[i]);
+        }
+      }
+      // 发送成功, 清空消息组
+      _this.arr_message.clear();
+      // 重置重新连接次数
+      _this.try_times = 0;
+    };
+    _this.ws = ws;
+  };
+
+  /**
+      * 重新连接
+      * @param {Object} _this ws对象
+      */
+  function reconnect(_this) {
+    _this.try_times++;
+    if (_this.try_times <= _this.try_max_times) {
+      _this.try_connect = false;
+      // 没连接上会一直重连，设置延迟避免请求过多
+      setTimeout(function () {
+        connect(_this);
+      }, _this.seconds);
+      _this.noticy('reconnect', _this.try_times);
+    } else {
+      _this.noticy('error', '服务器连接失败!');
+    }
+  };
+
+  /**
+      * 构造通讯函数
+      * @param {String} url
+      * @param {Function} noticy 通知函数
+      * @param {Function} receive 响应回调函数
+      * @param {Function} noticy 信息捕捉函数
+      * @param {String} name 名称
+      * @param {Number} seconds 重新连接次数
+      * @return {Object} 返回发信服务
+      */
+  function WS(url, receive, noticy, name, seconds) {
+    if (noticy) {
+      this.noticy = noticy;
+    } else {
+      /**
+             * 通知函数
+             * @param {String} type 通知类型
+             */
+      this.noticy = function (type, content) {
+        console.log(type, content);
+      };
+    }
+
+    if (!window.WebSocket) {
+      console.error('错误: 浏览器不支持websocket');
+      this.noticy('error', '浏览器不支持websocket');
+      return;
+    }
+
+    var u;
+    if (url.indexOf('//') !== -1) {
+      u = url.replace("https", "ws").replace("http", "ws");
+    } else {
+      u = "ws://" + url;
+    }
+    // 连接地址
+    this.url = u;
+
+    if (name) {
+      this.name = name;
+    } else {
+      this.name = u;
+    }
+
+    this.receive = receive;
+
+    // 消息数组, 在等待连接的过程中, 如果有多条消息, 则保存至此, 等待连接成功后发送
+    this.arr_message = [];
+
+    if (seconds) {
+      this.seconds = seconds;
+    } else {
+      this.seconds = 6000;
+    }
+
+    /**
+       * 尝试重连次数
+       */
+    this.try_times = 0;
+
+    /**
+                         * 最大尝试次数, 如果每次重试间隔1分钟, 那么10分钟后就不再重连
+                         */
+    this.try_max_times = 10;
+
+    /**
+                              * 是否正在尝试连接
+                              */
+    this.try_connect = false;
+
+    // 连接 socket服务
+    connect(this);
+  }
+
+
+  /**
+     * 打开服务
+     */
+  WS.prototype.open = function () {
+    connect(this);
+  };
+
+  /**
+      * 关闭服务
+      */
+  WS.prototype.close = function () {
+    this.ws.onclose = function (event) {};
+    this.ws.close();
+  };
+
+
+  /**
+      * 释放
+      */
+  WS.prototype.clear = function () {
+    this.close();
+    delete uni.ws[key];
+  };
+
+  /**
+      * 收到消息
+      */
+  WS.prototype.message = function (event) {
+    var data = event.data;
+    if (data && this.receive) {
+      this.receive(data);
+    }
+  };
+
+
+  /**
+      * 发送数据
+      * @param {String} bodyStr 消息主体字符串
+      */
+  WS.prototype.send = function (bodyStr) {
+    var ws = this.ws;
+    switch (ws.readyState) {
+      case 0:
+        // CONNECTING 正在连接
+        // 先将消息加入队列等待连接成功再发送
+        this.arr_message.push(bodyStr);
+        break;
+      case 1:
+        // OPEN 连接成功，可以通信了
+        ws.send(bodyStr);
+        break;
+      case 2:
+        // CLOSING 连接正在关闭
+        // 先将消息加入队列, 等待关闭 > 重新连接 > 连接成功 再发送消息
+        this.arr_message.push(bodyStr);
+        break;
+      default:
+        if (this.try_times > 9) {
+          this.try_times = 0;
+          this.try_connect = false;
+        }
+        // CLOSED 连接已经关闭，或者打开连接失败
+        // 先将消息加入队列, 重新连接 > 连接成功 再发送消息
+        this.arr_message.push(bodyStr);
+        connect(this);
+        break;}
+
+  };
+
+  /**
+      * 主动关闭连接
+      */
+  WS.prototype.close = function () {
+    this.ws.close();
+  };
+
+  /**
+      * 创建web socket通讯服务
+      * @param {String} url URL地址
+      * @param {Function} receive 响应回调函数
+      * @param {Function} noticy 信息捕捉函数
+      * @param {String} name 名称
+      * @param {String} seconds 秒
+      * @return {Object} 返回发信服务
+      */
+  uni.socket = function (url, receive, noticy, name, seconds) {
+    // 使用键方式去查询多个通讯
+    // 需要多通讯的原因是: 像交易所可能需要即时通讯的同时还需要试试变化交易信息
+    if (!name) {
+      name = url;
+    }
+    if (!uni.ws[name]) {
+      uni.ws[name] = new WS(url, receive, noticy, name, seconds);
+    } else {
+      uni.ws[name].try_times = 0;
+    }
+    return uni.ws[name];
+  };
+
+  /**
+      * 路由
+      */
+  uni.route = {
+    /**
+                 * 重定向地址
+                 */
+    redirect_url: "/",
+    /**
+                        * 路由历史记录
+                        */
+    history: {
+      list: [],
+      push: function push(url) {
+        if (this.list.length > 0) {
+          var end_url = this.list[this.list.length - 1];
+          if (end_url !== url) {
+            this.list.push(url);
+          }
+        } else {
+          this.list.push(url);
+        }
+      } },
+
+
+    /**
+            * 添加路由
+            * @param {String} url
+            * @param {String} title
+            */
+    push: function push(url, title) {
+      history.pushState({
+        status: 0 },
+      title, url);
+    } };
+
+
+  /**
+          * 浏览器
+          */
+  uni.os = function () {
+    var u = navigator.userAgent;
+    return {
+      version: navigator.appVersion,
+      isApp: u.indexOf("Html5Plus") !== -1,
+      device: {
+        // 是否为移动终端
+        mobile: /AppleWebKit.*Mobile.*/.test(u),
+        // ios终端
+        ios: /\(i[^;]+;( U;)? CPU.+Mac OS X/.test(u),
+        // android终端或Linux浏览器
+        android: u.indexOf('Android') !== -1 || u.indexOf('Linux') !== -1,
+        // 是否为iPhone或者QQHD浏览器
+        iPhone: u.indexOf('iPhone') !== -1,
+        // 是否iPad
+        iPad: u.indexOf('iPad') !== -1,
+        // 是否电脑
+        pc: u.indexOf('Window') !== -1 },
+
+      app: {
+        // 微信
+        wechat: /MicroMessenger/i.test(u),
+        // 微博
+        weibo: /WeiBo/i.test(u),
+        // QQ
+        qq: /QQ/i.test(u) },
+
+      browser: {
+        // 浏览器版本信息
+        // IE内核
+        trident: u.indexOf('Trident') > -1,
+        // opera内核
+        presto: u.indexOf('Presto') > -1,
+        // 苹果、谷歌内核
+        webKit: u.indexOf('AppleWebKit') > -1,
+        // 火狐内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,
+        // 苹果默认浏览器
+        safari: u.indexOf('Safari') === -1 } };
+
+
+  }();
+})();
+
+(function () {
+  /**
+               * @description 添加对象属性
+               * @param {Object} obj 对象
+               * @param {Object} query 查询条件
+               * @param {Object} value 添加值
+               * @return {Object} 返回添加的局部对象
+               */
+  function add(obj, query, value) {
+    if (query) {
+      var oj = get(obj, query);
+      if (oj) {
+        uni.push(oj, value, true);
+      }
+      return oj;
+    } else {
+      uni.push(obj, value, true);
+      return obj;
+    }
+  };
+  uni.add = add;
+
+  /**
+                  * @description 删除对象属性
+                  * @param {Object} obj 对象
+                  * @param {Object} query 查询条件
+                  * @param {Object} item 查询条件
+                  * @return {Object} 返回删除结果
+                  */
+  function del(obj, query, item) {
+    var o = {};
+    if (query) {
+      o = get(obj, query);
+    } else {
+      o = obj;
+    }
+    if (!item) {
+      item = Object.assign(o);
+    }
+    if (Array.isArray(o)) {
+      o.clear();
+    } else if (Array.isArray(item)) {
+      for (var i = 0; i < item.length; i++) {
+        var val = item[i];
+        if (typeof val === "object") {
+          del(o, null, val);
+        } else {
+          delete o[val];
+        }
+      }
+    } else if (typeof item === "object") {
+      for (var k in item) {
+        if (Array.isArray(o[k])) {
+          delete o[k];
+        } else if (typeof o[k] === "object") {
+          var type = typeof item[k];
+          if (type === "object") {
+            del(o[k], null, item[k]);
+          } else if (type === "string" || type === "number") {
+            delete o[k][item[k]];
+          } else {
+            delete o[k];
+          }
+        } else {
+          delete o[k];
+        }
+      }
+    } else {
+      delete o[item];
+    }
+    for (var k in o) {
+      if (Object.keys(o[k]).length === 0) {
+        delete o[k];
+      }
+    }
+    return o;
+  };
+  uni.del = del;
+
+  /**
+                  * @description 修改对象属性
+                  * @param {Object} obj 对象
+                  * @param {Object} query 查询条件
+                  * @param {Object} value 返回修改的局部对象
+                  */
+  function set(obj, query, value) {
+    if (query) {
+      var oj = get(obj, query);
+      if (oj) {
+        uni.push(oj, value);
+      }
+      return oj;
+    } else {
+      uni.push(obj, value);
+      return obj;
+    }
+  };
+  uni.set = set;
+
+  function arrToObj(arr) {
+    var obj = {};
+    var ret = obj;
+    var len = arr.length;
+    for (var i = 0; i < len; i++) {
+      var k = arr[i];
+      if (typeof k == "object") {
+        if (Array.isArray(k)) {
+          uni.push(obj, arrToObj(k), true);
+        } else {
+          uni.push(obj, k, true);
+        }
+      } else if (!obj[k]) {
+        if (len - i > 1) {
+          obj[k] = {};
+        } else {
+          obj[k] = true;
+        }
+        obj = obj[k];
+      }
+    }
+    return ret;
+  }
+
+  /**
+     * @description 查询对象属性
+     * @param {Object} obj 对象
+     * @param {Object} query
+     * @return {Object} 返回查询结果
+     */
+  function get(obj, query) {
+    var ret;
+    if (typeof obj === 'object' && !Array.isArray(obj)) {
+      // 只有非数组的对象才进行操作
+      if (Array.isArray(query)) {
+        var ret = obj;
+        // 如果是数字则循环数组
+        for (var i = 0; i < query.length; i++) {
+          var o = query[i];
+          if (Array.isArray(o)) {
+            ret = get(ret, o);
+          } else if (typeof o === 'object') {
+            var oj = {};
+            for (var k in o) {
+              if (o[k]) {
+                oj[k] = get(ret[k], o[k]);
+              } else {
+                oj[k] = ret[k];
+              }
+            }
+            ret = oj;
+          } else {
+            ret = ret[o];
+            if (typeof ret !== 'object') {
+              break;
+            }
+          }
+        }
+
+      } else if (typeof query === 'object') {
+        var ret = {};
+        // 如果是对象则遍历对象
+        for (var k in query) {
+          ret[k] = get(obj[k], query[k]);
+        }
+        ret = ret;
+      } else if (query) {
+        if (typeof query == "string" || typeof query == "number") {
+          ret = {};
+          ret[query] = obj[query];
+        } else {
+          ret = obj;
+        }
+      } else {
+        // 如果query为空则返回整个对象
+        ret = null;
+      }
+    } else {
+      // 否则直接返回值
+      ret = obj;
+    }
+    return ret;
+  };
+  uni.get = get;
+
+  /**
+                  * 遍历读写对象
+                  * @param {Object} obj
+                  * @param {String} key 键 多级对象用.分隔
+                  * @param {Object} value 值，如果不传为查询，传为修改
+                  */
+  function obj_for(obj, key, value) {
+    if (!key) {
+      return undefined;
+    }
+    var keys = key.split('.');
+    var len = keys.length;
+    if (len == 0) {
+      return undefined;
+    }
+    var k = keys[0];
+    var o = obj[k];
+    if (len == 1 && value !== undefined) {
+      obj[k] = value;
+      o = value;
+    } else if (typeof o == 'object') {
+      if (len > 1) {
+        return obj_for(o, keys.splice(1, len).join('.'), value);
+      }
+    } else if (len > 1) {
+      return undefined;
+    }
+    return o;
+  }
+
+  uni.obj = obj_for;
+})();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
 /***/ 14:
-/*!************************************************!*\
-  !*** E:/github/1_doing/mm_uni/plugins/core.js ***!
-  \************************************************/
+/*!**********************************************!*\
+  !*** E:/github/other/mm_uni/plugins/core.js ***!
+  \**********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4907,9 +6215,9 @@ if (hadRuntime) {
 /***/ }),
 
 /***/ 18:
-/*!******************************************************!*\
-  !*** E:/github/1_doing/mm_uni/plugins/lang/index.js ***!
-  \******************************************************/
+/*!****************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/lang/index.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4975,9 +6283,9 @@ var _hk = _interopRequireDefault(__webpack_require__(/*! ./hk.js */ 21));functio
 /***/ }),
 
 /***/ 19:
-/*!***************************************************!*\
-  !*** E:/github/1_doing/mm_uni/plugins/lang/en.js ***!
-  \***************************************************/
+/*!*************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/lang/en.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10558,7 +11866,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -10579,14 +11887,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -10672,7 +11980,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -11081,9 +12389,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 20:
-/*!***************************************************!*\
-  !*** E:/github/1_doing/mm_uni/plugins/lang/zh.js ***!
-  \***************************************************/
+/*!*************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/lang/zh.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11138,9 +12446,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 21:
-/*!***************************************************!*\
-  !*** E:/github/1_doing/mm_uni/plugins/lang/hk.js ***!
-  \***************************************************/
+/*!*************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/lang/hk.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11209,9 +12517,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /***/ }),
 
 /***/ 22:
-/*!***********************************************!*\
-  !*** E:/github/1_doing/mm_uni/store/index.js ***!
-  \***********************************************/
+/*!*********************************************!*\
+  !*** E:/github/other/mm_uni/store/index.js ***!
+  \*********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12352,9 +13660,9 @@ var index = {
 /***/ }),
 
 /***/ 24:
-/*!**********************************************!*\
-  !*** E:/github/1_doing/mm_uni/store/user.js ***!
-  \**********************************************/
+/*!********************************************!*\
+  !*** E:/github/other/mm_uni/store/user.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12412,9 +13720,9 @@ var index = {
 /***/ }),
 
 /***/ 25:
-/*!*********************************************!*\
-  !*** E:/github/1_doing/mm_uni/store/web.js ***!
-  \*********************************************/
+/*!*******************************************!*\
+  !*** E:/github/other/mm_uni/store/web.js ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12440,6 +13748,459 @@ var index = {
       uni.db.set('lang_type', lang);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 298:
+/*!***************************************************************!*\
+  !*** E:/github/other/mm_uni/components/uni-forms/validate.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}
+var pattern = {
+  email: /^\S+?@\S+?\.\S+?$/,
+  url: new RegExp("^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$", 'i') };
+
+
+var FORMAT_MAPPING = {
+  "int": 'number',
+  "bool": 'boolean',
+  "double": 'number',
+  "long": 'number',
+  "password": 'string' };
+
+
+function formatMessage(args, resources) {
+  var defaultMessage = ['label'];
+  defaultMessage.forEach(function (item) {
+    if (args[item] === undefined) {
+      args[item] = '';
+    }
+  });
+
+  var str = resources;
+  for (var key in args) {
+    var reg = new RegExp('{' + key + '}');
+    str = str.replace(reg, args[key]);
+  }
+  return str;
+}
+
+function isEmptyValue(value, type) {
+  if (value === undefined || value === null) {
+    return true;
+  }
+
+  if (typeof value === 'string' && !value) {
+    return true;
+  }
+
+  if (Array.isArray(value) && !value.length) {
+    return true;
+  }
+
+  if (type === 'object' && !Object.keys(value).length) {
+    return true;
+  }
+
+  return false;
+}
+
+var types = {
+  integer: function integer(value) {
+    return types.number(value) && parseInt(value, 10) === value;
+  },
+  string: function string(value) {
+    return typeof value === 'string';
+  },
+  number: function number(value) {
+    if (isNaN(value)) {
+      return false;
+    }
+    return typeof value === 'number';
+  },
+  "boolean": function boolean(value) {
+    return typeof value === 'boolean';
+  },
+  "float": function float(value) {
+    return types.number(value) && !types.integer(value);
+  },
+  array: function array(value) {
+    return Array.isArray(value);
+  },
+  object: function object(value) {
+    return typeof value === 'object' && !types.array(value);
+  },
+  date: function date(value) {
+    var v;
+    if (value instanceof Date) {
+      v = value;
+    } else {
+      v = new Date(value);
+    }
+    return typeof v.getTime === 'function' && typeof v.getMonth === 'function' && typeof v.getYear === 'function' && !isNaN(v.getTime());
+  },
+  timestamp: function timestamp(value) {
+    if (!this.integer(value) || Math.abs(value).toString().length > 16) {
+      return false;
+    }
+
+    return this.date(value);
+  },
+  email: function email(value) {
+    return typeof value === 'string' && !!value.match(pattern.email) && value.length < 255;
+  },
+  url: function url(value) {
+    return typeof value === 'string' && !!value.match(pattern.url);
+  },
+  pattern: function pattern(reg, value) {
+    try {
+      return new RegExp(reg).test(value);
+    } catch (e) {
+      return false;
+    }
+  },
+  method: function method(value) {
+    return typeof value === 'function';
+  } };var
+
+
+RuleValidator = /*#__PURE__*/function () {
+
+  function RuleValidator(message) {_classCallCheck(this, RuleValidator);
+    this._message = message;
+  }_createClass(RuleValidator, [{ key: "validateRule", value: function () {var _validateRule = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(
+
+      key, value, data, allData) {var result, rules, hasRequired, message, i, rule, vt, now, resultExpr;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                result = null;
+
+                rules = key.rules;
+
+                hasRequired = rules.findIndex(function (item) {
+                  return item.required;
+                });if (!(
+                hasRequired < 0)) {_context.next = 8;break;}if (!(
+                value === null || value === undefined)) {_context.next = 6;break;}return _context.abrupt("return",
+                result);case 6:if (!(
+
+                typeof value === 'string' && !value.length)) {_context.next = 8;break;}return _context.abrupt("return",
+                result);case 8:
+
+
+
+                message = this._message;if (!(
+
+                rules === undefined)) {_context.next = 11;break;}return _context.abrupt("return",
+                message['default']);case 11:
+
+
+                i = 0;case 12:if (!(i < rules.length)) {_context.next = 35;break;}
+                rule = rules[i];
+                vt = this._getValidateType(rule);
+
+                if (key.label !== undefined) {
+                  Object.assign(rule, {
+                    label: key.label });
+
+                }if (!
+
+                RuleValidatorHelper[vt]) {_context.next = 20;break;}
+                result = RuleValidatorHelper[vt](rule, value, message);if (!(
+                result != null)) {_context.next = 20;break;}return _context.abrupt("break", 35);case 20:if (!
+
+
+
+
+                rule.validateExpr) {_context.next = 26;break;}
+                now = Date.now();
+                resultExpr = rule.validateExpr(value, allData, now);if (!(
+                resultExpr === false)) {_context.next = 26;break;}
+                result = this._getMessage(rule, rule.errorMessage || this._message['default']);return _context.abrupt("break", 35);case 26:if (!
+
+
+
+
+                rule.validateFunction) {_context.next = 32;break;}_context.next = 29;return (
+                  this.validateFunction(rule, value, data, allData, vt));case 29:result = _context.sent;if (!(
+                result !== null)) {_context.next = 32;break;}return _context.abrupt("break", 35);case 32:i++;_context.next = 12;break;case 35:return _context.abrupt("return",
+
+
+
+
+
+                result);case 36:case "end":return _context.stop();}}}, _callee, this);}));function validateRule(_x, _x2, _x3, _x4) {return _validateRule.apply(this, arguments);}return validateRule;}() }, { key: "validateFunction", value: function () {var _validateFunction = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(
+
+
+      rule, value, data, allData, vt) {var result, callbackMessage, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                result = null;_context2.prev = 1;
+
+                callbackMessage = null;_context2.next = 5;return (
+                  rule.validateFunction(rule, value, allData || data, function (message) {
+                    callbackMessage = message;
+                  }));case 5:res = _context2.sent;
+                if (callbackMessage || typeof res === 'string' && res || res === false) {
+                  result = this._getMessage(rule, callbackMessage || res, vt);
+                }_context2.next = 12;break;case 9:_context2.prev = 9;_context2.t0 = _context2["catch"](1);
+
+                result = this._getMessage(rule, _context2.t0.message, vt);case 12:return _context2.abrupt("return",
+
+                result);case 13:case "end":return _context2.stop();}}}, _callee2, this, [[1, 9]]);}));function validateFunction(_x5, _x6, _x7, _x8, _x9) {return _validateFunction.apply(this, arguments);}return validateFunction;}() }, { key: "_getMessage", value: function _getMessage(
+
+
+    rule, message, vt) {
+      return formatMessage(rule, message || rule.errorMessage || this._message[vt] || message['default']);
+    } }, { key: "_getValidateType", value: function _getValidateType(
+
+    rule) {
+      // TODO
+      var result = '';
+      if (rule.required) {
+        result = 'required';
+      } else if (rule.format) {
+        result = 'format';
+      } else if (rule.range) {
+        result = 'range';
+      } else if (rule.maximum || rule.minimum) {
+        result = 'rangeNumber';
+      } else if (rule.maxLength || rule.minLength) {
+        result = 'rangeLength';
+      } else if (rule.pattern) {
+        result = 'pattern';
+      }
+      return result;
+    } }]);return RuleValidator;}();
+
+
+var RuleValidatorHelper = {
+  required: function required(rule, value, message) {
+    if (rule.required && isEmptyValue(value, rule.format || typeof value)) {
+      return formatMessage(rule, rule.errorMessage || message.required);
+    }
+
+    return null;
+  },
+
+  range: function range(rule, value, message) {var
+    range = rule.range,errorMessage = rule.errorMessage;
+
+    var list = new Array(range.length);
+    for (var i = 0; i < range.length; i++) {
+      var item = range[i];
+      if (types.object(item) && item.value !== undefined) {
+        list[i] = item.value;
+      } else {
+        list[i] = item;
+      }
+    }
+
+    var result = false;
+    if (Array.isArray(value)) {
+      result = new Set(value.concat(list)).size === list.length;
+    } else {
+      if (list.indexOf(value) > -1) {
+        result = true;
+      }
+    }
+
+    if (!result) {
+      return formatMessage(rule, errorMessage || message['enum']);
+    }
+
+    return null;
+  },
+
+  rangeNumber: function rangeNumber(rule, value, message) {
+    if (!types.number(value)) {
+      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
+    }var
+
+    minimum = rule.minimum,maximum = rule.maximum,exclusiveMinimum = rule.exclusiveMinimum,exclusiveMaximum = rule.exclusiveMaximum;
+    var min = exclusiveMinimum ? value <= minimum : value < minimum;
+    var max = exclusiveMaximum ? value >= maximum : value > maximum;
+
+    if (minimum !== undefined && min) {
+      return formatMessage(rule, rule.errorMessage || message['number'].min);
+    } else if (maximum !== undefined && max) {
+      return formatMessage(rule, rule.errorMessage || message['number'].max);
+    } else if (minimum !== undefined && maximum !== undefined && (min || max)) {
+      return formatMessage(rule, rule.errorMessage || message['number'].range);
+    }
+
+    return null;
+  },
+
+  rangeLength: function rangeLength(rule, value, message) {
+    if (!types.string(value) && !types.array(value)) {
+      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
+    }
+
+    var min = rule.minLength;
+    var max = rule.maxLength;
+    var val = value.length;
+
+    if (min !== undefined && val < min) {
+      return formatMessage(rule, rule.errorMessage || message['length'].min);
+    } else if (max !== undefined && val > max) {
+      return formatMessage(rule, rule.errorMessage || message['length'].max);
+    } else if (min !== undefined && max !== undefined && (val < min || val > max)) {
+      return formatMessage(rule, rule.errorMessage || message['length'].range);
+    }
+
+    return null;
+  },
+
+  pattern: function pattern(rule, value, message) {
+    if (!types['pattern'](rule.pattern, value)) {
+      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
+    }
+
+    return null;
+  },
+
+  format: function format(rule, value, message) {
+    var customTypes = Object.keys(types);
+    var format = FORMAT_MAPPING[rule.format] ? FORMAT_MAPPING[rule.format] : rule.format;
+
+    if (customTypes.indexOf(format) > -1) {
+      if (!types[format](value)) {
+        return formatMessage(rule, rule.errorMessage || message.types[format]);
+      }
+    }
+
+    return null;
+  } };var
+
+
+SchemaValidator = /*#__PURE__*/function (_RuleValidator) {_inherits(SchemaValidator, _RuleValidator);var _super = _createSuper(SchemaValidator);
+
+  function SchemaValidator(schema, options) {var _this;_classCallCheck(this, SchemaValidator);
+    _this = _super.call(this, SchemaValidator.message);
+
+    _this._schema = schema;
+    _this._options = options || null;return _this;
+  }_createClass(SchemaValidator, [{ key: "updateSchema", value: function updateSchema(
+
+    schema) {
+      this._schema = schema;
+    } }, { key: "validate", value: function () {var _validate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(
+
+      data, allData) {var result;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                result = this._checkFieldInSchema(data);if (
+                result) {_context3.next = 5;break;}_context3.next = 4;return (
+                  this.invokeValidate(data, false, allData));case 4:result = _context3.sent;case 5:return _context3.abrupt("return",
+
+                result.length ? result[0] : null);case 6:case "end":return _context3.stop();}}}, _callee3, this);}));function validate(_x10, _x11) {return _validate.apply(this, arguments);}return validate;}() }, { key: "validateAll", value: function () {var _validateAll = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(
+
+
+      data, allData) {var result;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                result = this._checkFieldInSchema(data);if (
+                result) {_context4.next = 5;break;}_context4.next = 4;return (
+                  this.invokeValidate(data, true, allData));case 4:result = _context4.sent;case 5:return _context4.abrupt("return",
+
+                result);case 6:case "end":return _context4.stop();}}}, _callee4, this);}));function validateAll(_x12, _x13) {return _validateAll.apply(this, arguments);}return validateAll;}() }, { key: "validateUpdate", value: function () {var _validateUpdate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(
+
+
+      data, allData) {var result;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
+                result = this._checkFieldInSchema(data);if (
+                result) {_context5.next = 5;break;}_context5.next = 4;return (
+                  this.invokeValidateUpdate(data, false, allData));case 4:result = _context5.sent;case 5:return _context5.abrupt("return",
+
+                result.length ? result[0] : null);case 6:case "end":return _context5.stop();}}}, _callee5, this);}));function validateUpdate(_x14, _x15) {return _validateUpdate.apply(this, arguments);}return validateUpdate;}() }, { key: "invokeValidate", value: function () {var _invokeValidate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(
+
+
+      data, all, allData) {var result, schema, key, value, errorMessage;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+                result = [];
+                schema = this._schema;_context6.t0 = _regenerator.default.keys(
+                schema);case 3:if ((_context6.t1 = _context6.t0()).done) {_context6.next = 15;break;}key = _context6.t1.value;
+                value = schema[key];_context6.next = 8;return (
+                  this.validateRule(value, data[key], data, allData));case 8:errorMessage = _context6.sent;if (!(
+                errorMessage != null)) {_context6.next = 13;break;}
+                result.push({
+                  key: key,
+                  errorMessage: errorMessage });if (
+
+                all) {_context6.next = 13;break;}return _context6.abrupt("break", 15);case 13:_context6.next = 3;break;case 15:return _context6.abrupt("return",
+
+
+                result);case 16:case "end":return _context6.stop();}}}, _callee6, this);}));function invokeValidate(_x16, _x17, _x18) {return _invokeValidate.apply(this, arguments);}return invokeValidate;}() }, { key: "invokeValidateUpdate", value: function () {var _invokeValidateUpdate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7(
+
+
+      data, all, allData) {var result, key, errorMessage;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
+                result = [];_context7.t0 = _regenerator.default.keys(
+                data);case 2:if ((_context7.t1 = _context7.t0()).done) {_context7.next = 13;break;}key = _context7.t1.value;_context7.next = 6;return (
+                  this.validateRule(this._schema[key], data[key], data, allData));case 6:errorMessage = _context7.sent;if (!(
+                errorMessage != null)) {_context7.next = 11;break;}
+                result.push({
+                  key: key,
+                  errorMessage: errorMessage });if (
+
+                all) {_context7.next = 11;break;}return _context7.abrupt("break", 13);case 11:_context7.next = 2;break;case 13:return _context7.abrupt("return",
+
+
+                result);case 14:case "end":return _context7.stop();}}}, _callee7, this);}));function invokeValidateUpdate(_x19, _x20, _x21) {return _invokeValidateUpdate.apply(this, arguments);}return invokeValidateUpdate;}() }, { key: "_checkFieldInSchema", value: function _checkFieldInSchema(
+
+
+    data) {
+      var keys = Object.keys(data);
+      var keys2 = Object.keys(this._schema);
+      if (new Set(keys.concat(keys2)).size === keys2.length) {
+        return '';
+      }
+      return [{
+        key: 'invalid',
+        errorMessage: SchemaValidator.message['defaultInvalid'] }];
+
+    } }]);return SchemaValidator;}(RuleValidator);
+
+
+function Message() {
+  return {
+    default: '验证错误',
+    defaultInvalid: '字段超出范围',
+    required: '{label}必填',
+    'enum': '{label}超出范围',
+    whitespace: '{label}不能为空',
+    date: {
+      format: '{label}日期{value}格式无效',
+      parse: '{label}日期无法解析,{value}无效',
+      invalid: '{label}日期{value}无效' },
+
+    types: {
+      string: '{label}类型无效',
+      array: '{label}类型无效',
+      object: '{label}类型无效',
+      number: '{label}类型无效',
+      date: '{label}类型无效',
+      boolean: '{label}类型无效',
+      integer: '{label}类型无效',
+      float: '{label}类型无效',
+      regexp: '{label}无效',
+      email: '{label}类型无效',
+      url: '{label}类型无效' },
+
+    length: {
+      min: '{label}长度不能少于{minLength}',
+      max: '{label}长度不能超过{maxLength}',
+      range: '{label}必须介于{minLength}和{maxLength}之间' },
+
+    number: {
+      min: '{label}不能小于{minimum}',
+      max: '{label}不能大于{maximum}',
+      range: '{label}必须介于{minimum}and{maximum}之间' },
+
+    pattern: {
+      mismatch: '{label}格式不匹配' } };
+
+
+}
+
+
+SchemaValidator.message = new Message();var _default =
+
+SchemaValidator;exports.default = _default;
 
 /***/ }),
 
@@ -12474,10 +14235,1581 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 304:
-/*!****************************************************!*\
-  !*** E:/github/1_doing/mm_uni/mixins/component.js ***!
-  \****************************************************/
+/***/ 313:
+/*!*****************************************************************!*\
+  !*** E:/github/other/mm_uni/components/uni-easyinput/common.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.throttle = exports.debounce = void 0; /**
+                                                                                                                          * @desc 函数防抖
+                                                                                                                          * @param func 目标函数
+                                                                                                                          * @param wait 延迟执行毫秒数
+                                                                                                                          * @param immediate true - 立即执行， false - 延迟执行
+                                                                                                                          */
+var debounce = function debounce(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  var timer;
+  console.log(1);
+  return function () {
+    console.log(123);
+    var context = this,
+    args = arguments;
+    if (timer) clearTimeout(timer);
+    if (immediate) {
+      var callNow = !timer;
+      timer = setTimeout(function () {
+        timer = null;
+      }, wait);
+      if (callNow) func.apply(context, args);
+    } else {
+      timer = setTimeout(function () {
+        func.apply(context, args);
+      }, wait);
+    }
+  };
+};
+/**
+    * @desc 函数节流
+    * @param func 函数
+    * @param wait 延迟执行毫秒数
+    * @param type 1 使用表时间戳，在时间段开始的时候触发 2 使用表定时器，在时间段结束的时候触发
+    */exports.debounce = debounce;
+var throttle = function throttle(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+  var previous = 0;
+  var timeout;
+  return function () {
+    var context = this;
+    var args = arguments;
+    if (type === 1) {
+      var now = Date.now();
+
+      if (now - previous > wait) {
+        func.apply(context, args);
+        previous = now;
+      }
+    } else if (type === 2) {
+      if (!timeout) {
+        timeout = setTimeout(function () {
+          timeout = null;
+          func.apply(context, args);
+        }, wait);
+      }
+    }
+  };
+};exports.throttle = throttle;
+
+/***/ }),
+
+/***/ 32:
+/*!*********************************************!*\
+  !*** E:/github/other/mm_uni/mixins/page.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  data: function data() {
+    return {
+      // 标题
+      title: "",
+
+      // 地址
+      url: "",
+
+      // 添加地址
+      url_add: "",
+
+      // 删除地址
+      url_del: "",
+
+      // 修改地址
+      url_set: "",
+
+      // 查询对象地址
+      url_get_obj: "",
+
+      // 查询列表地址
+      url_get_list: "",
+
+      // 表单提交地址
+      url_submit: "",
+
+      // 上传提交地址
+      url_upload: "",
+
+      // 导入数据地址
+      url_import: "",
+
+      // 导出数据地址
+      url_export: "",
+
+      // 获取的列表
+      list: [],
+
+      // 提交表单
+      form: {},
+
+      // 线上对象
+      obj: {},
+
+      // 查询参数
+      query: {
+        // 当前页面
+        // page: 1,
+        // 页面大小
+        // size: 10
+      },
+
+      // 配置
+      config: {
+        // 默认当前页面
+        page: 1,
+        // 默认页面大小
+        size: 10 },
+
+
+      // 加载进度
+      loading: 0,
+
+      // 显示进度
+      showing: 0,
+
+      // 提交进度
+      posting: 0,
+
+      // 查询结果匹配数统计
+      count: 0,
+
+      // 显示隐藏，true显示，false隐藏
+      show: false,
+
+      // 响应成功或失败
+      bl: false,
+
+      // 显示方式
+      display: "",
+
+      // 关键字段
+      field: "",
+
+      // 响应提示
+      tip: "",
+
+      // 默认请求方式
+      mode: "list",
+
+      // 清除列表
+      clear_list: true,
+
+      // 响应错误消息
+      message: "",
+
+      // 选中集
+      selects: "",
+
+      // 当前页, 用于跳转页面
+      page_now: 1,
+
+      // 选择项状态
+      select_state: false,
+
+      // 排序键，用于拖拽修改排序
+      sort_key: "display",
+
+      // 修改条件
+      query_set: {},
+
+      // 展开的上级id
+      opens: [],
+
+      // 上级ID: father_id
+      father_id: "father_id",
+
+      // 选中集合
+      selection: [],
+
+      // 登录权限
+      oauth: {
+        "signIn": false,
+        "gm": 0,
+        "user_admin": [] },
+
+
+      // 用户信息
+      user: this.$store.state.user,
+
+      // 修改提示
+      tip_show: true };
+
+  },
+  methods: {
+
+    /**
+              * @description 保存对象
+              * @param {String} key 键
+              * @param {String} obj 值
+              */
+    save_obj: function save_obj(key, obj) {
+      uni.setStorageSync(key, obj);
+    },
+
+    /**
+        * @description 查询对象
+        * @param {String} key 键
+        * @return {Object} 值
+        */
+    load_obj: function load_obj(key) {
+      return uni.getStorageSync(key);
+    },
+
+    /**
+        * @description 事件管理, 用于管理函数
+        * @param {String} name 事件名
+        * @param {Object} param1 参数1
+        * @param {Object} param2 参数2
+        * @param {Object} param3 参数3
+        * @return {Object} 返回事件特定值
+        */
+    events: function events(name, param1, param2, param3) {
+      if (this[name]) {
+        if (param3) {
+          return this[name](param1, param2, param3);
+        } else {
+          return this[name](param1, param2);
+        }
+      } else {
+        return null;
+      }
+    },
+
+    /**
+        * 回调函数(中控)
+        * @param {String} name 函数名
+        * @param {Object} param1
+        * @param {Object} param2
+        * @param {Object} param3
+        * @return {Object} 任意值
+        */
+    func: function func(name, param1, param2, param3) {
+      var f = this[name];
+      if (f) {
+        if (param1 === undefined) {
+          return f();
+        } else if (param2 === undefined) {
+          return f(param1);
+        } else if (param3 === undefined) {
+          return f(param1, param2);
+        } else {
+          return f(param1, param2, param3);
+        }
+      } else {
+        return null;
+      }
+    },
+
+    /**
+        * @description 添加数据
+        * @param {Object} param 要添加的数据
+        * @param {Function} func 回调函数
+        */
+    add: function add(param, func) {
+      if (!param) {
+        param = this.obj;
+      }
+      var pm = this.events("add_before", Object.assign({}, param)) || param;
+      var msg = this.events("add_check", pm);
+      var ret;
+      if (!msg) {
+        ret = this.events("add_main", pm, func);
+      }
+      return ret;
+    },
+
+    /**
+        * @description 删除数据
+        * @param {Object} param 查询条件
+        */
+    del: function del(param, func) {
+      if (!param) {
+        param = this.query;
+      }
+      var pm = this.events("del_before", Object.assign({}, param)) || param;
+      var msg = this.events("del_check", pm);
+      var ret;
+      if (!msg) {
+        ret = this.events("del_main", pm, func);
+      }
+      return ret;
+    },
+
+    del_show: function del_show(o, id) {
+      var _this = this;
+      uni.confirm('删除后将无法回复!<br/>是否确定要删除?', function () {
+        // console.log('确定删除!');
+        var query = {};
+        query[id] = o[id];
+        _this.del(query, function () {
+          _this.list.del(query);
+          _this.count -= 1;
+        });
+      }, function () {
+        // console.log('取消删除!')
+      });
+    },
+
+    /**
+        * @description 修改数据
+        * @param {Object} param 修改项
+        * @param {String} query 查询条件
+        * @param {Boolean} includeZero 是否包括0
+        */
+    set: function set(param, query, func, includeZero) {
+      if (!param) {
+        param = this.obj;
+      }
+      if (query) {
+        this.query_set = query;
+      } else {
+        this.query_set = Object.assign({}, this.query);
+      }
+      var pm = this.events("set_before", Object.assign({}, param), includeZero) || param;
+      var msg = this.events("set_check", pm);
+      var ret;
+      if (!msg) {
+        ret = this.events("set_main", pm, func);
+      }
+      return ret;
+    },
+
+    /**
+        * 修改前事件
+        * @param {Object} param
+        * @param {Boolean} includeZero 是否删除0值项
+        * @param {Object} 返回新的参数
+        */
+    set_before: function set_before(param, includeZero) {
+      var pm = uni.delete(param, includeZero);
+      for (var k in pm) {
+        if (k.toLocaleLowerCase().indexOf('time') !== -1 && pm[k].indexOf('T') !== -1) {
+          pm[k] = new Date(pm[k]).toStr('yyyy-MM-dd 00:00:00');
+        }
+      }
+      return pm;
+    },
+
+    /**
+        * 批量修改
+        */
+    batchSet: function batchSet() {
+      var _this = this;
+      uni.confirm('批量修改数据无法挽回<br/>确定要操作吗?', function () {
+        var q = Object.assign({}, _this.query, _this.query_set);
+        q[_this.field] = _this.selects;
+        delete q.page;
+        delete q.size;
+        delete q.orderby;
+        _this.set(_this.form, q, function (json) {
+          if (json.result) {
+            _this.show = false;
+            _this.get();
+          }
+        }, true);
+      });
+    },
+
+    /**
+        * @description 查询多条数据
+        * @param {Object} query 查询条件
+        * @param {Function} func 回调函数
+        */
+    get_list: function get_list(param, func) {
+      if (!param) {
+        param = this.query;
+      }
+      var pm = this.events("get_list_before", Object.assign({}, param)) || param;
+      var msg = this.events("get_list_check", pm);
+      var ret;
+      if (!msg) {
+        ret = this.events("get_list_main", pm, func);
+      }
+      return ret;
+    },
+
+    /**
+        * @description 查询一条数据
+        * @param {Object} query 查询条件
+        * @func {Function} 回调函数
+        */
+    get_obj: function get_obj(param, func) {
+      if (!param) {
+        param = this.query;
+      }
+      var pm = this.events("get_obj_before", Object.assign({}, param)) || param;
+      var msg = this.events("get_obj_check", pm);
+      var ret;
+      if (!msg) {
+        ret = this.events("get_obj_main", pm, func);
+      } else if (func) {
+        func();
+      }
+      return ret;
+    },
+
+    sort: function sort(param, func) {
+      var pm = this.events("sort_before", Object.assign({}, param)) || param;
+      var msg = this.events("sort_check", pm);
+      var ret;
+      if (!msg) {
+        ret = this.events("sort_main", pm, func);
+      }
+      return ret;
+    },
+
+    /**
+        * 检测授权，有权限后回调函数
+        * @param {Function} func 回调函数
+        */
+    check_auth: function check_auth(func) {var _this2 = this;
+      // 取出权限
+      var auth = this.$store.state.web.auth;
+      // 权限长度不为空
+      if (!auth || auth.length === 0) {
+        this.$get_auth(this.user.user_group);
+      }
+
+      // 判断用户ID
+      if (!this.user.user_id) {
+        var token = uni.db.get("token");
+        if (token) {
+          // 存储token
+          this.$store.commit("user_set", {
+            token: token });
+
+          // 获取登录态
+          this.$get_user(function () {
+            // 判断
+            if (_this2.oauth.signIn) {
+              if (_this2.user.user_id) {
+                // 执行获取权限并存储
+                _this2.$get_auth(_this2.user.user_group);
+                func();
+              } else {
+                uni.navigateTo({
+                  url: "/pages/account/login" });
+
+              }
+            }
+          });
+        } else {
+          // 前往登录页
+          if (this.oauth.signIn) {
+            uni.navigateTo({
+              url: "/pages/account/login" });
+
+          } else {
+            func();
+          }
+        }
+      } else if (this.oauth.signIn) {
+        if (this.user.user_id) {
+          func();
+        } else {
+          uni.navigateTo({
+            url: "/pages/account/login" });
+
+        }
+      } else {
+        func();
+      }
+    },
+
+    /**
+        * 初始化
+        * @param {Object} param 参数
+        * @param {Function} func 回调函数
+        */
+    init: function init(param, func) {
+      var pm = this.events("init_before", Object.assign({}, param)) || param;
+      var msg = this.events("init_check", pm);
+      var ret;
+      if (!msg) {
+        ret = this.events("init_main", pm, func);
+      } else if (func) {
+        func();
+      }
+      return ret;
+    },
+
+    submit: function submit(param, func) {
+      if (!param) {
+        param = this.form;
+      }
+      var pm = this.events("submit_before", Object.assign({}, param)) || param;
+      var msg = this.events("submit_check", pm);
+      var ret;
+      if (msg) {
+        this.$toast(msg, 'danger');
+      } else {
+        ret = this.events("submit_main", pm, func);
+      }
+      return ret;
+    },
+
+    /**
+        * 提交前事件
+        * @param {Object} param 提交参数
+        */
+    submit_before: function submit_before(param) {
+      return param;
+    },
+
+    upload: function upload(param, func) {
+      var pm = this.events("upload_before", Object.assign({}, param)) || param;
+      var msg = this.events("upload_check", pm);
+      var ret;
+      if (msg) {
+        this.$toast(msg, 'danger');
+      } else {
+        ret = this.events("upload_main", pm, func);
+      }
+      return ret;
+    },
+
+    /**
+        * @description 添加数据
+        * @param {Object} value 要添加的数据
+        */
+    add_main: function add_main(value, func) {
+      var url = this.url ? this.url + "method=add" : this.url_add;
+      if (!url) {
+        return;
+      }
+      var _this = this;
+      this.$post(url, value, function (json) {
+        _this.events("add_after", json, func);
+        if (json.result) {
+          _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
+        } else if (json.error) {
+          _this.$toast(json.error.message, 'danger');
+        } else {
+          _this.$toast('添加失败! 原因:是服务器连接失败!', "danger");
+        }
+      });
+    },
+
+    /**
+        * @description 删除数据
+        * @param {Object} query 查询条件
+        * @param {Function} func 删除回调函数函数
+        */
+    del_main: function del_main(query, func) {
+      var url = this.url ? this.url + "method=del" : this.url_del;
+      if (!url) {
+        return;
+      }
+      var _this = this;
+      this.$get(url, query, function (json) {
+        _this.events("del_after", json, func);
+        if (json.result) {
+          _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
+        } else if (json.error) {
+          _this.$toast(json.error.message, 'danger');
+        } else {
+          _this.$toast('删除失败! 原因:是服务器连接失败!', "danger");
+        }
+      });
+    },
+
+    /**
+        * 删除之后事件
+        * @param {Object} json 返回的结果
+        * @param {Object} func 回调函数
+        */
+    del_after: function del_after(json, func) {
+      if (func) {
+        func();
+      }
+    },
+
+    /**
+        * @description 修改数据
+        * @param {Object} value 要修改的数据
+        * @param {Object} value 修改项
+        */
+    set_main: function set_main(value, func) {
+      var url = this.url ? this.url + "method=set" : this.url_set;
+      if (!url) {
+        return;
+      }
+      var _this = this;
+      this.$post(this.toUrl(this.query_set, url), value, function (json, status) {
+        _this.events("set_after", json, func);
+        if (json.result) {
+          if (json.result.bl) {
+            if (_this.tip_show) {
+              _this.$toast(json.result.tip.replace('修改', '更新'), "success");
+            }
+          } else {
+            _this.$toast(json.result.tip.replace('修改', '更新'), "danger");
+          }
+        } else if (json.error) {
+          _this.$toast(json.error.message, "danger");
+        } else {
+          _this.$toast('修改失败! 原因:是服务器连接失败!', "danger");
+        }
+      });
+    },
+
+    /**
+        * 修改成功时执行
+        * @param {Object} json 结果
+        * @param {Object} func 回调函数
+        */
+    set_after: function set_after(json, func) {
+      if (func) {
+        func(json);
+      }
+    },
+
+    /**
+        * @description 查询数据
+        * @param {Object} query 查询参数
+        * @param {Function} func 回调函数
+        */
+    get: function get(query, func) {
+      this.get_main(query, func);
+    },
+
+    /**
+        * @description 查询数据(主程序)
+        * @param {Object} query 查询参数
+        * @param {Function} func 回调函数
+        */
+    get_main: function get_main(query, func) {
+      var url = this.url_get_obj ? this.url_get_obj : this.url;
+      if (url) {
+        var _this = this;
+        this.get_obj(query, function () {
+          _this.get_create(query, func);
+        });
+      } else {
+        this.get_create(query, func);
+      }
+    },
+
+    /**
+        * 验证请求
+        * @param {Object} param 请求参数
+        */
+    get_obj_check: function get_obj_check(param) {
+      var bl = false;
+      for (var k in param) {
+        if (param[k]) {
+          bl = true;
+          break;
+        };
+      }
+      if (bl) {
+        return null;
+      } else {
+        return "缺少查询条件";
+      }
+    },
+
+    /**
+        * @description 查询一条数据(主程序)
+        * @param {Object} query 查询条件
+        * @param {Function} func 回调函数
+        */
+    get_obj_main: function get_obj_main(query, func) {
+      // console.log("get_obj_main");
+      var url = this.url_get_obj ? this.url_get_obj : this.url + "method=get_obj";
+      if (!url) {
+        return;
+      }
+      var _this = this;
+      this.$get(this.toUrl(query, url), null, function (json, status) {
+        _this.events("get_obj_after", json, func);
+        var res = json.result;
+        if (res) {
+          var obj;
+          if (res.obj) {
+            obj = res.obj;
+            delete res.obj;
+          } else {
+            var list = res.list;
+            if (list && list.length > 0) {
+              obj = list[0];
+            } else {
+              obj = res;
+            }
+          }
+          uni.push(_this, res, true);
+          if (obj) {
+            if (!_this.obj || Object.keys(_this.obj).length === 0) {
+              _this.obj = obj;
+            } else {
+              uni.push(_this.obj, obj);
+            }
+            var o = _this.obj;
+            for (var k in o) {
+              if (k.indexOf('time') !== -1) {
+                var val = o[k];
+                if (val && val.indexOf('T') !== -1) {
+                  var v = new Date(o[k]);
+                  o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+                }
+              }
+            }
+            if (!_this.form || Object.keys(_this.form).length === 0) {
+              _this.form = Object.assign({}, _this.obj);
+            } else {
+              uni.push(_this.form, Object.assign({}, _this.obj));
+            }
+          }
+        } else if (json.error) {
+          console.log(json.error.message);
+        } else {
+          _this.$toast("服务器连接失败！", "danger");
+        }
+      });
+    },
+
+    /**
+        * @description 获取到对象后事件
+        * @param {Object} json 响应结果
+        */
+    get_obj_after: function get_obj_after(json, func) {
+      if (func) {
+        func(json);
+      }
+    },
+
+    /**
+        * @description 查询多条数据(主程序)
+        * @param {Object} query 查询条件
+        * @param {Function} func 回调函数
+        */
+    get_list_main: function get_list_main(query, func) {
+      var url = this.url_get_list ? this.url_get_list : this.url;
+      if (!url) {
+        return;
+      }
+      var _this = this;
+      this.loading = 0;
+      this.$get(this.toUrl(query, url), null, function (json, status) {
+        _this.loading = 100;
+        if (_this.clear_list) {
+          _this.list.clear();
+        }
+        _this.events("get_list_after", json, func, url);
+        var res = json.result;
+        if (res) {
+          _this.page_now = _this.query.page;
+          _this.list.addList(res.list);
+          if (res.count !== undefined) {
+            _this.count = res.count;
+          }
+        } else if (json.error) {
+          // 非法访问或未登录
+          _this.$store.commit('sign_out');
+          console.log(json.error.message);
+        } else {
+          _this.$toast("服务器连接失败！", "danger");
+        }
+      });
+    },
+
+    /**
+        * @description 获取到列表事件
+        * @param {Object} res 响应结果
+        */
+    get_list_after: function get_list_after(res, func, url) {
+      if (func) {
+        func(res, url);
+      }
+    },
+
+    /**
+        * 搜索
+        * @param {Object} query 查询条件
+        * @param {Boolean} bl 是否重置再搜索
+        */
+    search: function search(query, func) {
+      if (query) {
+        uni.push(this.query, query);
+      }
+      var url = this.url_get_list ? this.url_get_list : this.url;
+      if (url) {
+        this.query.page = 1;
+        this.count = 0;
+        // uni.route.push("?" + this.toUrl(this.query));
+        this.first(query, func);
+      }
+    },
+
+    get_create: function get_create(query, func) {
+      if (query) {
+        uni.push(this.query, query);
+      }
+      var url = this.url_get_list ? this.url_get_list : this.url;
+      if (url) {
+        this.count = 0;
+        // uni.route.push("?" + this.toUrl(this.query));
+        this.first(query, func);
+      }
+    },
+
+    /**
+        * @description 查询多条数据 (首次)
+        * @param {Object} query 查询条件
+        * @param {Function} func 回调函数
+        */
+    first: function first(query, func) {
+      var _this = this;
+
+      if (!this.count) {
+        var qy = Object.assign({}, this.query);
+        this.get_list(qy, func);
+      } else {
+        this.get_list(query, func);
+      }
+    },
+
+    /**
+        * @description 查询下一页数据
+        * @param {Function} func 回调函数
+        */
+    next: function next(query, func) {
+      console.log("next");
+      var _this = this;
+      _this.get_list(query, function (json, url) {
+        if (json.result) {
+          var list = json.result.list;
+          if (list.length > 0) {
+            var qy = Object.assign({}, query, {
+              page: query.page + 1 });
+
+            if (qy.page <= _this.page_count) {
+              delete qy.count_ret;
+              _this.$get(_this.toUrl(qy, url));
+            }
+          }
+        }
+        if (func) {
+          func(json);
+        }
+      });
+    },
+
+    /**
+        * @description 查询上一页数据
+        * @param {Function} func 回调函数
+        */
+    prev: function prev(query, func) {
+      console.log("prev");
+      var _this = this;
+      this.get_list(query, function (json, url) {
+        if (json.result) {
+          var list = json.result.list;
+          if (list.length > 0) {
+            var qy = Object.assign({}, query, {
+              page: query.page - 1 });
+
+            if (qy.page >= 1) {
+              delete qy.count_ret;
+              _this.$get(_this.toUrl(qy, url));
+            }
+          }
+        }
+        if (func) {
+          func(res);
+        }
+      });
+    },
+
+    /**
+        * 清除数据
+        * @param {Object} query
+        */
+    clear: function clear(query) {
+      uni.clear(query);
+    },
+
+    /**
+        * 重置
+        */
+    reset: function reset() {
+      uni.clear(this.query);
+      uni.push(this.query, this.config);
+    },
+
+    /**
+        * 提交表单
+        */
+    submit_main: function submit_main(param, func) {
+      var url = this.url;
+      if (url) {
+        if (this.field) {
+          var id = param[this.field];
+          if (id) {
+            var q = {
+              method: 'set' };
+
+            q[this.field] = id;
+            url = this.toUrl(q, url);
+          } else {
+            url += "method=add";
+          }
+        } else {
+          url += "method=submit";
+        }
+      } else if (this.url_submit) {
+        url = this.url_submit;
+      } else if (this.field) {
+        var id = param[this.field];
+        if (id) {
+          url = this.url_set;
+        } else {
+          url = this.url_add;
+        }
+      }
+
+      // console.log('提交', url);
+      if (url) {
+        var _this = this;
+        this.$post(this.$toUrl(this.query, url), param, function (json, status) {
+          if (json.result) {
+            _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
+            _this.events("submit_after", json, func);
+          } else if (json.error) {
+            _this.$toast(json.error.message, 'danger');
+          } else {
+            _this.$toast("服务器连接失败！", "danger");
+          }
+        });
+      }
+    },
+
+    /**
+        * 提交前验证事件
+        * @param {Object} 请求参数
+        * @return {String} 验证成功返回null, 失败返回错误提示
+        */
+    submit_check: function submit_check(param) {
+      return null;
+    },
+
+    /**
+        * @description 获取到对象后事件
+        * @param {Object} json 响应结果
+        * @param {Function} func 回调函数
+        */
+    submit_after: function submit_after(json, func) {
+      if (func) {
+        func(json);
+      }
+      uni.navigateBack({
+        delta: 2 });
+
+    },
+
+    /**
+        * 上下翻页
+        * @param {Number} n 加减页码
+        */
+    go: function go(n) {
+      var page = this.query.page + n;
+      this.goTo(page);
+    },
+
+    /**
+        * 跳转指定页
+        * @param {Number} page 页码
+        */
+    goTo: function goTo(page) {
+      if (page < 1) {
+        page = 1;
+      } else if (page > this.page_count) {
+        page = this.page_count;
+      }
+      var query = this.query;
+      var p = query.page;
+      query.page = page;
+      uni.navigateTo({
+        url: "?" + this.toUrl(query) });
+
+      if (this.page_count !== 0) {
+        if (p + 1 == page) {
+          this.next(query);
+        } else if (p - 1 == page) {
+          this.prev(query);
+        } else {
+          this.first(query);
+        }
+      } else {
+        this.first(query);
+      }
+    },
+
+    /**
+        * @description 转查询参数
+        * @param {Object} obj 被转换的对象
+        * @param {String} url 请求地址
+        * @return {String} url字符串
+        */
+    toUrl: function toUrl(obj, url) {
+      return uni.toUrl(obj, url);
+    },
+
+    /**
+        * 初始化前函数
+        */
+    init_before: function init_before(query) {
+      if (!query) {
+        query = this.config;
+      }
+      return query;
+    },
+
+    /**
+        * 初始化
+        */
+    init_main: function init_main(query) {
+      var _this = this;
+      uni.push(this.query, query);
+      _this.init_after(function () {
+        _this.get(_this.query);
+      });
+    },
+
+    /**
+        * 初始化后函数
+        */
+    init_after: function init_after(func) {
+      if (func) {
+        func();
+      }
+    },
+
+    /**
+        * @description 上传文件
+        * @param {Function} func 回调函数
+        */
+    upload_main: function upload_main(func) {
+      var url = "";
+      if (this.url) {
+        url = this.url + "method=upload";
+      } else {
+        url = this.url_upload;
+      }
+
+      if (!param) {
+        param = this.form;
+      }
+      if (msg) {
+        this.$toast(msg, 'danger');
+      } else {
+        this.uploading = 0;
+        var _this = this;
+        this.$upload(url, param, function (json, status) {
+          _this.uploading = 100;
+          _this.events("upload_after", json, func);
+        });
+      }
+    },
+
+    /**
+        * @description 上传完成时
+        * @param {Object} json 响应结果
+        * @param {Function} func
+        */
+    upload_after: function upload_after(json, func) {
+      if (json.result) {
+        this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
+      } else if (json.error) {
+        this.$toast(json.error.message, 'danger');
+      } else {
+        this.$toast("服务器连接失败！", "danger");
+      }
+      if (func) {
+        func();
+      }
+    },
+
+    /**
+        * 结束前
+        * @param {Object} param 参数
+        */
+    end_before: function end_before(param) {
+      // this.reset();
+    },
+
+    /**
+        * 选择项全改
+        */
+    select_all: function select_all() {
+      var bl = !this.select_state;
+      if (!bl) {
+        this.selects = '';
+      } else {
+        var s = '';
+        var list = this.list;
+        for (var i = 0; i < list.length; i++) {
+          s += '|' + list[i][this.field];
+        }
+        this.selects = s.replace('|', '');
+      }
+      this.select_state = bl;
+    },
+
+    /**
+        * 选择项改变
+        * @param {String|Number} id 选择的ID
+        */
+    select_change: function select_change(id) {
+      var has = false;
+      var arr = this.selects.split('|');
+      for (var i = 0; i < arr.length; i++) {
+        var o = arr[i];
+        if (id == o) {
+          arr.splice(i, 1);
+          has = true;
+          break;
+        }
+      }
+      if (!has) {
+        arr.push(id);
+      }
+      var s = arr.join('|');
+      if (s.indexOf('|') == 0) {
+        this.selects = s.substring(1);
+      } else {
+        this.selects = s;
+      }
+    },
+
+    /**
+        * 选择项含有
+        * @param {String|Number} id 选择的ID
+        */
+    select_has: function select_has(id) {
+      var ids = '|' + this.selects + '|';
+      return ids.indexOf('|' + id + '|') !== -1;
+    },
+
+    /**
+        * 选中
+        * @param {Number} index 项目索引
+        */
+    selected: function selected(index) {
+      this.select = index;
+      uni.db.set('select', index, 120);
+    },
+
+    /**
+        * 页面改变时
+        * @param {Object} e 事件
+        */
+    page_change: function page_change(e) {
+      var n = Number(e.current);
+      if (isNaN(n)) {
+        n = 1;
+      }
+      if (n < 1) {
+        n = 1;
+      } else if (n > this.page_count) {
+        n = this.page_count;
+      }
+      this.goTo(n);
+    },
+
+    /**
+        * 获取名称
+        * @param {Array} list 用来取名的列表
+        * @param {String} arr_str id集合
+        * @param {String} key 键
+        * @param {String} name 名
+        * @param {String} span 分隔符
+        */
+    get_name: function get_name(list, arr_str, key, name, span) {
+      if (!name) {
+        name = "name";
+      }
+      var value = "";
+      if (arr_str) {
+        if (typeof arr_str == 'string') {
+          if (!span) {
+            span = ',';
+          }
+          var arr = arr_str.split(span);
+          var id = Number(arr[0]);
+
+          for (var i = 0; i < list.length; i++) {
+            var o = list[i];
+            if (o[key] == id) {
+              value += '|' + o[name];
+            }
+          }
+        } else {
+          var id = arr_str;
+          for (var i = 0; i < list.length; i++) {
+            var o = list[i];
+            if (o[key] == id) {
+              value = o[name];
+              break;
+            }
+          }
+        }
+      }
+      return value.replace('|', '');
+    },
+
+    /**
+        * 取消并返回
+        */
+    cancel: function cancel() {
+      uni.navigateBack({
+        delta: 2 });
+
+    },
+
+    /**
+        * 导入数据
+        * @param {Object} file 文件
+        */
+    import_db: function import_db(file) {
+      if (file) {
+        var _this = this;
+        uni.confirm("是否导入 " + file.name, "导入数据", function () {
+          uni.http.upload(_this.url_import, file, function (json) {
+            if (json.result) {
+              uni.confirm(json.result.tip, function () {
+                _this.get();
+              });
+            } else if (json.error) {
+              uni.confirm(json.error.message);
+            } else {
+              _this.$toast("服务器连接失败！", "danger");
+            }
+          });
+        });
+      }
+    },
+
+    /**
+        * 导出数据
+        */
+    export_db: function export_db() {
+      var _this = this;
+      if (this.selects) {
+        var query = {};
+        query[this.field] = this.selects;
+        this.$get(_this.url_export, query, function (json) {
+          var res = json.result;
+          if (res && res.bl) {
+            window.location.href = res.url;
+          }
+        });
+      } else {
+        this.$get(_this.url_export, this.query, function (json) {
+          var res = json.result;
+          if (res && res.bl) {
+            window.location.href = res.url;
+          }
+        });
+      }
+    },
+
+    /**
+        * 判断是否有下级
+        * @param {Number} id 字段ID
+        * @param {Object} list 数据列表
+        * @return {Number} 返回级别
+        */
+    opens_has_sub: function opens_has_sub(id, list) {
+      if (!list) {
+        list = this.list;
+      }
+      var bl = false;
+      var father_id = this.father_id;
+      for (var i = 0; i < list.length; i++) {
+        var o = list[i];
+        if (o[father_id] === id) {
+          bl = true;
+          break;
+        }
+      }
+      return bl;
+    },
+
+    /**
+        * 改变展开项
+        * @param {Number} id 唯一主键
+        */
+    opens_change: function opens_change(id) {
+      var index = this.opens.indexOf(id);
+      if (index !== -1) {
+        this.opens.splice(index, 1);
+      } else {
+        var bl = this.opens_has_sub(id);
+        if (bl) {
+          this.opens.push(id);
+        }
+      }
+      uni.db.set('opens', this.opens);
+    },
+
+    /**
+        * 判断是否存在
+        * @param {Number} id 唯一主键
+        * @return {Boolean} 存在返回true, 否则返回false
+        */
+    opens_has: function opens_has(id) {
+      return this.opens.indexOf(id) !== -1;
+    },
+
+    /**
+        * 判断子孙级别, 最大支持5次分叉
+        * @param {Number} fid 祖辈ID
+        * @param {Object} list 数据列表
+        * @return {Number} 返回级别
+        */
+    opens_lv: function opens_lv(fid, list) {
+      if (!list) {
+        list = this.list;
+      }
+      var lv = 0;
+      var father_id = this.father_id;
+      var id = this.field;
+      var num = fid;
+      for (var n = 0; n < 5; n++) {
+        if (num === 0) {
+          break;
+        }
+        for (var i = 0; i < list.length; i++) {
+          var o = list[i];
+          if (o[id] === num) {
+            lv++;
+            num = o[father_id];
+            if (num === 0) {
+              break;
+            }
+          }
+        }
+      }
+      return lv;
+    },
+
+    to_form: function to_form(url, key) {
+      uni.db.set("form_" + key, this.obj);
+      this.$nav(url);
+    },
+
+    selectionChange: function selectionChange(val) {
+      this.selection = val;
+    },
+
+    select_tpl_home: function select_tpl_home() {
+
+    },
+
+    select_tpl_admin: function select_tpl_admin() {
+
+    },
+    get_form: function get_form(key) {
+      var form = uni.db.get("form_" + key);
+      if (Object.keys(this.form).length > 0) {
+        uni.push(this.form, form);
+      }
+    } },
+
+
+  computed: {
+    /**
+               * 分页数量
+               */
+    page_count: function page_count() {
+      // return Math.ceil(this.count / this.query.size);
+      return;
+    } },
+
+
+  onLoad: function onLoad() {var _this3 = this;
+    this.get_form();
+    this.showing = 0;
+    var routes = getCurrentPages();
+    var query = routes[routes.length - 1].options;
+    this.check_auth(function () {
+      _this3.init(query);
+    });
+  },
+
+  onShow: function onShow() {var _this4 = this;
+    this.showing = 100;
+    var routes = getCurrentPages();
+    var query = routes[routes.length - 1].options;
+    this.check_auth(function () {
+      _this4.init(query);
+    });
+  },
+
+  onHide: function onHide() {
+    this.events('end_before');
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 321:
+/*!************************************************************!*\
+  !*** E:/github/other/mm_uni/components/uni-icons/icons.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  "pulldown": "\uE588",
+  "refreshempty": "\uE461",
+  "back": "\uE471",
+  "forward": "\uE470",
+  "more": "\uE507",
+  "more-filled": "\uE537",
+  "scan": "\uE612",
+  "qq": "\uE264",
+  "weibo": "\uE260",
+  "weixin": "\uE261",
+  "pengyouquan": "\uE262",
+  "loop": "\uE565",
+  "refresh": "\uE407",
+  "refresh-filled": "\uE437",
+  "arrowthindown": "\uE585",
+  "arrowthinleft": "\uE586",
+  "arrowthinright": "\uE587",
+  "arrowthinup": "\uE584",
+  "undo-filled": "\uE7D6",
+  "undo": "\uE406",
+  "redo": "\uE405",
+  "redo-filled": "\uE7D9",
+  "bars": "\uE563",
+  "chatboxes": "\uE203",
+  "camera": "\uE301",
+  "chatboxes-filled": "\uE233",
+  "camera-filled": "\uE7EF",
+  "cart-filled": "\uE7F4",
+  "cart": "\uE7F5",
+  "checkbox-filled": "\uE442",
+  "checkbox": "\uE7FA",
+  "arrowleft": "\uE582",
+  "arrowdown": "\uE581",
+  "arrowright": "\uE583",
+  "smallcircle-filled": "\uE801",
+  "arrowup": "\uE580",
+  "circle": "\uE411",
+  "eye-filled": "\uE568",
+  "eye-slash-filled": "\uE822",
+  "eye-slash": "\uE823",
+  "eye": "\uE824",
+  "flag-filled": "\uE825",
+  "flag": "\uE508",
+  "gear-filled": "\uE532",
+  "reload": "\uE462",
+  "gear": "\uE502",
+  "hand-thumbsdown-filled": "\uE83B",
+  "hand-thumbsdown": "\uE83C",
+  "hand-thumbsup-filled": "\uE83D",
+  "heart-filled": "\uE83E",
+  "hand-thumbsup": "\uE83F",
+  "heart": "\uE840",
+  "home": "\uE500",
+  "info": "\uE504",
+  "home-filled": "\uE530",
+  "info-filled": "\uE534",
+  "circle-filled": "\uE441",
+  "chat-filled": "\uE847",
+  "chat": "\uE263",
+  "mail-open-filled": "\uE84D",
+  "email-filled": "\uE231",
+  "mail-open": "\uE84E",
+  "email": "\uE201",
+  "checkmarkempty": "\uE472",
+  "list": "\uE562",
+  "locked-filled": "\uE856",
+  "locked": "\uE506",
+  "map-filled": "\uE85C",
+  "map-pin": "\uE85E",
+  "map-pin-ellipse": "\uE864",
+  "map": "\uE364",
+  "minus-filled": "\uE440",
+  "mic-filled": "\uE332",
+  "minus": "\uE410",
+  "micoff": "\uE360",
+  "mic": "\uE302",
+  "clear": "\uE434",
+  "smallcircle": "\uE868",
+  "close": "\uE404",
+  "closeempty": "\uE460",
+  "paperclip": "\uE567",
+  "paperplane": "\uE503",
+  "paperplane-filled": "\uE86E",
+  "person-filled": "\uE131",
+  "contact-filled": "\uE130",
+  "person": "\uE101",
+  "contact": "\uE100",
+  "images-filled": "\uE87A",
+  "phone": "\uE200",
+  "images": "\uE87B",
+  "image": "\uE363",
+  "image-filled": "\uE877",
+  "location-filled": "\uE333",
+  "location": "\uE303",
+  "plus-filled": "\uE439",
+  "plus": "\uE409",
+  "plusempty": "\uE468",
+  "help-filled": "\uE535",
+  "help": "\uE505",
+  "navigate-filled": "\uE884",
+  "navigate": "\uE501",
+  "mic-slash-filled": "\uE892",
+  "search": "\uE466",
+  "settings": "\uE560",
+  "sound": "\uE590",
+  "sound-filled": "\uE8A1",
+  "spinner-cycle": "\uE465",
+  "download-filled": "\uE8A4",
+  "personadd-filled": "\uE132",
+  "videocam-filled": "\uE8AF",
+  "personadd": "\uE102",
+  "upload": "\uE402",
+  "upload-filled": "\uE8B1",
+  "starhalf": "\uE463",
+  "star-filled": "\uE438",
+  "star": "\uE408",
+  "trash": "\uE401",
+  "phone-filled": "\uE230",
+  "compose": "\uE400",
+  "videocam": "\uE300",
+  "trash-filled": "\uE8DC",
+  "download": "\uE403",
+  "chatbubble-filled": "\uE232",
+  "chatbubble": "\uE202",
+  "cloud-download": "\uE8E4",
+  "cloud-upload-filled": "\uE8E5",
+  "cloud-upload": "\uE8E6",
+  "cloud-download-filled": "\uE8E9",
+  "headphones": "\uE8BF",
+  "shop": "\uE609" };exports.default = _default;
+
+/***/ }),
+
+/***/ 376:
+/*!**************************************************!*\
+  !*** E:/github/other/mm_uni/mixins/component.js ***!
+  \**************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12732,7 +16064,7 @@ module.exports = g;
         * @param {String} obj 值
         */
     save_obj: function save_obj(key, obj) {
-      $.db.set(key, obj);
+      uni.db.set(key, obj);
     },
     /**
         * @description 查询对象
@@ -12740,7 +16072,7 @@ module.exports = g;
         * @return {Object} 值
         */
     load_obj: function load_obj(key) {
-      return $.db.get(key);
+      return uni.db.get(key);
     },
     /**
         * @description 事件管理, 用于管理函数
@@ -13784,2034 +17116,10 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 32:
-/*!***********************************************!*\
-  !*** E:/github/1_doing/mm_uni/mixins/page.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  data: function data() {
-    return {
-      // 标题
-      title: "",
-
-      // 地址
-      url: "",
-
-      // 添加地址
-      url_add: "",
-
-      // 删除地址
-      url_del: "",
-
-      // 修改地址
-      url_set: "",
-
-      // 查询对象地址
-      url_get_obj: "",
-
-      // 查询列表地址
-      url_get_list: "",
-
-      // 表单提交地址
-      url_submit: "",
-
-      // 上传提交地址
-      url_upload: "",
-
-      // 导入数据地址
-      url_import: "",
-
-      // 导出数据地址
-      url_export: "",
-
-      // 获取的列表
-      list: [],
-
-      // 提交表单
-      form: {},
-
-      // 线上对象
-      obj: {},
-
-      // 查询参数
-      query: {
-        // 当前页面
-        // page: 1,
-        // 页面大小
-        // size: 10
-      },
-
-      // 配置
-      config: {
-        // 默认当前页面
-        page: 1,
-        // 默认页面大小
-        size: 10 },
-
-
-      // 加载进度
-      loading: 0,
-
-      // 显示进度
-      showing: 0,
-
-      // 提交进度
-      posting: 0,
-
-      // 查询结果匹配数统计
-      count: 0,
-
-      // 显示隐藏，true显示，false隐藏
-      show: false,
-
-      // 响应成功或失败
-      bl: false,
-
-      // 显示方式
-      display: "",
-
-      // 关键字段
-      field: "",
-
-      // 响应提示
-      tip: "",
-
-      // 默认请求方式
-      mode: "list",
-
-      // 清除列表
-      clear_list: true,
-
-      // 响应错误消息
-      message: "",
-
-      // 选中集
-      selects: "",
-
-      // 当前页, 用于跳转页面
-      page_now: 1,
-
-      // 选择项状态
-      select_state: false,
-
-      // 排序键，用于拖拽修改排序
-      sort_key: "display",
-
-      // 修改条件
-      query_set: {},
-
-      // 展开的上级id
-      opens: [],
-
-      // 上级ID: father_id
-      father_id: "father_id",
-
-      // 选中集合
-      selection: [],
-
-      // 登录权限
-      oauth: {
-        "signIn": false,
-        "gm": 0,
-        "user_admin": [] },
-
-
-      // 用户信息
-      user: this.$store.state.user,
-
-      // 修改提示
-      tip_show: true };
-
-  },
-  methods: {
-
-    /**
-              * @description 保存对象
-              * @param {String} key 键
-              * @param {String} obj 值
-              */
-    save_obj: function save_obj(key, obj) {
-      uni.setStorageSync(key, obj);
-    },
-
-    /**
-        * @description 查询对象
-        * @param {String} key 键
-        * @return {Object} 值
-        */
-    load_obj: function load_obj(key) {
-      return uni.getStorageSync(key);
-    },
-
-    /**
-        * @description 事件管理, 用于管理函数
-        * @param {String} name 事件名
-        * @param {Object} param1 参数1
-        * @param {Object} param2 参数2
-        * @param {Object} param3 参数3
-        * @return {Object} 返回事件特定值
-        */
-    events: function events(name, param1, param2, param3) {
-      if (this[name]) {
-        if (param3) {
-          return this[name](param1, param2, param3);
-        } else {
-          return this[name](param1, param2);
-        }
-      } else {
-        return null;
-      }
-    },
-
-    /**
-        * 回调函数(中控)
-        * @param {String} name 函数名
-        * @param {Object} param1
-        * @param {Object} param2
-        * @param {Object} param3
-        * @return {Object} 任意值
-        */
-    func: function func(name, param1, param2, param3) {
-      var f = this[name];
-      if (f) {
-        if (param1 === undefined) {
-          return f();
-        } else if (param2 === undefined) {
-          return f(param1);
-        } else if (param3 === undefined) {
-          return f(param1, param2);
-        } else {
-          return f(param1, param2, param3);
-        }
-      } else {
-        return null;
-      }
-    },
-
-    /**
-        * @description 添加数据
-        * @param {Object} param 要添加的数据
-        * @param {Function} func 回调函数
-        */
-    add: function add(param, func) {
-      if (!param) {
-        param = this.obj;
-      }
-      var pm = this.events("add_before", Object.assign({}, param)) || param;
-      var msg = this.events("add_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("add_main", pm, func);
-      }
-      return ret;
-    },
-
-    /**
-        * @description 删除数据
-        * @param {Object} param 查询条件
-        */
-    del: function del(param, func) {
-      if (!param) {
-        param = this.query;
-      }
-      var pm = this.events("del_before", Object.assign({}, param)) || param;
-      var msg = this.events("del_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("del_main", pm, func);
-      }
-      return ret;
-    },
-
-    del_show: function del_show(o, id) {
-      var _this = this;
-      uni.confirm('删除后将无法回复!<br/>是否确定要删除?', function () {
-        // console.log('确定删除!');
-        var query = {};
-        query[id] = o[id];
-        _this.del(query, function () {
-          _this.list.del(query);
-          _this.count -= 1;
-        });
-      }, function () {
-        // console.log('取消删除!')
-      });
-    },
-
-    /**
-        * @description 修改数据
-        * @param {Object} param 修改项
-        * @param {String} query 查询条件
-        * @param {Boolean} includeZero 是否包括0
-        */
-    set: function set(param, query, func, includeZero) {
-      if (!param) {
-        param = this.obj;
-      }
-      if (query) {
-        this.query_set = query;
-      } else {
-        this.query_set = Object.assign({}, this.query);
-      }
-      var pm = this.events("set_before", Object.assign({}, param), includeZero) || param;
-      var msg = this.events("set_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("set_main", pm, func);
-      }
-      return ret;
-    },
-
-    /**
-        * 修改前事件
-        * @param {Object} param
-        * @param {Boolean} includeZero 是否删除0值项
-        * @param {Object} 返回新的参数
-        */
-    set_before: function set_before(param, includeZero) {
-      var pm = uni.delete(param, includeZero);
-      for (var k in pm) {
-        if (k.toLocaleLowerCase().indexOf('time') !== -1 && pm[k].indexOf('T') !== -1) {
-          pm[k] = new Date(pm[k]).toStr('yyyy-MM-dd 00:00:00');
-        }
-      }
-      return pm;
-    },
-
-    /**
-        * 批量修改
-        */
-    batchSet: function batchSet() {
-      var _this = this;
-      uni.confirm('批量修改数据无法挽回<br/>确定要操作吗?', function () {
-        var q = Object.assign({}, _this.query, _this.query_set);
-        q[_this.field] = _this.selects;
-        delete q.page;
-        delete q.size;
-        delete q.orderby;
-        _this.set(_this.form, q, function (json) {
-          if (json.result) {
-            _this.show = false;
-            _this.get();
-          }
-        }, true);
-      });
-    },
-
-    /**
-        * @description 查询多条数据
-        * @param {Object} query 查询条件
-        * @param {Function} func 回调函数
-        */
-    get_list: function get_list(param, func) {
-      if (!param) {
-        param = this.query;
-      }
-      var pm = this.events("get_list_before", Object.assign({}, param)) || param;
-      var msg = this.events("get_list_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("get_list_main", pm, func);
-      }
-      return ret;
-    },
-
-    /**
-        * @description 查询一条数据
-        * @param {Object} query 查询条件
-        * @func {Function} 回调函数
-        */
-    get_obj: function get_obj(param, func) {
-      if (!param) {
-        param = this.query;
-      }
-      var pm = this.events("get_obj_before", Object.assign({}, param)) || param;
-      var msg = this.events("get_obj_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("get_obj_main", pm, func);
-      } else if (func) {
-        func();
-      }
-      return ret;
-    },
-
-    sort: function sort(param, func) {
-      var pm = this.events("sort_before", Object.assign({}, param)) || param;
-      var msg = this.events("sort_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("sort_main", pm, func);
-      }
-      return ret;
-    },
-
-    /**
-        * 检测授权，有权限后回调函数
-        * @param {Function} func 回调函数
-        */
-    check_auth: function check_auth(func) {var _this2 = this;
-      // 取出权限
-      var auth = this.$store.state.web.auth;
-      // 权限长度不为空
-      if (!auth || auth.length === 0) {
-        this.$get_auth(this.user.user_group);
-      }
-
-      // 判断用户ID
-      if (!this.user.user_id) {
-        var token = uni.db.get("token");
-        if (token) {
-          // 存储token
-          this.$store.commit("user_set", {
-            token: token });
-
-          // 获取登录态
-          this.$get_user(function () {
-            // 判断
-            if (_this2.oauth.signIn) {
-              if (_this2.user.user_id) {
-                // 执行获取权限并存储
-                _this2.$get_auth(_this2.user.user_group);
-                func();
-              } else {
-                uni.navigateTo({
-                  url: "/pages/account/login" });
-
-              }
-            }
-          });
-        } else {
-          // 前往登录页
-          if (this.oauth.signIn) {
-            uni.navigateTo({
-              url: "/pages/account/login" });
-
-          } else {
-            func();
-          }
-        }
-      } else if (this.oauth.signIn) {
-        if (this.user.user_id) {
-          func();
-        } else {
-          uni.navigateTo({
-            url: "/pages/account/login" });
-
-        }
-      } else {
-        func();
-      }
-    },
-
-    /**
-        * 初始化
-        * @param {Object} param 参数
-        * @param {Function} func 回调函数
-        */
-    init: function init(param, func) {
-      var pm = this.events("init_before", Object.assign({}, param)) || param;
-      var msg = this.events("init_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("init_main", pm, func);
-      } else if (func) {
-        func();
-      }
-      return ret;
-    },
-
-    submit: function submit(param, func) {
-      if (!param) {
-        param = this.form;
-      }
-      var pm = this.events("submit_before", Object.assign({}, param)) || param;
-      var msg = this.events("submit_check", pm);
-      var ret;
-      if (msg) {
-        this.$toast(msg, 'danger');
-      } else {
-        ret = this.events("submit_main", pm, func);
-      }
-      return ret;
-    },
-
-    /**
-        * 提交前事件
-        * @param {Object} param 提交参数
-        */
-    submit_before: function submit_before(param) {
-      return param;
-    },
-
-    upload: function upload(param, func) {
-      var pm = this.events("upload_before", Object.assign({}, param)) || param;
-      var msg = this.events("upload_check", pm);
-      var ret;
-      if (msg) {
-        this.$toast(msg, 'danger');
-      } else {
-        ret = this.events("upload_main", pm, func);
-      }
-      return ret;
-    },
-
-    /**
-        * @description 添加数据
-        * @param {Object} value 要添加的数据
-        */
-    add_main: function add_main(value, func) {
-      var url = this.url ? this.url + "method=add" : this.url_add;
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.$post(url, value, function (json) {
-        _this.events("add_after", json, func);
-        if (json.result) {
-          _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
-        } else if (json.error) {
-          _this.$toast(json.error.message, 'danger');
-        } else {
-          _this.$toast('添加失败! 原因:是服务器连接失败!', "danger");
-        }
-      });
-    },
-
-    /**
-        * @description 删除数据
-        * @param {Object} query 查询条件
-        * @param {Function} func 删除回调函数函数
-        */
-    del_main: function del_main(query, func) {
-      var url = this.url ? this.url + "method=del" : this.url_del;
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.$get(url, query, function (json) {
-        _this.events("del_after", json, func);
-        if (json.result) {
-          _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
-        } else if (json.error) {
-          _this.$toast(json.error.message, 'danger');
-        } else {
-          _this.$toast('删除失败! 原因:是服务器连接失败!', "danger");
-        }
-      });
-    },
-
-    /**
-        * 删除之后事件
-        * @param {Object} json 返回的结果
-        * @param {Object} func 回调函数
-        */
-    del_after: function del_after(json, func) {
-      if (func) {
-        func();
-      }
-    },
-
-    /**
-        * @description 修改数据
-        * @param {Object} value 要修改的数据
-        * @param {Object} value 修改项
-        */
-    set_main: function set_main(value, func) {
-      var url = this.url ? this.url + "method=set" : this.url_set;
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.$post(this.toUrl(this.query_set, url), value, function (json, status) {
-        _this.events("set_after", json, func);
-        if (json.result) {
-          if (json.result.bl) {
-            if (_this.tip_show) {
-              _this.$toast(json.result.tip.replace('修改', '更新'), "success");
-            }
-          } else {
-            _this.$toast(json.result.tip.replace('修改', '更新'), "danger");
-          }
-        } else if (json.error) {
-          _this.$toast(json.error.message, "danger");
-        } else {
-          _this.$toast('修改失败! 原因:是服务器连接失败!', "danger");
-        }
-      });
-    },
-
-    /**
-        * 修改成功时执行
-        * @param {Object} json 结果
-        * @param {Object} func 回调函数
-        */
-    set_after: function set_after(json, func) {
-      if (func) {
-        func(json);
-      }
-    },
-
-    /**
-        * @description 查询数据
-        * @param {Object} query 查询参数
-        * @param {Function} func 回调函数
-        */
-    get: function get(query, func) {
-      this.get_main(query, func);
-    },
-
-    /**
-        * @description 查询数据(主程序)
-        * @param {Object} query 查询参数
-        * @param {Function} func 回调函数
-        */
-    get_main: function get_main(query, func) {
-      var url = this.url_get_obj ? this.url_get_obj : this.url;
-      if (url) {
-        var _this = this;
-        this.get_obj(query, function () {
-          _this.get_create(query, func);
-        });
-      } else {
-        this.get_create(query, func);
-      }
-    },
-
-    /**
-        * 验证请求
-        * @param {Object} param 请求参数
-        */
-    get_obj_check: function get_obj_check(param) {
-      var bl = false;
-      for (var k in param) {
-        if (param[k]) {
-          bl = true;
-          break;
-        };
-      }
-      if (bl) {
-        return null;
-      } else {
-        return "缺少查询条件";
-      }
-    },
-
-    /**
-        * @description 查询一条数据(主程序)
-        * @param {Object} query 查询条件
-        * @param {Function} func 回调函数
-        */
-    get_obj_main: function get_obj_main(query, func) {
-      // console.log("get_obj_main");
-      var url = this.url_get_obj ? this.url_get_obj : this.url + "method=get_obj";
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.$get(this.toUrl(query, url), null, function (json, status) {
-        _this.events("get_obj_after", json, func);
-        var res = json.result;
-        if (res) {
-          var obj;
-          if (res.obj) {
-            obj = res.obj;
-            delete res.obj;
-          } else {
-            var list = res.list;
-            if (list && list.length > 0) {
-              obj = list[0];
-            } else {
-              obj = res;
-            }
-          }
-          uni.push(_this, res, true);
-          if (obj) {
-            if (!_this.obj || Object.keys(_this.obj).length === 0) {
-              _this.obj = obj;
-            } else {
-              uni.push(_this.obj, obj);
-            }
-            var o = _this.obj;
-            for (var k in o) {
-              if (k.indexOf('time') !== -1) {
-                var val = o[k];
-                if (val && val.indexOf('T') !== -1) {
-                  var v = new Date(o[k]);
-                  o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-                }
-              }
-            }
-            if (!_this.form || Object.keys(_this.form).length === 0) {
-              _this.form = Object.assign({}, _this.obj);
-            } else {
-              uni.push(_this.form, Object.assign({}, _this.obj));
-            }
-          }
-        } else if (json.error) {
-          console.log(json.error.message);
-        } else {
-          _this.$toast("服务器连接失败！", "danger");
-        }
-      });
-    },
-
-    /**
-        * @description 获取到对象后事件
-        * @param {Object} json 响应结果
-        */
-    get_obj_after: function get_obj_after(json, func) {
-      if (func) {
-        func(json);
-      }
-    },
-
-    /**
-        * @description 查询多条数据(主程序)
-        * @param {Object} query 查询条件
-        * @param {Function} func 回调函数
-        */
-    get_list_main: function get_list_main(query, func) {
-      var url = this.url_get_list ? this.url_get_list : this.url;
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.loading = 0;
-      this.$get(this.toUrl(query, url), null, function (json, status) {
-        _this.loading = 100;
-        if (_this.clear_list) {
-          _this.list.clear();
-        }
-        _this.events("get_list_after", json, func, url);
-        var res = json.result;
-        if (res) {
-          _this.page_now = _this.query.page;
-          _this.list.addList(res.list);
-          if (res.count !== undefined) {
-            _this.count = res.count;
-          }
-        } else if (json.error) {
-          // 非法访问或未登录
-          _this.$store.commit('sign_out');
-          console.log(json.error.message);
-        } else {
-          _this.$toast("服务器连接失败！", "danger");
-        }
-      });
-    },
-
-    /**
-        * @description 获取到列表事件
-        * @param {Object} res 响应结果
-        */
-    get_list_after: function get_list_after(res, func, url) {
-      if (func) {
-        func(res, url);
-      }
-    },
-
-    /**
-        * 搜索
-        * @param {Object} query 查询条件
-        * @param {Boolean} bl 是否重置再搜索
-        */
-    search: function search(query, func) {
-      if (query) {
-        uni.push(this.query, query);
-      }
-      var url = this.url_get_list ? this.url_get_list : this.url;
-      if (url) {
-        this.query.page = 1;
-        this.count = 0;
-        uni.route.push("?" + this.toUrl(this.query));
-        this.first(query, func);
-      }
-    },
-
-    get_create: function get_create(query, func) {
-      if (query) {
-        uni.push(this.query, query);
-      }
-      var url = this.url_get_list ? this.url_get_list : this.url;
-      if (url) {
-        this.count = 0;
-        // uni.route.push("?" + this.toUrl(this.query));
-        this.first(query, func);
-      }
-    },
-
-    /**
-        * @description 查询多条数据 (首次)
-        * @param {Object} query 查询条件
-        * @param {Function} func 回调函数
-        */
-    first: function first(query, func) {
-      var _this = this;
-
-      if (!this.count) {
-        var qy = Object.assign({}, this.query);
-        this.get_list(qy, func);
-      } else {
-        this.get_list(query, func);
-      }
-    },
-
-    /**
-        * @description 查询下一页数据
-        * @param {Function} func 回调函数
-        */
-    next: function next(query, func) {
-      console.log("next");
-      var _this = this;
-      _this.get_list(query, function (json, url) {
-        if (json.result) {
-          var list = json.result.list;
-          if (list.length > 0) {
-            var qy = Object.assign({}, query, {
-              page: query.page + 1 });
-
-            if (qy.page <= _this.page_count) {
-              delete qy.count_ret;
-              _this.$get(_this.toUrl(qy, url));
-            }
-          }
-        }
-        if (func) {
-          func(json);
-        }
-      });
-    },
-
-    /**
-        * @description 查询上一页数据
-        * @param {Function} func 回调函数
-        */
-    prev: function prev(query, func) {
-      console.log("prev");
-      var _this = this;
-      this.get_list(query, function (json, url) {
-        if (json.result) {
-          var list = json.result.list;
-          if (list.length > 0) {
-            var qy = Object.assign({}, query, {
-              page: query.page - 1 });
-
-            if (qy.page >= 1) {
-              delete qy.count_ret;
-              _this.$get(_this.toUrl(qy, url));
-            }
-          }
-        }
-        if (func) {
-          func(res);
-        }
-      });
-    },
-
-    /**
-        * 清除数据
-        * @param {Object} query
-        */
-    clear: function clear(query) {
-      uni.clear(query);
-    },
-
-    /**
-        * 重置
-        */
-    reset: function reset() {
-      uni.clear(this.query);
-      uni.push(this.query, this.config);
-    },
-
-    /**
-        * 提交表单
-        */
-    submit_main: function submit_main(param, func) {
-      var url = this.url;
-      if (url) {
-        if (this.field) {
-          var id = param[this.field];
-          if (id) {
-            var q = {
-              method: 'set' };
-
-            q[this.field] = id;
-            url = this.toUrl(q, url);
-          } else {
-            url += "method=add";
-          }
-        } else {
-          url += "method=submit";
-        }
-      } else if (this.url_submit) {
-        url = this.url_submit;
-      } else if (this.field) {
-        var id = param[this.field];
-        if (id) {
-          url = this.url_set;
-        } else {
-          url = this.url_add;
-        }
-      }
-
-      // console.log('提交', url);
-      if (url) {
-        var _this = this;
-        this.$post(this.$toUrl(this.query, url), param, function (json, status) {
-          if (json.result) {
-            _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
-            _this.events("submit_after", json, func);
-          } else if (json.error) {
-            _this.$toast(json.error.message, 'danger');
-          } else {
-            _this.$toast("服务器连接失败！", "danger");
-          }
-        });
-      }
-    },
-
-    /**
-        * 提交前验证事件
-        * @param {Object} 请求参数
-        * @return {String} 验证成功返回null, 失败返回错误提示
-        */
-    submit_check: function submit_check(param) {
-      return null;
-    },
-
-    /**
-        * @description 获取到对象后事件
-        * @param {Object} json 响应结果
-        * @param {Function} func 回调函数
-        */
-    submit_after: function submit_after(json, func) {
-      if (func) {
-        func(json);
-      }
-      uni.navigateBack({
-        delta: 2 });
-
-    },
-
-    /**
-        * 上下翻页
-        * @param {Number} n 加减页码
-        */
-    go: function go(n) {
-      var page = this.query.page + n;
-      this.goTo(page);
-    },
-
-    /**
-        * 跳转指定页
-        * @param {Number} page 页码
-        */
-    goTo: function goTo(page) {
-      if (page < 1) {
-        page = 1;
-      } else if (page > this.page_count) {
-        page = this.page_count;
-      }
-      var query = this.query;
-      var p = query.page;
-      query.page = page;
-      uni.navigateTo({
-        url: "?" + this.toUrl(query) });
-
-      if (this.page_count !== 0) {
-        if (p + 1 == page) {
-          this.next(query);
-        } else if (p - 1 == page) {
-          this.prev(query);
-        } else {
-          this.first(query);
-        }
-      } else {
-        this.first(query);
-      }
-    },
-
-    /**
-        * @description 转查询参数
-        * @param {Object} obj 被转换的对象
-        * @param {String} url 请求地址
-        * @return {String} url字符串
-        */
-    toUrl: function toUrl(obj, url) {
-      return uni.toUrl(obj, url);
-    },
-
-    /**
-        * 初始化前函数
-        */
-    init_before: function init_before(query) {
-      if (!query) {
-        query = this.config;
-      }
-      return query;
-    },
-
-    /**
-        * 初始化
-        */
-    init_main: function init_main(query) {
-      var _this = this;
-      uni.push(this.query, query);
-      _this.init_after(function () {
-        _this.get(_this.query);
-      });
-    },
-
-    /**
-        * 初始化后函数
-        */
-    init_after: function init_after(func) {
-      if (func) {
-        func();
-      }
-    },
-
-    /**
-        * @description 上传文件
-        * @param {Function} func 回调函数
-        */
-    upload_main: function upload_main(func) {
-      var url = "";
-      if (this.url) {
-        url = this.url + "method=upload";
-      } else {
-        url = this.url_upload;
-      }
-
-      if (!param) {
-        param = this.form;
-      }
-      if (msg) {
-        this.$toast(msg, 'danger');
-      } else {
-        this.uploading = 0;
-        var _this = this;
-        this.$upload(url, param, function (json, status) {
-          _this.uploading = 100;
-          _this.events("upload_after", json, func);
-        });
-      }
-    },
-
-    /**
-        * @description 上传完成时
-        * @param {Object} json 响应结果
-        * @param {Function} func
-        */
-    upload_after: function upload_after(json, func) {
-      if (json.result) {
-        this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
-      } else if (json.error) {
-        this.$toast(json.error.message, 'danger');
-      } else {
-        this.$toast("服务器连接失败！", "danger");
-      }
-      if (func) {
-        func();
-      }
-    },
-
-    /**
-        * 结束前
-        * @param {Object} param 参数
-        */
-    end_before: function end_before(param) {
-      // this.reset();
-    },
-
-    /**
-        * 选择项全改
-        */
-    select_all: function select_all() {
-      var bl = !this.select_state;
-      if (!bl) {
-        this.selects = '';
-      } else {
-        var s = '';
-        var list = this.list;
-        for (var i = 0; i < list.length; i++) {
-          s += '|' + list[i][this.field];
-        }
-        this.selects = s.replace('|', '');
-      }
-      this.select_state = bl;
-    },
-
-    /**
-        * 选择项改变
-        * @param {String|Number} id 选择的ID
-        */
-    select_change: function select_change(id) {
-      var has = false;
-      var arr = this.selects.split('|');
-      for (var i = 0; i < arr.length; i++) {
-        var o = arr[i];
-        if (id == o) {
-          arr.splice(i, 1);
-          has = true;
-          break;
-        }
-      }
-      if (!has) {
-        arr.push(id);
-      }
-      var s = arr.join('|');
-      if (s.indexOf('|') == 0) {
-        this.selects = s.substring(1);
-      } else {
-        this.selects = s;
-      }
-    },
-
-    /**
-        * 选择项含有
-        * @param {String|Number} id 选择的ID
-        */
-    select_has: function select_has(id) {
-      var ids = '|' + this.selects + '|';
-      return ids.indexOf('|' + id + '|') !== -1;
-    },
-
-    /**
-        * 选中
-        * @param {Number} index 项目索引
-        */
-    selected: function selected(index) {
-      this.select = index;
-      uni.db.set('select', index, 120);
-    },
-
-    /**
-        * 页面改变时
-        * @param {Object} e 事件
-        */
-    page_change: function page_change(e) {
-      var n = Number(e.current);
-      if (isNaN(n)) {
-        n = 1;
-      }
-      if (n < 1) {
-        n = 1;
-      } else if (n > this.page_count) {
-        n = this.page_count;
-      }
-      this.goTo(n);
-    },
-
-    /**
-        * 获取名称
-        * @param {Array} list 用来取名的列表
-        * @param {String} arr_str id集合
-        * @param {String} key 键
-        * @param {String} name 名
-        * @param {String} span 分隔符
-        */
-    get_name: function get_name(list, arr_str, key, name, span) {
-      if (!name) {
-        name = "name";
-      }
-      var value = "";
-      if (arr_str) {
-        if (typeof arr_str == 'string') {
-          if (!span) {
-            span = ',';
-          }
-          var arr = arr_str.split(span);
-          var id = Number(arr[0]);
-
-          for (var i = 0; i < list.length; i++) {
-            var o = list[i];
-            if (o[key] == id) {
-              value += '|' + o[name];
-            }
-          }
-        } else {
-          var id = arr_str;
-          for (var i = 0; i < list.length; i++) {
-            var o = list[i];
-            if (o[key] == id) {
-              value = o[name];
-              break;
-            }
-          }
-        }
-      }
-      return value.replace('|', '');
-    },
-
-    /**
-        * 取消并返回
-        */
-    cancel: function cancel() {
-      uni.navigateBack({
-        delta: 2 });
-
-    },
-
-    /**
-        * 导入数据
-        * @param {Object} file 文件
-        */
-    import_db: function import_db(file) {
-      if (file) {
-        var _this = this;
-        uni.confirm("是否导入 " + file.name, "导入数据", function () {
-          uni.http.upload(_this.url_import, file, function (json) {
-            if (json.result) {
-              uni.confirm(json.result.tip, function () {
-                _this.get();
-              });
-            } else if (json.error) {
-              uni.confirm(json.error.message);
-            } else {
-              _this.$toast("服务器连接失败！", "danger");
-            }
-          });
-        });
-      }
-    },
-
-    /**
-        * 导出数据
-        */
-    export_db: function export_db() {
-      var _this = this;
-      if (this.selects) {
-        var query = {};
-        query[this.field] = this.selects;
-        this.$get(_this.url_export, query, function (json) {
-          var res = json.result;
-          if (res && res.bl) {
-            window.location.href = res.url;
-          }
-        });
-      } else {
-        this.$get(_this.url_export, this.query, function (json) {
-          var res = json.result;
-          if (res && res.bl) {
-            window.location.href = res.url;
-          }
-        });
-      }
-    },
-
-    /**
-        * 判断是否有下级
-        * @param {Number} id 字段ID
-        * @param {Object} list 数据列表
-        * @return {Number} 返回级别
-        */
-    opens_has_sub: function opens_has_sub(id, list) {
-      if (!list) {
-        list = this.list;
-      }
-      var bl = false;
-      var father_id = this.father_id;
-      for (var i = 0; i < list.length; i++) {
-        var o = list[i];
-        if (o[father_id] === id) {
-          bl = true;
-          break;
-        }
-      }
-      return bl;
-    },
-
-    /**
-        * 改变展开项
-        * @param {Number} id 唯一主键
-        */
-    opens_change: function opens_change(id) {
-      var index = this.opens.indexOf(id);
-      if (index !== -1) {
-        this.opens.splice(index, 1);
-      } else {
-        var bl = this.opens_has_sub(id);
-        if (bl) {
-          this.opens.push(id);
-        }
-      }
-      uni.db.set('opens', this.opens);
-    },
-
-    /**
-        * 判断是否存在
-        * @param {Number} id 唯一主键
-        * @return {Boolean} 存在返回true, 否则返回false
-        */
-    opens_has: function opens_has(id) {
-      return this.opens.indexOf(id) !== -1;
-    },
-
-    /**
-        * 判断子孙级别, 最大支持5次分叉
-        * @param {Number} fid 祖辈ID
-        * @param {Object} list 数据列表
-        * @return {Number} 返回级别
-        */
-    opens_lv: function opens_lv(fid, list) {
-      if (!list) {
-        list = this.list;
-      }
-      var lv = 0;
-      var father_id = this.father_id;
-      var id = this.field;
-      var num = fid;
-      for (var n = 0; n < 5; n++) {
-        if (num === 0) {
-          break;
-        }
-        for (var i = 0; i < list.length; i++) {
-          var o = list[i];
-          if (o[id] === num) {
-            lv++;
-            num = o[father_id];
-            if (num === 0) {
-              break;
-            }
-          }
-        }
-      }
-      return lv;
-    },
-
-    to_form: function to_form(url, key) {
-      uni.db.set("form_" + key, this.obj);
-      this.$nav(url);
-    },
-
-    selectionChange: function selectionChange(val) {
-      this.selection = val;
-    },
-
-    select_tpl_home: function select_tpl_home() {
-
-    },
-
-    select_tpl_admin: function select_tpl_admin() {
-
-    },
-    get_form: function get_form(key) {
-      var form = uni.db.get("form_" + key);
-      if (Object.keys(this.form).length > 0) {
-        uni.push(this.form, form);
-      }
-    } },
-
-
-  computed: {
-    /**
-               * 分页数量
-               */
-    page_count: function page_count() {
-      // return Math.ceil(this.count / this.query.size);
-      return;
-    } },
-
-
-  onLoad: function onLoad() {var _this3 = this;
-    this.get_form();
-    this.showing = 0;
-    var routes = getCurrentPages();
-    var query = routes[routes.length - 1].options;
-    this.check_auth(function () {
-      _this3.init(query);
-    });
-  },
-
-  onShow: function onShow() {var _this4 = this;
-    this.showing = 100;
-    var routes = getCurrentPages();
-    var query = routes[routes.length - 1].options;
-    this.check_auth(function () {
-      _this4.init(query);
-    });
-  },
-
-  onHide: function onHide() {
-    this.events('end_before');
-  } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 361:
-/*!*****************************************************************!*\
-  !*** E:/github/1_doing/mm_uni/components/uni-forms/validate.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}
-var pattern = {
-  email: /^\S+?@\S+?\.\S+?$/,
-  url: new RegExp("^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$", 'i') };
-
-
-var FORMAT_MAPPING = {
-  "int": 'number',
-  "bool": 'boolean',
-  "double": 'number',
-  "long": 'number',
-  "password": 'string' };
-
-
-function formatMessage(args, resources) {
-  var defaultMessage = ['label'];
-  defaultMessage.forEach(function (item) {
-    if (args[item] === undefined) {
-      args[item] = '';
-    }
-  });
-
-  var str = resources;
-  for (var key in args) {
-    var reg = new RegExp('{' + key + '}');
-    str = str.replace(reg, args[key]);
-  }
-  return str;
-}
-
-function isEmptyValue(value, type) {
-  if (value === undefined || value === null) {
-    return true;
-  }
-
-  if (typeof value === 'string' && !value) {
-    return true;
-  }
-
-  if (Array.isArray(value) && !value.length) {
-    return true;
-  }
-
-  if (type === 'object' && !Object.keys(value).length) {
-    return true;
-  }
-
-  return false;
-}
-
-var types = {
-  integer: function integer(value) {
-    return types.number(value) && parseInt(value, 10) === value;
-  },
-  string: function string(value) {
-    return typeof value === 'string';
-  },
-  number: function number(value) {
-    if (isNaN(value)) {
-      return false;
-    }
-    return typeof value === 'number';
-  },
-  "boolean": function boolean(value) {
-    return typeof value === 'boolean';
-  },
-  "float": function float(value) {
-    return types.number(value) && !types.integer(value);
-  },
-  array: function array(value) {
-    return Array.isArray(value);
-  },
-  object: function object(value) {
-    return typeof value === 'object' && !types.array(value);
-  },
-  date: function date(value) {
-    var v;
-    if (value instanceof Date) {
-      v = value;
-    } else {
-      v = new Date(value);
-    }
-    return typeof v.getTime === 'function' && typeof v.getMonth === 'function' && typeof v.getYear === 'function' && !isNaN(v.getTime());
-  },
-  timestamp: function timestamp(value) {
-    if (!this.integer(value) || Math.abs(value).toString().length > 16) {
-      return false;
-    }
-
-    return this.date(value);
-  },
-  email: function email(value) {
-    return typeof value === 'string' && !!value.match(pattern.email) && value.length < 255;
-  },
-  url: function url(value) {
-    return typeof value === 'string' && !!value.match(pattern.url);
-  },
-  pattern: function pattern(reg, value) {
-    try {
-      return new RegExp(reg).test(value);
-    } catch (e) {
-      return false;
-    }
-  },
-  method: function method(value) {
-    return typeof value === 'function';
-  } };var
-
-
-RuleValidator = /*#__PURE__*/function () {
-
-  function RuleValidator(message) {_classCallCheck(this, RuleValidator);
-    this._message = message;
-  }_createClass(RuleValidator, [{ key: "validateRule", value: function () {var _validateRule = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(
-
-      key, value, data, allData) {var result, rules, hasRequired, message, i, rule, vt, now, resultExpr;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                result = null;
-
-                rules = key.rules;
-
-                hasRequired = rules.findIndex(function (item) {
-                  return item.required;
-                });if (!(
-                hasRequired < 0)) {_context.next = 8;break;}if (!(
-                value === null || value === undefined)) {_context.next = 6;break;}return _context.abrupt("return",
-                result);case 6:if (!(
-
-                typeof value === 'string' && !value.length)) {_context.next = 8;break;}return _context.abrupt("return",
-                result);case 8:
-
-
-
-                message = this._message;if (!(
-
-                rules === undefined)) {_context.next = 11;break;}return _context.abrupt("return",
-                message['default']);case 11:
-
-
-                i = 0;case 12:if (!(i < rules.length)) {_context.next = 35;break;}
-                rule = rules[i];
-                vt = this._getValidateType(rule);
-
-                if (key.label !== undefined) {
-                  Object.assign(rule, {
-                    label: key.label });
-
-                }if (!
-
-                RuleValidatorHelper[vt]) {_context.next = 20;break;}
-                result = RuleValidatorHelper[vt](rule, value, message);if (!(
-                result != null)) {_context.next = 20;break;}return _context.abrupt("break", 35);case 20:if (!
-
-
-
-
-                rule.validateExpr) {_context.next = 26;break;}
-                now = Date.now();
-                resultExpr = rule.validateExpr(value, allData, now);if (!(
-                resultExpr === false)) {_context.next = 26;break;}
-                result = this._getMessage(rule, rule.errorMessage || this._message['default']);return _context.abrupt("break", 35);case 26:if (!
-
-
-
-
-                rule.validateFunction) {_context.next = 32;break;}_context.next = 29;return (
-                  this.validateFunction(rule, value, data, allData, vt));case 29:result = _context.sent;if (!(
-                result !== null)) {_context.next = 32;break;}return _context.abrupt("break", 35);case 32:i++;_context.next = 12;break;case 35:return _context.abrupt("return",
-
-
-
-
-
-                result);case 36:case "end":return _context.stop();}}}, _callee, this);}));function validateRule(_x, _x2, _x3, _x4) {return _validateRule.apply(this, arguments);}return validateRule;}() }, { key: "validateFunction", value: function () {var _validateFunction = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(
-
-
-      rule, value, data, allData, vt) {var result, callbackMessage, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                result = null;_context2.prev = 1;
-
-                callbackMessage = null;_context2.next = 5;return (
-                  rule.validateFunction(rule, value, allData || data, function (message) {
-                    callbackMessage = message;
-                  }));case 5:res = _context2.sent;
-                if (callbackMessage || typeof res === 'string' && res || res === false) {
-                  result = this._getMessage(rule, callbackMessage || res, vt);
-                }_context2.next = 12;break;case 9:_context2.prev = 9;_context2.t0 = _context2["catch"](1);
-
-                result = this._getMessage(rule, _context2.t0.message, vt);case 12:return _context2.abrupt("return",
-
-                result);case 13:case "end":return _context2.stop();}}}, _callee2, this, [[1, 9]]);}));function validateFunction(_x5, _x6, _x7, _x8, _x9) {return _validateFunction.apply(this, arguments);}return validateFunction;}() }, { key: "_getMessage", value: function _getMessage(
-
-
-    rule, message, vt) {
-      return formatMessage(rule, message || rule.errorMessage || this._message[vt] || message['default']);
-    } }, { key: "_getValidateType", value: function _getValidateType(
-
-    rule) {
-      // TODO
-      var result = '';
-      if (rule.required) {
-        result = 'required';
-      } else if (rule.format) {
-        result = 'format';
-      } else if (rule.range) {
-        result = 'range';
-      } else if (rule.maximum || rule.minimum) {
-        result = 'rangeNumber';
-      } else if (rule.maxLength || rule.minLength) {
-        result = 'rangeLength';
-      } else if (rule.pattern) {
-        result = 'pattern';
-      }
-      return result;
-    } }]);return RuleValidator;}();
-
-
-var RuleValidatorHelper = {
-  required: function required(rule, value, message) {
-    if (rule.required && isEmptyValue(value, rule.format || typeof value)) {
-      return formatMessage(rule, rule.errorMessage || message.required);
-    }
-
-    return null;
-  },
-
-  range: function range(rule, value, message) {var
-    range = rule.range,errorMessage = rule.errorMessage;
-
-    var list = new Array(range.length);
-    for (var i = 0; i < range.length; i++) {
-      var item = range[i];
-      if (types.object(item) && item.value !== undefined) {
-        list[i] = item.value;
-      } else {
-        list[i] = item;
-      }
-    }
-
-    var result = false;
-    if (Array.isArray(value)) {
-      result = new Set(value.concat(list)).size === list.length;
-    } else {
-      if (list.indexOf(value) > -1) {
-        result = true;
-      }
-    }
-
-    if (!result) {
-      return formatMessage(rule, errorMessage || message['enum']);
-    }
-
-    return null;
-  },
-
-  rangeNumber: function rangeNumber(rule, value, message) {
-    if (!types.number(value)) {
-      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
-    }var
-
-    minimum = rule.minimum,maximum = rule.maximum,exclusiveMinimum = rule.exclusiveMinimum,exclusiveMaximum = rule.exclusiveMaximum;
-    var min = exclusiveMinimum ? value <= minimum : value < minimum;
-    var max = exclusiveMaximum ? value >= maximum : value > maximum;
-
-    if (minimum !== undefined && min) {
-      return formatMessage(rule, rule.errorMessage || message['number'].min);
-    } else if (maximum !== undefined && max) {
-      return formatMessage(rule, rule.errorMessage || message['number'].max);
-    } else if (minimum !== undefined && maximum !== undefined && (min || max)) {
-      return formatMessage(rule, rule.errorMessage || message['number'].range);
-    }
-
-    return null;
-  },
-
-  rangeLength: function rangeLength(rule, value, message) {
-    if (!types.string(value) && !types.array(value)) {
-      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
-    }
-
-    var min = rule.minLength;
-    var max = rule.maxLength;
-    var val = value.length;
-
-    if (min !== undefined && val < min) {
-      return formatMessage(rule, rule.errorMessage || message['length'].min);
-    } else if (max !== undefined && val > max) {
-      return formatMessage(rule, rule.errorMessage || message['length'].max);
-    } else if (min !== undefined && max !== undefined && (val < min || val > max)) {
-      return formatMessage(rule, rule.errorMessage || message['length'].range);
-    }
-
-    return null;
-  },
-
-  pattern: function pattern(rule, value, message) {
-    if (!types['pattern'](rule.pattern, value)) {
-      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
-    }
-
-    return null;
-  },
-
-  format: function format(rule, value, message) {
-    var customTypes = Object.keys(types);
-    var format = FORMAT_MAPPING[rule.format] ? FORMAT_MAPPING[rule.format] : rule.format;
-
-    if (customTypes.indexOf(format) > -1) {
-      if (!types[format](value)) {
-        return formatMessage(rule, rule.errorMessage || message.types[format]);
-      }
-    }
-
-    return null;
-  } };var
-
-
-SchemaValidator = /*#__PURE__*/function (_RuleValidator) {_inherits(SchemaValidator, _RuleValidator);var _super = _createSuper(SchemaValidator);
-
-  function SchemaValidator(schema, options) {var _this;_classCallCheck(this, SchemaValidator);
-    _this = _super.call(this, SchemaValidator.message);
-
-    _this._schema = schema;
-    _this._options = options || null;return _this;
-  }_createClass(SchemaValidator, [{ key: "updateSchema", value: function updateSchema(
-
-    schema) {
-      this._schema = schema;
-    } }, { key: "validate", value: function () {var _validate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(
-
-      data, allData) {var result;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                result = this._checkFieldInSchema(data);if (
-                result) {_context3.next = 5;break;}_context3.next = 4;return (
-                  this.invokeValidate(data, false, allData));case 4:result = _context3.sent;case 5:return _context3.abrupt("return",
-
-                result.length ? result[0] : null);case 6:case "end":return _context3.stop();}}}, _callee3, this);}));function validate(_x10, _x11) {return _validate.apply(this, arguments);}return validate;}() }, { key: "validateAll", value: function () {var _validateAll = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(
-
-
-      data, allData) {var result;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
-                result = this._checkFieldInSchema(data);if (
-                result) {_context4.next = 5;break;}_context4.next = 4;return (
-                  this.invokeValidate(data, true, allData));case 4:result = _context4.sent;case 5:return _context4.abrupt("return",
-
-                result);case 6:case "end":return _context4.stop();}}}, _callee4, this);}));function validateAll(_x12, _x13) {return _validateAll.apply(this, arguments);}return validateAll;}() }, { key: "validateUpdate", value: function () {var _validateUpdate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(
-
-
-      data, allData) {var result;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
-                result = this._checkFieldInSchema(data);if (
-                result) {_context5.next = 5;break;}_context5.next = 4;return (
-                  this.invokeValidateUpdate(data, false, allData));case 4:result = _context5.sent;case 5:return _context5.abrupt("return",
-
-                result.length ? result[0] : null);case 6:case "end":return _context5.stop();}}}, _callee5, this);}));function validateUpdate(_x14, _x15) {return _validateUpdate.apply(this, arguments);}return validateUpdate;}() }, { key: "invokeValidate", value: function () {var _invokeValidate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(
-
-
-      data, all, allData) {var result, schema, key, value, errorMessage;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
-                result = [];
-                schema = this._schema;_context6.t0 = _regenerator.default.keys(
-                schema);case 3:if ((_context6.t1 = _context6.t0()).done) {_context6.next = 15;break;}key = _context6.t1.value;
-                value = schema[key];_context6.next = 8;return (
-                  this.validateRule(value, data[key], data, allData));case 8:errorMessage = _context6.sent;if (!(
-                errorMessage != null)) {_context6.next = 13;break;}
-                result.push({
-                  key: key,
-                  errorMessage: errorMessage });if (
-
-                all) {_context6.next = 13;break;}return _context6.abrupt("break", 15);case 13:_context6.next = 3;break;case 15:return _context6.abrupt("return",
-
-
-                result);case 16:case "end":return _context6.stop();}}}, _callee6, this);}));function invokeValidate(_x16, _x17, _x18) {return _invokeValidate.apply(this, arguments);}return invokeValidate;}() }, { key: "invokeValidateUpdate", value: function () {var _invokeValidateUpdate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7(
-
-
-      data, all, allData) {var result, key, errorMessage;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
-                result = [];_context7.t0 = _regenerator.default.keys(
-                data);case 2:if ((_context7.t1 = _context7.t0()).done) {_context7.next = 13;break;}key = _context7.t1.value;_context7.next = 6;return (
-                  this.validateRule(this._schema[key], data[key], data, allData));case 6:errorMessage = _context7.sent;if (!(
-                errorMessage != null)) {_context7.next = 11;break;}
-                result.push({
-                  key: key,
-                  errorMessage: errorMessage });if (
-
-                all) {_context7.next = 11;break;}return _context7.abrupt("break", 13);case 11:_context7.next = 2;break;case 13:return _context7.abrupt("return",
-
-
-                result);case 14:case "end":return _context7.stop();}}}, _callee7, this);}));function invokeValidateUpdate(_x19, _x20, _x21) {return _invokeValidateUpdate.apply(this, arguments);}return invokeValidateUpdate;}() }, { key: "_checkFieldInSchema", value: function _checkFieldInSchema(
-
-
-    data) {
-      var keys = Object.keys(data);
-      var keys2 = Object.keys(this._schema);
-      if (new Set(keys.concat(keys2)).size === keys2.length) {
-        return '';
-      }
-      return [{
-        key: 'invalid',
-        errorMessage: SchemaValidator.message['defaultInvalid'] }];
-
-    } }]);return SchemaValidator;}(RuleValidator);
-
-
-function Message() {
-  return {
-    default: '验证错误',
-    defaultInvalid: '字段超出范围',
-    required: '{label}必填',
-    'enum': '{label}超出范围',
-    whitespace: '{label}不能为空',
-    date: {
-      format: '{label}日期{value}格式无效',
-      parse: '{label}日期无法解析,{value}无效',
-      invalid: '{label}日期{value}无效' },
-
-    types: {
-      string: '{label}类型无效',
-      array: '{label}类型无效',
-      object: '{label}类型无效',
-      number: '{label}类型无效',
-      date: '{label}类型无效',
-      boolean: '{label}类型无效',
-      integer: '{label}类型无效',
-      float: '{label}类型无效',
-      regexp: '{label}无效',
-      email: '{label}类型无效',
-      url: '{label}类型无效' },
-
-    length: {
-      min: '{label}长度不能少于{minLength}',
-      max: '{label}长度不能超过{maxLength}',
-      range: '{label}必须介于{minLength}和{maxLength}之间' },
-
-    number: {
-      min: '{label}不能小于{minimum}',
-      max: '{label}不能大于{maximum}',
-      range: '{label}必须介于{minimum}and{maximum}之间' },
-
-    pattern: {
-      mismatch: '{label}格式不匹配' } };
-
-
-}
-
-
-SchemaValidator.message = new Message();var _default =
-
-SchemaValidator;exports.default = _default;
-
-/***/ }),
-
-/***/ 376:
-/*!*******************************************************************!*\
-  !*** E:/github/1_doing/mm_uni/components/uni-easyinput/common.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.throttle = exports.debounce = void 0; /**
-                                                                                                                          * @desc 函数防抖
-                                                                                                                          * @param func 目标函数
-                                                                                                                          * @param wait 延迟执行毫秒数
-                                                                                                                          * @param immediate true - 立即执行， false - 延迟执行
-                                                                                                                          */
-var debounce = function debounce(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  var timer;
-  console.log(1);
-  return function () {
-    console.log(123);
-    var context = this,
-    args = arguments;
-    if (timer) clearTimeout(timer);
-    if (immediate) {
-      var callNow = !timer;
-      timer = setTimeout(function () {
-        timer = null;
-      }, wait);
-      if (callNow) func.apply(context, args);
-    } else {
-      timer = setTimeout(function () {
-        func.apply(context, args);
-      }, wait);
-    }
-  };
-};
-/**
-    * @desc 函数节流
-    * @param func 函数
-    * @param wait 延迟执行毫秒数
-    * @param type 1 使用表时间戳，在时间段开始的时候触发 2 使用表定时器，在时间段结束的时候触发
-    */exports.debounce = debounce;
-var throttle = function throttle(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-  var previous = 0;
-  var timeout;
-  return function () {
-    var context = this;
-    var args = arguments;
-    if (type === 1) {
-      var now = Date.now();
-
-      if (now - previous > wait) {
-        func.apply(context, args);
-        previous = now;
-      }
-    } else if (type === 2) {
-      if (!timeout) {
-        timeout = setTimeout(function () {
-          timeout = null;
-          func.apply(context, args);
-        }, wait);
-      }
-    }
-  };
-};exports.throttle = throttle;
-
-/***/ }),
-
-/***/ 384:
-/*!**************************************************************!*\
-  !*** E:/github/1_doing/mm_uni/components/uni-icons/icons.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  "pulldown": "\uE588",
-  "refreshempty": "\uE461",
-  "back": "\uE471",
-  "forward": "\uE470",
-  "more": "\uE507",
-  "more-filled": "\uE537",
-  "scan": "\uE612",
-  "qq": "\uE264",
-  "weibo": "\uE260",
-  "weixin": "\uE261",
-  "pengyouquan": "\uE262",
-  "loop": "\uE565",
-  "refresh": "\uE407",
-  "refresh-filled": "\uE437",
-  "arrowthindown": "\uE585",
-  "arrowthinleft": "\uE586",
-  "arrowthinright": "\uE587",
-  "arrowthinup": "\uE584",
-  "undo-filled": "\uE7D6",
-  "undo": "\uE406",
-  "redo": "\uE405",
-  "redo-filled": "\uE7D9",
-  "bars": "\uE563",
-  "chatboxes": "\uE203",
-  "camera": "\uE301",
-  "chatboxes-filled": "\uE233",
-  "camera-filled": "\uE7EF",
-  "cart-filled": "\uE7F4",
-  "cart": "\uE7F5",
-  "checkbox-filled": "\uE442",
-  "checkbox": "\uE7FA",
-  "arrowleft": "\uE582",
-  "arrowdown": "\uE581",
-  "arrowright": "\uE583",
-  "smallcircle-filled": "\uE801",
-  "arrowup": "\uE580",
-  "circle": "\uE411",
-  "eye-filled": "\uE568",
-  "eye-slash-filled": "\uE822",
-  "eye-slash": "\uE823",
-  "eye": "\uE824",
-  "flag-filled": "\uE825",
-  "flag": "\uE508",
-  "gear-filled": "\uE532",
-  "reload": "\uE462",
-  "gear": "\uE502",
-  "hand-thumbsdown-filled": "\uE83B",
-  "hand-thumbsdown": "\uE83C",
-  "hand-thumbsup-filled": "\uE83D",
-  "heart-filled": "\uE83E",
-  "hand-thumbsup": "\uE83F",
-  "heart": "\uE840",
-  "home": "\uE500",
-  "info": "\uE504",
-  "home-filled": "\uE530",
-  "info-filled": "\uE534",
-  "circle-filled": "\uE441",
-  "chat-filled": "\uE847",
-  "chat": "\uE263",
-  "mail-open-filled": "\uE84D",
-  "email-filled": "\uE231",
-  "mail-open": "\uE84E",
-  "email": "\uE201",
-  "checkmarkempty": "\uE472",
-  "list": "\uE562",
-  "locked-filled": "\uE856",
-  "locked": "\uE506",
-  "map-filled": "\uE85C",
-  "map-pin": "\uE85E",
-  "map-pin-ellipse": "\uE864",
-  "map": "\uE364",
-  "minus-filled": "\uE440",
-  "mic-filled": "\uE332",
-  "minus": "\uE410",
-  "micoff": "\uE360",
-  "mic": "\uE302",
-  "clear": "\uE434",
-  "smallcircle": "\uE868",
-  "close": "\uE404",
-  "closeempty": "\uE460",
-  "paperclip": "\uE567",
-  "paperplane": "\uE503",
-  "paperplane-filled": "\uE86E",
-  "person-filled": "\uE131",
-  "contact-filled": "\uE130",
-  "person": "\uE101",
-  "contact": "\uE100",
-  "images-filled": "\uE87A",
-  "phone": "\uE200",
-  "images": "\uE87B",
-  "image": "\uE363",
-  "image-filled": "\uE877",
-  "location-filled": "\uE333",
-  "location": "\uE303",
-  "plus-filled": "\uE439",
-  "plus": "\uE409",
-  "plusempty": "\uE468",
-  "help-filled": "\uE535",
-  "help": "\uE505",
-  "navigate-filled": "\uE884",
-  "navigate": "\uE501",
-  "mic-slash-filled": "\uE892",
-  "search": "\uE466",
-  "settings": "\uE560",
-  "sound": "\uE590",
-  "sound-filled": "\uE8A1",
-  "spinner-cycle": "\uE465",
-  "download-filled": "\uE8A4",
-  "personadd-filled": "\uE132",
-  "videocam-filled": "\uE8AF",
-  "personadd": "\uE102",
-  "upload": "\uE402",
-  "upload-filled": "\uE8B1",
-  "starhalf": "\uE463",
-  "star-filled": "\uE438",
-  "star": "\uE408",
-  "trash": "\uE401",
-  "phone-filled": "\uE230",
-  "compose": "\uE400",
-  "videocam": "\uE300",
-  "trash-filled": "\uE8DC",
-  "download": "\uE403",
-  "chatbubble-filled": "\uE232",
-  "chatbubble": "\uE202",
-  "cloud-download": "\uE8E4",
-  "cloud-upload-filled": "\uE8E5",
-  "cloud-upload": "\uE8E6",
-  "cloud-download-filled": "\uE8E9",
-  "headphones": "\uE8BF",
-  "shop": "\uE609" };exports.default = _default;
-
-/***/ }),
-
 /***/ 4:
-/*!*******************************************!*\
-  !*** E:/github/1_doing/mm_uni/pages.json ***!
-  \*******************************************/
+/*!*****************************************!*\
+  !*** E:/github/other/mm_uni/pages.json ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
