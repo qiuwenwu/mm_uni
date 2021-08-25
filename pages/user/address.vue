@@ -1,14 +1,11 @@
 <template>
 	<view class="page_user" id="user_address">
-		
 		<!-- 地址列表模块(开始) -->
 		<mm_warp>
 			<mm_container class="container">
 				<mm_row>
 					<mm_col>
 						<mm_view class="">
-							
-							<list_address v-if="$check_action('/address/list','get')" :list="list"></list_address>
 						</mm_view>
 					</mm_col>
 				</mm_row>
@@ -19,13 +16,11 @@
 </template>
 
 <script>
-	import list_address from "@/components/diy/list_address.vue";
 	import mixin from "@/mixins/page.js";
 	
 	export default {
 		mixins: [mixin],
 		components: {
-			list_address
 		},
 		data() {
 			return{

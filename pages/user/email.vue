@@ -1,19 +1,29 @@
 <template>
 	<mm_page class="page_user" id="user_email">
 		<mm_main>
-			<!-- 编辑表单(开始) -->
-			<mm_warp id="menu">
+			<!-- 修改邮箱模块(开始) -->
+			<mm_warp id="bind_mail">
 				<mm_container>
 					<mm_row>
-						<mm_col class="col-12 col-sm-6 col-md-4">
-							<mm_view class="yyy">
-			
+						<mm_col class="col-12">
+							<mm_view class="bind">
+									<view class="user_email bind_number">
+										<text>电子邮箱</text>
+										<input type="email" value="" />
+										<view class="send_code">
+											<text>发送验证码</text>
+										</view>
+									</view>
+									<view class="verification bind_number">
+										<text>验证码</text>
+										<input type="text" value="" />
+									</view>
 							</mm_view>
 						</mm_col>
 					</mm_row>
 				</mm_container>
 			</mm_warp>
-			<!-- 编辑表单(结束) -->
+			<!-- 修改邮箱模块(结束) -->
 			
 			<!-- 按钮列表(开始) -->
 			<mm_warp id="buttons">
@@ -21,7 +31,9 @@
 					<mm_row>
 						<mm_col class="col-12">
 							<mm_view>
-								<button>立 即 发 布</button>
+								<view class="btn_user">
+									<text>绑定</text>
+								</view>
 							</mm_view>
 						</mm_col>
 					</mm_row>
@@ -40,6 +52,11 @@
 		],
 		data() {
 			return {
+				// 登录权限
+				oauth: {
+					"signIn": true,
+					"user_group": []
+				},
 				message: 'Hello',
 				// 定时器
 				timer: null,
@@ -102,6 +119,50 @@
 </script>
 
 <style>
-	#user_email #id_name {}
+	#user_email {
+		background-color: #fff;
+		position: fixed;
+		height: 100%;
+		width: 100%;
+	}
+	#user_email .bind{
+		box-shadow: 0rem 0.19rem 0.38rem rgba(0, 0, 0, 0.16);
+	}
+	#user_email .bind .bind_number{
+		color: #0F0E0C;
+		font-size: 1rem;
+		display: flex;
+		padding: .75rem 0;
+		margin-left: 1rem;
+		border-bottom: 1px solid #DBDBDB;
+	}
+	#user_email .user_email .send_code{
+		color: #805441;
+		font-size: 1rem;
+		font-family: Arial;
+		font-weight: 400;
+		line-height: 1.25rem;
+		margin: 0 .5rem;
+	}
+	#user_email .bind .verification{
+		border: none;
+	}
+	#user_email .bind input{
+		margin-left: .5rem;
+		/* border: 1px solid #000; */
+		width: 11rem;
+	}
+	#user_email .verification input{
+		margin-left: 1.5rem;
+	}
+	#user_email .preserve{
+		color:#FFF2E9;
+		margin: 2rem auto;
+		margin-bottom: 0;
+		width: fit-content;
+		padding: .25rem 8rem;
+		border-radius: .25rem;
+		background-color: rgb(46,46,46);
+	}
 </style>
 

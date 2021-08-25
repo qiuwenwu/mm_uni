@@ -35,74 +35,7 @@ export default {
 			type: Object,
 			default () {
 				return {
-					// 当前ID
-					id: 'id',
-					// 上级ID
-					fid: 'fid',
-					// 用户名
-					username: 'username',
-					// 用户id
-					user_id: 'user_id',
-					// 图片
-					img: 'img',
-					// 图标
-					icon: 'icon',
-					// 标题
-					title: 'title',
-					// 子项
-					sub: 'sub',
-					// 描述
-					description: 'description',
-					// 关键词
-					keywords: 'keywords',
-					// 图片
-					image: 'image',
-					// 内容
-					content: 'content',
-					// 时间
-					time: 'time',
-					// 创建时间
-					create_time: "create_time",
-					// 链接
-					url: 'url',
-					// 方式
-					mode: 'mode',
-					// 来源
-					source: 'source',
-					// 来源地址
-					source_url: 'source_url',
-					// 标签
-					label: 'label',
-					// 名称
-					name: 'name',
-					// 值
-					value: 'value',
-					// 提示
-					tip: 'tip',
-					// 热度
-					hot: 'hot',
-					// 原价
-					price_ago: 'price_ago',
-					// 价格
-					price: 'price',
-					// 总价
-					total: 'total',
-					// 评论
-					num_comment: 'num_comment',
-					// 点赞数
-					num_praise: 'num_praise',
-					// 访问数
-					num_see: 'num_see',
-					// 总量
-					count: 'count',
-					// 数量
-					num: 'num',
-					// 作者
-					author: 'author',
-					// 收藏量
-					collect: 'collect',
-					// 标签
-					tag: 'tag'
+					
 				}
 			}
 		},
@@ -115,7 +48,7 @@ export default {
 			default: null
 		}
 	},
-	data: function data() {
+	data() {
 		return {
 			// 地址
 			url: "",
@@ -248,7 +181,7 @@ export default {
 		 * @param {String} obj 值
 		 */
 		save_obj(key, obj) {
-			uni.db.set(key, obj)
+			$.db.set(key, obj)
 		},
 		/**
 		 * @description 查询对象
@@ -256,7 +189,7 @@ export default {
 		 * @return {Object} 值
 		 */
 		load_obj(key) {
-			return uni.db.get(key)
+			return $.db.get(key)
 		},
 		/**
 		 * @description 事件管理, 用于管理函数

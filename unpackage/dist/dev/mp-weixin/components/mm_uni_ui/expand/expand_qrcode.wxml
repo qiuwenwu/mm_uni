@@ -1,0 +1,1 @@
+<view class="expand_qrcode"><canvas class="expand_qrcode-canvas" style="{{'width:'+(se+'px')+';'+('height:'+(se+'px')+';')}}" canvas-id="{{ide}}"></canvas><image hidden="{{!(show)}}" style="{{'width:'+(se+'px')+';'+('height:'+(se+'px')+';')}}" src="{{result}}"></image></view>

@@ -21,7 +21,13 @@ export default {
 			"avatar": "",
 			"invite_code": "",
 			"friends": "",
-			"state": 0
+			"state": 0,
+			// 姓名
+			"name": "",
+			// 性别
+			"sex": 0,
+			// 年龄
+			"age": 0
 		}
 	},
 	mutations: {

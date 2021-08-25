@@ -1,33 +1,75 @@
 <template>
 	<mm_page class="page_user" id="user_collect">
 		<mm_main>
-			<!-- 编辑表单(开始) -->
-			<mm_warp id="menu">
-				<mm_container>
-					<mm_row>
-						<mm_col class="col-12 col-sm-6 col-md-4">
-							<mm_view class="yyy">
-			
-							</mm_view>
-						</mm_col>
-					</mm_row>
-				</mm_container>
-			</mm_warp>
-			<!-- 编辑表单(结束) -->
-			
-			<!-- 按钮列表(开始) -->
-			<mm_warp id="buttons">
+			<!-- 搜索栏(开始) -->
+			<mm_warp id="search">
 				<mm_container>
 					<mm_row>
 						<mm_col class="col-12">
 							<mm_view>
-								<button>立 即 发 布</button>
+								<view class="search">
+									<image class="icon" src="/static/img/search.png"></image>
+									<input class="input" v-model="query.keyword" placeholder="输入关键词 如：唱k 做饭"
+										@blur="search()" @keypress.native.enter="search()" />
+								</view>
 							</mm_view>
 						</mm_col>
 					</mm_row>
 				</mm_container>
 			</mm_warp>
-			<!-- 按钮列表(结束) -->
+			<!-- 搜索栏(结束) -->
+
+			<!-- 分类栏(开始) -->
+			<mm_warp id="type">
+				<mm_container>
+					<mm_row>
+						<mm_col class="col-12">
+							<mm_view>
+								<view class="bar_type card">
+									<view class="item_type" v-for="(o, i) in list_type" :key="i"
+										:class="{ active: o.source_table == query.source_table }">
+										<view @click="select_type(o)"><text>{{ o.name }}</text></view>
+									</view>
+								</view>
+							</mm_view>
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 分类栏(结束) -->
+
+			<!-- 资讯列表(开始) -->
+			<mm_warp id="name_card">
+				<mm_container>
+					<mm_row>
+						<mm_col class="col-12">
+							<!-- 资讯(开始) -->
+							<mm_view v-for="(o, i) in list" :key="i">
+								<view class="card">
+									<view class="card_head">
+										<view class="title">
+											<text>{{ o.title }}</text>
+										</view>
+										<view class="time">
+											<text>{{ $to_time(o.create_time)}}</text>
+										</view>
+									</view>
+									<view class="card_body">
+										<view class="doc">
+											<rich-text class="content" :nodes="o.description"></rich-text>
+										</view>
+									</view>
+									<view class="btn_delete" @click="event_delete(o)">
+										<text>删除</text>
+									</view>
+								</view>
+							</mm_view>
+							<!-- 资讯(结束) -->
+						</mm_col>
+					</mm_row>
+				</mm_container>
+			</mm_warp>
+			<!-- 资讯列表(结束) -->
 		</mm_main>
 	</mm_page>
 </template>
@@ -40,52 +82,59 @@
 		],
 		data() {
 			return {
+				// 登录权限
+				oauth: {
+					"signIn": true,
+					"user_group": []
+				},
 				message: 'Hello',
-				// 定时器
-				timer: null,
-				// 请求链接
-				url: "",
-				// 获取单条数据链接
-				url_get_obj: "",
+				toTime: null,
 				// 获取列表链接
-				url_get_list: "",
+				url_get_list: "~/api/city/user_collect?",
 				// 查询条件
-				query: {},
-				// 表的主字段
-				field: "xxx_id",
-				// 获取到对象
-				obj: {},
+				query: {
+					source_table: "info",
+					source_field: "info_id",
+					user_id: 0,
+				},
 				// 获取到的列表
 				list: [],
-				// 操作表单
-				form: {},
 				// 筛选关键词
-				keyword: ""
-			}
-		},
-		computed: {
-			/**
-			 * 新列表
-			 */
-			list_new() {
-				var list = this.list;
-				var lt = [];
-				for (var i = 0; i < list.length; i++) {
-					var o = list[i];
-					if (o.keyword == this.keyword) {
-						lt.push(o);
+				keyword: "",
+				list_type: [
+					{
+						source_table: "info",
+						source_field: "info_id",
+						name: "资讯"
+					},
+					{
+						source_table: "news",
+						source_field: "news_id",
+						name: "新闻"
 					}
-				}
-				return lt;
+				]
 			}
 		},
 		methods: {
+			select_type(o) {
+				this.query.source_table = o.source_table;
+				this.query.source_field = o.source_field;
+				this.search();
+			},
 			
+			get_list_before(param){
+				param.user_id = this.user.user_id;
+				return param;
+			},
+			event_delete(o){
+				
+			}
 		},
 		/**
 		 * 加载页面时
 		 */
 		onLoad() {
+
 		},
 		/**
 		 * 页面显示时
@@ -97,11 +146,33 @@
 		 * 页面销毁时
 		 */
 		onUnload() {
+
 		}
 	}
 </script>
 
 <style>
-	#user_collect #id_name {}
-</style>
+	#user_collect .card_head {
+		display: flex;
+	}
+	#user_collect .bar_type{
+		display: flex;
+		justify-content: center;
+	}
+	#user_collect .title{
+		width: 80%;
+	}
 
+	#user_collect .btn_delete{
+		display: flex;
+		float: right;
+		width: fit-content;
+		color: #E4C5B0;
+		border: 1px solid #E4C5B0;
+		font-size: .875rem;
+		border-radius: .25rem;
+		padding: .125rem 1.5rem;
+		margin: 0 1rem 1rem 0;
+	}
+	
+</style>

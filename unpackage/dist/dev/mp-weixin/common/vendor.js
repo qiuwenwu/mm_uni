@@ -282,10 +282,14 @@ var promiseInterceptor = {
     if (!isPromise(res)) {
       return res;
     }
-    return res.then(function (res) {
-      return res[1];
-    }).catch(function (res) {
-      return res[0];
+    return new Promise(function (resolve, reject) {
+      res.then(function (res) {
+        if (res[0]) {
+          reject(res[0]);
+        } else {
+          resolve(res[1]);
+        }
+      });
     });
   } };
 
@@ -872,7 +876,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"mm_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1931,4411 +1935,118 @@ uni$1;exports.default = _default;
 /***/ }),
 
 /***/ 10:
-/*!**********************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \**********************************************************************************************************/
-/*! exports provided: default */
+/*!****************************************************************************************!*\
+  !*** E:/github/other/mm_uni/static/css/mm_common.css?vue&type=style&index=1&lang=css& ***!
+  \****************************************************************************************/
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode, /* vue-cli only */
-  components, // fixed by xxxxxx auto components
-  renderjs // fixed by xxxxxx renderjs
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // fixed by xxxxxx auto components
-  if (components) {
-    if (!options.components) {
-      options.components = {}
-    }
-    var hasOwn = Object.prototype.hasOwnProperty
-    for (var name in components) {
-      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
-        options.components[name] = components[name]
-      }
-    }
-  }
-  // fixed by xxxxxx renderjs
-  if (renderjs) {
-    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
-      this[renderjs.__module] = this
-    });
-    (options.mixins || (options.mixins = [])).push(renderjs)
-  }
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_common_css_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./mm_common.css?vue&type=style&index=1&lang=css& */ 11);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_common_css_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_common_css_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_common_css_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_common_css_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_common_css_vue_type_style_index_1_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
 /***/ 11:
-/*!***********************************************!*\
-  !*** E:/github/other/mm_uni/plugins/index.js ***!
-  \***********************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!E:/github/other/mm_uni/static/css/mm_common.css?vue&type=style&index=1&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-var _mm_sdk = _interopRequireDefault(__webpack_require__(/*! ./mm_sdk.js */ 12));
-var _expand = _interopRequireDefault(__webpack_require__(/*! ./expand.js */ 13));
-var _core = _interopRequireDefault(__webpack_require__(/*! ./core.js */ 14));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./lang/index.js */ 18));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
-                                                                                                                                                               * @fileOverview 该文件为插件主文件, 主要用于引入其他插件
-                                                                                                                                                               * @author <a href="http://www.fman.top">自由人网络</a>
-                                                                                                                                                               * @version 1.0
-                                                                                                                                                               */var _default = { install: function install(Vue, options) {Vue.use(_core.default, options);
-    Vue.use(_index.default, options);
-  } };exports.default = _default;
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
 
 /***/ }),
 
 /***/ 12:
-/*!************************************************!*\
-  !*** E:/github/other/mm_uni/plugins/mm_sdk.js ***!
-  \************************************************/
+/*!****************************************************************************************!*\
+  !*** E:/github/other/mm_uni/static/css/mm_layout.css?vue&type=style&index=2&lang=css& ***!
+  \****************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni) {
-/* == 数字原型函数 == */
-(function () {
-  /**
-               * @description 去尾法
-               * @param {Number} len 保留长度
-               * @return {Number} 数值
-               */
-  Number.prototype.toFloor = function (len) {
-    var n = Math.pow(10, len);
-    return Math.floor(this * n) / n;
-  };
-  /**
-      * @description 进一法
-      * @param {Number} len 保留长度
-      * @return {Number} 数值
-      */
-  Number.prototype.toCeil = function (len) {
-    var n = Math.pow(10, len);
-    return Math.ceil(this * n) / n;
-  };
-  /**
-      * @description 四舍五入法
-      * @param {Number} len 保留长度
-      * @return {Number} 数值
-      */
-  Number.prototype.toRound = function (len) {
-    var n = Math.pow(10, len);
-    return Math.round(this * n) / n;
-  };
-  /**
-      * @description 数值转字符串, 保留尾数长度
-      * @param {Number} len 保留长度
-      * @param {String} mode 保留方式
-      * @return {String} 截取后字符串
-      */
-  Number.prototype.get = function (len, mode) {
-    var n;
-    switch (mode) {
-      case 1:
-      case "toRound":
-        n = this.toRound(len);
-        break;
-      case 2:
-      case "toCeil":
-        n = this.toCeil(len);
-        break;
-      case 3:
-      case "toFloor":
-        n = this.toFloor(len);
-        break;
-      default:
-        n = this.toString();
-        break;}
-
-    return n;
-  };
-  /**
-      * @description 数值转字符串, 保留尾数长度
-      * @param {Number} len 保留长度
-      * @param {String} mode 保留方式
-      * @return {String} 截取后字符串
-      */
-  Number.prototype.toStr = function (len, mode) {
-    var n = this.get(len, mode);
-    var s = n.toString();
-    var rs = s.indexOf('.');
-    if (len > 0 && rs < 0) {
-      rs = s.length;
-      s += '.';
-    }
-    while (s.length <= rs + len) {
-      s += '0';
-    }
-    return s;
-  };
-  /**
-      * @description 转为时间类型
-      * @return {Date} 时间对象
-      */
-  Number.prototype.toTime = function () {
-    return new Date(this * 1000);
-  };
-})();
-
-/* == 时间原型函数 == */
-(function () {
-  /**
-               * @description 时间格式化
-               * @param {String} format 指定格式
-               * @return {String} 时间格式字符串
-               */
-  Date.prototype.toStr = function (format) {
-    var o = {
-      "M+": this.getMonth() + 1,
-      "d+": this.getDate(),
-      "h+": this.getHours(),
-      "m+": this.getMinutes(),
-      "s+": this.getSeconds(),
-      "q+": Math.floor((this.getMonth() + 3) / 3),
-      "S": this.getMilliseconds() };
-
-    if (/(y+)/.test(format)) {
-      var x = RegExp.$1;
-      format = format.replace(x, (this.getFullYear() + "").substr(4 - x.length));
-    }
-    for (var k in o) {
-      if (new RegExp("(" + k + ")").test(format)) {
-        var x = RegExp.$1;
-        format = format.replace(x, x.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
-      }
-    }
-    return format;
-  };
-  /**
-      * @description 获取当前时间戳
-      * @return {Number} 返回时间戳
-      */
-  Date.prototype.stamp = function () {
-    var timestamp = Date.parse(this);
-    return timestamp / 1000;
-  };
-  /**
-      * @description 计算时间差(时间间隔)
-      * @param {String} endTime 结束时间
-      * @param {String} time_unit = [day|hours|minutes] 时间单位
-      * @return {Number} 间隔时长
-      */
-  Date.prototype.interval = function (endTime, time_unit) {
-    var startTime = this; // startTime: 开始时间
-    var stime = Date.parse(startTime);
-    var etime = Date.parse(new Date(endTime));
-    var usedTime = etime - stime; // 两个时间戳相差的毫秒数
-    if (time_unit === "day") {
-      return Math.floor(usedTime / (1000 * 60 * 60 * 24));
-    } else if (time_unit === "hours") {
-      return Math.floor(usedTime / (1000 * 60 * 60));
-    } else if (time_unit === "minutes") {
-      return Math.floor(usedTime / (1000 * 60));
-    } else {
-      return Math.floor(usedTime / 1000);
-    }
-  };
-  /**
-      * @description 时间添加天数
-      * @param {Number} days 天数
-      * @return {Date} 时间对象
-      */
-  Date.prototype.addDays = function (days) {
-    this.setDate(this.getDate() + days);
-    return this;
-  };
-  /**
-      * @description 时间添加秒数
-      * @param {Date} seconds 时间对象
-      */
-  Date.prototype.addSeconds = function (seconds) {
-    this.setSeconds(this.getSeconds() + seconds);
-    return this;
-  };
-})();
-
-/* == 字符串拓展函数 == */
-(function () {
-  /**
-               * @description MD5加密
-               * @return {String} 加密后的字符串
-               */
-  String.prototype.md5 = function () {
-    return uni.md5(this + '');
-  };
-
-  /**
-      * aes加密
-      * @param data 待加密内容
-      * @param key 必须为32位私钥
-      * @returns {String}
-      */
-  String.prototype.aes_encode = function (key, iv) {
-    iv = iv || "";
-    var clearEncoding = 'utf8';
-    var cipherEncoding = 'base64';
-    var cipherChunks = [];
-    var cipher = createCipheriv('aes-256-ecb', key, iv);
-    cipher.setAutoPadding(true);
-    cipherChunks.push(cipher.update(this + '', clearEncoding, cipherEncoding));
-    cipherChunks.push(cipher.final(cipherEncoding));
-    return cipherChunks.join('');
-  };
-
-  /**
-      * @description aes解密
-      * @param key 必须为32位私钥
-      * @returns {String}
-      */
-  String.prototype.aes_decode = function (key, iv) {
-    iv = iv || "";
-    var clearEncoding = 'utf8';
-    var cipherEncoding = 'base64';
-    var cipherChunks = [];
-    var decipher = createDecipheriv('aes-256-ecb', key, iv);
-    decipher.setAutoPadding(true);
-    cipherChunks.push(decipher.update(this + '', cipherEncoding, clearEncoding));
-    cipherChunks.push(decipher.final(clearEncoding));
-    return cipherChunks.join('');
-  };
-
-  /**
-      * @description 获取字符串的拼音
-      * @return {String} 拼音
-      */
-  String.prototype.pinyin = function () {
-    return pinyin(this).join('');
-  };
-  /**
-      * @description 获取字符串的拼音
-      * @return {String} 拼音
-      */
-  String.prototype.pinyinS = function () {
-    var arr = pinyin(this);
-    var str = "";
-    for (var i = 0; i < arr.length; i++) {
-      var ar = arr[i];
-      if (ar.length > 0) {
-        var o = ar[0];
-        str += o.charAt(0).toLocaleUpperCase() + o.substring(1);
-      } else {
-        str += ' ';
-      }
-    }
-    return str;
-  };
-  /**
-      * @description 将json字符串转为对象
-      * @return {Object} 对象
-      */
-  String.prototype.toJson = function () {
-    try {
-      return JSON.parse(this);
-    } catch (e) {
-      console.log('json反序列化错误');
-      return null;
-    }
-  };
-  /**
-      * @description 将url字符串转为对象
-      * @return {Object} 对象
-      */
-  String.prototype.toUrl = function () {
-    var arr = this.split('&');
-    var obj = {};
-    arr.func(function (o) {
-      var ar = o.split('=');
-      if (ar.length > 1) {
-        obj[ar[0]] = decodeURI(ar[1]);
-      } else {
-        obj[ar[0]] = null;
-      }
-    });
-    return obj;
-  };
-
-  /**
-      * @description 将url参数转为对象
-      * @return {Object} 对象
-      */
-  String.prototype.toQuery = function () {
-    var str = this + "";
-    var index = str.indexOf("?");
-    if (index !== -1) {
-      str = str.substring(index + 1);
-    } else {
-      return {};
-    }
-    return str.toUrl();
-  };
-
-  /**
-      * @description 删除首字符
-      * @param {String} str  要删除的字符, 默认删除空字符
-      * @return {String} 删除后字符串
-      */
-  String.prototype.startTrim = function (str) {
-    if (!str) {
-      str = "\\s";
-    } else {
-      str = str.replace("$", "\\$").replace("^", "\\^").replace("(", "\\(").replace(")", "\\)");
-    }
-    var rx = new RegExp("(^" + str + "*)", "g");
-    return this.replace(rx, "");
-  };
-  /**
-      * @description 删除尾字符
-      * @param {String} str 要删除的字符, 默认删除空字符
-      * @return {String} 删除后字符串
-      */
-  String.prototype.endTrim = function (str) {
-    if (!str) {
-      str = "\\s";
-    } else {
-      str = str.replace("$", "\\$").replace("^", "\\^").replace("(", "\\(").replace(")", "\\)");
-    }
-    var rx = new RegExp("(" + str + "*$)", "g");
-    return this.replace(rx, "");
-  };
-  /**
-      * @description 删除首尾字符
-      * @param {String} str 要删除的字符, 默认删除空字符
-      * @return {String} 删除后字符串
-      */
-  String.prototype.trim = function (str) {
-    if (!str) {
-      str = "\\s";
-    } else {
-      str = str.replace("$", "\\$").replace("^", "\\^").replace("(", "\\(").replace(")", "\\)");
-    }
-    var rx = new RegExp("(^" + str + "*)|(" + str + "*$)", "g");
-    return this.replace(rx, "");
-  };
-  /**
-      * @description 取文本左边
-      * @param {String} str 索引的字符
-      * @param {Boolean} bl 当索引字符不存在时是否保留左边
-      * @return {String} 截取后的字符串
-      */
-  String.prototype.left = function (str, bl) {
-    var i = this.indexOf(str);
-    if (i == -1) {
-      if (bl) {
-        return this + '';
-      } else {
-        return "";
-      }
-    } else {
-      return this.substring(0, i);
-    }
-  };
-  /**
-      * @description 取文本右边
-      * @param {String} str 索引的字符
-      * @param {Boolean} bl 当索引字符不存在时是否保留右边
-      * @return {String} 截取后的字符串
-      */
-  String.prototype.right = function (str, bl) {
-    var i = this.indexOf(str);
-    if (i == -1) {
-      if (bl) {
-        return this + '';
-      } else {
-        return "";
-      }
-    } else {
-      return this.substring(i + str.length);
-    }
-  };
-  /**
-      * @description 取文本之间
-      * @param {String} str_l 索引的左边字符
-      * @param {String} str_r 索引的右边字符
-      * @param {Boolean} bl 当索引字符不存在时是否保留右边
-      * @return {String} 截取后的字符串
-      */
-  String.prototype.between = function (str_l, str_r, bl) {
-    var str = this.right(str_l, bl);
-    return str.left(str_r, bl);
-  };
-  /**
-      * @description 替换所有字符串
-      * @param {String} oldStr 被替换的字符串
-      * @param {String} newStr 替换后的字符串
-      * @return {String} 替换后的字符串
-      */
-  String.prototype.replaceAll = function (oldStr, newStr) {
-    var txt = this + '';
-    if (!newStr) {
-      newStr = '';
-    }
-    while (txt.indexOf(oldStr) !== -1) {
-      txt = txt.replace(oldStr, newStr);
-    }
-    return txt;
-  };
-  /**
-      * @description 验证开头字符串
-      * @param {String} startStr 开头字符串
-      * @return {Boolean} 验证成功返回true，失败返回false
-      */
-  String.prototype.startWith = function (startStr) {
-    var d = this.length - startStr.length;
-    if (d >= 0 && this.indexOf(startStr) === 0) {
-      return true;
-    }
-    return false;
-  };
-  /**
-      * @description 验证结束字符串
-      * @param {String} endStr 结尾字符串
-      * @return {Boolean} 验证成功返回true，失败返回false
-      */
-  String.prototype.endWith = function (endStr) {
-    var d = this.length - endStr.length;
-    if (d >= 0 && this.lastIndexOf(endStr) == d) {
-      return true;
-    }
-    return false;
-  };
-  /**
-      * @description 是否含字符串
-      * @param {String} str = [word|word*|*word|*word*]字符串, 支持*号匹配, 前*表示匹配后面字符串, 后*表示匹配前面字符串, 前后*表示匹配包含字符串
-      * @return {Boolean} 包含返回true, 不包含返回false
-      */
-  String.prototype.has = function (str) {
-    var o = this + '';
-    if (o === str) {
-      return true;
-    } else if (str.startWith("*")) {
-      var k = str.replaceAll('*', '');
-      if (str.endWith("*")) {
-        return o.indexOf(k) !== -1;
-      } else {
-        return o.endWith(k);
-      }
-    } else if (str.endWith("*")) {
-      var k = str.replaceAll('*', '');
-      return o.startWith(k);
-    } else {
-      return false;
-    }
-  };
-  /**
-      * @description 转为时间对象
-      * @return {Date} 时间对象
-      */
-  String.prototype.toTime = function () {
-    var str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
-    return new Date(str);
-  };
-  /**
-      * @description 转为时间格式字符串
-      * @param {String} format 转换的格式
-      * @return {String} 时间格式字符串
-      */
-  String.prototype.toTimeFormat = function (format) {
-    var str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
-    return str.toTime().toStr(format);
-  };
-  /**
-      * @description 转为数组
-      * @param {String|Regex} separator 分隔符或正则
-      * @param {Number} maxLen 最大长度
-      * @return {Array} 数组
-      */
-  String.prototype.toArr = function (separator, maxLen) {
-    return this.split(separator, maxLen);
-  };
-  /**
-      * @description 转为数字
-      * @param {Number} len 保留长度 ()
-      * @param {String} mode 保留方式 ()
-      * @return {Number} 浮点数
-      */
-  String.prototype.toNum = function (len, mode) {
-    return new Number(this).get(len, mode);
-  };
-  /**
-      * @description 转为对象
-      * @return {Object} 对象
-      */
-  String.prototype.toObj = function () {
-    return eval(this + '');
-  };
-  /**
-      * @description 转正则表达式
-      * @param {String} mode = [g|i|gi] 转换方式, g为全部, i为不区分大小写
-      * @return {Regex} 返回正则对象
-      */
-  String.prototype.toRx = function (mode) {
-    if (!mode) {
-      mode = 'gi';
-    }
-    return eval("/" + this + "/" + mode);
-  };
-  /**
-      * @description 正则判断
-      * @param {String} str 用作判断的正则
-      * @param {String} mode = [g|i|gi] 转换方式, g为全部, i为不区分大小写
-      * @return {Boolean} 符合正则返回true, 否则返回false
-      */
-  String.prototype.regex = function (str, mode) {
-    var rx = str.toRx(mode);
-    return rx.test(this + '');
-  };
-  /**
-      * @description 验证字符串格式
-      * @param {String} format 所属格式
-      * @return {Boolean} 验证通过返回true, 失败返回false
-      */
-  String.prototype.checkFormat = function (format) {
-    var bl = false;
-    var value = this + '';
-    var f = format.toLowerCase();
-    switch (f) {
-      case "phone":
-        bl = /^0?(13|14|15|16|17|18|19)[0-9]{9}$/.test(value);
-        break;
-      case "email":
-        bl = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/gi.test(value);
-        break;
-      case "username":
-        bl = /^[a-z0-9A-Z_]+$/.test(value);
-        break;
-      case "password":
-        bl = /^[a-z0-9A-Z]+$/.test(value);
-        break;
-      case "url":
-        bl = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/gi.test(value);
-        break;
-      case "date":
-        bl = /^\d{4}(\-|\/|\.)(0[1-9]|1[012]|[1-9])(\-|\/|\.)([12][0-9]|0[1-9]|3[01]|[1-9])$/.test(value);
-        break;
-      case "time":
-        bl = /^([01][0-9]|2[0-3]):([0-4][0-9]|5[0-9])(:([0-4][0-9]|5[0-9]))?$/.test(value);
-        break;
-      case "datetime":
-        bl =
-        /^\d{4}(\-|\/|\.)(0[1-9]|1[012]|[1-9])(\-|\/|\.)([12][0-9]|0[1-9]|3[01]|[1-9]) ([01][0-9]|2[0-3]):([0-4][0-9]|5[0-9])(:([0-4][0-9]|5[0-9]))?$/.
-        test(value);
-        break;
-      case "dateiso":
-        bl =
-        /^\d{4}-(0[1-9]|1[012]|[1-9])-([12][0-9]|0[1-9]|3[01]|[1-9])( ([01][0-9]|2[0-3]):([0-4][0-9]|5[0-9])(:([0-4][0-9]|5[0-9]))?)?$/.
-        test(value);
-        break;
-      case "number":
-        bl = /^[1-9]+[0-9]*(\.[0-9]+|[0-9]*)|0\.[0-9]+|0$/.test(value);
-        break;
-      case "en":
-        bl = /^[a-zA-Z]+$/.test(value);
-        break;
-      case "num":
-      case "digits":
-        bl = /^[0-9]+$/.test(value);
-        break;
-      case "ch":
-      case "chs":
-      case "chinese":
-        bl = /^[\u4e00-\u9fa5]+$/.test(value);
-        break;
-      default:
-        console.log('输入的类型错误');
-        break;}
-
-    return bl;
-  };
-  /**
-      * @description 编译模板
-      * @param {Object} obj 对象
-      * @return {String} 编译后的字符串
-      */
-  String.prototype.tpl = function (obj) {
-    var text = this + '';
-
-    function render() {
-      if (obj) {
-        for (var k in obj) {
-          this[k] = obj[k];
-        }
-      }
-      return eval("`" + text + "`");
-    }
-    return render();
-  };
-})();
-
-/* == 数组原型函数 == */
-(function () {
-  /**
-               * 列表转树形列表
-               * @param {Array} list 列表
-               * @param {String} id ID字段
-               * @param {Number} value ID对应值
-               * @param {String} father_id 上级ID字段
-               * @param {String} sub 子类字段
-               * @return {Array} 返回属性值
-               */
-  function toTree(list, id) {var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;var father_id = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'father_id';var sub = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'sub';
-    var arr = [];
-    for (var i = 0; i < list.length; i++) {
-      var o = list[i];
-      if (o[father_id] === value) {
-        o[sub] = toTree(list, id, o[id], father_id, sub);
-        arr.push(o);
-      }
-    }
-    return arr;
-  }
-
-  function toList(list) {var sub = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'sub';var arr = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-    for (var i = 0; i < list.length; i++) {
-      var o = list[i];
-      var lt = o[sub];
-      delete o[sub];
-      arr.push(o);
-      if (lt && lt.length > 0) {
-        toList(lt, sub, arr);
-      }
-    }
-    return arr;
-  }
-
-  /**
-     * 列表转树形列表
-     * @param {String} id ID字段
-     * @param {Number} value ID对应值
-     * @param {String} father_id 上级ID字段
-     * @param {String} sub 子类字段
-     * @return {Array} 返回数组
-     */
-  Array.prototype.toTree = function (id) {var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;var father_id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'father_id';var sub = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'sub';
-    return toTree(this, id, value, father_id, sub);
-  };
-
-  /**
-      * 列表转树形列表
-      * @param {String} sub 子类字段
-      * @param {Array} arr 结果数组
-      * @return {Array} 返回数组
-      */
-  Array.prototype.toList = function () {var sub = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'sub';var arr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-    return toList(this, sub, arr);
-  };
-
-  /**
-      * @description 拷贝对象
-      * @param {Boolean} has 是否非空拷贝，如果含有数据才拷贝，不含数据不拷贝
-      * @return {Array} 新数组
-      */
-  Array.prototype.copy = function (has) {
-    var arr_new = [];
-    var arr = this;
-    if (has) {
-      for (var i = 0; i < arr.length; i++) {
-        var o = arr[i];
-        if (o) {
-          arr_new[i] = o;
-        }
-      }
-    } else {
-      for (var i = 0; i < arr.length; i++) {
-        arr_new[i] = arr[i];
-      }
-    }
-    return arr_new;
-  };
-  /**
-      * @description 遍历对象执行函数
-      * @param {Function(Object):Boolean} func 函数名
-      */
-  Array.prototype.func = function (func) {
-    for (var i = 0; i < this.length; i++) {
-      if (func(this[i])) {
-        break;
-      }
-    }
-  };
-  /**
-      * @description 数组转字符串
-      * @param {String} splitStr 分隔符
-      * @param {String} key 对象属性名
-      * @return {String} 字符串 
-      */
-  Array.prototype.toStr = function (splitStr, key) {
-    var arr = this;
-    var str = "";
-    if (key) {
-      for (var i = 0; i < arr.length; i++) {
-        var o = arr[i];
-        if (o[key]) {
-          str += splitStr + o[key];
-        }
-      }
-    } else {
-      for (var i = 0; i < arr.length; i++) {
-        var o = arr[i];
-        str += splitStr + o;
-      }
-    }
-    return str.replace(splitStr, "");
-  };
-  /**
-      * @description 清空数组
-      * @return {Array} 清空的数组
-      */
-  Array.prototype.clear = function () {
-    this.splice(0, this.length);
-    return this;
-  };
-  /**
-      * @description 修改数组成员
-      * @param {Object} query 搜索条件
-      * @param {Object} obj 修改项
-      * @return {Array} 删除后的数组
-      */
-  Array.prototype.set = function (query, obj) {
-    for (var i = 0; i < this.length; i++) {
-      var o = this[i];
-      for (var k in query) {
-        if (as(o, query)) {
-          this[i] = obj;
-        };
-      }
-    }
-    return this;
-  };
-
-  /**
-      * @description 数组列表取数组
-      * @param {String} key 取的属性
-      * @return {Array} 截取的数组
-      */
-  Array.prototype.toArr = function (key) {
-    var arr = [];
-    var lt = this;
-    var len = lt.length;
-    for (var i = 0; i < len; i++) {
-      var o = lt[i];
-      arr.push(o[key]);
-    }
-    return arr;
-  };
-
-  /**
-      * @description 从数组获取对象
-      * @param {Object} query 查询条件
-      * @param {Boolean} end 是否结束
-      * @return {Object} 对象
-      */
-  Array.prototype.get = function (query, end) {
-    if (query) {
-      if (end) {
-        var obj;
-        for (var i = 0; i < this.length; i++) {
-          var o = this[i];
-          if (as(o, query)) {
-            obj = o;
-            break;
-          }
-        }
-        return obj;
-      } else {
-        var list = [];
-        for (var i = 0; i < this.length; i++) {
-          var o = this[i];
-          if (as(o, query)) {
-            list.push(o);
-          }
-        }
-        return list;
-      }
-    } else {
-      var list = [];
-      list.addList(this);
-      return list;
-    }
-  };
-
-  /**
-      * @description 从数组获取对象
-      * @param {Object} query 查询条件
-      * @return {Object} 对象
-      */
-  Array.prototype.getObj = function (query) {
-    var obj;
-    if (query) {
-      for (var i = 0; i < this.length; i++) {
-        var o = this[i];
-        if (as(o, query)) {
-          obj = o;
-          break;
-        }
-      }
-    }
-    return obj;
-  };
-  /**
-      * @description 获取数组对象的属性值
-      * @param {String} key 属性名
-      * @param {Object} query 查询条件
-      * @return {Object} 属性值
-      */
-  Array.prototype.getVal = function (key, query) {
-    var obj = this.getObj(query);
-    if (obj) {
-      return obj[key];
-    } else {
-      return null;
-    }
-  };
-  /**
-      * @description 获取符合条件的数组对象
-      * @param {Object} query 查询条件
-      * @return {Array} 对象数组
-      */
-  Array.prototype.getList = function (query) {
-    var arr = [];
-    if (query) {
-      for (var i = 0; i < this.length; i++) {
-        var o = this[i];
-        if (as(o, query)) {
-          arr.push(o);
-        }
-      }
-    } else {
-      arr = this.copy();
-    }
-    return arr;
-  };
-  /**
-      * @description 获取数组所有对象的属性值
-      * @param {String} key 属性名
-      * @param {Object} query 查询条件
-      * @return {Array} 属性值数组
-      */
-  Array.prototype.getArr = function (key, query) {
-    var arr = [];
-    if (query) {
-      for (var i = 0; i < this.length; i++) {
-        var o = this[i];
-        if (as(o, query)) {
-          arr.push(o[key]);
-        }
-      }
-    } else {
-      for (var i = 0; i < this.length; i++) {
-        var o = this[i];
-        arr.push(o[key]);
-      }
-    }
-    return arr;
-  };
-  /**
-      * @description 给数组对象添加属性值
-      * @param {String} key 属性名
-      * @param {Object} value 属性值
-      * @param {Object} query 查询条件
-      * @param {Boolean} end 是否中断循环,中断只添加给第一个符合条件的对象
-      * @return {Array} 对象数组
-      */
-  Array.prototype.addVal = function (key, value, query, end) {
-    if (query) {
-      for (var i = 0; i < this.length; i++) {
-        var o = this[i];
-        if (as(o, query)) {
-          if (!o[key]) {
-            o[key] = value;
-            if (end) {
-              break;
-            }
-          }
-        }
-      }
-    } else {
-      for (var i = 0; i < this.length; i++) {
-        var o = this[i];
-        if (!o[key]) {
-          o[key] = value;
-          if (end) {
-            break;
-          }
-        }
-      }
-    }
-    return this;
-  };
-  /**
-      * @description 给数组添加对象
-      * @param {Object} obj 对象
-      * @param {Object} query 查询条件
-      * @return {Array} 对象数组
-      */
-  Array.prototype.addObj = function (obj, query) {
-    var has = false;
-    if (query) {
-      for (var i = 0; i < this.length; i++) {
-        if (as(this[i], query)) {
-          has = true;
-          break;
-        }
-      }
-    } else {
-      for (var i = 0; i < this.length; i++) {
-        if (as(this[i], obj)) {
-          has = true;
-          break;
-        }
-      }
-    }
-    if (!has) {
-      this.push(obj);
-    }
-    return this;
-  };
-  /**
-      * @description 给数组添加多个对象
-      * @param {Array} list 数组
-      * @param {Object} query 查询条件
-      * @return {Array} 对象数组
-      */
-  Array.prototype.addList = function (list, query) {
-    var len = list.length;
-    for (var i = 0; i < len; i++) {
-      this.addObj(list[i], query);
-    }
-    return this;
-  };
-
-  /**
-      * @description 给数组添加一个对象或列表
-      * @param {Object|Array} objOrList 对象或数组
-      * @param {Object} query 查询条件
-      * @return {Array} 对象数组
-      */
-  Array.prototype.add = function (objOrList, query) {
-    if (Array.isArray(objOrList)) {
-      this.addList(objOrList, query);
-    } else {
-      this.addObj(objOrList, query);
-    }
-    return this;
-  };
-
-  /**
-      * @description 删除数组中对象的属性
-      * @param {String} key 对象属性键
-      * @param {Object} query 查询条件
-      * @param {Boolean} end 是否中断循环,中断只删除第一个符合条件的对象
-      * @return {Array} 对象数组
-      */
-  Array.prototype.delVal = function (key, query, end) {
-    if (query) {
-      if (end) {
-        for (var i = 0; i < this.length; i++) {
-          var o = this[i];
-          if (as(o, query)) {
-            delete o[key];
-            break;
-          }
-        }
-      } else {
-        for (var i = 0; i < this.length; i++) {
-          var o = this[i];
-          if (as(o, query)) {
-            delete o[key];
-          }
-        }
-      }
-    } else {
-      if (end) {
-        delete this[0][key];
-      } else {
-        for (var i = 0; i < this.length; i++) {
-          var o = this[i];
-          delete o[key];
-        }
-      }
-    }
-    return this;
-  };
-  /**
-      * @description 删除数组中的对象
-      * @param {Object} query 查询条件
-      * @param {Boolean} end 是否中断循环,中断只删除第一个符合条件的对象
-      * @return {Array} 对象数组
-      */
-  Array.prototype.del = function (query, end) {
-    var bl = false;
-    if (end) {
-      if (query) {
-        for (var i = 0; i < this.length; i++) {
-          if (as(this[i], query)) {
-            this.splice(i, 1);
-            break;
-          }
-        }
-      } else {
-        for (var i = 0; i < this.length; i++) {
-          this.splice(i, 1);
-          break;
-        }
-      }
-    } else {
-      if (query) {
-        for (var i = this.length - 1; i >= 0; i--) {
-          if (as(this[i], query)) {
-            this.splice(i, 1);
-          }
-        }
-      } else {
-        for (var i = this.length - 1; i >= 0; i--) {
-          this.splice(i, 1);
-        }
-      }
-    }
-    return this;
-  };
-  /**
-      * @description 删除多个不同的数组成员
-      * @param {Array} list 查询条件列表
-      * @param {Boolean} end 是否中断循环,中断只删除第一个符合条件的对象
-      * @return {Array} 对象数组
-      */
-  Array.prototype.delList = function (list, end) {
-    var len = list.length;
-    for (var i = 0; i < len; i++) {
-      this.del(list[i], end);
-    }
-    return this;
-  };
-  /**
-      * @description 设置数组中对象的属性值
-      * @param {String} key 属性键
-      * @param {Object} value 属性值
-      * @param {Object} query 查询条件
-      * @param {Boolean} end 是否中断循环,中断只修改第一个符合条件的对象
-      * @return {Array} 对象数组
-      */
-  Array.prototype.setVal = function (key, value, query, end) {
-    if (query) {
-      for (var i = 0; i < this.length; i++) {
-        if (as(this[i], query)) {
-          this[i][key] = value;
-          if (end) {
-            break;
-          }
-        }
-      }
-    } else {
-      for (var i = 0; i < this.length; i++) {
-        this[i][key] = value;
-        if (end) {
-          break;
-        }
-      }
-    }
-    return this;
-  };
-  /**
-      * @description 设置数组中对象的属性值
-      * @param {Object} obj 对象
-      * @param {Object} query 查询条件
-      * @param {Boolean} end 是否中断循环,中断只修改第一个符合条件的对象
-      * @return {Array} 对象数组
-      */
-  Array.prototype.setObj = function (obj, query, end) {
-    if (query) {
-      for (var i = 0; i < this.length; i++) {
-        var o = this[i];
-        if (as(o, query)) {
-          this[i] = obj;
-          if (end) {
-            break;
-          }
-        }
-      }
-    }
-    return this;
-  };
-  /**
-      * @description 设置数组中对象的属性值
-      * @param {Array} list 对象列表
-      * @param {Object} query 查询条件
-      * @param {Boolean} end 是否中断循环,中断只修改第一个符合条件的对象
-      * @return {Array} 对象数组
-      */
-  Array.prototype.setList = function (list, query, end) {
-    for (var i = 0; i < this.length; i++) {
-      this.setObj(this[i], query, end);
-    }
-  };
-  /**
-      * @description 搜索符合条件的成员
-      * @param {String} str 搜索关键词
-      * @param {String} key 主键, 用于列表数组时
-      * @return {Array} 返回符合条件的结果
-      */
-  Array.prototype.search = function (str, key) {
-    var arr = [];
-    var func;
-    var k = str.replaceAll('*', '');
-    if (str.startWith("*")) {
-      if (str.endWith("*")) {
-        if (key) {
-          func = function func(o) {
-            if (o[key].indexOf(k) !== -1) {
-              arr.push(o);
-            }
-          };
-        } else {
-          func = function func(o) {
-            if (o.indexOf(k) !== -1) {
-              arr.push(o);
-            }
-          };
-        }
-      } else {
-        if (key) {
-          func = function func(o) {
-            if (o[key].endWith(k)) {
-              arr.push(o);
-            }
-          };
-        } else {
-          func = function func(o) {
-            if (o.endWith(k)) {
-              arr.push(o);
-            }
-          };
-        }
-      }
-    } else if (str.endWith("*")) {
-      if (key) {
-        func = function func(o) {
-          if (o[key].startWith(k)) {
-            arr.push(o);
-          }
-        };
-      } else {
-        func = function func(o) {
-          if (o.startWith(k)) {
-            arr.push(o);
-          }
-        };
-      }
-
-    } else {
-      if (key) {
-        func = function func(o) {
-          if (o[key] === k) {
-            arr.push(o);
-          }
-        };
-      } else {
-        func = function func(o) {
-          if (o === k) {
-            arr.push(o);
-          }
-        };
-      }
-    }
-    this.map(func);
-    return arr;
-  };
-  /**
-      * @description 判断是否包含成员
-      * @param {Object} query 查询条件
-      * @return {Boolean} 有则返回true，没有则返回false
-      */
-  Array.prototype.has = function (query) {
-    var has = false;
-    for (var i = 0; i < this.length; i++) {
-      if (as(this[i], query)) {
-        has = true;
-        break;
-      }
-    };
-    return has;
-  };
-
-  /**
-      * @description 取含匹配项
-      * @param {String} str 被匹配的字符串
-      * @param {String} key 用于对象列表时查询
-      * @return {Object} 返回匹配的第一项
-      */
-  Array.prototype.getMatch = function (str, key) {
-    var obj;
-    if (key) {
-      for (var i = 0; i < this.length; i++) {
-        if (str.has(this[i][key])) {
-          obj = this[i];
-          break;
-        }
-      }
-    } else {
-      for (var i = 0; i < this.length; i++) {
-        if (str.has(this[i])) {
-          obj = this[i];
-          break;
-        }
-      }
-    }
-    return obj;
-  };
-
-  /**
-      * @description 数组转对象
-      * @param {String} key 主键, 用作对象索引
-      * @return {Object} 对象
-      */
-  Array.prototype.toObj = function (key) {
-    var obj = {};
-    this.map(function (o) {
-      var name = o[key];
-      if (name) {
-        obj[name] = o;
-      }
-    });
-    return obj;
-  };
-})();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_layout_css_vue_type_style_index_2_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./mm_layout.css?vue&type=style&index=2&lang=css& */ 13);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_layout_css_vue_type_style_index_2_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_layout_css_vue_type_style_index_2_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_layout_css_vue_type_style_index_2_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_layout_css_vue_type_style_index_2_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_layout_css_vue_type_style_index_2_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
 /***/ 13:
-/*!************************************************!*\
-  !*** E:/github/other/mm_uni/plugins/expand.js ***!
-  \************************************************/
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!E:/github/other/mm_uni/static/css/mm_layout.css?vue&type=style&index=2&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni) {/**
- * @fileOverview JavaScript拓展函数
- * @author <a href="http://qww.elins.cn">邱文武</a>
- * @version 1.2
- */
-
-/* == 基础函数 == */
-/**
-                  * @description 延迟执行（休眠）
-                  * @param {Number} milliSeconds 毫秒
-                  * @param {Object} obj 判断对象或函数
-                  * @param {String} key 判断的对象属性, 为存在的情况下提成退出循环
-                  * @example var obj = {ok: false}; sleep(2000, obj, 'ok');
-                  * @example sleep(2000);
-                  */
-function sleep(milliSeconds, obj, key) {
-  var endTime = new Date().getTime() + milliSeconds;
-  if (obj) {
-    if (key) {
-      while (new Date().getTime() < endTime) {
-        if (obj[key]) {
-          continue;
-        }
-      }
-    } else {
-      var func = obj;
-      while (new Date().getTime() < endTime) {
-        if (!func()) {
-          continue;
-        }
-      }
-    }
-  } else {
-    while (new Date().getTime() < endTime) {}
-  }
-}
-
-/**
-   * @description 判断对象是否相似
-   * @param {Object} obj 被判断对象
-   * @param {Object} query 用作判断的对象
-   * @param {Boolean} all 是否完全相同
-   * @return {Boolean} 相似返回true，否则返回false
-   */
-function as(obj, query, all) {
-  if (obj) {
-    var bl = true;
-    var type = typeof obj;
-    if (type !== typeof query) {
-      // 如果类型不一致 则两个无相似
-      bl = false;
-    } else if (type === 'string' || type === 'bool' || type === 'number') {
-      bl = obj === query;
-    } else if (obj.constructor == Array) {
-      // 如果都是数组
-      var lh = obj.length;
-      if (all && lh !== query.length) {
-        // 要求完全一致 而长度不一致 说明不相似
-        bl = false;
-      } else {
-        // 否则判断数组里的每个成员是否相似
-        for (var i = 0; i < lh; i++) {
-          if (!as(obj[i], query[i])) {
-            bl = false;
-            break;
-          }
-        }
-      }
-    } else {
-      // 如果类型为对象
-      if (all && Object.getOwnPropertyNames(obj).length !== Object.getOwnPropertyNames(query).length) {
-        // 如果要求完全一致, 而属性长度不一致，则不相似
-        bl = false;
-      } else {
-        // 否则都为对象则判断其值是否一致
-        for (var k in query) {
-          if (!as(obj[k], query[k], all)) {
-            bl = false;
-            break;
-          }
-        }
-      }
-    }
-    return bl;
-  } else {
-    return false;
-  }
-}
-
-/**
-   * @description 测试函数执行速度
-   * @param {Function()} func 测试的函数
-   * @param {Number} times = [value] 测试次数
-   */
-function speeds(func, times) {
-  if (!times) {
-    times = 1000000;
-  }
-  var t1 = new Date().valueOf();
-  for (var i = 0; i < times; i++) {
-    func();
-  }
-  var t2 = new Date().valueOf();
-  var s = t2 - t1;
-  console.log('耗时' + s + '毫秒, 平均' + s / times + 'ms/次');
-}
-
-
-/**
-   * @description 添加对象属性
-   * @param {Object} objA 被添加的对象
-   * @param {Object} objB 用作添加的对象
-   * @param {Boolean} bl 是否补充没有的对象
-   * @return {Object} 新对象
-   */
-function push(objA, objB, bl) {
-  if (!objA || !objB) {
-    return;
-  }
-  if (bl) {
-    for (var k in objB) {
-      var value = objB[k];
-      if (objA[k] === undefined || objA[k] === null || value === null) {
-        objA[k] = value;
-      } else {
-        var type = typeof objA[k];
-        var p = typeof value;
-        if (type !== p) {
-          if (type === "number") {
-            var n = Number(value);
-            if (n === NaN) {
-              n = 0;
-            }
-            objA[k] = n;
-          } else if (type === "boolean") {
-            if (value === '0' || value === 'false' || value === 'False') {
-              objA[k] = false;
-            } else {
-              objA[k] = Boolean(value);
-            }
-          } else if (type === "string") {
-            objA[k] = value.toString();
-          } else {
-            objA[k] = value;
-          }
-        } else if (type === "object") {
-          if (objA[k].constructor == Array && value.constructor == Array) {
-            objA[k].clear();
-            objA[k].addList(value);
-          } else {
-            push(objA[k], value, bl);
-          }
-        } else {
-          objA[k] = value;
-        }
-      }
-    }
-  } else {
-    for (var k in objA) {
-      var value = objB[k];
-      if (value !== undefined && objA[k] !== null && value !== null) {
-        var type = typeof objA[k];
-        var p = typeof value;
-        if (type !== p) {
-          if (type === "number") {
-            var n = Number(value);
-            if (n === NaN) {
-              n = 0;
-            }
-            objA[k] = n;
-          } else if (type === "boolean") {
-            if (value === '0' || value === 'false' || value === 'False') {
-              objA[k] = false;
-            } else {
-              objA[k] = Boolean(value);
-            }
-          } else if (type === "string") {
-            objA[k] = value.toString();
-          } else {
-            objA[k] = value;
-          }
-        } else if (type === "object") {
-          if (objA[k].constructor == Array && value.constructor == Array) {
-            objA[k].clear();
-            objA[k].addList(value);
-          } else {
-            push(objA[k], value, bl);
-          }
-        } else {
-          objA[k] = value;
-        }
-      }
-    }
-  }
-  return objA;
-}
-
-/**
-   * @description 清空对象值
-   * @param {Object} obj 对象
-   * @return {Object} 返回对象自身
-   */
-function clear(obj) {
-  if (obj) {
-    for (var k in obj) {
-      var val = obj[k];
-      if (val) {
-        var name = typeof val === 'undefined' ? 'undefined' : typeof val;
-        switch (name) {
-          case "string":
-            obj[k] = "";
-            break;
-          case "number":
-            obj[k] = 0;
-            break;
-          case "array":
-            obj[k].clear();
-            break;
-          case "object":
-            clear(obj[k]);
-            break;
-          case "function":
-            break;
-          case "symbol":
-            obj[k] = "";
-            break;}
-
-      }
-    }
-  }
-  return obj;
-}
-
-/**
-   * @description 转为json字符串
-   * @param {Object} obj 被转换的对象
-   * @param {Boolean} format 是否格式化
-   * @return {String} json格式字符串
-   */
-function toJson(obj, format) {
-  if (format) {
-    return JSON.stringify(obj, null, 4);
-  } else {
-    return JSON.stringify(obj);
-  }
-}
-
-/**
-   * @description 转url字符串
-   * @param {Object} obj 被转换的对象
-   * @param {String} url 请求地址
-   * @return {String} url参数格式字符串
-   */
-function toUrl(obj, url) {
-  var queryStr = "";
-  for (var key in obj) {
-    var value = obj[key];
-    if (typeof value === 'number') {
-      if (value > 0) {
-        queryStr += "&" + key + "=" + obj[key];
-      }
-    } else if (value) {
-      queryStr += "&" + key + "=" + encodeURI(value);
-    }
-  }
-  if (url) {
-    if (url.endWith('?') || url.endWith('&')) {
-      return url + queryStr.replace('&', '');
-    } else if (url.indexOf('?') === -1) {
-      return url + queryStr.replace('&', '?');
-    } else {
-      return url + queryStr;
-    }
-  } else {
-    return queryStr.replace('&', '');
-  }
-};
-
-/**
-    * @description 拷贝对象
-    * @param {Object} obj 被拷贝的对象
-    * @param {Boolean} has 是否非空拷贝，如果含有数据才拷贝，不含数据不拷贝
-    * @return {Object} 新对象
-    */
-function copy(obj, has) {
-  var newObj = {};
-  if (has) {
-    for (var attr in obj) {
-      var o = obj[attr];
-      if (o) {
-        newObj[attr] = o;
-      }
-    }
-  } else {
-    for (var attr in obj) {
-      newObj[attr] = obj[attr];
-    }
-  }
-  return newObj;
-};
-
-/**
-    * @description 查看所有属性
-    * @param {Object} obj 查看的对象
-    * @param {String} file 保存位置
-    */
-function keys(obj, file) {
-  var text = "";
-  for (var k in obj) {
-    text += k + '\r\n';
-  }
-  console.log(text);
-}
-
-/**
-   * @description 删除对象空属性
-   * @param {Object} obj 对象
-   * @param {Object} includeZero 是否包括0
-   * @return {Object} 返回新对象 
-   */
-function delete_prop(obj, includeZero) {
-  var o = Object.assign({}, obj);
-  if (includeZero) {
-    for (var k in o) {
-      var v = o[k];
-      if (!v) {
-        delete o[k];
-      }
-    }
-  } else {
-    for (var k in o) {
-      var v = o[k];
-      if (v === '' || v === null || v === undefined) {
-        delete o[k];
-      }
-    }
-  }
-  return o;
-}
-
-
-
-/**
-   * @namespace
-   * @property {Object} pool 数据连接池, 用于存储有关数据库的操作类
-   * @property {Object} task 任务池, 用于存储定时任务操作类
-   * @property {Object} api API接口，用于存储有关接口的操作类
-   * @property {Object} val 全局变量，用于存储全局的配置 
-   * @property {Object} dict 字典，用于查询变量替换名
-   * @property {Object} lang 语言包, 用于全局的语言替换
-   * @property {String} sleep 延迟(休眠)
-   * @property {Function()} speed 测试执行速度函数
-   * @property {Function(Object, Object, Boolean):Boolean} as 判断对象是否相似
-   * @property {Function(Object, Object):Boolean} push 为对象添加属性
-   * @property {Function(Object):String} toJson 对象转json字符串
-   * @property {Function(Object):String} toUrl 对象转url字符串
-   * @property {Function(Object):Object} copy 复制一个新对象
-   * @property {Function(Object):String} keys 查询获取对象属性键
-   */
-var funcs = {
-  // 数据连接池, 用于存储有关数据库的操作类
-  pool: {},
-  // 任务池, 用于存储定时任务操作类
-  task: {},
-  // API接口，用于存储有关接口的操作类
-  api: {},
-  // 全局变量，用于存储全局的配置
-  val: {
-    // 默认作用域, sys表示系统
-    scope: "sys" },
-
-  /**
-                     * @description 字典，用于查询变量替换名
-                     * @property {String} session_id session的ID
-                     * @property {String} user_id 用户的ID，用于数据库时查询用户唯一标识
-                     */
-  dict: {
-    session_id: "mm:uuid",
-    user_id: "user_id",
-    token: "x-auth-token" },
-
-  /**
-                              * @description 语言包, 用于全局的语言替换
-                              * @property {String} now = [chinese|english] 当前语言
-                              * @property {Object} chinese 中文语言包
-                              * @property {Object} english 英文语言包
-                              */
-  lang: {
-    now: "chinese",
-    chinese: {},
-    english: {} },
-
-  // 延迟
-  sleep: sleep,
-  // 测试执行速度函数
-  speeds: speeds,
-  // 判断对象是否相似
-  as: as,
-  // 添加对象
-  push: push,
-  // 清空对象值
-  clear: clear,
-  // 对象转json字符串
-  toJson: toJson,
-  // 对象转url字符串
-  toUrl: toUrl,
-  // 复制一个新对象
-  copy: copy,
-  // 查询获取对象属性键
-  keys: keys,
-  // 删除对象属性
-  delete: delete_prop };
-
-push(uni, funcs, true);
-
-
-/**
-                         * 定时任务管理器
-                         */
-(function () {
-  function Timer() {
-    /**
-                     * @description 回调对象集合
-                     * @example 
-                     * [{
-                    	 // 名称
-                    	 name: "",
-                    	 // 执行函数
-                    	 async run(){}
-                    	}]
-                     */
-    var list = [];
-
-    // 定时器核心
-    this.core;
-
-    /**
-                * @description 执行
-                */
-    Timer.prototype.run = function () {
-      var len = list.length;
-      for (var i = 0; i < len; i++) {
-        var run = list[i].run;
-        if (run) {
-          run();
-        }
-      }
-    };
-
-    /**
-        * @description 启动
-        */
-    Timer.prototype.start = function () {
-      var _this = this;
-      if (!this.core) {
-        this.core = setInterval(this.run, 1000);
-      }
-    };
-
-    /**
-        * @description 结束
-        */
-    Timer.prototype.end = function () {
-      clearInterval(this.core);
-      this.core = undefined;
-    };
-
-    /**
-        * @description 添加定时执行任务
-        */
-    Timer.prototype.add = function (obj) {
-      if (typeof obj === "object") {
-        if (obj.name && obj.run && typeof obj.run === 'function') {
-          list.push(obj);
-        }
-      }
-    };
-    /**
-        * @description 删除定时执行任务
-        */
-    Timer.prototype.del = function (name) {
-      if (typeof obj === "object") {
-        list.del({
-          name: name },
-        true);
-      }
-    };
-  };
-  uni.timer = new Timer();
-})();
-
-
-/* MD5加密类 */
-(function () {
-  /* md5加密（开始） */
-  var hexcase = 0;
-  /* hex output format. 0 - lowercase; 1 - uppercase  */
-  var b64pad = "";
-  /* base-64 pad character. "=" for strict RFC compliance */
-  var chrsz = 8;
-  /* bits per input character. 8 - ASCII; 16 - Unicode  */
-
-  /*
-                                                            * Perform a simple self-test to see if the VM is working
-                                                            */
-  function md5_vm_test() {
-    return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72";
-  }
-  /*
-     * Calculate the MD5 of an array of little-endian words, and a bit length
-     */
-  function core_md5(x, len) {
-    /* append padding */
-    x[len >> 5] |= 0x80 << len % 32;
-    x[(len + 64 >>> 9 << 4) + 14] = len;
-    var a = 1732584193;
-    var b = -271733879;
-    var c = -1732584194;
-    var d = 271733878;
-    for (var i = 0; i < x.length; i += 16) {
-      var olda = a;
-      var oldb = b;
-      var oldc = c;
-      var oldd = d;
-      a = md5_ff(a, b, c, d, x[i + 0], 7, -680876936);
-      d = md5_ff(d, a, b, c, x[i + 1], 12, -389564586);
-      c = md5_ff(c, d, a, b, x[i + 2], 17, 606105819);
-      b = md5_ff(b, c, d, a, x[i + 3], 22, -1044525330);
-      a = md5_ff(a, b, c, d, x[i + 4], 7, -176418897);
-      d = md5_ff(d, a, b, c, x[i + 5], 12, 1200080426);
-      c = md5_ff(c, d, a, b, x[i + 6], 17, -1473231341);
-      b = md5_ff(b, c, d, a, x[i + 7], 22, -45705983);
-      a = md5_ff(a, b, c, d, x[i + 8], 7, 1770035416);
-      d = md5_ff(d, a, b, c, x[i + 9], 12, -1958414417);
-      c = md5_ff(c, d, a, b, x[i + 10], 17, -42063);
-      b = md5_ff(b, c, d, a, x[i + 11], 22, -1990404162);
-      a = md5_ff(a, b, c, d, x[i + 12], 7, 1804603682);
-      d = md5_ff(d, a, b, c, x[i + 13], 12, -40341101);
-      c = md5_ff(c, d, a, b, x[i + 14], 17, -1502002290);
-      b = md5_ff(b, c, d, a, x[i + 15], 22, 1236535329);
-      a = md5_gg(a, b, c, d, x[i + 1], 5, -165796510);
-      d = md5_gg(d, a, b, c, x[i + 6], 9, -1069501632);
-      c = md5_gg(c, d, a, b, x[i + 11], 14, 643717713);
-      b = md5_gg(b, c, d, a, x[i + 0], 20, -373897302);
-      a = md5_gg(a, b, c, d, x[i + 5], 5, -701558691);
-      d = md5_gg(d, a, b, c, x[i + 10], 9, 38016083);
-      c = md5_gg(c, d, a, b, x[i + 15], 14, -660478335);
-      b = md5_gg(b, c, d, a, x[i + 4], 20, -405537848);
-      a = md5_gg(a, b, c, d, x[i + 9], 5, 568446438);
-      d = md5_gg(d, a, b, c, x[i + 14], 9, -1019803690);
-      c = md5_gg(c, d, a, b, x[i + 3], 14, -187363961);
-      b = md5_gg(b, c, d, a, x[i + 8], 20, 1163531501);
-      a = md5_gg(a, b, c, d, x[i + 13], 5, -1444681467);
-      d = md5_gg(d, a, b, c, x[i + 2], 9, -51403784);
-      c = md5_gg(c, d, a, b, x[i + 7], 14, 1735328473);
-      b = md5_gg(b, c, d, a, x[i + 12], 20, -1926607734);
-      a = md5_hh(a, b, c, d, x[i + 5], 4, -378558);
-      d = md5_hh(d, a, b, c, x[i + 8], 11, -2022574463);
-      c = md5_hh(c, d, a, b, x[i + 11], 16, 1839030562);
-      b = md5_hh(b, c, d, a, x[i + 14], 23, -35309556);
-      a = md5_hh(a, b, c, d, x[i + 1], 4, -1530992060);
-      d = md5_hh(d, a, b, c, x[i + 4], 11, 1272893353);
-      c = md5_hh(c, d, a, b, x[i + 7], 16, -155497632);
-      b = md5_hh(b, c, d, a, x[i + 10], 23, -1094730640);
-      a = md5_hh(a, b, c, d, x[i + 13], 4, 681279174);
-      d = md5_hh(d, a, b, c, x[i + 0], 11, -358537222);
-      c = md5_hh(c, d, a, b, x[i + 3], 16, -722521979);
-      b = md5_hh(b, c, d, a, x[i + 6], 23, 76029189);
-      a = md5_hh(a, b, c, d, x[i + 9], 4, -640364487);
-      d = md5_hh(d, a, b, c, x[i + 12], 11, -421815835);
-      c = md5_hh(c, d, a, b, x[i + 15], 16, 530742520);
-      b = md5_hh(b, c, d, a, x[i + 2], 23, -995338651);
-      a = md5_ii(a, b, c, d, x[i + 0], 6, -198630844);
-      d = md5_ii(d, a, b, c, x[i + 7], 10, 1126891415);
-      c = md5_ii(c, d, a, b, x[i + 14], 15, -1416354905);
-      b = md5_ii(b, c, d, a, x[i + 5], 21, -57434055);
-      a = md5_ii(a, b, c, d, x[i + 12], 6, 1700485571);
-      d = md5_ii(d, a, b, c, x[i + 3], 10, -1894986606);
-      c = md5_ii(c, d, a, b, x[i + 10], 15, -1051523);
-      b = md5_ii(b, c, d, a, x[i + 1], 21, -2054922799);
-      a = md5_ii(a, b, c, d, x[i + 8], 6, 1873313359);
-      d = md5_ii(d, a, b, c, x[i + 15], 10, -30611744);
-      c = md5_ii(c, d, a, b, x[i + 6], 15, -1560198380);
-      b = md5_ii(b, c, d, a, x[i + 13], 21, 1309151649);
-      a = md5_ii(a, b, c, d, x[i + 4], 6, -145523070);
-      d = md5_ii(d, a, b, c, x[i + 11], 10, -1120210379);
-      c = md5_ii(c, d, a, b, x[i + 2], 15, 718787259);
-      b = md5_ii(b, c, d, a, x[i + 9], 21, -343485551);
-      a = safe_add(a, olda);
-      b = safe_add(b, oldb);
-      c = safe_add(c, oldc);
-      d = safe_add(d, oldd);
-    }
-    return Array(a, b, c, d);
-  }
-  /*
-     * These functions implement the four basic operations the algorithm uses.
-     */
-  function md5_cmn(q, a, b, x, s, t) {
-    return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
-  }
-
-  function md5_ff(a, b, c, d, x, s, t) {
-    return md5_cmn(b & c | ~b & d, a, b, x, s, t);
-  }
-
-  function md5_gg(a, b, c, d, x, s, t) {
-    return md5_cmn(b & d | c & ~d, a, b, x, s, t);
-  }
-
-  function md5_hh(a, b, c, d, x, s, t) {
-    return md5_cmn(b ^ c ^ d, a, b, x, s, t);
-  }
-
-  function md5_ii(a, b, c, d, x, s, t) {
-    return md5_cmn(c ^ (b | ~d), a, b, x, s, t);
-  }
-  /*
-     * Calculate the HMAC-MD5, of a key and some data
-     */
-  function core_hmac_md5(key, data) {
-    var bkey = str2binl(key);
-    if (bkey.length > 16) bkey = core_md5(bkey, key.length * chrsz);
-    var ipad = Array(16),
-    opad = Array(16);
-    for (var i = 0; i < 16; i++) {
-      ipad[i] = bkey[i] ^ 0x36363636;
-      opad[i] = bkey[i] ^ 0x5C5C5C5C;
-    }
-    var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
-    return core_md5(opad.concat(hash), 512 + 128);
-  }
-  /*
-     * Add integers, wrapping at 2^32. This uses 16-bit operations internally
-     * to work around bugs in some JS interpreters.
-     */
-  function safe_add(x, y) {
-    var lsw = (x & 0xFFFF) + (y & 0xFFFF);
-    var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
-    return msw << 16 | lsw & 0xFFFF;
-  }
-  /*
-     * Bitwise rotate a 32-bit number to the left.
-     */
-  function bit_rol(num, cnt) {
-    return num << cnt | num >>> 32 - cnt;
-  }
-  /*
-     * Convert a string to an array of little-endian words
-     * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
-     */
-  function str2binl(str) {
-    var bin = Array();
-    var mask = (1 << chrsz) - 1;
-    for (var i = 0; i < str.length * chrsz; i += chrsz) {
-      bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << i % 32;
-    }
-    return bin;
-  }
-  /*
-     * Convert an array of little-endian words to a string
-     */
-  function binl2str(bin) {
-    var str = "";
-    var mask = (1 << chrsz) - 1;
-    for (var i = 0; i < bin.length * 32; i += chrsz) {
-      str += String.fromCharCode(bin[i >> 5] >>> i % 32 & mask);
-    }
-    return str;
-  }
-  /*
-     * Convert an array of little-endian words to a hex string.
-     */
-  function binl2hex(binarray) {
-    var hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
-    var str = "";
-    for (var i = 0; i < binarray.length * 4; i++) {
-      str += hex_tab.charAt(binarray[i >> 2] >> i % 4 * 8 + 4 & 0xF) + hex_tab.charAt(binarray[i >> 2] >> i % 4 * 8 & 0xF);
-    }
-    return str;
-  }
-  /*
-     * Convert an array of little-endian words to a base-64 string
-     */
-  function binl2b64(binarray) {
-    var tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-    var str = "";
-    for (var i = 0; i < binarray.length * 4; i += 3) {
-      var triplet = (binarray[i >> 2] >> 8 * (i % 4) & 0xFF) << 16 | (binarray[i + 1 >> 2] >> 8 * ((i + 1) % 4) & 0xFF) <<
-      8 | binarray[i + 2 >> 2] >> 8 * ((i + 2) % 4) & 0xFF;
-      for (var j = 0; j < 4; j++) {
-        if (i * 8 + j * 6 > binarray.length * 32) str += b64pad;else
-        str += tab.charAt(triplet >> 6 * (3 - j) & 0x3F);
-      }
-    }
-    return str;
-  }
-
-  uni.hex_md5 = function hex_md5(s) {
-    return binl2hex(core_md5(str2binl(s), s.length * chrsz));
-  };
-  uni.b64_md5 = function b64_md5(s) {
-    return binl2b64(core_md5(str2binl(s), s.length * chrsz));
-  };
-  uni.str_md5 = function str_md5(s) {
-    return binl2str(core_md5(str2binl(s), s.length * chrsz));
-  };
-  uni.hex_hmac_md5 = function hex_hmac_md5(key, data) {
-    return binl2hex(core_hmac_md5(key, data));
-  };
-  uni.b64_hmac_md5 = function b64_hmac_md5(key, data) {
-    return binl2b64(core_hmac_md5(key, data));
-  };
-  uni.str_hmac_md5 = function str_hmac_md5(key, data) {
-    return binl2str(core_hmac_md5(key, data));
-  };
-
-  uni.md5 = uni.hex_md5;
-})();
-
-(function () {
-  /* == 网络请求 == */
-  uni.http = {
-    /**
-                * @description GET请求——json
-                * @param {String} url 请求地址
-                * @param {Function} fun 回调函数
-                * @param {Object} headers 协议头
-                * @return {Object} 同步请求返回请求结果，否则返回undefined
-                */
-    get: function get(url, fun, headers) {
-      var json;
-      var hp = {
-        type: 'GET',
-        url: url,
-        async: fun !== null,
-        // xhrFields: {
-        // 	withCredentials: true
-        // },
-        // crossDomain: true,
-        success: function success(data, status) {
-          if (fun) {
-            fun(data, status);
-          } else {
-            json = {
-              data: data,
-              status: status };
-
-          }
-        },
-        error: function error(data, status) {
-          if (fun) {
-            fun(data, status);
-          } else {
-            json = {
-              data: data,
-              status: status };
-
-          }
-        },
-        complete: function complete(XHR, TS) {
-          XHR = null;
-        } };
-
-      if (headers) {
-        hp.headers = headers;
-      }
-      uni.ajax(hp);
-      return json;
-    },
-    /**
-        * @description POST请求
-        * @param {String} url 请求地址
-        * @param {Object} param 请求参数
-        * @param {Function} fun 回调函数
-        * @param {Object} headers 协议头
-        * @param {String} type 内容类型
-        * @return {Object} 同步请求返回请求结果，否则返回undefined
-        */
-    post: function post(url, param, fun, headers, type) {
-      var contentType;
-      var pm;
-      if (type === 'xml') {
-        contentType = "text/xml; charset=utf-8";
-        pm = param;
-      } else if (type === 'form') {
-        contentType = "application/x-www-form-urlencoded; charset=utf-8";
-        pm = param;
-      } else {
-        contentType = "application/json; charset=utf-8";
-        pm = JSON.stringify(param);
-      }
-      var json;
-      var hp = {
-        type: 'POST',
-        url: url,
-        async: fun !== null,
-        // xhrFields: {
-        // 	withCredentials: true
-        // },
-        // crossDomain: true,
-        data: pm,
-        dataType: "json",
-        contentType: contentType,
-        success: function success(data, status) {
-          if (fun) {
-            fun(data, status);
-          } else {
-            json = {
-              data: data,
-              status: status };
-
-          }
-        },
-        error: function error(data, status) {
-          if (fun) {
-            fun(data, status);
-          } else {
-            json = {
-              data: data,
-              status: status };
-
-          }
-        },
-        complete: function complete(XHR, TS) {
-          XHR = null;
-        } };
-
-      if (headers) {
-        hp.headers = headers;
-      }
-      uni.ajax(hp);
-      return json;
-    },
-    /**
-        * @description 上传文件
-        * @param {String} url 请求地址
-        * @param {Object} file input file文件
-        * @param {Function} fun 回调函数
-        * @param {Object} headers 协议头
-        * @return {Object} 同步请求返回请求结果，否则返回undefined
-        */
-    upload: function upload(url, file, fun, headers) {
-      var form = new FormData();
-      form.append("file", file);
-      var json;
-      var hp = {
-        type: 'POST',
-        url: url,
-        async: fun !== null,
-        data: form,
-        dataType: "json",
-        contentType: false,
-        processData: false,
-        success: function success(data, status) {
-          if (fun) {
-            fun(data, status);
-          } else {
-            json = {
-              data: data,
-              status: status };
-
-          }
-        },
-        error: function error(data, status) {
-          if (fun) {
-            fun(data, status);
-          } else {
-            json = {
-              data: data,
-              status: status };
-
-          }
-        },
-        complete: function complete(XHR, TS) {
-          XHR = null;
-        } };
-
-      if (headers) {
-        hp.headers = headers;
-      }
-      uni.ajax(hp);
-      return json;
-    } };
-
-
-  /* 缓存 */
-  uni.cookies = {
-    /**
-                   * @description 设置域
-                   * @param {String} url 地址
-                   */
-    domain: function domain(url) {
-      if (url) {
-        _domain = url;
-      }
-      return ";path=/";
-    },
-    /**
-        * @description 设置缓存
-        * @param {String} name 缓存对象
-        * @param {Object} value 缓存值
-        * @param {Number} minutes 缓存时长，单位: 分钟
-        * @param {String} domain 作用域
-        */
-    set: function set(name, value, minutes, domain) {
-      if (!domain) {
-        domain = uni.cookies.domain();
-      }
-      var time = new Date();
-      if (minutes) {
-        time.setTime(time.getTime() + minutes * 60000);
-        document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + time.toGMTString();
-      } else {
-        time.setTime(time.getTime() + 7 * 24 * 3600 * 60000);
-        document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + time.toGMTString();
-      }
-    },
-
-    /**
-        * @description 获取cookie
-        * @param {String} name 名称
-        */
-    get: function get(name) {
-      var value = null;
-      var str = document.cookie;
-      var arr = str.split("; ");
-      for (var i = 0; i < arr.length; i++) {
-        var ar = arr[i].split("=");
-        if (ar[0] == name) {
-          value = decodeURIComponent(ar[1]);
-          break;
-        }
-      }
-      return value;
-    },
-
-    /**
-        * @description 删除cookie
-        * @param {String} name 名称
-        */
-    del: function del(name) {
-      this.set(name, "", -1);
-    } };
-
-
-  /**
-          * @description 设置或查询cookie缓存
-          * @param {String} key 缓存对象名
-          * @param {Object} value 缓存值
-          * @param {Number} minutes 缓存时长，单位: 分钟
-          */
-  uni.cookie = function (key, value, minutes) {
-    if (value != undefined) {
-      if (!minutes) {
-        if (value == null) {
-          minutes = 0;
-        } else {
-          minutes = 120;
-        }
-      }
-      uni.cookies.set(key, value, minutes);
-    } else {
-      return uni.cookies.get(key);
-    }
-  };
-
-  /* === 多媒体 === */
-  uni.file = {
-    /**
-                * @description 上传文件
-                * @param {String} url 提交网址
-                * @param {Object} obj 对象
-                * @param {Function} func 函数
-                * @param {Object} headers 协议头
-                */
-    upload: function upload(url, obj, func, headers) {
-      var formData = new FormData();
-      for (var k in obj) {
-        formData.append(k, obj[k]);
-      }
-      var hp = {
-        type: 'POST',
-        url: url,
-        data: formData,
-        processData: false,
-        contentType: false,
-        async: func !== null,
-        xhrFields: {
-          withCredentials: true },
-
-        success: function success(json, status) {
-          if (func) {
-            if (json) {
-              json["obj"] = obj;
-            }
-            func(json, status);
-          }
-        },
-        complete: function complete(XHR, TS) {
-          XHR = null;
-        } };
-
-
-      if (headers) {
-        hp.headers = headers;
-      }
-      uni.ajax(hp);
-    } };
-
-})();
-
-/* 通讯 */
-(function () {
-  uni.html = {
-    tag: function tag(_tag, prop, value) {
-      var obj;
-      var list = document.getElementsByTagName(_tag);
-      var len = list.length;
-      for (var i = 0; i < len; i++) {
-        var o = list[i];
-        if (o && o.getAttribute(prop) && o.getAttribute(prop).has(value)) {
-          obj = o;
-          break;
-        }
-      }
-      return obj;
-    } };
-
-
-  /**
-          * 本地临时缓存,关闭浏览器后小时
-          */
-  uni.cache = {
-    /**
-                 * 设置值
-                 * @param {String} key 键
-                 * @param {Object} value 值
-                 */
-    set: function set(key, value) {
-      window.sessionStorage.setItem(key, value);
-    },
-    /**
-        * 获取值
-        * @param {String} key 键
-        * @return {Object} 值
-        */
-    get: function get(key) {
-      return window.sessionStorage.getItem(key);
-    },
-    /**
-        * 删除值
-        * @param {Object} key 键
-        */
-    del: function del(key) {
-      window.sessionStorage.removeItem(key);
-    },
-    /**
-        * 清除所有缓存
-        */
-    clear: function clear() {
-      window.sessionStorage.clear();
-    } };
-
-
-  /**
-          * 本地数据库存储
-          */
-  uni.db = {
-    /**
-              * 设置值
-              * @param {String} key 键
-              * @param {Object} value 值
-              * @param {Number} longTime 保存时长（单位:分钟）
-              */
-    set: function set(key, value, longTime) {
-      var expires = null;
-      if (longTime) {
-        var time = Date.now();
-        expires = time + longTime * 60000;
-      }
-      var data = {
-        value: value,
-        expires: expires };
-
-      window.localStorage.setItem(key, JSON.stringify(data));
-    },
-    /**
-        * 获取值
-        * @param {String} key 键
-        * @return {Object} 值
-        */
-    get: function get(key) {
-      var value;
-      var text = window.localStorage.getItem(key);
-      if (text && text.indexOf('{') === 0) {
-        try {
-          var data = JSON.parse(text);
-          if (data) {
-            if (data.expires) {
-              var time = new Date(data.expires);
-              if (time > Date.now()) {
-                value = data.value;
-              } else {
-                window.localStorage.removeItem(key);
-              }
-            } else {
-              value = data.value;
-            }
-          }
-        } catch (e) {
-          console.log(e);
-          value = text;
-        }
-      } else {
-        value = text;
-      }
-      return value;
-    },
-    /**
-        * 删除值
-        * @param {Object} key 键
-        */
-    del: function del(key) {
-      window.localStorage.removeItem(key);
-    } };
-
-
-  /**
-          * web socket通讯组
-          */
-  uni.ws = {};
-
-  /* 封装 WebSocket 实例化的方法  */
-  var CreateWebSocket = function (url) {
-    return function (url) {
-      var ws;
-      try {
-        if (window.WebSocket) {
-          ws = new WebSocket(url);
-        } else if (window.MozWebSocket) {
-          ws = new MozWebSocket(url);
-        };
-      } catch (e) {
-        //TODO handle the exception
-      }
-      return ws;
-    };
-  }();
-
-  /**
-        * 等待连接成功, 然后发送消息
-        */
-  function connect(_this) {
-    if (_this.try_connect) {
-      return;
-    }
-    _this.try_connect = true;
-    var ws = CreateWebSocket(_this.url);
-    ws.onmessage = function (event) {
-      _this.message(event);
-    };
-    ws.onclose = function () {
-      reconnect(_this);
-    };
-    ws.onerror = function (event) {
-      _this.noticy("error", event);
-    };
-    ws.onopen = function () {
-      _this.try_connect = false;
-      var arr = _this.arr_message;
-      var len = arr.length;
-      for (var i = 0; i < len; i++) {
-        if (ws.readyState === 1) {
-          _this.ws.send(arr[i]);
-        }
-      }
-      // 发送成功, 清空消息组
-      _this.arr_message.clear();
-      // 重置重新连接次数
-      _this.try_times = 0;
-    };
-    _this.ws = ws;
-  };
-
-  /**
-      * 重新连接
-      * @param {Object} _this ws对象
-      */
-  function reconnect(_this) {
-    _this.try_times++;
-    if (_this.try_times <= _this.try_max_times) {
-      _this.try_connect = false;
-      // 没连接上会一直重连，设置延迟避免请求过多
-      setTimeout(function () {
-        connect(_this);
-      }, _this.seconds);
-      _this.noticy('reconnect', _this.try_times);
-    } else {
-      _this.noticy('error', '服务器连接失败!');
-    }
-  };
-
-  /**
-      * 构造通讯函数
-      * @param {String} url
-      * @param {Function} noticy 通知函数
-      * @param {Function} receive 响应回调函数
-      * @param {Function} noticy 信息捕捉函数
-      * @param {String} name 名称
-      * @param {Number} seconds 重新连接次数
-      * @return {Object} 返回发信服务
-      */
-  function WS(url, receive, noticy, name, seconds) {
-    if (noticy) {
-      this.noticy = noticy;
-    } else {
-      /**
-             * 通知函数
-             * @param {String} type 通知类型
-             */
-      this.noticy = function (type, content) {
-        console.log(type, content);
-      };
-    }
-
-    if (!window.WebSocket) {
-      console.error('错误: 浏览器不支持websocket');
-      this.noticy('error', '浏览器不支持websocket');
-      return;
-    }
-
-    var u;
-    if (url.indexOf('//') !== -1) {
-      u = url.replace("https", "ws").replace("http", "ws");
-    } else {
-      u = "ws://" + url;
-    }
-    // 连接地址
-    this.url = u;
-
-    if (name) {
-      this.name = name;
-    } else {
-      this.name = u;
-    }
-
-    this.receive = receive;
-
-    // 消息数组, 在等待连接的过程中, 如果有多条消息, 则保存至此, 等待连接成功后发送
-    this.arr_message = [];
-
-    if (seconds) {
-      this.seconds = seconds;
-    } else {
-      this.seconds = 6000;
-    }
-
-    /**
-       * 尝试重连次数
-       */
-    this.try_times = 0;
-
-    /**
-                         * 最大尝试次数, 如果每次重试间隔1分钟, 那么10分钟后就不再重连
-                         */
-    this.try_max_times = 10;
-
-    /**
-                              * 是否正在尝试连接
-                              */
-    this.try_connect = false;
-
-    // 连接 socket服务
-    connect(this);
-  }
-
-
-  /**
-     * 打开服务
-     */
-  WS.prototype.open = function () {
-    connect(this);
-  };
-
-  /**
-      * 关闭服务
-      */
-  WS.prototype.close = function () {
-    this.ws.onclose = function (event) {};
-    this.ws.close();
-  };
-
-
-  /**
-      * 释放
-      */
-  WS.prototype.clear = function () {
-    this.close();
-    delete uni.ws[key];
-  };
-
-  /**
-      * 收到消息
-      */
-  WS.prototype.message = function (event) {
-    var data = event.data;
-    if (data && this.receive) {
-      this.receive(data);
-    }
-  };
-
-
-  /**
-      * 发送数据
-      * @param {String} bodyStr 消息主体字符串
-      */
-  WS.prototype.send = function (bodyStr) {
-    var ws = this.ws;
-    switch (ws.readyState) {
-      case 0:
-        // CONNECTING 正在连接
-        // 先将消息加入队列等待连接成功再发送
-        this.arr_message.push(bodyStr);
-        break;
-      case 1:
-        // OPEN 连接成功，可以通信了
-        ws.send(bodyStr);
-        break;
-      case 2:
-        // CLOSING 连接正在关闭
-        // 先将消息加入队列, 等待关闭 > 重新连接 > 连接成功 再发送消息
-        this.arr_message.push(bodyStr);
-        break;
-      default:
-        if (this.try_times > 9) {
-          this.try_times = 0;
-          this.try_connect = false;
-        }
-        // CLOSED 连接已经关闭，或者打开连接失败
-        // 先将消息加入队列, 重新连接 > 连接成功 再发送消息
-        this.arr_message.push(bodyStr);
-        connect(this);
-        break;}
-
-  };
-
-  /**
-      * 主动关闭连接
-      */
-  WS.prototype.close = function () {
-    this.ws.close();
-  };
-
-  /**
-      * 创建web socket通讯服务
-      * @param {String} url URL地址
-      * @param {Function} receive 响应回调函数
-      * @param {Function} noticy 信息捕捉函数
-      * @param {String} name 名称
-      * @param {String} seconds 秒
-      * @return {Object} 返回发信服务
-      */
-  uni.socket = function (url, receive, noticy, name, seconds) {
-    // 使用键方式去查询多个通讯
-    // 需要多通讯的原因是: 像交易所可能需要即时通讯的同时还需要试试变化交易信息
-    if (!name) {
-      name = url;
-    }
-    if (!uni.ws[name]) {
-      uni.ws[name] = new WS(url, receive, noticy, name, seconds);
-    } else {
-      uni.ws[name].try_times = 0;
-    }
-    return uni.ws[name];
-  };
-
-  /**
-      * 路由
-      */
-  uni.route = {
-    /**
-                 * 重定向地址
-                 */
-    redirect_url: "/",
-    /**
-                        * 路由历史记录
-                        */
-    history: {
-      list: [],
-      push: function push(url) {
-        if (this.list.length > 0) {
-          var end_url = this.list[this.list.length - 1];
-          if (end_url !== url) {
-            this.list.push(url);
-          }
-        } else {
-          this.list.push(url);
-        }
-      } },
-
-
-    /**
-            * 添加路由
-            * @param {String} url
-            * @param {String} title
-            */
-    push: function push(url, title) {
-      history.pushState({
-        status: 0 },
-      title, url);
-    } };
-
-
-  /**
-          * 浏览器
-          */
-  uni.os = function () {
-    var u = navigator.userAgent;
-    return {
-      version: navigator.appVersion,
-      isApp: u.indexOf("Html5Plus") !== -1,
-      device: {
-        // 是否为移动终端
-        mobile: /AppleWebKit.*Mobile.*/.test(u),
-        // ios终端
-        ios: /\(i[^;]+;( U;)? CPU.+Mac OS X/.test(u),
-        // android终端或Linux浏览器
-        android: u.indexOf('Android') !== -1 || u.indexOf('Linux') !== -1,
-        // 是否为iPhone或者QQHD浏览器
-        iPhone: u.indexOf('iPhone') !== -1,
-        // 是否iPad
-        iPad: u.indexOf('iPad') !== -1,
-        // 是否电脑
-        pc: u.indexOf('Window') !== -1 },
-
-      app: {
-        // 微信
-        wechat: /MicroMessenger/i.test(u),
-        // 微博
-        weibo: /WeiBo/i.test(u),
-        // QQ
-        qq: /QQ/i.test(u) },
-
-      browser: {
-        // 浏览器版本信息
-        // IE内核
-        trident: u.indexOf('Trident') > -1,
-        // opera内核
-        presto: u.indexOf('Presto') > -1,
-        // 苹果、谷歌内核
-        webKit: u.indexOf('AppleWebKit') > -1,
-        // 火狐内核
-        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,
-        // 苹果默认浏览器
-        safari: u.indexOf('Safari') === -1 } };
-
-
-  }();
-})();
-
-(function () {
-  /**
-               * @description 添加对象属性
-               * @param {Object} obj 对象
-               * @param {Object} query 查询条件
-               * @param {Object} value 添加值
-               * @return {Object} 返回添加的局部对象
-               */
-  function add(obj, query, value) {
-    if (query) {
-      var oj = get(obj, query);
-      if (oj) {
-        uni.push(oj, value, true);
-      }
-      return oj;
-    } else {
-      uni.push(obj, value, true);
-      return obj;
-    }
-  };
-  uni.add = add;
-
-  /**
-                  * @description 删除对象属性
-                  * @param {Object} obj 对象
-                  * @param {Object} query 查询条件
-                  * @param {Object} item 查询条件
-                  * @return {Object} 返回删除结果
-                  */
-  function del(obj, query, item) {
-    var o = {};
-    if (query) {
-      o = get(obj, query);
-    } else {
-      o = obj;
-    }
-    if (!item) {
-      item = Object.assign(o);
-    }
-    if (Array.isArray(o)) {
-      o.clear();
-    } else if (Array.isArray(item)) {
-      for (var i = 0; i < item.length; i++) {
-        var val = item[i];
-        if (typeof val === "object") {
-          del(o, null, val);
-        } else {
-          delete o[val];
-        }
-      }
-    } else if (typeof item === "object") {
-      for (var k in item) {
-        if (Array.isArray(o[k])) {
-          delete o[k];
-        } else if (typeof o[k] === "object") {
-          var type = typeof item[k];
-          if (type === "object") {
-            del(o[k], null, item[k]);
-          } else if (type === "string" || type === "number") {
-            delete o[k][item[k]];
-          } else {
-            delete o[k];
-          }
-        } else {
-          delete o[k];
-        }
-      }
-    } else {
-      delete o[item];
-    }
-    for (var k in o) {
-      if (Object.keys(o[k]).length === 0) {
-        delete o[k];
-      }
-    }
-    return o;
-  };
-  uni.del = del;
-
-  /**
-                  * @description 修改对象属性
-                  * @param {Object} obj 对象
-                  * @param {Object} query 查询条件
-                  * @param {Object} value 返回修改的局部对象
-                  */
-  function set(obj, query, value) {
-    if (query) {
-      var oj = get(obj, query);
-      if (oj) {
-        uni.push(oj, value);
-      }
-      return oj;
-    } else {
-      uni.push(obj, value);
-      return obj;
-    }
-  };
-  uni.set = set;
-
-  function arrToObj(arr) {
-    var obj = {};
-    var ret = obj;
-    var len = arr.length;
-    for (var i = 0; i < len; i++) {
-      var k = arr[i];
-      if (typeof k == "object") {
-        if (Array.isArray(k)) {
-          uni.push(obj, arrToObj(k), true);
-        } else {
-          uni.push(obj, k, true);
-        }
-      } else if (!obj[k]) {
-        if (len - i > 1) {
-          obj[k] = {};
-        } else {
-          obj[k] = true;
-        }
-        obj = obj[k];
-      }
-    }
-    return ret;
-  }
-
-  /**
-     * @description 查询对象属性
-     * @param {Object} obj 对象
-     * @param {Object} query
-     * @return {Object} 返回查询结果
-     */
-  function get(obj, query) {
-    var ret;
-    if (typeof obj === 'object' && !Array.isArray(obj)) {
-      // 只有非数组的对象才进行操作
-      if (Array.isArray(query)) {
-        var ret = obj;
-        // 如果是数字则循环数组
-        for (var i = 0; i < query.length; i++) {
-          var o = query[i];
-          if (Array.isArray(o)) {
-            ret = get(ret, o);
-          } else if (typeof o === 'object') {
-            var oj = {};
-            for (var k in o) {
-              if (o[k]) {
-                oj[k] = get(ret[k], o[k]);
-              } else {
-                oj[k] = ret[k];
-              }
-            }
-            ret = oj;
-          } else {
-            ret = ret[o];
-            if (typeof ret !== 'object') {
-              break;
-            }
-          }
-        }
-
-      } else if (typeof query === 'object') {
-        var ret = {};
-        // 如果是对象则遍历对象
-        for (var k in query) {
-          ret[k] = get(obj[k], query[k]);
-        }
-        ret = ret;
-      } else if (query) {
-        if (typeof query == "string" || typeof query == "number") {
-          ret = {};
-          ret[query] = obj[query];
-        } else {
-          ret = obj;
-        }
-      } else {
-        // 如果query为空则返回整个对象
-        ret = null;
-      }
-    } else {
-      // 否则直接返回值
-      ret = obj;
-    }
-    return ret;
-  };
-  uni.get = get;
-
-  /**
-                  * 遍历读写对象
-                  * @param {Object} obj
-                  * @param {String} key 键 多级对象用.分隔
-                  * @param {Object} value 值，如果不传为查询，传为修改
-                  */
-  function obj_for(obj, key, value) {
-    if (!key) {
-      return undefined;
-    }
-    var keys = key.split('.');
-    var len = keys.length;
-    if (len == 0) {
-      return undefined;
-    }
-    var k = keys[0];
-    var o = obj[k];
-    if (len == 1 && value !== undefined) {
-      obj[k] = value;
-      o = value;
-    } else if (typeof o == 'object') {
-      if (len > 1) {
-        return obj_for(o, keys.splice(1, len).join('.'), value);
-      }
-    } else if (len > 1) {
-      return undefined;
-    }
-    return o;
-  }
-
-  uni.obj = obj_for;
-})();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
 
 /***/ }),
 
 /***/ 14:
-/*!**********************************************!*\
-  !*** E:/github/other/mm_uni/plugins/core.js ***!
-  \**********************************************/
+/*!*******************************************************************************************!*\
+  !*** E:/github/other/mm_uni/static/css/mm_component.css?vue&type=style&index=3&lang=css& ***!
+  \*******************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * @fileOverview 用户定义vue全局函数, 均以$前缀命名, 代表全局函数
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * @author <a href="http://www.fman.top">自由人网络</a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * @version 1.0
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              */
-
-var host = "http://localhost:8000/";var _default =
-
-{
-  /**
-   * 安装
-   * @param {Object} Vue vue类
-   * @param {Object} optons 配置参数
-   */
-  install: function install(Vue, optons) {
-    if (optons && optons.host) {
-      host = optons.host;
-    }
-
-    var redirect_url = "";
-    Vue.mixin({
-      data: function data() {
-        return {};
-      },
-      methods: {
-        /**
-                  *  改变时间
-                  */
-        $changeTime: function $changeTime(o) {
-          for (var k in o) {
-            if (k.indexOf('time') !== -1) {
-              if (typeof k == 'string') {
-                var val = o[k];
-                if (val || val.indexOf('T') !== -1) {
-                  var v = new Date(o[k]);
-                  o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-                } else if (/\d+/.test(val)) {
-                  if (o[k].length == 10) {
-                    var v = new Date(o[k] * 1000);
-                    o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-                  } else if (o[k].length == 13) {
-                    var v = new Date(o[k] * 1000);
-                    o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-                  }
-                } else if (typeof k == 'number') {
-                  var v = new Date(o[k]);
-                  o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-                }
-              }
-            }
-          }
-        },
-
-        $message: function $message(content) {var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "none";
-          uni.showToast({
-            title: content,
-            icon: type,
-            duration: 2000 });
-
-        },
-        /**
-            * 下载
-            * @param {String} url 下载地址
-            * @param {String} name 保存的名字
-            */
-        $download: function $download(url, name) {
-          var anchor = document.createElement('a');
-          if (!name) {
-            var arr = url.split("/");
-            name = arr[arr.length - 1];
-          }
-          if ('download' in anchor) {
-            anchor.href = url.replace("~/", host);
-            anchor.setAttribute("download", name);
-            anchor.className = "download-js-link";
-            anchor.style.display = "none";
-            document.body.appendChild(anchor);
-            setTimeout(function () {
-              anchor.click();
-              document.body.removeChild(anchor);
-            }, 66);
-            return true;
-          }
-        },
-        /**
-            * 导航跳转
-            * @param {String} url 链接地址
-            */
-        $nav: function $nav(url) {
-          if (url.indexOf("/") === 0) {
-            uni.navigateTo({
-              url: url });
-
-            uni.switchTab({
-              url: url });
-
-          } else {
-            uni.navigateBack({
-              delta: 1 });
-
-          }
-        },
-        /**
-            * @description 获取用户信息
-            * @param {Function} func 回调函数
-            */
-        $get_user: function $get_user(func) {
-          var _this = this;
-
-          this.$get('~/api/user/state', null, function (json, status) {
-            if (json.result && json.result.obj) {
-              _this.$store.commit('user_set', json.result.obj);
-              if (func) {
-                func();
-              }
-            } else if (json.error) {
-              // 非法访问或未登录
-              _this.$store.commit('sign_out');
-            } else {
-              _this.$toast('服务器连接失败！');
-            }
-          });
-        },
-        /**
-            * 跳转地址
-            * @param {String} url
-            */
-        $redirect: function $redirect(url) {
-          if (url) {
-            redirect_url = url;
-          } else {
-            return redirect_url;
-          }
-        },
-        /**
-            * @description 提示框
-            * @param {String} text 提示内容
-            * @param {String} type 显示类型
-            */
-        $toast: function $toast(text) {var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'dark';
-          uni.showToast({
-            title: text,
-            icon: "none",
-            duration: 2000 });
-
-        },
-        /**
-            * 转换时间格式
-            * @param {String} time 时间字符串
-            * @param {String} format 格式
-            */
-        $toTime: function $toTime(time, format) {
-          return time.toTime().toStr(format);
-        },
-        /**
-            * @description 过滤数组
-            * @param {Array} arr 被过滤的数组
-            * @param {String} key 判断的键
-            * @param {Object} value 判断的值
-            * @return {Array} 返回过滤后的数组
-            */
-        $filter: function $filter(arr, key, value) {
-          var ar = [];
-          for (var i = 0; i < arr.length; i++) {
-            var o = arr[i];
-            if (o[key] === value) {
-              ar.push(o);
-            }
-          }
-          return ar;
-        },
-
-        /**
-            * @description 转url字符串
-            * @param {Object} obj 被转换的对象
-            * @param {String} url 请求地址
-            * @return {String} url参数格式字符串
-            */
-        $toUrl: function $toUrl(obj, url) {
-          var queryStr = "";
-          for (var key in obj) {
-            var value = obj[key];
-            if (typeof value === 'number') {
-              if (value > 0) {
-                queryStr += "&" + key + "=" + obj[key];
-              }
-            } else if (value) {
-              queryStr += "&" + key + "=" + encodeURI(value);
-            }
-          }
-          if (url) {
-            if (url.endWith('?') || url.endWith('&')) {
-              return url + queryStr.replace('&', '');
-            } else if (url.indexOf('?') === -1) {
-              return url + queryStr.replace('&', '?');
-            } else {
-              return url + queryStr;
-            }
-          } else {
-            return queryStr.replace('&', '');
-          }
-        },
-        /**
-            * 转换名称
-            * @param {Array} list 数组
-            */
-        $toName: function $toName(list, value) {var value_key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'name';var key = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'value';
-          var ret = "";
-          for (var i = 0; i < list.length; i++) {
-            var o = list[i];
-            if (o[key] === value) {
-              ret = o[value_key];
-            }
-          }
-          return ret;
-        },
-        /**
-            * 补全请求url
-            * @param {String} url 现地址
-            * @return {String} 新地址
-            */
-        $fullUrl: function $fullUrl(url) {
-          var url_new = "";
-          if (url) {
-            if (url.indexOf("~/") === 0) {
-              url_new = url.replace('~/', host);
-            } else if (url.indexOf("/") === 0) {
-              url_new = url.replace('/', host);
-            } else {
-              url_new = url;
-            }
-          }
-          return url_new;
-        },
-        /**
-            * 补全请求url
-            * @param {String} url 现地址
-            * @return {String} 新地址
-            */
-        $fullImgUrl: function $fullImgUrl(url) {
-          if (url) {
-            return this.$fullUrl(url);
-          } else {
-            return "/static/img/logo.png";
-          }
-        },
-
-        /**
-            * GET请求
-            * @param {String} url 请求地址
-            * @param {Object} body 请求参数
-            * @param {Funciton} func 回调函数，可以为空，为空则采用await返回值
-            * @return {Object} 返回请求结果
-            */
-        $get: function $get(url, body, func) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _yield$uni$request, _yield$uni$request2, error, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                    url = url.replace('~/', host);
-                    if (body) {
-                      url = _this2.$toUrl(body, url);
-                    }if (!
-                    func) {_context.next = 6;break;}
-                    uni.request({
-                      url: url, // 仅为示例，并非真实接口地址。
-                      method: "GET",
-                      header: {
-                        'x-auth-token': _this2.$store.state.user.token },
-
-                      dataType: "json",
-                      success: function success(res) {
-                        func(res.data);
-                      },
-                      error: function error(err) {
-                        func(err);
-                      } });_context.next = 13;break;case 6:_context.next = 8;return (
-
-
-                      uni.request({
-                        url: url, // 仅为示例，并非真实接口地址。
-                        header: {
-                          'x-auth-token': _this2.$store.state.user.token },
-
-                        dataType: "json",
-                        data: body }));case 8:_yield$uni$request = _context.sent;_yield$uni$request2 = _slicedToArray(_yield$uni$request, 2);error = _yield$uni$request2[0];res = _yield$uni$request2[1];return _context.abrupt("return",
-
-                    res.data);case 13:case "end":return _context.stop();}}}, _callee);}))();
-
-        },
-        /**
-            * POST请求
-            * @param {String} url 请求地址
-            * @param {Object} data 请求参数
-            * @param {Funciton} func 回调函数，可以为空，为空则采用await返回值
-            * @return {Object} 返回请求结果
-            */
-        $post: function $post(url, data, func) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var _yield$uni$request3, _yield$uni$request4, error, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                    url = url.replace('~/', host);if (!
-                    func) {_context2.next = 5;break;}
-                    uni.request({
-                      url: url, // 仅为示例，并非真实接口地址。
-                      method: "POST",
-                      header: {
-                        'x-auth-token': _this3.$store.state.user.token,
-                        'Content-Type': 'application/json' },
-
-                      dataType: "json",
-                      data: data,
-                      success: function success(res) {
-                        func(res.data);
-                      },
-                      error: function error(err) {
-                        func(err);
-                      } });_context2.next = 12;break;case 5:_context2.next = 7;return (
-
-
-                      uni.request({
-                        url: url, // 仅为示例，并非真实接口地址。
-                        method: "POST",
-                        header: {
-                          'x-auth-token': _this3.$store.state.user.token,
-                          'Content-Type': 'application/json' },
-
-                        dataType: "json",
-                        data: data }));case 7:_yield$uni$request3 = _context2.sent;_yield$uni$request4 = _slicedToArray(_yield$uni$request3, 2);error = _yield$uni$request4[0];res = _yield$uni$request4[1];return _context2.abrupt("return",
-
-                    res.data);case 12:case "end":return _context2.stop();}}}, _callee2);}))();
-
-        },
-        /**
-            * 上传文件
-            * @param {String} url 请求地址
-            * @param {Object} body 请求参数
-            * @param {Funciton} func 回调函数，可以为空，为空则采用await返回值
-            * @return {Object} 返回请求结果
-            */
-        $upload: function $upload(url, body, func) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                    url = url.replace('~/', host);
-                    // 设置请求头 - 临时访问牌
-                    uni.setHeader('x-auth-token', _this4.$store.state.user.token);
-                    // 设置请求头 - 发送的内容类型
-                    uni.setHeader('Content-Type', 'multipart/form-data', ['post']);if (!
-                    func) {_context3.next = 7;break;}
-                    // 如果回调函数存在, 则采用异步
-                    uni.post(url, body).then(function (res) {
-                      func(res.data);
-                    }).catch(function (res) {
-                      func(res);
-                    });_context3.next = 11;break;case 7:_context3.next = 9;return (
-
-
-                      uni.post(url, body));case 9:res = _context3.sent;return _context3.abrupt("return",
-                    res.data);case 11:case "end":return _context3.stop();}}}, _callee3);}))();
-
-        },
-        /**
-            * 获取路径对应操作权限 鉴权
-            * @param {String} action 操作名
-            */
-        $check_action: function $check_action(path) {var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "get";
-          var o = this.$get_power(path);
-          if (o) {
-            console.log(o.user_group);
-          }
-          if (!o) {
-            return true;
-          }
-          return o[action];
-        },
-
-        /**
-            * 获取用户组权限
-            * @param {String} user_group 用户组
-            */
-        $get_auth: function $get_auth() {var _arguments = arguments,_this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var user_group;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:user_group = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : "游客";
-                    _this5.$get("~/api/sys/auth?", {
-                      user_group: user_group },
-                    function (json) {
-                      if (json && json.result && json.result.list) {
-                        _this5.$store.commit("set_auth", json.result.list);
-                      }
-                    });case 2:case "end":return _context4.stop();}}}, _callee4);}))();
-        },
-
-        /**
-            * 获取权限 
-            * @param {String} path 路由路径
-            */
-        $get_power: function $get_power(path) {
-          var list = this.$store.state.web.auth;
-          var obj;
-          for (var i = 0; i < list.length; i++) {
-            var o = list[i];
-            if (o.path === path) {
-              obj = o;
-              break;
-            }
-          }
-          return obj;
-        },
-
-        /**
-            * 是否有显示或操作字段的权限
-            * @param {String} action 操作名
-            * @param {String} field 查询的字段
-            */
-        $check_field: function $check_field(action, field) {
-          var o = this.$get_power(this.$route.path);
-          var auth;
-          if (o && o[action]) {
-            auth = o[action]["field_" + action];
-          }
-          if (auth) {
-            return auth.indexOf(field) !== -1;
-          }
-          return false;
-        } } });
-
-
-  } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_component_css_vue_type_style_index_3_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./mm_component.css?vue&type=style&index=3&lang=css& */ 15);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_component_css_vue_type_style_index_3_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_component_css_vue_type_style_index_3_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_component_css_vue_type_style_index_3_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_component_css_vue_type_style_index_3_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_component_css_vue_type_style_index_3_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
 /***/ 15:
-/*!**********************************************************!*\
-  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
-  \**********************************************************/
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!E:/github/other/mm_uni/static/css/mm_component.css?vue&type=style&index=3&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 16);
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
 
 /***/ }),
 
 /***/ 16:
-/*!************************************************************!*\
-  !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
-  \************************************************************/
+/*!***************************************************************************************!*\
+  !*** E:/github/other/mm_uni/static/css/mm_theme.css?vue&type=style&index=4&lang=css& ***!
+  \***************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-// This method of obtaining a reference to the global object needs to be
-// kept identical to the way it is obtained in runtime.js
-var g = (function() {
-  return this || (typeof self === "object" && self);
-})() || Function("return this")();
-
-// Use `getOwnPropertyNames` because not all browsers support calling
-// `hasOwnProperty` on the global `self` object in a worker. See #183.
-var hadRuntime = g.regeneratorRuntime &&
-  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
-
-// Save the old regeneratorRuntime in case it needs to be restored later.
-var oldRuntime = hadRuntime && g.regeneratorRuntime;
-
-// Force reevalutation of runtime.js.
-g.regeneratorRuntime = undefined;
-
-module.exports = __webpack_require__(/*! ./runtime */ 17);
-
-if (hadRuntime) {
-  // Restore the original runtime.
-  g.regeneratorRuntime = oldRuntime;
-} else {
-  // Remove the global property added by runtime.js.
-  try {
-    delete g.regeneratorRuntime;
-  } catch(e) {
-    g.regeneratorRuntime = undefined;
-  }
-}
-
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_theme_css_vue_type_style_index_4_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./mm_theme.css?vue&type=style&index=4&lang=css& */ 17);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_theme_css_vue_type_style_index_4_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_theme_css_vue_type_style_index_4_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_theme_css_vue_type_style_index_4_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_theme_css_vue_type_style_index_4_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_theme_css_vue_type_style_index_4_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
 /***/ 17:
-/*!*****************************************************!*\
-  !*** ./node_modules/regenerator-runtime/runtime.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Copyright (c) 2014-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-!(function(global) {
-  "use strict";
-
-  var Op = Object.prototype;
-  var hasOwn = Op.hasOwnProperty;
-  var undefined; // More compressible than void 0.
-  var $Symbol = typeof Symbol === "function" ? Symbol : {};
-  var iteratorSymbol = $Symbol.iterator || "@@iterator";
-  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
-  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
-
-  var inModule = typeof module === "object";
-  var runtime = global.regeneratorRuntime;
-  if (runtime) {
-    if (inModule) {
-      // If regeneratorRuntime is defined globally and we're in a module,
-      // make the exports object identical to regeneratorRuntime.
-      module.exports = runtime;
-    }
-    // Don't bother evaluating the rest of this file if the runtime was
-    // already defined globally.
-    return;
-  }
-
-  // Define the runtime globally (as expected by generated code) as either
-  // module.exports (if we're in a module) or a new, empty object.
-  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
-
-  function wrap(innerFn, outerFn, self, tryLocsList) {
-    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
-    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
-    var generator = Object.create(protoGenerator.prototype);
-    var context = new Context(tryLocsList || []);
-
-    // The ._invoke method unifies the implementations of the .next,
-    // .throw, and .return methods.
-    generator._invoke = makeInvokeMethod(innerFn, self, context);
-
-    return generator;
-  }
-  runtime.wrap = wrap;
-
-  // Try/catch helper to minimize deoptimizations. Returns a completion
-  // record like context.tryEntries[i].completion. This interface could
-  // have been (and was previously) designed to take a closure to be
-  // invoked without arguments, but in all the cases we care about we
-  // already have an existing method we want to call, so there's no need
-  // to create a new function object. We can even get away with assuming
-  // the method takes exactly one argument, since that happens to be true
-  // in every case, so we don't have to touch the arguments object. The
-  // only additional allocation required is the completion record, which
-  // has a stable shape and so hopefully should be cheap to allocate.
-  function tryCatch(fn, obj, arg) {
-    try {
-      return { type: "normal", arg: fn.call(obj, arg) };
-    } catch (err) {
-      return { type: "throw", arg: err };
-    }
-  }
-
-  var GenStateSuspendedStart = "suspendedStart";
-  var GenStateSuspendedYield = "suspendedYield";
-  var GenStateExecuting = "executing";
-  var GenStateCompleted = "completed";
-
-  // Returning this object from the innerFn has the same effect as
-  // breaking out of the dispatch switch statement.
-  var ContinueSentinel = {};
-
-  // Dummy constructor functions that we use as the .constructor and
-  // .constructor.prototype properties for functions that return Generator
-  // objects. For full spec compliance, you may wish to configure your
-  // minifier not to mangle the names of these two functions.
-  function Generator() {}
-  function GeneratorFunction() {}
-  function GeneratorFunctionPrototype() {}
-
-  // This is a polyfill for %IteratorPrototype% for environments that
-  // don't natively support it.
-  var IteratorPrototype = {};
-  IteratorPrototype[iteratorSymbol] = function () {
-    return this;
-  };
-
-  var getProto = Object.getPrototypeOf;
-  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
-  if (NativeIteratorPrototype &&
-      NativeIteratorPrototype !== Op &&
-      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
-    // This environment has a native %IteratorPrototype%; use it instead
-    // of the polyfill.
-    IteratorPrototype = NativeIteratorPrototype;
-  }
-
-  var Gp = GeneratorFunctionPrototype.prototype =
-    Generator.prototype = Object.create(IteratorPrototype);
-  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
-  GeneratorFunctionPrototype.constructor = GeneratorFunction;
-  GeneratorFunctionPrototype[toStringTagSymbol] =
-    GeneratorFunction.displayName = "GeneratorFunction";
-
-  // Helper for defining the .next, .throw, and .return methods of the
-  // Iterator interface in terms of a single ._invoke method.
-  function defineIteratorMethods(prototype) {
-    ["next", "throw", "return"].forEach(function(method) {
-      prototype[method] = function(arg) {
-        return this._invoke(method, arg);
-      };
-    });
-  }
-
-  runtime.isGeneratorFunction = function(genFun) {
-    var ctor = typeof genFun === "function" && genFun.constructor;
-    return ctor
-      ? ctor === GeneratorFunction ||
-        // For the native GeneratorFunction constructor, the best we can
-        // do is to check its .name property.
-        (ctor.displayName || ctor.name) === "GeneratorFunction"
-      : false;
-  };
-
-  runtime.mark = function(genFun) {
-    if (Object.setPrototypeOf) {
-      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
-    } else {
-      genFun.__proto__ = GeneratorFunctionPrototype;
-      if (!(toStringTagSymbol in genFun)) {
-        genFun[toStringTagSymbol] = "GeneratorFunction";
-      }
-    }
-    genFun.prototype = Object.create(Gp);
-    return genFun;
-  };
-
-  // Within the body of any async function, `await x` is transformed to
-  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
-  // `hasOwn.call(value, "__await")` to determine if the yielded value is
-  // meant to be awaited.
-  runtime.awrap = function(arg) {
-    return { __await: arg };
-  };
-
-  function AsyncIterator(generator) {
-    function invoke(method, arg, resolve, reject) {
-      var record = tryCatch(generator[method], generator, arg);
-      if (record.type === "throw") {
-        reject(record.arg);
-      } else {
-        var result = record.arg;
-        var value = result.value;
-        if (value &&
-            typeof value === "object" &&
-            hasOwn.call(value, "__await")) {
-          return Promise.resolve(value.__await).then(function(value) {
-            invoke("next", value, resolve, reject);
-          }, function(err) {
-            invoke("throw", err, resolve, reject);
-          });
-        }
-
-        return Promise.resolve(value).then(function(unwrapped) {
-          // When a yielded Promise is resolved, its final value becomes
-          // the .value of the Promise<{value,done}> result for the
-          // current iteration.
-          result.value = unwrapped;
-          resolve(result);
-        }, function(error) {
-          // If a rejected Promise was yielded, throw the rejection back
-          // into the async generator function so it can be handled there.
-          return invoke("throw", error, resolve, reject);
-        });
-      }
-    }
-
-    var previousPromise;
-
-    function enqueue(method, arg) {
-      function callInvokeWithMethodAndArg() {
-        return new Promise(function(resolve, reject) {
-          invoke(method, arg, resolve, reject);
-        });
-      }
-
-      return previousPromise =
-        // If enqueue has been called before, then we want to wait until
-        // all previous Promises have been resolved before calling invoke,
-        // so that results are always delivered in the correct order. If
-        // enqueue has not been called before, then it is important to
-        // call invoke immediately, without waiting on a callback to fire,
-        // so that the async generator function has the opportunity to do
-        // any necessary setup in a predictable way. This predictability
-        // is why the Promise constructor synchronously invokes its
-        // executor callback, and why async functions synchronously
-        // execute code before the first await. Since we implement simple
-        // async functions in terms of async generators, it is especially
-        // important to get this right, even though it requires care.
-        previousPromise ? previousPromise.then(
-          callInvokeWithMethodAndArg,
-          // Avoid propagating failures to Promises returned by later
-          // invocations of the iterator.
-          callInvokeWithMethodAndArg
-        ) : callInvokeWithMethodAndArg();
-    }
-
-    // Define the unified helper method that is used to implement .next,
-    // .throw, and .return (see defineIteratorMethods).
-    this._invoke = enqueue;
-  }
-
-  defineIteratorMethods(AsyncIterator.prototype);
-  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
-    return this;
-  };
-  runtime.AsyncIterator = AsyncIterator;
-
-  // Note that simple async functions are implemented on top of
-  // AsyncIterator objects; they just return a Promise for the value of
-  // the final result produced by the iterator.
-  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
-    var iter = new AsyncIterator(
-      wrap(innerFn, outerFn, self, tryLocsList)
-    );
-
-    return runtime.isGeneratorFunction(outerFn)
-      ? iter // If outerFn is a generator, return the full iterator.
-      : iter.next().then(function(result) {
-          return result.done ? result.value : iter.next();
-        });
-  };
-
-  function makeInvokeMethod(innerFn, self, context) {
-    var state = GenStateSuspendedStart;
-
-    return function invoke(method, arg) {
-      if (state === GenStateExecuting) {
-        throw new Error("Generator is already running");
-      }
-
-      if (state === GenStateCompleted) {
-        if (method === "throw") {
-          throw arg;
-        }
-
-        // Be forgiving, per 25.3.3.3.3 of the spec:
-        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
-        return doneResult();
-      }
-
-      context.method = method;
-      context.arg = arg;
-
-      while (true) {
-        var delegate = context.delegate;
-        if (delegate) {
-          var delegateResult = maybeInvokeDelegate(delegate, context);
-          if (delegateResult) {
-            if (delegateResult === ContinueSentinel) continue;
-            return delegateResult;
-          }
-        }
-
-        if (context.method === "next") {
-          // Setting context._sent for legacy support of Babel's
-          // function.sent implementation.
-          context.sent = context._sent = context.arg;
-
-        } else if (context.method === "throw") {
-          if (state === GenStateSuspendedStart) {
-            state = GenStateCompleted;
-            throw context.arg;
-          }
-
-          context.dispatchException(context.arg);
-
-        } else if (context.method === "return") {
-          context.abrupt("return", context.arg);
-        }
-
-        state = GenStateExecuting;
-
-        var record = tryCatch(innerFn, self, context);
-        if (record.type === "normal") {
-          // If an exception is thrown from innerFn, we leave state ===
-          // GenStateExecuting and loop back for another invocation.
-          state = context.done
-            ? GenStateCompleted
-            : GenStateSuspendedYield;
-
-          if (record.arg === ContinueSentinel) {
-            continue;
-          }
-
-          return {
-            value: record.arg,
-            done: context.done
-          };
-
-        } else if (record.type === "throw") {
-          state = GenStateCompleted;
-          // Dispatch the exception by looping back around to the
-          // context.dispatchException(context.arg) call above.
-          context.method = "throw";
-          context.arg = record.arg;
-        }
-      }
-    };
-  }
-
-  // Call delegate.iterator[context.method](context.arg) and handle the
-  // result, either by returning a { value, done } result from the
-  // delegate iterator, or by modifying context.method and context.arg,
-  // setting context.delegate to null, and returning the ContinueSentinel.
-  function maybeInvokeDelegate(delegate, context) {
-    var method = delegate.iterator[context.method];
-    if (method === undefined) {
-      // A .throw or .return when the delegate iterator has no .throw
-      // method always terminates the yield* loop.
-      context.delegate = null;
-
-      if (context.method === "throw") {
-        if (delegate.iterator.return) {
-          // If the delegate iterator has a return method, give it a
-          // chance to clean up.
-          context.method = "return";
-          context.arg = undefined;
-          maybeInvokeDelegate(delegate, context);
-
-          if (context.method === "throw") {
-            // If maybeInvokeDelegate(context) changed context.method from
-            // "return" to "throw", let that override the TypeError below.
-            return ContinueSentinel;
-          }
-        }
-
-        context.method = "throw";
-        context.arg = new TypeError(
-          "The iterator does not provide a 'throw' method");
-      }
-
-      return ContinueSentinel;
-    }
-
-    var record = tryCatch(method, delegate.iterator, context.arg);
-
-    if (record.type === "throw") {
-      context.method = "throw";
-      context.arg = record.arg;
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    var info = record.arg;
-
-    if (! info) {
-      context.method = "throw";
-      context.arg = new TypeError("iterator result is not an object");
-      context.delegate = null;
-      return ContinueSentinel;
-    }
-
-    if (info.done) {
-      // Assign the result of the finished delegate to the temporary
-      // variable specified by delegate.resultName (see delegateYield).
-      context[delegate.resultName] = info.value;
-
-      // Resume execution at the desired location (see delegateYield).
-      context.next = delegate.nextLoc;
-
-      // If context.method was "throw" but the delegate handled the
-      // exception, let the outer generator proceed normally. If
-      // context.method was "next", forget context.arg since it has been
-      // "consumed" by the delegate iterator. If context.method was
-      // "return", allow the original .return call to continue in the
-      // outer generator.
-      if (context.method !== "return") {
-        context.method = "next";
-        context.arg = undefined;
-      }
-
-    } else {
-      // Re-yield the result returned by the delegate method.
-      return info;
-    }
-
-    // The delegate iterator is finished, so forget it and continue with
-    // the outer generator.
-    context.delegate = null;
-    return ContinueSentinel;
-  }
-
-  // Define Generator.prototype.{next,throw,return} in terms of the
-  // unified ._invoke helper method.
-  defineIteratorMethods(Gp);
-
-  Gp[toStringTagSymbol] = "Generator";
-
-  // A Generator should always return itself as the iterator object when the
-  // @@iterator function is called on it. Some browsers' implementations of the
-  // iterator prototype chain incorrectly implement this, causing the Generator
-  // object to not be returned from this call. This ensures that doesn't happen.
-  // See https://github.com/facebook/regenerator/issues/274 for more details.
-  Gp[iteratorSymbol] = function() {
-    return this;
-  };
-
-  Gp.toString = function() {
-    return "[object Generator]";
-  };
-
-  function pushTryEntry(locs) {
-    var entry = { tryLoc: locs[0] };
-
-    if (1 in locs) {
-      entry.catchLoc = locs[1];
-    }
-
-    if (2 in locs) {
-      entry.finallyLoc = locs[2];
-      entry.afterLoc = locs[3];
-    }
-
-    this.tryEntries.push(entry);
-  }
-
-  function resetTryEntry(entry) {
-    var record = entry.completion || {};
-    record.type = "normal";
-    delete record.arg;
-    entry.completion = record;
-  }
-
-  function Context(tryLocsList) {
-    // The root entry object (effectively a try statement without a catch
-    // or a finally block) gives us a place to store values thrown from
-    // locations where there is no enclosing try statement.
-    this.tryEntries = [{ tryLoc: "root" }];
-    tryLocsList.forEach(pushTryEntry, this);
-    this.reset(true);
-  }
-
-  runtime.keys = function(object) {
-    var keys = [];
-    for (var key in object) {
-      keys.push(key);
-    }
-    keys.reverse();
-
-    // Rather than returning an object with a next method, we keep
-    // things simple and return the next function itself.
-    return function next() {
-      while (keys.length) {
-        var key = keys.pop();
-        if (key in object) {
-          next.value = key;
-          next.done = false;
-          return next;
-        }
-      }
-
-      // To avoid creating an additional object, we just hang the .value
-      // and .done properties off the next function object itself. This
-      // also ensures that the minifier will not anonymize the function.
-      next.done = true;
-      return next;
-    };
-  };
-
-  function values(iterable) {
-    if (iterable) {
-      var iteratorMethod = iterable[iteratorSymbol];
-      if (iteratorMethod) {
-        return iteratorMethod.call(iterable);
-      }
-
-      if (typeof iterable.next === "function") {
-        return iterable;
-      }
-
-      if (!isNaN(iterable.length)) {
-        var i = -1, next = function next() {
-          while (++i < iterable.length) {
-            if (hasOwn.call(iterable, i)) {
-              next.value = iterable[i];
-              next.done = false;
-              return next;
-            }
-          }
-
-          next.value = undefined;
-          next.done = true;
-
-          return next;
-        };
-
-        return next.next = next;
-      }
-    }
-
-    // Return an iterator with no values.
-    return { next: doneResult };
-  }
-  runtime.values = values;
-
-  function doneResult() {
-    return { value: undefined, done: true };
-  }
-
-  Context.prototype = {
-    constructor: Context,
-
-    reset: function(skipTempReset) {
-      this.prev = 0;
-      this.next = 0;
-      // Resetting context._sent for legacy support of Babel's
-      // function.sent implementation.
-      this.sent = this._sent = undefined;
-      this.done = false;
-      this.delegate = null;
-
-      this.method = "next";
-      this.arg = undefined;
-
-      this.tryEntries.forEach(resetTryEntry);
-
-      if (!skipTempReset) {
-        for (var name in this) {
-          // Not sure about the optimal order of these conditions:
-          if (name.charAt(0) === "t" &&
-              hasOwn.call(this, name) &&
-              !isNaN(+name.slice(1))) {
-            this[name] = undefined;
-          }
-        }
-      }
-    },
-
-    stop: function() {
-      this.done = true;
-
-      var rootEntry = this.tryEntries[0];
-      var rootRecord = rootEntry.completion;
-      if (rootRecord.type === "throw") {
-        throw rootRecord.arg;
-      }
-
-      return this.rval;
-    },
-
-    dispatchException: function(exception) {
-      if (this.done) {
-        throw exception;
-      }
-
-      var context = this;
-      function handle(loc, caught) {
-        record.type = "throw";
-        record.arg = exception;
-        context.next = loc;
-
-        if (caught) {
-          // If the dispatched exception was caught by a catch block,
-          // then let that catch block handle the exception normally.
-          context.method = "next";
-          context.arg = undefined;
-        }
-
-        return !! caught;
-      }
-
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        var record = entry.completion;
-
-        if (entry.tryLoc === "root") {
-          // Exception thrown outside of any try block that could handle
-          // it, so set the completion value of the entire function to
-          // throw the exception.
-          return handle("end");
-        }
-
-        if (entry.tryLoc <= this.prev) {
-          var hasCatch = hasOwn.call(entry, "catchLoc");
-          var hasFinally = hasOwn.call(entry, "finallyLoc");
-
-          if (hasCatch && hasFinally) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            } else if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else if (hasCatch) {
-            if (this.prev < entry.catchLoc) {
-              return handle(entry.catchLoc, true);
-            }
-
-          } else if (hasFinally) {
-            if (this.prev < entry.finallyLoc) {
-              return handle(entry.finallyLoc);
-            }
-
-          } else {
-            throw new Error("try statement without catch or finally");
-          }
-        }
-      }
-    },
-
-    abrupt: function(type, arg) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc <= this.prev &&
-            hasOwn.call(entry, "finallyLoc") &&
-            this.prev < entry.finallyLoc) {
-          var finallyEntry = entry;
-          break;
-        }
-      }
-
-      if (finallyEntry &&
-          (type === "break" ||
-           type === "continue") &&
-          finallyEntry.tryLoc <= arg &&
-          arg <= finallyEntry.finallyLoc) {
-        // Ignore the finally entry if control is not jumping to a
-        // location outside the try/catch block.
-        finallyEntry = null;
-      }
-
-      var record = finallyEntry ? finallyEntry.completion : {};
-      record.type = type;
-      record.arg = arg;
-
-      if (finallyEntry) {
-        this.method = "next";
-        this.next = finallyEntry.finallyLoc;
-        return ContinueSentinel;
-      }
-
-      return this.complete(record);
-    },
-
-    complete: function(record, afterLoc) {
-      if (record.type === "throw") {
-        throw record.arg;
-      }
-
-      if (record.type === "break" ||
-          record.type === "continue") {
-        this.next = record.arg;
-      } else if (record.type === "return") {
-        this.rval = this.arg = record.arg;
-        this.method = "return";
-        this.next = "end";
-      } else if (record.type === "normal" && afterLoc) {
-        this.next = afterLoc;
-      }
-
-      return ContinueSentinel;
-    },
-
-    finish: function(finallyLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.finallyLoc === finallyLoc) {
-          this.complete(entry.completion, entry.afterLoc);
-          resetTryEntry(entry);
-          return ContinueSentinel;
-        }
-      }
-    },
-
-    "catch": function(tryLoc) {
-      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
-        var entry = this.tryEntries[i];
-        if (entry.tryLoc === tryLoc) {
-          var record = entry.completion;
-          if (record.type === "throw") {
-            var thrown = record.arg;
-            resetTryEntry(entry);
-          }
-          return thrown;
-        }
-      }
-
-      // The context.catch method must only be called with a location
-      // argument that corresponds to a known catch block.
-      throw new Error("illegal catch attempt");
-    },
-
-    delegateYield: function(iterable, resultName, nextLoc) {
-      this.delegate = {
-        iterator: values(iterable),
-        resultName: resultName,
-        nextLoc: nextLoc
-      };
-
-      if (this.method === "next") {
-        // Deliberately forget the last sent value so that we don't
-        // accidentally pass it on to the delegate.
-        this.arg = undefined;
-      }
-
-      return ContinueSentinel;
-    }
-  };
-})(
-  // In sloppy mode, unbound `this` refers to the global object, fallback to
-  // Function constructor if we're in global strict mode. That is sadly a form
-  // of indirect eval which violates Content Security Policy.
-  (function() {
-    return this || (typeof self === "object" && self);
-  })() || Function("return this")()
-);
-
-
-/***/ }),
-
-/***/ 18:
-/*!****************************************************!*\
-  !*** E:/github/other/mm_uni/plugins/lang/index.js ***!
-  \****************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!E:/github/other/mm_uni/static/css/mm_theme.css?vue&type=style&index=4&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _en = _interopRequireDefault(__webpack_require__(/*! ./en.js */ 19));
-var _zh = _interopRequireDefault(__webpack_require__(/*! ./zh.js */ 20));
-var _hk = _interopRequireDefault(__webpack_require__(/*! ./hk.js */ 21));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
-
-{
-  install: function install(Vue, options) {
-    Vue.prototype.$lang = {
-      en: _en.default,
-      zh: _zh.default,
-      hk: _hk.default
-      // jp,
-      // ko
-    };
-
-    Vue.mixin({
-      data: function data() {
-        return {};
-      },
-      methods: {
-        /**
-                  * 设置语言
-                  * @param {String} lang_type
-                  */
-        $set_lang: function $set_lang(lang_type) {
-          this.$store.commit('web/set_lang', lang_type);
-        },
-        /**
-            * 语言赋值
-            * @param {String} key 获取语言
-            */
-        $t: function $t(key) {
-          var lang_type = this.$store.state.web.lang_type;
-          var lang = this.$lang[lang_type];
-          var arr = key.split('.');
-          var value = lang;
-          for (var i = 0; i < arr.length; i++) {
-            value = value[arr[i]];
-            if (value === undefined) {
-              console.error("language pack error: " + key + " undefined");
-              break;
-            } else if (typeof value == "string") {
-              break;
-            }
-          }
-
-          if (typeof value == "string") {
-            for (var i = 0; i < (arguments.length <= 1 ? 0 : arguments.length - 1); i++) {
-              var reg = new RegExp("\\{" + i + "\\}", 'ig');
-              value = value.replace(reg, i + 1 < 1 || arguments.length <= i + 1 ? undefined : arguments[i + 1]);
-            }
-          }
-          return value;
-        } } });
-
-
-  } };exports.default = _default;
-
-/***/ }),
-
-/***/ 19:
-/*!*************************************************!*\
-  !*** E:/github/other/mm_uni/plugins/lang/en.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  // public
-  common: {
-    vip: {
-      lv0: "Ordinary Member",
-      lv1: "Bronze Member",
-      lv2: "Silver Member",
-      lv3: "Gold Member",
-      lv4: "Platinum Member",
-      lv5: "Diamond Member" },
-
-    copyright: {
-      title: "Sound of Shejiang River & Freeman Network" } },
-
-
-  root_index: {
-    search: {
-      tip: "" } },
-
-
-  root_share: {
-    logo: {
-      title: "Share" },
-
-    qrcode: {
-      tip: "Scan or copy link" },
-
-    url: {
-      btn_copy: "click to copy the address" } },
-
-
-  vip_index: {
-    info: {
-      name: "Name",
-      balance: "Balance",
-      phone: "Mobile" } },
-
-
-  vip_deposit: {
-    info: {
-      account: "Current Account",
-      title: "Recharge Instructions",
-      content: "The top-up is based on the selected payment amount. After the top-up is successful, the account will be the selected denomination" },
-
-    select: {
-      desc: "Pay {0} yuan" } } };exports.default = _default;
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
 
 /***/ }),
 
@@ -10959,7 +6670,7 @@ function initProps (vm, propsOptions) {
       defineReactive$$1(props, key, value, function () {
         if (!isRoot && !isUpdatingChildComponent) {
           {
-            if(vm.mpHost === 'mp-baidu'){//百度 observer 在 setData callback 之后触发，直接忽略该 warn
+            if(vm.mpHost === 'mp-baidu' || vm.mpHost === 'mp-kuaishou'){//百度、快手 observer 在 setData callback 之后触发，直接忽略该 warn
                 return
             }
             //fixed by xxxxxx __next_tick_pending,uni://form-field 时不告警
@@ -11866,7 +7577,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"mm_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -11887,14 +7598,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"mm_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"mm_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -11980,7 +7691,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"changsheng_uni","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"mm_uni","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -12389,6 +8100,4559 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 20:
+/*!**********************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode, /* vue-cli only */
+  components, // fixed by xxxxxx auto components
+  renderjs // fixed by xxxxxx renderjs
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // fixed by xxxxxx auto components
+  if (components) {
+    if (!options.components) {
+      options.components = {}
+    }
+    var hasOwn = Object.prototype.hasOwnProperty
+    for (var name in components) {
+      if (hasOwn.call(components, name) && !hasOwn.call(options.components, name)) {
+        options.components[name] = components[name]
+      }
+    }
+  }
+  // fixed by xxxxxx renderjs
+  if (renderjs) {
+    (renderjs.beforeCreate || (renderjs.beforeCreate = [])).unshift(function() {
+      this[renderjs.__module] = this
+    });
+    (options.mixins || (options.mixins = [])).push(renderjs)
+  }
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ 21:
+/*!***********************************************!*\
+  !*** E:/github/other/mm_uni/plugins/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+var _mm_sdk = _interopRequireDefault(__webpack_require__(/*! ./mm_sdk.js */ 22));
+var _core = _interopRequireDefault(__webpack_require__(/*! ./core.js */ 23));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./lang/index.js */ 27));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} /**
+                                                                                                                                                               * @fileOverview 该文件为插件主文件, 主要用于引入其他插件
+                                                                                                                                                               * @author <a href="http://www.fman.top">自由人网络</a>
+                                                                                                                                                               * @version 1.0
+                                                                                                                                                               */var _default = { install: function install(Vue, options) {Vue.use(_core.default, options);
+    Vue.use(_index.default, options);
+  } };exports.default = _default;
+
+/***/ }),
+
+/***/ 22:
+/*!************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/mm_sdk.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/**
+ * @fileOverview JavaScript拓展函数
+ * @author <a href="http://qww.elins.cn">邱文武</a>
+ * @version 1.2
+ */
+
+/* == 基础函数 == */
+/**
+                  * @description 延迟执行（休眠）
+                  * @param {Number} milliSeconds 毫秒
+                  * @param {Object} obj 判断对象或函数
+                  * @param {String} key 判断的对象属性, 为存在的情况下提成退出循环
+                  * @example var obj = {ok: false}; sleep(2000, obj, 'ok');
+                  * @example sleep(2000);
+                  */
+function sleep(milliSeconds, obj, key) {
+  var endTime = new Date().getTime() + milliSeconds;
+  if (obj) {
+    if (key) {
+      while (new Date().getTime() < endTime) {
+        if (obj[key]) {
+          continue;
+        }
+      }
+    } else {
+      var func = obj;
+      while (new Date().getTime() < endTime) {
+        if (!func()) {
+          continue;
+        }
+      }
+    }
+  } else {
+    while (new Date().getTime() < endTime) {}
+  }
+}
+
+/**
+   * @description 判断对象是否相似
+   * @param {Object} obj 被判断对象
+   * @param {Object} query 用作判断的对象
+   * @param {Boolean} all 是否完全相同
+   * @return {Boolean} 相似返回true，否则返回false
+   */
+function as(obj, query, all) {
+  if (obj) {
+    var bl = true;
+    var type = typeof obj;
+    if (type !== typeof query) {
+      // 如果类型不一致 则两个无相似
+      bl = false;
+    } else if (type === 'string' || type === 'bool' || type === 'number') {
+      bl = obj === query;
+    } else if (obj.constructor == Array) {
+      // 如果都是数组
+      var lh = obj.length;
+      if (all && lh !== query.length) {
+        // 要求完全一致 而长度不一致 说明不相似
+        bl = false;
+      } else {
+        // 否则判断数组里的每个成员是否相似
+        for (var i = 0; i < lh; i++) {
+          if (!as(obj[i], query[i])) {
+            bl = false;
+            break;
+          }
+        }
+      }
+    } else {
+      // 如果类型为对象
+      if (all && Object.getOwnPropertyNames(obj).length !== Object.getOwnPropertyNames(query).length) {
+        // 如果要求完全一致, 而属性长度不一致，则不相似
+        bl = false;
+      } else {
+        // 否则都为对象则判断其值是否一致
+        for (var k in query) {
+          if (!as(obj[k], query[k], all)) {
+            bl = false;
+            break;
+          }
+        }
+      }
+    }
+    return bl;
+  } else {
+    return false;
+  }
+}
+
+/**
+   * @description 测试函数执行速度
+   * @param {Function()} func 测试的函数
+   * @param {Number} times = [value] 测试次数
+   */
+function speeds(func, times) {
+  if (!times) {
+    times = 1000000;
+  }
+  var t1 = new Date().valueOf();
+  for (var i = 0; i < times; i++) {
+    func();
+  }
+  var t2 = new Date().valueOf();
+  var s = t2 - t1;
+  console.log('耗时' + s + '毫秒, 平均' + s / times + 'ms/次');
+}
+
+
+/**
+   * @description 添加对象属性
+   * @param {Object} objA 被添加的对象
+   * @param {Object} objB 用作添加的对象
+   * @param {Boolean} bl 是否补充没有的对象
+   * @return {Object} 新对象
+   */
+function push(objA, objB, bl) {
+  if (!objA || !objB) {
+    return;
+  }
+  if (bl) {
+    for (var k in objB) {
+      var value = objB[k];
+      if (objA[k] === undefined || objA[k] === null || value === null) {
+        objA[k] = value;
+      } else {
+        var type = typeof objA[k];
+        var p = typeof value;
+        if (type !== p) {
+          if (type === "number") {
+            var n = Number(value);
+            if (n === NaN) {
+              n = 0;
+            }
+            objA[k] = n;
+          } else if (type === "boolean") {
+            if (value === '0' || value === 'false' || value === 'False') {
+              objA[k] = false;
+            } else {
+              objA[k] = Boolean(value);
+            }
+          } else if (type === "string") {
+            objA[k] = value.toString();
+          } else {
+            objA[k] = value;
+          }
+        } else if (type === "object") {
+          if (objA[k].constructor == Array && value.constructor == Array) {
+            objA[k].clear();
+            objA[k].addList(value);
+          } else {
+            push(objA[k], value, bl);
+          }
+        } else {
+          objA[k] = value;
+        }
+      }
+    }
+  } else {
+    for (var k in objA) {
+      var value = objB[k];
+      if (value !== undefined && objA[k] !== null && value !== null) {
+        var type = typeof objA[k];
+        var p = typeof value;
+        if (type !== p) {
+          if (type === "number") {
+            var n = Number(value);
+            if (n === NaN) {
+              n = 0;
+            }
+            objA[k] = n;
+          } else if (type === "boolean") {
+            if (value === '0' || value === 'false' || value === 'False') {
+              objA[k] = false;
+            } else {
+              objA[k] = Boolean(value);
+            }
+          } else if (type === "string") {
+            objA[k] = value.toString();
+          } else {
+            objA[k] = value;
+          }
+        } else if (type === "object") {
+          if (objA[k].constructor == Array && value.constructor == Array) {
+            objA[k].clear();
+            objA[k].addList(value);
+          } else {
+            push(objA[k], value, bl);
+          }
+        } else {
+          objA[k] = value;
+        }
+      }
+    }
+  }
+  return objA;
+}
+
+/**
+   * @description 清空对象值
+   * @param {Object} obj 对象
+   * @return {Object} 返回对象自身
+   */
+function clear(obj) {
+  if (obj) {
+    for (var k in obj) {
+      var val = obj[k];
+      if (val) {
+        var name = typeof val === 'undefined' ? 'undefined' : typeof val;
+        switch (name) {
+          case "string":
+            obj[k] = "";
+            break;
+          case "number":
+            obj[k] = 0;
+            break;
+          case "array":
+            obj[k].clear();
+            break;
+          case "object":
+            clear(obj[k]);
+            break;
+          case "function":
+            break;
+          case "symbol":
+            obj[k] = "";
+            break;}
+
+      }
+    }
+  }
+  return obj;
+}
+
+/**
+   * @description 转为json字符串
+   * @param {Object} obj 被转换的对象
+   * @param {Boolean} format 是否格式化
+   * @return {String} json格式字符串
+   */
+function toJson(obj, format) {
+  if (format) {
+    return JSON.stringify(obj, null, 4);
+  } else {
+    return JSON.stringify(obj);
+  }
+}
+
+/**
+   * @description 转url字符串
+   * @param {Object} obj 被转换的对象
+   * @param {String} url 请求地址
+   * @return {String} url参数格式字符串
+   */
+function toUrl(obj, url) {
+  var queryStr = "";
+  for (var key in obj) {
+    var value = obj[key];
+    if (typeof value === 'number') {
+      if (value > 0) {
+        queryStr += "&" + key + "=" + obj[key];
+      }
+    } else if (value) {
+      queryStr += "&" + key + "=" + encodeURI(value);
+    }
+  }
+  if (url) {
+    if (url.endWith('?') || url.endWith('&')) {
+      return url + queryStr.replace('&', '');
+    } else if (url.indexOf('?') === -1) {
+      return url + queryStr.replace('&', '?');
+    } else {
+      return url + queryStr;
+    }
+  } else {
+    return queryStr.replace('&', '');
+  }
+};
+
+/**
+    * @description 拷贝对象
+    * @param {Object} obj 被拷贝的对象
+    * @param {Boolean} has 是否非空拷贝，如果含有数据才拷贝，不含数据不拷贝
+    * @return {Object} 新对象
+    */
+function copy(obj, has) {
+  var newObj = {};
+  if (has) {
+    for (var attr in obj) {
+      var o = obj[attr];
+      if (o) {
+        newObj[attr] = o;
+      }
+    }
+  } else {
+    for (var attr in obj) {
+      newObj[attr] = obj[attr];
+    }
+  }
+  return newObj;
+};
+
+/**
+    * @description 查看所有属性
+    * @param {Object} obj 查看的对象
+    * @param {String} file 保存位置
+    */
+function keys(obj, file) {
+  var text = "";
+  for (var k in obj) {
+    text += k + '\r\n';
+  }
+  console.log(text);
+}
+
+/**
+   * @description 删除对象空属性
+   * @param {Object} obj 对象
+   * @param {Object} includeZero 是否包括0
+   * @return {Object} 返回新对象 
+   */
+function delete_prop(obj, includeZero) {
+  var o = Object.assign({}, obj);
+  if (includeZero) {
+    for (var k in o) {
+      var v = o[k];
+      if (!v) {
+        delete o[k];
+      }
+    }
+  } else {
+    for (var k in o) {
+      var v = o[k];
+      if (v === '' || v === null || v === undefined) {
+        delete o[k];
+      }
+    }
+  }
+  return o;
+}
+
+
+
+/**
+   * @namespace
+   * @property {Object} pool 数据连接池, 用于存储有关数据库的操作类
+   * @property {Object} task 任务池, 用于存储定时任务操作类
+   * @property {Object} api API接口，用于存储有关接口的操作类
+   * @property {Object} val 全局变量，用于存储全局的配置 
+   * @property {Object} dict 字典，用于查询变量替换名
+   * @property {Object} lang 语言包, 用于全局的语言替换
+   * @property {String} sleep 延迟(休眠)
+   * @property {Function()} speed 测试执行速度函数
+   * @property {Function(Object, Object, Boolean):Boolean} as 判断对象是否相似
+   * @property {Function(Object, Object):Boolean} push 为对象添加属性
+   * @property {Function(Object):String} toJson 对象转json字符串
+   * @property {Function(Object):String} toUrl 对象转url字符串
+   * @property {Function(Object):Object} copy 复制一个新对象
+   * @property {Function(Object):String} keys 查询获取对象属性键
+   */
+var funcs = {
+  // 数据连接池, 用于存储有关数据库的操作类
+  pool: {},
+  // 任务池, 用于存储定时任务操作类
+  task: {},
+  // API接口，用于存储有关接口的操作类
+  api: {},
+  // 全局变量，用于存储全局的配置
+  val: {
+    // 默认作用域, sys表示系统
+    scope: "sys" },
+
+  /**
+                     * @description 字典，用于查询变量替换名
+                     * @property {String} session_id session的ID
+                     * @property {String} user_id 用户的ID，用于数据库时查询用户唯一标识
+                     */
+  dict: {
+    session_id: "mm:uuid",
+    user_id: "user_id",
+    token: "x-auth-token" },
+
+  /**
+                              * @description 语言包, 用于全局的语言替换
+                              * @property {String} now = [chinese|english] 当前语言
+                              * @property {Object} chinese 中文语言包
+                              * @property {Object} english 英文语言包
+                              */
+  lang: {
+    now: "chinese",
+    chinese: {},
+    english: {} },
+
+  // 延迟
+  sleep: sleep,
+  // 测试执行速度函数
+  speeds: speeds,
+  // 判断对象是否相似
+  as: as,
+  // 添加对象
+  push: push,
+  // 清空对象值
+  clear: clear,
+  // 对象转json字符串
+  toJson: toJson,
+  // 对象转url字符串
+  toUrl: toUrl,
+  // 复制一个新对象
+  copy: copy,
+  // 查询获取对象属性键
+  keys: keys,
+  // 删除对象属性
+  delete: delete_prop };
+
+push(uni, funcs, true);
+
+
+/**
+                         * 定时任务管理器
+                         */
+(function () {
+  function Timer() {
+    /**
+                     * @description 回调对象集合
+                     * @example 
+                     * [{
+                    	 // 名称
+                    	 name: "",
+                    	 // 执行函数
+                    	 async run(){}
+                    	}]
+                     */
+    var list = [];
+
+    // 定时器核心
+    this.core;
+
+    /**
+                * @description 执行
+                */
+    Timer.prototype.run = function () {
+      var len = list.length;
+      for (var i = 0; i < len; i++) {
+        var run = list[i].run;
+        if (run) {
+          run();
+        }
+      }
+    };
+
+    /**
+        * @description 启动
+        */
+    Timer.prototype.start = function () {
+      var _this = this;
+      if (!this.core) {
+        this.core = setInterval(this.run, 1000);
+      }
+    };
+
+    /**
+        * @description 结束
+        */
+    Timer.prototype.end = function () {
+      clearInterval(this.core);
+      this.core = undefined;
+    };
+
+    /**
+        * @description 添加定时执行任务
+        */
+    Timer.prototype.add = function (obj) {
+      if (typeof obj === "object") {
+        if (obj.name && obj.run && typeof obj.run === 'function') {
+          list.push(obj);
+        }
+      }
+    };
+    /**
+        * @description 删除定时执行任务
+        */
+    Timer.prototype.del = function (name) {
+      if (typeof obj === "object") {
+        list.del({
+          name: name },
+        true);
+      }
+    };
+  };
+  uni.timer = new Timer();
+})();
+
+
+/* MD5加密类 */
+(function () {
+  /* md5加密（开始） */
+  var hexcase = 0;
+  /* hex output format. 0 - lowercase; 1 - uppercase  */
+  var b64pad = "";
+  /* base-64 pad character. "=" for strict RFC compliance */
+  var chrsz = 8;
+  /* bits per input character. 8 - ASCII; 16 - Unicode  */
+
+  /*
+                                                            * Perform a simple self-test to see if the VM is working
+                                                            */
+  function md5_vm_test() {
+    return hex_md5("abc") == "900150983cd24fb0d6963f7d28e17f72";
+  }
+  /*
+     * Calculate the MD5 of an array of little-endian words, and a bit length
+     */
+  function core_md5(x, len) {
+    /* append padding */
+    x[len >> 5] |= 0x80 << len % 32;
+    x[(len + 64 >>> 9 << 4) + 14] = len;
+    var a = 1732584193;
+    var b = -271733879;
+    var c = -1732584194;
+    var d = 271733878;
+    for (var i = 0; i < x.length; i += 16) {
+      var olda = a;
+      var oldb = b;
+      var oldc = c;
+      var oldd = d;
+      a = md5_ff(a, b, c, d, x[i + 0], 7, -680876936);
+      d = md5_ff(d, a, b, c, x[i + 1], 12, -389564586);
+      c = md5_ff(c, d, a, b, x[i + 2], 17, 606105819);
+      b = md5_ff(b, c, d, a, x[i + 3], 22, -1044525330);
+      a = md5_ff(a, b, c, d, x[i + 4], 7, -176418897);
+      d = md5_ff(d, a, b, c, x[i + 5], 12, 1200080426);
+      c = md5_ff(c, d, a, b, x[i + 6], 17, -1473231341);
+      b = md5_ff(b, c, d, a, x[i + 7], 22, -45705983);
+      a = md5_ff(a, b, c, d, x[i + 8], 7, 1770035416);
+      d = md5_ff(d, a, b, c, x[i + 9], 12, -1958414417);
+      c = md5_ff(c, d, a, b, x[i + 10], 17, -42063);
+      b = md5_ff(b, c, d, a, x[i + 11], 22, -1990404162);
+      a = md5_ff(a, b, c, d, x[i + 12], 7, 1804603682);
+      d = md5_ff(d, a, b, c, x[i + 13], 12, -40341101);
+      c = md5_ff(c, d, a, b, x[i + 14], 17, -1502002290);
+      b = md5_ff(b, c, d, a, x[i + 15], 22, 1236535329);
+      a = md5_gg(a, b, c, d, x[i + 1], 5, -165796510);
+      d = md5_gg(d, a, b, c, x[i + 6], 9, -1069501632);
+      c = md5_gg(c, d, a, b, x[i + 11], 14, 643717713);
+      b = md5_gg(b, c, d, a, x[i + 0], 20, -373897302);
+      a = md5_gg(a, b, c, d, x[i + 5], 5, -701558691);
+      d = md5_gg(d, a, b, c, x[i + 10], 9, 38016083);
+      c = md5_gg(c, d, a, b, x[i + 15], 14, -660478335);
+      b = md5_gg(b, c, d, a, x[i + 4], 20, -405537848);
+      a = md5_gg(a, b, c, d, x[i + 9], 5, 568446438);
+      d = md5_gg(d, a, b, c, x[i + 14], 9, -1019803690);
+      c = md5_gg(c, d, a, b, x[i + 3], 14, -187363961);
+      b = md5_gg(b, c, d, a, x[i + 8], 20, 1163531501);
+      a = md5_gg(a, b, c, d, x[i + 13], 5, -1444681467);
+      d = md5_gg(d, a, b, c, x[i + 2], 9, -51403784);
+      c = md5_gg(c, d, a, b, x[i + 7], 14, 1735328473);
+      b = md5_gg(b, c, d, a, x[i + 12], 20, -1926607734);
+      a = md5_hh(a, b, c, d, x[i + 5], 4, -378558);
+      d = md5_hh(d, a, b, c, x[i + 8], 11, -2022574463);
+      c = md5_hh(c, d, a, b, x[i + 11], 16, 1839030562);
+      b = md5_hh(b, c, d, a, x[i + 14], 23, -35309556);
+      a = md5_hh(a, b, c, d, x[i + 1], 4, -1530992060);
+      d = md5_hh(d, a, b, c, x[i + 4], 11, 1272893353);
+      c = md5_hh(c, d, a, b, x[i + 7], 16, -155497632);
+      b = md5_hh(b, c, d, a, x[i + 10], 23, -1094730640);
+      a = md5_hh(a, b, c, d, x[i + 13], 4, 681279174);
+      d = md5_hh(d, a, b, c, x[i + 0], 11, -358537222);
+      c = md5_hh(c, d, a, b, x[i + 3], 16, -722521979);
+      b = md5_hh(b, c, d, a, x[i + 6], 23, 76029189);
+      a = md5_hh(a, b, c, d, x[i + 9], 4, -640364487);
+      d = md5_hh(d, a, b, c, x[i + 12], 11, -421815835);
+      c = md5_hh(c, d, a, b, x[i + 15], 16, 530742520);
+      b = md5_hh(b, c, d, a, x[i + 2], 23, -995338651);
+      a = md5_ii(a, b, c, d, x[i + 0], 6, -198630844);
+      d = md5_ii(d, a, b, c, x[i + 7], 10, 1126891415);
+      c = md5_ii(c, d, a, b, x[i + 14], 15, -1416354905);
+      b = md5_ii(b, c, d, a, x[i + 5], 21, -57434055);
+      a = md5_ii(a, b, c, d, x[i + 12], 6, 1700485571);
+      d = md5_ii(d, a, b, c, x[i + 3], 10, -1894986606);
+      c = md5_ii(c, d, a, b, x[i + 10], 15, -1051523);
+      b = md5_ii(b, c, d, a, x[i + 1], 21, -2054922799);
+      a = md5_ii(a, b, c, d, x[i + 8], 6, 1873313359);
+      d = md5_ii(d, a, b, c, x[i + 15], 10, -30611744);
+      c = md5_ii(c, d, a, b, x[i + 6], 15, -1560198380);
+      b = md5_ii(b, c, d, a, x[i + 13], 21, 1309151649);
+      a = md5_ii(a, b, c, d, x[i + 4], 6, -145523070);
+      d = md5_ii(d, a, b, c, x[i + 11], 10, -1120210379);
+      c = md5_ii(c, d, a, b, x[i + 2], 15, 718787259);
+      b = md5_ii(b, c, d, a, x[i + 9], 21, -343485551);
+      a = safe_add(a, olda);
+      b = safe_add(b, oldb);
+      c = safe_add(c, oldc);
+      d = safe_add(d, oldd);
+    }
+    return Array(a, b, c, d);
+  }
+  /*
+     * These functions implement the four basic operations the algorithm uses.
+     */
+  function md5_cmn(q, a, b, x, s, t) {
+    return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
+  }
+
+  function md5_ff(a, b, c, d, x, s, t) {
+    return md5_cmn(b & c | ~b & d, a, b, x, s, t);
+  }
+
+  function md5_gg(a, b, c, d, x, s, t) {
+    return md5_cmn(b & d | c & ~d, a, b, x, s, t);
+  }
+
+  function md5_hh(a, b, c, d, x, s, t) {
+    return md5_cmn(b ^ c ^ d, a, b, x, s, t);
+  }
+
+  function md5_ii(a, b, c, d, x, s, t) {
+    return md5_cmn(c ^ (b | ~d), a, b, x, s, t);
+  }
+  /*
+     * Calculate the HMAC-MD5, of a key and some data
+     */
+  function core_hmac_md5(key, data) {
+    var bkey = str2binl(key);
+    if (bkey.length > 16) bkey = core_md5(bkey, key.length * chrsz);
+    var ipad = Array(16),
+    opad = Array(16);
+    for (var i = 0; i < 16; i++) {
+      ipad[i] = bkey[i] ^ 0x36363636;
+      opad[i] = bkey[i] ^ 0x5C5C5C5C;
+    }
+    var hash = core_md5(ipad.concat(str2binl(data)), 512 + data.length * chrsz);
+    return core_md5(opad.concat(hash), 512 + 128);
+  }
+  /*
+     * Add integers, wrapping at 2^32. This uses 16-bit operations internally
+     * to work around bugs in some JS interpreters.
+     */
+  function safe_add(x, y) {
+    var lsw = (x & 0xFFFF) + (y & 0xFFFF);
+    var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+    return msw << 16 | lsw & 0xFFFF;
+  }
+  /*
+     * Bitwise rotate a 32-bit number to the left.
+     */
+  function bit_rol(num, cnt) {
+    return num << cnt | num >>> 32 - cnt;
+  }
+  /*
+     * Convert a string to an array of little-endian words
+     * If chrsz is ASCII, characters >255 have their hi-byte silently ignored.
+     */
+  function str2binl(str) {
+    var bin = Array();
+    var mask = (1 << chrsz) - 1;
+    for (var i = 0; i < str.length * chrsz; i += chrsz) {
+      bin[i >> 5] |= (str.charCodeAt(i / chrsz) & mask) << i % 32;
+    }
+    return bin;
+  }
+  /*
+     * Convert an array of little-endian words to a string
+     */
+  function binl2str(bin) {
+    var str = "";
+    var mask = (1 << chrsz) - 1;
+    for (var i = 0; i < bin.length * 32; i += chrsz) {
+      str += String.fromCharCode(bin[i >> 5] >>> i % 32 & mask);
+    }
+    return str;
+  }
+  /*
+     * Convert an array of little-endian words to a hex string.
+     */
+  function binl2hex(binarray) {
+    var hex_tab = hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
+    var str = "";
+    for (var i = 0; i < binarray.length * 4; i++) {
+      str += hex_tab.charAt(binarray[i >> 2] >> i % 4 * 8 + 4 & 0xF) + hex_tab.charAt(binarray[i >> 2] >> i % 4 * 8 & 0xF);
+    }
+    return str;
+  }
+  /*
+     * Convert an array of little-endian words to a base-64 string
+     */
+  function binl2b64(binarray) {
+    var tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    var str = "";
+    for (var i = 0; i < binarray.length * 4; i += 3) {
+      var triplet = (binarray[i >> 2] >> 8 * (i % 4) & 0xFF) << 16 | (binarray[i + 1 >> 2] >> 8 * ((i + 1) % 4) & 0xFF) <<
+      8 | binarray[i + 2 >> 2] >> 8 * ((i + 2) % 4) & 0xFF;
+      for (var j = 0; j < 4; j++) {
+        if (i * 8 + j * 6 > binarray.length * 32) str += b64pad;else
+        str += tab.charAt(triplet >> 6 * (3 - j) & 0x3F);
+      }
+    }
+    return str;
+  }
+
+  uni.hex_md5 = function hex_md5(s) {
+    return binl2hex(core_md5(str2binl(s), s.length * chrsz));
+  };
+  uni.b64_md5 = function b64_md5(s) {
+    return binl2b64(core_md5(str2binl(s), s.length * chrsz));
+  };
+  uni.str_md5 = function str_md5(s) {
+    return binl2str(core_md5(str2binl(s), s.length * chrsz));
+  };
+  uni.hex_hmac_md5 = function hex_hmac_md5(key, data) {
+    return binl2hex(core_hmac_md5(key, data));
+  };
+  uni.b64_hmac_md5 = function b64_hmac_md5(key, data) {
+    return binl2b64(core_hmac_md5(key, data));
+  };
+  uni.str_hmac_md5 = function str_hmac_md5(key, data) {
+    return binl2str(core_hmac_md5(key, data));
+  };
+
+  uni.md5 = uni.hex_md5;
+})();
+
+(function () {
+  /* == 网络请求 == */
+  uni.http = {
+    /**
+                * @description GET请求——json
+                * @param {String} url 请求地址
+                * @param {Function} fun 回调函数
+                * @param {Object} headers 协议头
+                * @return {Object} 同步请求返回请求结果，否则返回undefined
+                */
+    get: function get(url, fun, headers) {
+      var json;
+      var hp = {
+        type: 'GET',
+        url: url,
+        async: fun !== null,
+        // xhrFields: {
+        // 	withCredentials: true
+        // },
+        // crossDomain: true,
+        success: function success(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        error: function error(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        complete: function complete(XHR, TS) {
+          XHR = null;
+        } };
+
+      if (headers) {
+        hp.headers = headers;
+      }
+      uni.ajax(hp);
+      return json;
+    },
+    /**
+        * @description POST请求
+        * @param {String} url 请求地址
+        * @param {Object} param 请求参数
+        * @param {Function} fun 回调函数
+        * @param {Object} headers 协议头
+        * @param {String} type 内容类型
+        * @return {Object} 同步请求返回请求结果，否则返回undefined
+        */
+    post: function post(url, param, fun, headers, type) {
+      var contentType;
+      var pm;
+      if (type === 'xml') {
+        contentType = "text/xml; charset=utf-8";
+        pm = param;
+      } else if (type === 'form') {
+        contentType = "application/x-www-form-urlencoded; charset=utf-8";
+        pm = param;
+      } else {
+        contentType = "application/json; charset=utf-8";
+        pm = JSON.stringify(param);
+      }
+      var json;
+      var hp = {
+        type: 'POST',
+        url: url,
+        async: fun !== null,
+        // xhrFields: {
+        // 	withCredentials: true
+        // },
+        // crossDomain: true,
+        data: pm,
+        dataType: "json",
+        contentType: contentType,
+        success: function success(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        error: function error(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        complete: function complete(XHR, TS) {
+          XHR = null;
+        } };
+
+      if (headers) {
+        hp.headers = headers;
+      }
+      uni.ajax(hp);
+      return json;
+    },
+    /**
+        * @description 上传文件
+        * @param {String} url 请求地址
+        * @param {Object} file input file文件
+        * @param {Function} fun 回调函数
+        * @param {Object} headers 协议头
+        * @return {Object} 同步请求返回请求结果，否则返回undefined
+        */
+    upload: function upload(url, file, fun, headers) {
+      var form = new FormData();
+      form.append("file", file);
+      var json;
+      var hp = {
+        type: 'POST',
+        url: url,
+        async: fun !== null,
+        data: form,
+        dataType: "json",
+        contentType: false,
+        processData: false,
+        success: function success(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        error: function error(data, status) {
+          if (fun) {
+            fun(data, status);
+          } else {
+            json = {
+              data: data,
+              status: status };
+
+          }
+        },
+        complete: function complete(XHR, TS) {
+          XHR = null;
+        } };
+
+      if (headers) {
+        hp.headers = headers;
+      }
+      uni.ajax(hp);
+      return json;
+    } };
+
+
+  /* 缓存 */
+  uni.cookies = {
+    /**
+                   * @description 设置域
+                   * @param {String} url 地址
+                   */
+    domain: function domain(url) {
+      if (url) {
+        _domain = url;
+      }
+      return ";path=/";
+    },
+    /**
+        * @description 设置缓存
+        * @param {String} name 缓存对象
+        * @param {Object} value 缓存值
+        * @param {Number} minutes 缓存时长，单位: 分钟
+        * @param {String} domain 作用域
+        */
+    set: function set(name, value, minutes, domain) {
+      if (!domain) {
+        domain = uni.cookies.domain();
+      }
+      var time = new Date();
+      if (minutes) {
+        time.setTime(time.getTime() + minutes * 60000);
+        document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + time.toGMTString();
+      } else {
+        time.setTime(time.getTime() + 7 * 24 * 3600 * 60000);
+        document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + time.toGMTString();
+      }
+    },
+
+    /**
+        * @description 获取cookie
+        * @param {String} name 名称
+        */
+    get: function get(name) {
+      var value = null;
+      var str = document.cookie;
+      var arr = str.split("; ");
+      for (var i = 0; i < arr.length; i++) {
+        var ar = arr[i].split("=");
+        if (ar[0] == name) {
+          value = decodeURIComponent(ar[1]);
+          break;
+        }
+      }
+      return value;
+    },
+
+    /**
+        * @description 删除cookie
+        * @param {String} name 名称
+        */
+    del: function del(name) {
+      this.set(name, "", -1);
+    } };
+
+
+  /**
+          * @description 设置或查询cookie缓存
+          * @param {String} key 缓存对象名
+          * @param {Object} value 缓存值
+          * @param {Number} minutes 缓存时长，单位: 分钟
+          */
+  uni.cookie = function (key, value, minutes) {
+    if (value != undefined) {
+      if (!minutes) {
+        if (value == null) {
+          minutes = 0;
+        } else {
+          minutes = 120;
+        }
+      }
+      uni.cookies.set(key, value, minutes);
+    } else {
+      return uni.cookies.get(key);
+    }
+  };
+
+  /* === 多媒体 === */
+  uni.file = {
+    /**
+                * @description 上传文件
+                * @param {String} url 提交网址
+                * @param {Object} obj 对象
+                * @param {Function} func 函数
+                * @param {Object} headers 协议头
+                */
+    upload: function upload(url, obj, func, headers) {
+      var formData = new FormData();
+      for (var k in obj) {
+        formData.append(k, obj[k]);
+      }
+      var hp = {
+        type: 'POST',
+        url: url,
+        data: formData,
+        processData: false,
+        contentType: false,
+        async: func !== null,
+        xhrFields: {
+          withCredentials: true },
+
+        success: function success(json, status) {
+          if (func) {
+            if (json) {
+              json["obj"] = obj;
+            }
+            func(json, status);
+          }
+        },
+        complete: function complete(XHR, TS) {
+          XHR = null;
+        } };
+
+
+      if (headers) {
+        hp.headers = headers;
+      }
+      uni.ajax(hp);
+    } };
+
+})();
+
+/* 通讯 */
+(function () {
+  uni.html = {
+    tag: function tag(_tag, prop, value) {
+      var obj;
+      var list = document.getElementsByTagName(_tag);
+      var len = list.length;
+      for (var i = 0; i < len; i++) {
+        var o = list[i];
+        if (o && o.getAttribute(prop) && o.getAttribute(prop).has(value)) {
+          obj = o;
+          break;
+        }
+      }
+      return obj;
+    } };
+
+
+  /**
+          * 本地临时缓存,关闭浏览器后小时
+          */
+  uni.cache = {
+    /**
+                 * 设置值
+                 * @param {String} key 键
+                 * @param {Object} value 值
+                 */
+    set: function set(key, value) {
+      window.sessionStorage.setItem(key, value);
+    },
+    /**
+        * 获取值
+        * @param {String} key 键
+        * @return {Object} 值
+        */
+    get: function get(key) {
+      return window.sessionStorage.getItem(key);
+    },
+    /**
+        * 删除值
+        * @param {Object} key 键
+        */
+    del: function del(key) {
+      window.sessionStorage.removeItem(key);
+    },
+    /**
+        * 清除所有缓存
+        */
+    clear: function clear() {
+      window.sessionStorage.clear();
+    } };
+
+
+  /**
+          * 本地数据库存储
+          */
+  uni.db = {
+    /**
+              * 设置值
+              * @param {String} key 键
+              * @param {Object} value 值
+              * @param {Number} longTime 保存时长（单位:分钟）
+              */
+    set: function set(key, value, longTime) {
+      var expires = null;
+      if (longTime) {
+        var time = Date.now();
+        expires = time + longTime * 60000;
+      }
+      var data = {
+        value: value,
+        expires: expires };
+
+      uni.setStorageSync(key, JSON.stringify(data));
+    },
+    /**
+        * 获取值
+        * @param {String} key 键
+        * @return {Object} 值
+        */
+    get: function get(key) {
+      var value;
+      var text = uni.getStorageSync(key);
+      if (text && text.indexOf('{') === 0) {
+        try {
+          var data = JSON.parse(text);
+          if (data) {
+            if (data.expires) {
+              var time = new Date(data.expires);
+              if (time > Date.now()) {
+                value = data.value;
+              } else {
+                uni.removeStorageSync(key);
+              }
+            } else {
+              value = data.value;
+            }
+          }
+        } catch (e) {
+          console.log(e);
+          value = text;
+        }
+      } else {
+        value = text;
+      }
+      return value;
+    },
+    /**
+        * 删除值
+        * @param {Object} key 键
+        */
+    del: function del(key) {
+      uni.removeStorageSync(key);
+    } };
+
+
+  /**
+          * web socket通讯组
+          */
+  uni.ws = {};
+
+  /* 封装 WebSocket 实例化的方法  */
+  var CreateWebSocket = function (url) {
+    return function (url) {
+      var ws;
+      try {
+        if (window.WebSocket) {
+          ws = new WebSocket(url);
+        } else if (window.MozWebSocket) {
+          ws = new MozWebSocket(url);
+        };
+      } catch (e) {
+        //TODO handle the exception
+      }
+      return ws;
+    };
+  }();
+
+  /**
+        * 等待连接成功, 然后发送消息
+        */
+  function connect(_this) {
+    if (_this.try_connect) {
+      return;
+    }
+    _this.try_connect = true;
+    var ws = CreateWebSocket(_this.url);
+    ws.onmessage = function (event) {
+      _this.message(event);
+    };
+    ws.onclose = function () {
+      reconnect(_this);
+    };
+    ws.onerror = function (event) {
+      _this.noticy("error", event);
+    };
+    ws.onopen = function () {
+      _this.try_connect = false;
+      var arr = _this.arr_message;
+      var len = arr.length;
+      for (var i = 0; i < len; i++) {
+        if (ws.readyState === 1) {
+          _this.ws.send(arr[i]);
+        }
+      }
+      // 发送成功, 清空消息组
+      _this.arr_message.clear();
+      // 重置重新连接次数
+      _this.try_times = 0;
+    };
+    _this.ws = ws;
+  };
+
+  /**
+      * 重新连接
+      * @param {Object} _this ws对象
+      */
+  function reconnect(_this) {
+    _this.try_times++;
+    if (_this.try_times <= _this.try_max_times) {
+      _this.try_connect = false;
+      // 没连接上会一直重连，设置延迟避免请求过多
+      setTimeout(function () {
+        connect(_this);
+      }, _this.seconds);
+      _this.noticy('reconnect', _this.try_times);
+    } else {
+      _this.noticy('error', '服务器连接失败!');
+    }
+  };
+
+  /**
+      * 构造通讯函数
+      * @param {String} url
+      * @param {Function} noticy 通知函数
+      * @param {Function} receive 响应回调函数
+      * @param {Function} noticy 信息捕捉函数
+      * @param {String} name 名称
+      * @param {Number} seconds 重新连接次数
+      * @return {Object} 返回发信服务
+      */
+  function WS(url, receive, noticy, name, seconds) {
+    if (noticy) {
+      this.noticy = noticy;
+    } else {
+      /**
+             * 通知函数
+             * @param {String} type 通知类型
+             */
+      this.noticy = function (type, content) {
+        console.log(type, content);
+      };
+    }
+
+    if (!window.WebSocket) {
+      console.error('错误: 浏览器不支持websocket');
+      this.noticy('error', '浏览器不支持websocket');
+      return;
+    }
+
+    var u;
+    if (url.indexOf('//') !== -1) {
+      u = url.replace("https", "ws").replace("http", "ws");
+    } else {
+      u = "ws://" + url;
+    }
+    // 连接地址
+    this.url = u;
+
+    if (name) {
+      this.name = name;
+    } else {
+      this.name = u;
+    }
+
+    this.receive = receive;
+
+    // 消息数组, 在等待连接的过程中, 如果有多条消息, 则保存至此, 等待连接成功后发送
+    this.arr_message = [];
+
+    if (seconds) {
+      this.seconds = seconds;
+    } else {
+      this.seconds = 6000;
+    }
+
+    /**
+       * 尝试重连次数
+       */
+    this.try_times = 0;
+
+    /**
+                         * 最大尝试次数, 如果每次重试间隔1分钟, 那么10分钟后就不再重连
+                         */
+    this.try_max_times = 10;
+
+    /**
+                              * 是否正在尝试连接
+                              */
+    this.try_connect = false;
+
+    // 连接 socket服务
+    connect(this);
+  }
+
+
+  /**
+     * 打开服务
+     */
+  WS.prototype.open = function () {
+    connect(this);
+  };
+
+  /**
+      * 关闭服务
+      */
+  WS.prototype.close = function () {
+    this.ws.onclose = function (event) {};
+    this.ws.close();
+  };
+
+
+  /**
+      * 释放
+      */
+  WS.prototype.clear = function () {
+    this.close();
+    delete uni.ws[key];
+  };
+
+  /**
+      * 收到消息
+      */
+  WS.prototype.message = function (event) {
+    var data = event.data;
+    if (data && this.receive) {
+      this.receive(data);
+    }
+  };
+
+
+  /**
+      * 发送数据
+      * @param {String} bodyStr 消息主体字符串
+      */
+  WS.prototype.send = function (bodyStr) {
+    var ws = this.ws;
+    switch (ws.readyState) {
+      case 0:
+        // CONNECTING 正在连接
+        // 先将消息加入队列等待连接成功再发送
+        this.arr_message.push(bodyStr);
+        break;
+      case 1:
+        // OPEN 连接成功，可以通信了
+        ws.send(bodyStr);
+        break;
+      case 2:
+        // CLOSING 连接正在关闭
+        // 先将消息加入队列, 等待关闭 > 重新连接 > 连接成功 再发送消息
+        this.arr_message.push(bodyStr);
+        break;
+      default:
+        if (this.try_times > 9) {
+          this.try_times = 0;
+          this.try_connect = false;
+        }
+        // CLOSED 连接已经关闭，或者打开连接失败
+        // 先将消息加入队列, 重新连接 > 连接成功 再发送消息
+        this.arr_message.push(bodyStr);
+        connect(this);
+        break;}
+
+  };
+
+  /**
+      * 主动关闭连接
+      */
+  WS.prototype.close = function () {
+    this.ws.close();
+  };
+
+  /**
+      * 创建web socket通讯服务
+      * @param {String} url URL地址
+      * @param {Function} receive 响应回调函数
+      * @param {Function} noticy 信息捕捉函数
+      * @param {String} name 名称
+      * @param {String} seconds 秒
+      * @return {Object} 返回发信服务
+      */
+  uni.socket = function (url, receive, noticy, name, seconds) {
+    // 使用键方式去查询多个通讯
+    // 需要多通讯的原因是: 像交易所可能需要即时通讯的同时还需要试试变化交易信息
+    if (!name) {
+      name = url;
+    }
+    if (!uni.ws[name]) {
+      uni.ws[name] = new WS(url, receive, noticy, name, seconds);
+    } else {
+      uni.ws[name].try_times = 0;
+    }
+    return uni.ws[name];
+  };
+
+  /**
+      * 路由
+      */
+  uni.route = {
+    /**
+                 * 重定向地址
+                 */
+    redirect_url: "/",
+    /**
+                        * 路由历史记录
+                        */
+    history: {
+      list: [],
+      push: function push(url) {
+        if (this.list.length > 0) {
+          var end_url = this.list[this.list.length - 1];
+          if (end_url !== url) {
+            this.list.push(url);
+          }
+        } else {
+          this.list.push(url);
+        }
+      } },
+
+
+    /**
+            * 添加路由
+            * @param {String} url
+            * @param {String} title
+            */
+    push: function push(url, title) {
+      history.pushState({
+        status: 0 },
+      title, url);
+    } };
+
+
+})();
+
+(function () {
+  /**
+               * @description 添加对象属性
+               * @param {Object} obj 对象
+               * @param {Object} query 查询条件
+               * @param {Object} value 添加值
+               * @return {Object} 返回添加的局部对象
+               */
+  function add(obj, query, value) {
+    if (query) {
+      var oj = get(obj, query);
+      if (oj) {
+        uni.push(oj, value, true);
+      }
+      return oj;
+    } else {
+      uni.push(obj, value, true);
+      return obj;
+    }
+  };
+  uni.add = add;
+
+  /**
+                  * @description 删除对象属性
+                  * @param {Object} obj 对象
+                  * @param {Object} query 查询条件
+                  * @param {Object} item 查询条件
+                  * @return {Object} 返回删除结果
+                  */
+  function del(obj, query, item) {
+    var o = {};
+    if (query) {
+      o = get(obj, query);
+    } else {
+      o = obj;
+    }
+    if (!item) {
+      item = Object.assign(o);
+    }
+    if (Array.isArray(o)) {
+      o.clear();
+    } else if (Array.isArray(item)) {
+      for (var i = 0; i < item.length; i++) {
+        var val = item[i];
+        if (typeof val === "object") {
+          del(o, null, val);
+        } else {
+          delete o[val];
+        }
+      }
+    } else if (typeof item === "object") {
+      for (var k in item) {
+        if (Array.isArray(o[k])) {
+          delete o[k];
+        } else if (typeof o[k] === "object") {
+          var type = typeof item[k];
+          if (type === "object") {
+            del(o[k], null, item[k]);
+          } else if (type === "string" || type === "number") {
+            delete o[k][item[k]];
+          } else {
+            delete o[k];
+          }
+        } else {
+          delete o[k];
+        }
+      }
+    } else {
+      delete o[item];
+    }
+    for (var k in o) {
+      if (Object.keys(o[k]).length === 0) {
+        delete o[k];
+      }
+    }
+    return o;
+  };
+  uni.del = del;
+
+  /**
+                  * @description 修改对象属性
+                  * @param {Object} obj 对象
+                  * @param {Object} query 查询条件
+                  * @param {Object} value 返回修改的局部对象
+                  */
+  function set(obj, query, value) {
+    if (query) {
+      var oj = get(obj, query);
+      if (oj) {
+        uni.push(oj, value);
+      }
+      return oj;
+    } else {
+      uni.push(obj, value);
+      return obj;
+    }
+  };
+  uni.set = set;
+
+  function arrToObj(arr) {
+    var obj = {};
+    var ret = obj;
+    var len = arr.length;
+    for (var i = 0; i < len; i++) {
+      var k = arr[i];
+      if (typeof k == "object") {
+        if (Array.isArray(k)) {
+          uni.push(obj, arrToObj(k), true);
+        } else {
+          uni.push(obj, k, true);
+        }
+      } else if (!obj[k]) {
+        if (len - i > 1) {
+          obj[k] = {};
+        } else {
+          obj[k] = true;
+        }
+        obj = obj[k];
+      }
+    }
+    return ret;
+  }
+
+  /**
+     * @description 查询对象属性
+     * @param {Object} obj 对象
+     * @param {Object} query
+     * @return {Object} 返回查询结果
+     */
+  function get(obj, query) {
+    var ret;
+    if (typeof obj === 'object' && !Array.isArray(obj)) {
+      // 只有非数组的对象才进行操作
+      if (Array.isArray(query)) {
+        var ret = obj;
+        // 如果是数字则循环数组
+        for (var i = 0; i < query.length; i++) {
+          var o = query[i];
+          if (Array.isArray(o)) {
+            ret = get(ret, o);
+          } else if (typeof o === 'object') {
+            var oj = {};
+            for (var k in o) {
+              if (o[k]) {
+                oj[k] = get(ret[k], o[k]);
+              } else {
+                oj[k] = ret[k];
+              }
+            }
+            ret = oj;
+          } else {
+            ret = ret[o];
+            if (typeof ret !== 'object') {
+              break;
+            }
+          }
+        }
+
+      } else if (typeof query === 'object') {
+        var ret = {};
+        // 如果是对象则遍历对象
+        for (var k in query) {
+          ret[k] = get(obj[k], query[k]);
+        }
+        ret = ret;
+      } else if (query) {
+        if (typeof query == "string" || typeof query == "number") {
+          ret = {};
+          ret[query] = obj[query];
+        } else {
+          ret = obj;
+        }
+      } else {
+        // 如果query为空则返回整个对象
+        ret = null;
+      }
+    } else {
+      // 否则直接返回值
+      ret = obj;
+    }
+    return ret;
+  };
+  uni.get = get;
+
+  /**
+                  * 遍历读写对象
+                  * @param {Object} obj
+                  * @param {String} key 键 多级对象用.分隔
+                  * @param {Object} value 值，如果不传为查询，传为修改
+                  */
+  function obj_for(obj, key, value) {
+    if (!key) {
+      return undefined;
+    }
+    var keys = key.split('.');
+    var len = keys.length;
+    if (len == 0) {
+      return undefined;
+    }
+    var k = keys[0];
+    var o = obj[k];
+    if (len == 1 && value !== undefined) {
+      obj[k] = value;
+      o = value;
+    } else if (typeof o == 'object') {
+      if (len > 1) {
+        return obj_for(o, keys.splice(1, len).join('.'), value);
+      }
+    } else if (len > 1) {
+      return undefined;
+    }
+    return o;
+  }
+
+  uni.obj = obj_for;
+})();
+
+/* == 数字原型函数 == */
+(function () {
+  /**
+               * @description 去尾法
+               * @param {Number} len 保留长度
+               * @return {Number} 数值
+               */
+  Number.prototype.toFloor = function (len) {
+    var n = Math.pow(10, len);
+    return Math.floor(this * n) / n;
+  };
+  /**
+      * @description 进一法
+      * @param {Number} len 保留长度
+      * @return {Number} 数值
+      */
+  Number.prototype.toCeil = function (len) {
+    var n = Math.pow(10, len);
+    return Math.ceil(this * n) / n;
+  };
+  /**
+      * @description 四舍五入法
+      * @param {Number} len 保留长度
+      * @return {Number} 数值
+      */
+  Number.prototype.toRound = function (len) {
+    var n = Math.pow(10, len);
+    return Math.round(this * n) / n;
+  };
+  /**
+      * @description 数值转字符串, 保留尾数长度
+      * @param {Number} len 保留长度
+      * @param {String} mode 保留方式
+      * @return {String} 截取后字符串
+      */
+  Number.prototype.get = function (len, mode) {
+    var n;
+    switch (mode) {
+      case 1:
+      case "toRound":
+        n = this.toRound(len);
+        break;
+      case 2:
+      case "toCeil":
+        n = this.toCeil(len);
+        break;
+      case 3:
+      case "toFloor":
+        n = this.toFloor(len);
+        break;
+      default:
+        n = this.toString();
+        break;}
+
+    return n;
+  };
+  /**
+      * @description 数值转字符串, 保留尾数长度
+      * @param {Number} len 保留长度
+      * @param {String} mode 保留方式
+      * @return {String} 截取后字符串
+      */
+  Number.prototype.toStr = function (len, mode) {
+    var n = this.get(len, mode);
+    var s = n.toString();
+    var rs = s.indexOf('.');
+    if (len > 0 && rs < 0) {
+      rs = s.length;
+      s += '.';
+    }
+    while (s.length <= rs + len) {
+      s += '0';
+    }
+    return s;
+  };
+  /**
+      * @description 转为时间类型
+      * @return {Date} 时间对象
+      */
+  Number.prototype.toTime = function () {
+    return new Date(this * 1000);
+  };
+})();
+
+/* == 时间原型函数 == */
+(function () {
+  /**
+               * @description 时间格式化
+               * @param {String} format 指定格式
+               * @return {String} 时间格式字符串
+               */
+  Date.prototype.toStr = function (format) {
+    var o = {
+      "M+": this.getMonth() + 1,
+      "d+": this.getDate(),
+      "h+": this.getHours(),
+      "m+": this.getMinutes(),
+      "s+": this.getSeconds(),
+      "q+": Math.floor((this.getMonth() + 3) / 3),
+      "S": this.getMilliseconds() };
+
+    if (/(y+)/.test(format)) {
+      var x = RegExp.$1;
+      format = format.replace(x, (this.getFullYear() + "").substr(4 - x.length));
+    }
+    for (var k in o) {
+      if (new RegExp("(" + k + ")").test(format)) {
+        var x = RegExp.$1;
+        format = format.replace(x, x.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+      }
+    }
+    return format;
+  };
+  /**
+      * @description 获取当前时间戳
+      * @return {Number} 返回时间戳
+      */
+  Date.prototype.stamp = function () {
+    var timestamp = Date.parse(this);
+    return timestamp / 1000;
+  };
+  /**
+      * @description 计算时间差(时间间隔)
+      * @param {String} endTime 结束时间
+      * @param {String} time_unit = [day|hours|minutes] 时间单位
+      * @return {Number} 间隔时长
+      */
+  Date.prototype.interval = function (endTime, time_unit) {
+    var startTime = this; // startTime: 开始时间
+    var stime = Date.parse(startTime);
+    var etime = Date.parse(new Date(endTime));
+    var usedTime = etime - stime; // 两个时间戳相差的毫秒数
+    if (time_unit === "day") {
+      return Math.floor(usedTime / (1000 * 60 * 60 * 24));
+    } else if (time_unit === "hours") {
+      return Math.floor(usedTime / (1000 * 60 * 60));
+    } else if (time_unit === "minutes") {
+      return Math.floor(usedTime / (1000 * 60));
+    } else {
+      return Math.floor(usedTime / 1000);
+    }
+  };
+  /**
+      * @description 时间添加天数
+      * @param {Number} days 天数
+      * @return {Date} 时间对象
+      */
+  Date.prototype.addDays = function (days) {
+    this.setDate(this.getDate() + days);
+    return this;
+  };
+  /**
+      * @description 时间添加秒数
+      * @param {Date} seconds 时间对象
+      */
+  Date.prototype.addSeconds = function (seconds) {
+    this.setSeconds(this.getSeconds() + seconds);
+    return this;
+  };
+})();
+
+/* == 字符串拓展函数 == */
+(function () {
+  /**
+               * @description MD5加密
+               * @return {String} 加密后的字符串
+               */
+  String.prototype.md5 = function () {
+    return uni.md5(this + '');
+  };
+
+  /**
+      * aes加密
+      * @param data 待加密内容
+      * @param key 必须为32位私钥
+      * @returns {String}
+      */
+  String.prototype.aes_encode = function (key, iv) {
+    iv = iv || "";
+    var clearEncoding = 'utf8';
+    var cipherEncoding = 'base64';
+    var cipherChunks = [];
+    var cipher = createCipheriv('aes-256-ecb', key, iv);
+    cipher.setAutoPadding(true);
+    cipherChunks.push(cipher.update(this + '', clearEncoding, cipherEncoding));
+    cipherChunks.push(cipher.final(cipherEncoding));
+    return cipherChunks.join('');
+  };
+
+  /**
+      * @description aes解密
+      * @param key 必须为32位私钥
+      * @returns {String}
+      */
+  String.prototype.aes_decode = function (key, iv) {
+    iv = iv || "";
+    var clearEncoding = 'utf8';
+    var cipherEncoding = 'base64';
+    var cipherChunks = [];
+    var decipher = createDecipheriv('aes-256-ecb', key, iv);
+    decipher.setAutoPadding(true);
+    cipherChunks.push(decipher.update(this + '', cipherEncoding, clearEncoding));
+    cipherChunks.push(decipher.final(clearEncoding));
+    return cipherChunks.join('');
+  };
+
+  /**
+      * @description 获取字符串的拼音
+      * @return {String} 拼音
+      */
+  String.prototype.pinyin = function () {
+    return pinyin(this).join('');
+  };
+  /**
+      * @description 获取字符串的拼音
+      * @return {String} 拼音
+      */
+  String.prototype.pinyinS = function () {
+    var arr = pinyin(this);
+    var str = "";
+    for (var i = 0; i < arr.length; i++) {
+      var ar = arr[i];
+      if (ar.length > 0) {
+        var o = ar[0];
+        str += o.charAt(0).toLocaleUpperCase() + o.substring(1);
+      } else {
+        str += ' ';
+      }
+    }
+    return str;
+  };
+  /**
+      * @description 将json字符串转为对象
+      * @return {Object} 对象
+      */
+  String.prototype.toJson = function () {
+    try {
+      return JSON.parse(this);
+    } catch (e) {
+      console.log('json反序列化错误');
+      return null;
+    }
+  };
+  /**
+      * @description 将url字符串转为对象
+      * @return {Object} 对象
+      */
+  String.prototype.toUrl = function () {
+    var arr = this.split('&');
+    var obj = {};
+    arr.func(function (o) {
+      var ar = o.split('=');
+      if (ar.length > 1) {
+        obj[ar[0]] = decodeURI(ar[1]);
+      } else {
+        obj[ar[0]] = null;
+      }
+    });
+    return obj;
+  };
+
+  /**
+      * @description 将url参数转为对象
+      * @return {Object} 对象
+      */
+  String.prototype.toQuery = function () {
+    var str = this + "";
+    var index = str.indexOf("?");
+    if (index !== -1) {
+      str = str.substring(index + 1);
+    } else {
+      return {};
+    }
+    return str.toUrl();
+  };
+
+  /**
+      * @description 删除首字符
+      * @param {String} str  要删除的字符, 默认删除空字符
+      * @return {String} 删除后字符串
+      */
+  String.prototype.startTrim = function (str) {
+    if (!str) {
+      str = "\\s";
+    } else {
+      str = str.replace("$", "\\$").replace("^", "\\^").replace("(", "\\(").replace(")", "\\)");
+    }
+    var rx = new RegExp("(^" + str + "*)", "g");
+    return this.replace(rx, "");
+  };
+  /**
+      * @description 删除尾字符
+      * @param {String} str 要删除的字符, 默认删除空字符
+      * @return {String} 删除后字符串
+      */
+  String.prototype.endTrim = function (str) {
+    if (!str) {
+      str = "\\s";
+    } else {
+      str = str.replace("$", "\\$").replace("^", "\\^").replace("(", "\\(").replace(")", "\\)");
+    }
+    var rx = new RegExp("(" + str + "*$)", "g");
+    return this.replace(rx, "");
+  };
+  /**
+      * @description 删除首尾字符
+      * @param {String} str 要删除的字符, 默认删除空字符
+      * @return {String} 删除后字符串
+      */
+  String.prototype.trim = function (str) {
+    if (!str) {
+      str = "\\s";
+    } else {
+      str = str.replace("$", "\\$").replace("^", "\\^").replace("(", "\\(").replace(")", "\\)");
+    }
+    var rx = new RegExp("(^" + str + "*)|(" + str + "*$)", "g");
+    return this.replace(rx, "");
+  };
+  /**
+      * @description 取文本左边
+      * @param {String} str 索引的字符
+      * @param {Boolean} bl 当索引字符不存在时是否保留左边
+      * @return {String} 截取后的字符串
+      */
+  String.prototype.left = function (str, bl) {
+    var i = this.indexOf(str);
+    if (i == -1) {
+      if (bl) {
+        return this + '';
+      } else {
+        return "";
+      }
+    } else {
+      return this.substring(0, i);
+    }
+  };
+  /**
+      * @description 取文本右边
+      * @param {String} str 索引的字符
+      * @param {Boolean} bl 当索引字符不存在时是否保留右边
+      * @return {String} 截取后的字符串
+      */
+  String.prototype.right = function (str, bl) {
+    var i = this.indexOf(str);
+    if (i == -1) {
+      if (bl) {
+        return this + '';
+      } else {
+        return "";
+      }
+    } else {
+      return this.substring(i + str.length);
+    }
+  };
+  /**
+      * @description 取文本之间
+      * @param {String} str_l 索引的左边字符
+      * @param {String} str_r 索引的右边字符
+      * @param {Boolean} bl 当索引字符不存在时是否保留右边
+      * @return {String} 截取后的字符串
+      */
+  String.prototype.between = function (str_l, str_r, bl) {
+    var str = this.right(str_l, bl);
+    return str.left(str_r, bl);
+  };
+  /**
+      * @description 替换所有字符串
+      * @param {String} oldStr 被替换的字符串
+      * @param {String} newStr 替换后的字符串
+      * @return {String} 替换后的字符串
+      */
+  String.prototype.replaceAll = function (oldStr, newStr) {
+    var txt = this + '';
+    if (!newStr) {
+      newStr = '';
+    }
+    while (txt.indexOf(oldStr) !== -1) {
+      txt = txt.replace(oldStr, newStr);
+    }
+    return txt;
+  };
+  /**
+      * @description 验证开头字符串
+      * @param {String} startStr 开头字符串
+      * @return {Boolean} 验证成功返回true，失败返回false
+      */
+  String.prototype.startWith = function (startStr) {
+    var d = this.length - startStr.length;
+    if (d >= 0 && this.indexOf(startStr) === 0) {
+      return true;
+    }
+    return false;
+  };
+  /**
+      * @description 验证结束字符串
+      * @param {String} endStr 结尾字符串
+      * @return {Boolean} 验证成功返回true，失败返回false
+      */
+  String.prototype.endWith = function (endStr) {
+    var d = this.length - endStr.length;
+    if (d >= 0 && this.lastIndexOf(endStr) == d) {
+      return true;
+    }
+    return false;
+  };
+  /**
+      * @description 是否含字符串
+      * @param {String} str = [word|word*|*word|*word*]字符串, 支持*号匹配, 前*表示匹配后面字符串, 后*表示匹配前面字符串, 前后*表示匹配包含字符串
+      * @return {Boolean} 包含返回true, 不包含返回false
+      */
+  String.prototype.has = function (str) {
+    var o = this + '';
+    if (o === str) {
+      return true;
+    } else if (str.startWith("*")) {
+      var k = str.replaceAll('*', '');
+      if (str.endWith("*")) {
+        return o.indexOf(k) !== -1;
+      } else {
+        return o.endWith(k);
+      }
+    } else if (str.endWith("*")) {
+      var k = str.replaceAll('*', '');
+      return o.startWith(k);
+    } else {
+      return false;
+    }
+  };
+  /**
+      * @description 转为时间对象
+      * @return {Date} 时间对象
+      */
+  String.prototype.toTime = function () {
+    var str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
+    return new Date(str);
+  };
+  /**
+      * @description 转为时间格式字符串
+      * @param {String} format 转换的格式
+      * @return {String} 时间格式字符串
+      */
+  String.prototype.toTimeFormat = function (format) {
+    var str = this.replace('T', ' ').replace('Z', '').replaceAll('-', '/');
+    return str.toTime().toStr(format);
+  };
+  /**
+      * @description 转为数组
+      * @param {String|Regex} separator 分隔符或正则
+      * @param {Number} maxLen 最大长度
+      * @return {Array} 数组
+      */
+  String.prototype.toArr = function (separator, maxLen) {
+    return this.split(separator, maxLen);
+  };
+  /**
+      * @description 转为数字
+      * @param {Number} len 保留长度 ()
+      * @param {String} mode 保留方式 ()
+      * @return {Number} 浮点数
+      */
+  String.prototype.toNum = function (len, mode) {
+    return new Number(this).get(len, mode);
+  };
+  /**
+      * @description 转为对象
+      * @return {Object} 对象
+      */
+  String.prototype.toObj = function () {
+    return eval(this + '');
+  };
+  /**
+      * @description 转正则表达式
+      * @param {String} mode = [g|i|gi] 转换方式, g为全部, i为不区分大小写
+      * @return {Regex} 返回正则对象
+      */
+  String.prototype.toRx = function (mode) {
+    if (!mode) {
+      mode = 'gi';
+    }
+    return eval("/" + this + "/" + mode);
+  };
+  /**
+      * @description 正则判断
+      * @param {String} str 用作判断的正则
+      * @param {String} mode = [g|i|gi] 转换方式, g为全部, i为不区分大小写
+      * @return {Boolean} 符合正则返回true, 否则返回false
+      */
+  String.prototype.regex = function (str, mode) {
+    var rx = str.toRx(mode);
+    return rx.test(this + '');
+  };
+  /**
+      * @description 验证字符串格式
+      * @param {String} format 所属格式
+      * @return {Boolean} 验证通过返回true, 失败返回false
+      */
+  String.prototype.checkFormat = function (format) {
+    var bl = false;
+    var value = this + '';
+    var f = format.toLowerCase();
+    switch (f) {
+      case "phone":
+        bl = /^0?(13|14|15|16|17|18|19)[0-9]{9}$/.test(value);
+        break;
+      case "email":
+        bl = /^\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}$/gi.test(value);
+        break;
+      case "username":
+        bl = /^[a-z0-9A-Z_]+$/.test(value);
+        break;
+      case "password":
+        bl = /^[a-z0-9A-Z]+$/.test(value);
+        break;
+      case "url":
+        bl = /^((https|http|ftp|rtsp|mms)?:\/\/)[^\s]+/gi.test(value);
+        break;
+      case "date":
+        bl = /^\d{4}(\-|\/|\.)(0[1-9]|1[012]|[1-9])(\-|\/|\.)([12][0-9]|0[1-9]|3[01]|[1-9])$/.test(value);
+        break;
+      case "time":
+        bl = /^([01][0-9]|2[0-3]):([0-4][0-9]|5[0-9])(:([0-4][0-9]|5[0-9]))?$/.test(value);
+        break;
+      case "datetime":
+        bl =
+        /^\d{4}(\-|\/|\.)(0[1-9]|1[012]|[1-9])(\-|\/|\.)([12][0-9]|0[1-9]|3[01]|[1-9]) ([01][0-9]|2[0-3]):([0-4][0-9]|5[0-9])(:([0-4][0-9]|5[0-9]))?$/.
+        test(value);
+        break;
+      case "dateiso":
+        bl =
+        /^\d{4}-(0[1-9]|1[012]|[1-9])-([12][0-9]|0[1-9]|3[01]|[1-9])( ([01][0-9]|2[0-3]):([0-4][0-9]|5[0-9])(:([0-4][0-9]|5[0-9]))?)?$/.
+        test(value);
+        break;
+      case "number":
+        bl = /^[1-9]+[0-9]*(\.[0-9]+|[0-9]*)|0\.[0-9]+|0$/.test(value);
+        break;
+      case "en":
+        bl = /^[a-zA-Z]+$/.test(value);
+        break;
+      case "num":
+      case "digits":
+        bl = /^[0-9]+$/.test(value);
+        break;
+      case "ch":
+      case "chs":
+      case "chinese":
+        bl = /^[\u4e00-\u9fa5]+$/.test(value);
+        break;
+      default:
+        console.log('输入的类型错误');
+        break;}
+
+    return bl;
+  };
+  /**
+      * @description 编译模板
+      * @param {Object} obj 对象
+      * @return {String} 编译后的字符串
+      */
+  String.prototype.tpl = function (obj) {
+    var text = this + '';
+
+    function render() {
+      if (obj) {
+        for (var k in obj) {
+          this[k] = obj[k];
+        }
+      }
+      return eval("`" + text + "`");
+    }
+    return render();
+  };
+})();
+
+/* == 数组原型函数 == */
+(function () {
+  /**
+               * 列表转树形列表
+               * @param {Array} list 列表
+               * @param {String} id ID字段
+               * @param {Number} value ID对应值
+               * @param {String} father_id 上级ID字段
+               * @param {String} sub 子类字段
+               * @return {Array} 返回属性值
+               */
+  function toTree(list, id) {var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;var father_id = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'father_id';var sub = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 'sub';
+    var arr = [];
+    for (var i = 0; i < list.length; i++) {
+      var o = list[i];
+      if (o[father_id] === value) {
+        o[sub] = toTree(list, id, o[id], father_id, sub);
+        arr.push(o);
+      }
+    }
+    return arr;
+  }
+
+  function toList(list) {var sub = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'sub';var arr = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+    for (var i = 0; i < list.length; i++) {
+      var o = list[i];
+      var lt = o[sub];
+      delete o[sub];
+      arr.push(o);
+      if (lt && lt.length > 0) {
+        toList(lt, sub, arr);
+      }
+    }
+    return arr;
+  }
+
+  /**
+     * 列表转树形列表
+     * @param {String} id ID字段
+     * @param {Number} value ID对应值
+     * @param {String} father_id 上级ID字段
+     * @param {String} sub 子类字段
+     * @return {Array} 返回数组
+     */
+  Array.prototype.toTree = function (id) {var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;var father_id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'father_id';var sub = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'sub';
+    return toTree(this, id, value, father_id, sub);
+  };
+
+  /**
+      * 列表转树形列表
+      * @param {String} sub 子类字段
+      * @param {Array} arr 结果数组
+      * @return {Array} 返回数组
+      */
+  Array.prototype.toList = function () {var sub = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'sub';var arr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    return toList(this, sub, arr);
+  };
+
+  /**
+      * @description 拷贝对象
+      * @param {Boolean} has 是否非空拷贝，如果含有数据才拷贝，不含数据不拷贝
+      * @return {Array} 新数组
+      */
+  Array.prototype.copy = function (has) {
+    var arr_new = [];
+    var arr = this;
+    if (has) {
+      for (var i = 0; i < arr.length; i++) {
+        var o = arr[i];
+        if (o) {
+          arr_new[i] = o;
+        }
+      }
+    } else {
+      for (var i = 0; i < arr.length; i++) {
+        arr_new[i] = arr[i];
+      }
+    }
+    return arr_new;
+  };
+  /**
+      * @description 遍历对象执行函数
+      * @param {Function(Object):Boolean} func 函数名
+      */
+  Array.prototype.func = function (func) {
+    for (var i = 0; i < this.length; i++) {
+      if (func(this[i])) {
+        break;
+      }
+    }
+  };
+  /**
+      * @description 数组转字符串
+      * @param {String} splitStr 分隔符
+      * @param {String} key 对象属性名
+      * @return {String} 字符串 
+      */
+  Array.prototype.toStr = function (splitStr, key) {
+    var arr = this;
+    var str = "";
+    if (key) {
+      for (var i = 0; i < arr.length; i++) {
+        var o = arr[i];
+        if (o[key]) {
+          str += splitStr + o[key];
+        }
+      }
+    } else {
+      for (var i = 0; i < arr.length; i++) {
+        var o = arr[i];
+        str += splitStr + o;
+      }
+    }
+    return str.replace(splitStr, "");
+  };
+  /**
+      * @description 清空数组
+      * @return {Array} 清空的数组
+      */
+  Array.prototype.clear = function () {
+    this.splice(0, this.length);
+    return this;
+  };
+  /**
+      * @description 修改数组成员
+      * @param {Object} query 搜索条件
+      * @param {Object} obj 修改项
+      * @return {Array} 删除后的数组
+      */
+  Array.prototype.set = function (query, obj) {
+    for (var i = 0; i < this.length; i++) {
+      var o = this[i];
+      for (var k in query) {
+        if (as(o, query)) {
+          this[i] = obj;
+        };
+      }
+    }
+    return this;
+  };
+
+  /**
+      * @description 数组列表取数组
+      * @param {String} key 取的属性
+      * @return {Array} 截取的数组
+      */
+  Array.prototype.toArr = function (key) {
+    var arr = [];
+    var lt = this;
+    var len = lt.length;
+    for (var i = 0; i < len; i++) {
+      var o = lt[i];
+      arr.push(o[key]);
+    }
+    return arr;
+  };
+
+  /**
+      * @description 从数组获取对象
+      * @param {Object} query 查询条件
+      * @param {Boolean} end 是否结束
+      * @return {Object} 对象
+      */
+  Array.prototype.get = function (query, end) {
+    if (query) {
+      if (end) {
+        var obj;
+        for (var i = 0; i < this.length; i++) {
+          var o = this[i];
+          if (as(o, query)) {
+            obj = o;
+            break;
+          }
+        }
+        return obj;
+      } else {
+        var list = [];
+        for (var i = 0; i < this.length; i++) {
+          var o = this[i];
+          if (as(o, query)) {
+            list.push(o);
+          }
+        }
+        return list;
+      }
+    } else {
+      var list = [];
+      list.addList(this);
+      return list;
+    }
+  };
+
+  /**
+      * @description 从数组获取对象
+      * @param {Object} query 查询条件
+      * @return {Object} 对象
+      */
+  Array.prototype.getObj = function (query) {
+    var obj;
+    if (query) {
+      for (var i = 0; i < this.length; i++) {
+        var o = this[i];
+        if (as(o, query)) {
+          obj = o;
+          break;
+        }
+      }
+    }
+    return obj;
+  };
+  /**
+      * @description 获取数组对象的属性值
+      * @param {String} key 属性名
+      * @param {Object} query 查询条件
+      * @return {Object} 属性值
+      */
+  Array.prototype.getVal = function (key, query) {
+    var obj = this.getObj(query);
+    if (obj) {
+      return obj[key];
+    } else {
+      return null;
+    }
+  };
+  /**
+      * @description 获取符合条件的数组对象
+      * @param {Object} query 查询条件
+      * @return {Array} 对象数组
+      */
+  Array.prototype.getList = function (query) {
+    var arr = [];
+    if (query) {
+      for (var i = 0; i < this.length; i++) {
+        var o = this[i];
+        if (as(o, query)) {
+          arr.push(o);
+        }
+      }
+    } else {
+      arr = this.copy();
+    }
+    return arr;
+  };
+  /**
+      * @description 获取数组所有对象的属性值
+      * @param {String} key 属性名
+      * @param {Object} query 查询条件
+      * @return {Array} 属性值数组
+      */
+  Array.prototype.getArr = function (key, query) {
+    var arr = [];
+    if (query) {
+      for (var i = 0; i < this.length; i++) {
+        var o = this[i];
+        if (as(o, query)) {
+          arr.push(o[key]);
+        }
+      }
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        var o = this[i];
+        arr.push(o[key]);
+      }
+    }
+    return arr;
+  };
+  /**
+      * @description 给数组对象添加属性值
+      * @param {String} key 属性名
+      * @param {Object} value 属性值
+      * @param {Object} query 查询条件
+      * @param {Boolean} end 是否中断循环,中断只添加给第一个符合条件的对象
+      * @return {Array} 对象数组
+      */
+  Array.prototype.addVal = function (key, value, query, end) {
+    if (query) {
+      for (var i = 0; i < this.length; i++) {
+        var o = this[i];
+        if (as(o, query)) {
+          if (!o[key]) {
+            o[key] = value;
+            if (end) {
+              break;
+            }
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        var o = this[i];
+        if (!o[key]) {
+          o[key] = value;
+          if (end) {
+            break;
+          }
+        }
+      }
+    }
+    return this;
+  };
+  /**
+      * @description 给数组添加对象
+      * @param {Object} obj 对象
+      * @param {Object} query 查询条件
+      * @return {Array} 对象数组
+      */
+  Array.prototype.addObj = function (obj, query) {
+    var has = false;
+    if (query) {
+      for (var i = 0; i < this.length; i++) {
+        if (as(this[i], query)) {
+          has = true;
+          break;
+        }
+      }
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        if (as(this[i], obj)) {
+          has = true;
+          break;
+        }
+      }
+    }
+    if (!has) {
+      this.push(obj);
+    }
+    return this;
+  };
+  /**
+      * @description 给数组添加多个对象
+      * @param {Array} list 数组
+      * @param {Object} query 查询条件
+      * @return {Array} 对象数组
+      */
+  Array.prototype.addList = function (list, query) {
+    var len = list.length;
+    for (var i = 0; i < len; i++) {
+      this.addObj(list[i], query);
+    }
+    return this;
+  };
+
+  /**
+      * @description 给数组添加一个对象或列表
+      * @param {Object|Array} objOrList 对象或数组
+      * @param {Object} query 查询条件
+      * @return {Array} 对象数组
+      */
+  Array.prototype.add = function (objOrList, query) {
+    if (Array.isArray(objOrList)) {
+      this.addList(objOrList, query);
+    } else {
+      this.addObj(objOrList, query);
+    }
+    return this;
+  };
+
+  /**
+      * @description 删除数组中对象的属性
+      * @param {String} key 对象属性键
+      * @param {Object} query 查询条件
+      * @param {Boolean} end 是否中断循环,中断只删除第一个符合条件的对象
+      * @return {Array} 对象数组
+      */
+  Array.prototype.delVal = function (key, query, end) {
+    if (query) {
+      if (end) {
+        for (var i = 0; i < this.length; i++) {
+          var o = this[i];
+          if (as(o, query)) {
+            delete o[key];
+            break;
+          }
+        }
+      } else {
+        for (var i = 0; i < this.length; i++) {
+          var o = this[i];
+          if (as(o, query)) {
+            delete o[key];
+          }
+        }
+      }
+    } else {
+      if (end) {
+        delete this[0][key];
+      } else {
+        for (var i = 0; i < this.length; i++) {
+          var o = this[i];
+          delete o[key];
+        }
+      }
+    }
+    return this;
+  };
+  /**
+      * @description 删除数组中的对象
+      * @param {Object} query 查询条件
+      * @param {Boolean} end 是否中断循环,中断只删除第一个符合条件的对象
+      * @return {Array} 对象数组
+      */
+  Array.prototype.del = function (query, end) {
+    var bl = false;
+    if (end) {
+      if (query) {
+        for (var i = 0; i < this.length; i++) {
+          if (as(this[i], query)) {
+            this.splice(i, 1);
+            break;
+          }
+        }
+      } else {
+        for (var i = 0; i < this.length; i++) {
+          this.splice(i, 1);
+          break;
+        }
+      }
+    } else {
+      if (query) {
+        for (var i = this.length - 1; i >= 0; i--) {
+          if (as(this[i], query)) {
+            this.splice(i, 1);
+          }
+        }
+      } else {
+        for (var i = this.length - 1; i >= 0; i--) {
+          this.splice(i, 1);
+        }
+      }
+    }
+    return this;
+  };
+  /**
+      * @description 删除多个不同的数组成员
+      * @param {Array} list 查询条件列表
+      * @param {Boolean} end 是否中断循环,中断只删除第一个符合条件的对象
+      * @return {Array} 对象数组
+      */
+  Array.prototype.delList = function (list, end) {
+    var len = list.length;
+    for (var i = 0; i < len; i++) {
+      this.del(list[i], end);
+    }
+    return this;
+  };
+  /**
+      * @description 设置数组中对象的属性值
+      * @param {String} key 属性键
+      * @param {Object} value 属性值
+      * @param {Object} query 查询条件
+      * @param {Boolean} end 是否中断循环,中断只修改第一个符合条件的对象
+      * @return {Array} 对象数组
+      */
+  Array.prototype.setVal = function (key, value, query, end) {
+    if (query) {
+      for (var i = 0; i < this.length; i++) {
+        if (as(this[i], query)) {
+          this[i][key] = value;
+          if (end) {
+            break;
+          }
+        }
+      }
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        this[i][key] = value;
+        if (end) {
+          break;
+        }
+      }
+    }
+    return this;
+  };
+  /**
+      * @description 设置数组中对象的属性值
+      * @param {Object} obj 对象
+      * @param {Object} query 查询条件
+      * @param {Boolean} end 是否中断循环,中断只修改第一个符合条件的对象
+      * @return {Array} 对象数组
+      */
+  Array.prototype.setObj = function (obj, query, end) {
+    if (query) {
+      for (var i = 0; i < this.length; i++) {
+        var o = this[i];
+        if (as(o, query)) {
+          this[i] = obj;
+          if (end) {
+            break;
+          }
+        }
+      }
+    }
+    return this;
+  };
+  /**
+      * @description 设置数组中对象的属性值
+      * @param {Array} list 对象列表
+      * @param {Object} query 查询条件
+      * @param {Boolean} end 是否中断循环,中断只修改第一个符合条件的对象
+      * @return {Array} 对象数组
+      */
+  Array.prototype.setList = function (list, query, end) {
+    for (var i = 0; i < this.length; i++) {
+      this.setObj(this[i], query, end);
+    }
+  };
+  /**
+      * @description 搜索符合条件的成员
+      * @param {String} str 搜索关键词
+      * @param {String} key 主键, 用于列表数组时
+      * @return {Array} 返回符合条件的结果
+      */
+  Array.prototype.search = function (str, key) {
+    var arr = [];
+    var func;
+    var k = str.replaceAll('*', '');
+    if (str.startWith("*")) {
+      if (str.endWith("*")) {
+        if (key) {
+          func = function func(o) {
+            if (o[key].indexOf(k) !== -1) {
+              arr.push(o);
+            }
+          };
+        } else {
+          func = function func(o) {
+            if (o.indexOf(k) !== -1) {
+              arr.push(o);
+            }
+          };
+        }
+      } else {
+        if (key) {
+          func = function func(o) {
+            if (o[key].endWith(k)) {
+              arr.push(o);
+            }
+          };
+        } else {
+          func = function func(o) {
+            if (o.endWith(k)) {
+              arr.push(o);
+            }
+          };
+        }
+      }
+    } else if (str.endWith("*")) {
+      if (key) {
+        func = function func(o) {
+          if (o[key].startWith(k)) {
+            arr.push(o);
+          }
+        };
+      } else {
+        func = function func(o) {
+          if (o.startWith(k)) {
+            arr.push(o);
+          }
+        };
+      }
+
+    } else {
+      if (key) {
+        func = function func(o) {
+          if (o[key] === k) {
+            arr.push(o);
+          }
+        };
+      } else {
+        func = function func(o) {
+          if (o === k) {
+            arr.push(o);
+          }
+        };
+      }
+    }
+    this.map(func);
+    return arr;
+  };
+  /**
+      * @description 判断是否包含成员
+      * @param {Object} query 查询条件
+      * @return {Boolean} 有则返回true，没有则返回false
+      */
+  Array.prototype.has = function (query) {
+    var has = false;
+    for (var i = 0; i < this.length; i++) {
+      if (as(this[i], query)) {
+        has = true;
+        break;
+      }
+    };
+    return has;
+  };
+
+  /**
+      * @description 取含匹配项
+      * @param {String} str 被匹配的字符串
+      * @param {String} key 用于对象列表时查询
+      * @return {Object} 返回匹配的第一项
+      */
+  Array.prototype.getMatch = function (str, key) {
+    var obj;
+    if (key) {
+      for (var i = 0; i < this.length; i++) {
+        if (str.has(this[i][key])) {
+          obj = this[i];
+          break;
+        }
+      }
+    } else {
+      for (var i = 0; i < this.length; i++) {
+        if (str.has(this[i])) {
+          obj = this[i];
+          break;
+        }
+      }
+    }
+    return obj;
+  };
+
+  /**
+      * @description 数组转对象
+      * @param {String} key 主键, 用作对象索引
+      * @return {Object} 对象
+      */
+  Array.prototype.toObj = function (key) {
+    var obj = {};
+    this.map(function (o) {
+      var name = o[key];
+      if (name) {
+        obj[name] = o;
+      }
+    });
+    return obj;
+  };
+})();
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 23:
+/*!**********************************************!*\
+  !*** E:/github/other/mm_uni/plugins/core.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 24));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * @fileOverview 用户定义vue全局函数, 均以$前缀命名, 代表全局函数
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * @author <a href="http://www.fman.top">自由人网络</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              * @version 1.0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              */
+
+var host = "http://192.168.31.99:8000/";var _default =
+
+{
+  /**
+   * 安装
+   * @param {Object} Vue vue类
+   * @param {Object} optons 配置参数
+   */
+  install: function install(Vue, optons) {
+    if (optons && optons.host) {
+      host = optons.host;
+    }
+
+    var redirect_url = "";
+
+    /**
+                            * 转为键值
+                            * @param {Object} arr 数组
+                            * @param {String} key 键
+                            * @param {String} name 名称
+                            * @param {String} value 默认值
+                            */
+    Vue.prototype.$to_kv = function (arr, key, name, value) {
+      if (value === undefined) {
+        value = '';
+      }
+      var list = [];
+      if (arr.length > 0) {
+        if (key) {
+          var n = name ? name : 'name';
+          for (var i = 0; i < arr.length; i++) {
+            var o = arr[i];
+            list.push({
+              name: o[n],
+              value: o[key] });
+
+          }
+          if (arr[0].name !== '') {
+            list.unshift({
+              name: '',
+              value: value });
+
+          } else {
+            list[0].value = value;
+          }
+        } else if (arr.length && typeof arr[0] === "object") {
+          list = arr;
+          if (arr[0].name !== '') {
+            list.unshift({
+              name: '',
+              value: value });
+
+          }
+        } else {
+          for (var i = 0; i < arr.length; i++) {
+            var o = arr[i];
+            list.push({
+              name: o,
+              value: i });
+
+          }
+          if (arr[0] !== '') {
+            list.unshift({
+              name: '',
+              value: value });
+
+          } else {
+            list[0].value = value;
+          }
+        }
+      }
+      return list;
+    };
+
+    /**
+        * 转换时间
+        * @param {String} timeStr 时间字符串
+        * @param {String} format 转换格式
+        * @return {String} 返回转换后的结果
+        */
+    Vue.prototype.$to_time = function (timeStr, format) {
+      var time = timeStr.toTime();
+      if (format) {
+        return time.toStr(format);
+      } else {
+        var date = time.toStr("yyyy-MM-dd");
+        var now = new Date();
+        if (date == now.toStr("yyyy-MM-dd")) {
+          return time.toStr("hh:mm");
+        } else if (date == now.addDays(-1).toStr("yyyy-MM-dd")) {
+          return "昨天" + time.toStr("hh:mm");
+        } else if (time.toStr("yyyy") == now.toStr("yyyy")) {
+          return time.toStr("MM-dd");
+        } else {
+          return date;
+        }
+      }
+    };
+
+
+    // 开始
+    /**
+     * @description 提示框
+     * @param {String} text 提示内容
+     * @param {String} type 显示类型
+     */
+    Vue.prototype.$toast = function (text) {var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'dark';
+      uni.showToast({
+        title: text,
+        icon: "none",
+        duration: 2000 });
+
+    };
+
+    /**
+        * @description 过滤数组
+        * @param {Array} arr 被过滤的数组
+        * @param {String} key 判断的键
+        * @param {Object} value 判断的值
+        * @return {Array} 返回过滤后的数组
+        */
+    Vue.prototype.$filter = function (arr, key, value) {
+      var ar = [];
+      for (var i = 0; i < arr.length; i++) {
+        var o = arr[i];
+        if (o[key] === value) {
+          ar.push(o);
+        }
+      }
+      return ar;
+    };
+
+    /**
+        *  改变对象属性时间
+        * @param {Object} o 被改变的对象
+        */
+    Vue.prototype.$changeTime = function (o) {
+      for (var k in o) {
+        if (k.indexOf('time') !== -1) {
+          if (typeof k == 'string') {
+            var val = o[k];
+            if (val || val.indexOf('T') !== -1) {
+              var v = new Date(o[k]);
+              o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+            } else if (/\d+/.test(val)) {
+              if (o[k].length == 10) {
+                var v = new Date(o[k] * 1000);
+                o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+              } else if (o[k].length == 13) {
+                var v = new Date(o[k] * 1000);
+                o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+              }
+            } else if (typeof k == 'number') {
+              var v = new Date(o[k]);
+              o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+            }
+          }
+        }
+      }
+    };
+
+    /**
+        * 转为大写
+        * @param {String} word 单词
+        */
+    Vue.prototype.$to_up = function (word) {
+      return word.toUpperCase();
+    };
+
+    /**
+        * 显示小数位
+        * @param {Number} num 数值
+        * @param {Number} len 小数位
+        */
+    Vue.prototype.$to_fixed = function (num) {var len = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 4;
+      if (typeof num === 'number') {
+        return num.toFixed(len);
+      } else if (num) {
+        var n = Number(num);
+        return n.toFixed(len);
+      } else {
+        num = 0;
+        return num.toFixed(len);
+      }
+    };
+
+    /**
+        * 跳转地址
+        * @param {String} url
+        */
+    Vue.prototype.$redirect = function (url) {
+      if (url) {
+        redirect_url = url;
+      } else {
+        return redirect_url;
+      }
+    };
+
+    /**
+        * @description 转url字符串
+        * @param {Object} obj 被转换的对象
+        * @param {String} url 请求地址
+        * @return {String} url参数格式字符串
+        */
+    Vue.prototype.$toUrl = function (obj, url) {
+      var queryStr = "";
+      for (var key in obj) {
+        var value = obj[key];
+        if (typeof value === 'number') {
+          if (value > 0) {
+            queryStr += "&" + key + "=" + obj[key];
+          }
+        } else if (value) {
+          queryStr += "&" + key + "=" + encodeURI(value);
+        }
+      }
+      if (url) {
+        if (url.endWith('?') || url.endWith('&')) {
+          return url + queryStr.replace('&', '');
+        } else if (url.indexOf('?') === -1) {
+          return url + queryStr.replace('&', '?');
+        } else {
+          return url + queryStr;
+        }
+      } else {
+        return queryStr.replace('&', '');
+      }
+    };
+
+    /**
+        * 转换名称
+        * @param {Array} list 数组
+        */
+    Vue.prototype.$toName = function (list, value) {var value_key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'name';var key = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'value';
+      var ret = "";
+      for (var i = 0; i < list.length; i++) {
+        var o = list[i];
+        if (o[key] === value) {
+          ret = o[value_key];
+        }
+      }
+      return ret;
+    };
+
+    /**
+        * 补全请求url
+        * @param {String} url 现地址
+        * @return {String} 新地址
+        */
+    Vue.prototype.$fullUrl = function (url) {
+      var url_new = "";
+      if (url) {
+        if (url.indexOf("~/") === 0) {
+          url_new = url.replace('~/', host);
+        } else if (url.indexOf("/") === 0) {
+          url_new = url.replace('/', host);
+        } else {
+          url_new = url;
+        }
+      }
+      return url_new;
+    };
+
+    /**
+        * 补全请求url
+        * @param {String} url 现地址
+        * @return {String} 新地址
+        */
+    Vue.prototype.$fullImgUrl = function (url) {
+      if (url) {
+        return this.$fullUrl(url);
+      } else {
+        return "/static/img/logo.png";
+      }
+    };
+
+    /**
+        * 跳转导航
+        * @param {String} url 跳转地址
+        */
+    Vue.prototype.$nav = function (url) {
+      if (url.indexOf("//") === 0) {
+        uni.switchTab({
+          url: url });
+
+      } else if (url.indexOf("/") === 0) {
+        uni.navigateTo({
+          url: url });
+
+      } else {
+        uni.navigateBack({
+          delta: 1 });
+
+      }
+    };
+
+    // 结束
+    Vue.mixin({
+      data: function data() {
+        return {
+          phone_lock: 0 };
+
+      },
+      methods: {
+        /**
+                  * 锁定
+                  */
+        $lock: function $lock() {var _this2 = this;var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "phone";
+          var key = type + "_lock";
+          this[key] = 60;
+          var timer = setInterval(function () {
+            _this2[key] -= 1;
+            if (_this2[key] == 0) {
+              clearInterval(_this2.timer);
+              _this2[key] == 60;
+            }
+          }, 1000);
+        },
+        /**
+            * 拨打电话
+            */
+        $call_phone: function $call_phone(tel) {var _this3 = this;var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "拨号";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          uni.makePhoneCall({
+            phoneNumber: tel,
+            // 成功回调
+            success: function success(res) {
+              _this3.$lock("phone");
+            },
+            // 失败回调
+            fail: function fail(res) {
+              _this3.$call_phone(); //重复调用一次
+            } });
+
+
+        },
+        /**
+            * 快速获取列表
+            * @param {String} key
+            * @param {String} url
+            */
+        $getList: function $getList(key, url) {var _this4 = this;
+          this.$get(url, {}, function (json) {
+            if (json.result) {
+              _this4[key] = json.result.list;
+            }
+          });
+        },
+        /**
+            * 翻译
+            * @param {String} word 要翻译的单词
+            * @param {Object} func 回调函数
+            */
+        $translate: function $translate(word, func) {
+          var _this = this;
+          this.$get("~/api/service/translate?word=" + word, {}, function (json) {
+            if (json.result) {
+              func(json.result);
+            } else if (json.error) {
+              _this.$toast(json.error.message, 'danger');
+            } else {
+              _this.$toast('服务端连接错误！', 'danger');
+            }
+          });
+        },
+        /**
+            * 下载
+            * @param {String} url 下载地址
+            * @param {String} name 保存的名字
+            */
+        $download: function $download(url, name) {
+          var anchor = document.createElement('a');
+          if (!name) {
+            var arr = url.split("/");
+            name = arr[arr.length - 1];
+          }
+          if ('download' in anchor) {
+            anchor.href = url.replace("~/", host);
+            anchor.setAttribute("download", name);
+            anchor.className = "download-js-link";
+            anchor.style.display = "none";
+            document.body.appendChild(anchor);
+            setTimeout(function () {
+              anchor.click();
+              document.body.removeChild(anchor);
+            }, 66);
+            return true;
+          }
+        },
+        /**
+            * 导航跳转
+            * @param {String} url 链接地址
+            */
+
+        /**
+                * @description 获取用户信息
+                * @param {Function} func 回调函数
+                */
+        $get_user: function $get_user(func) {
+          var _this = this;
+
+          var token = uni.db.get("token");
+          if (token) {
+            // 存储token
+            this.$store.commit("user_set", {
+              token: token });
+
+          }
+
+          this.$get('~/api/user/state', null, function (json, status) {
+            if (json.result && json.result.obj) {
+              var user = json.result.obj;
+              _this.$store.commit('user_set', user);
+              if (func) {
+                func(user);
+              }
+            } else if (json.error) {
+              // 非法访问或未登录
+              _this.$store.commit('sign_out');
+            } else {
+              _this.$toast('服务器连接失败！');
+            }
+          });
+        },
+
+        /**
+            * GET请求
+            * @param {String} url 请求地址
+            * @param {Object} body 请求参数
+            * @param {Funciton} func 回调函数，可以为空，为空则采用await返回值
+            * @return {Object} 返回请求结果
+            */
+        $get: function $get(url, body, func) {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var _yield$uni$request, _yield$uni$request2, error, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                    url = url.replace('~/', host);
+                    if (body) {
+                      url = _this5.$toUrl(body, url);
+                    }if (!
+                    func) {_context.next = 6;break;}
+                    uni.request({
+                      url: url, // 仅为示例，并非真实接口地址。
+                      method: "GET",
+                      header: {
+                        'x-auth-token': _this5.$store.state.user.token },
+
+                      dataType: "json",
+                      success: function success(res) {
+                        func(res.data);
+                      },
+                      error: function error(err) {
+                        func(err);
+                      } });_context.next = 13;break;case 6:_context.next = 8;return (
+
+
+                      uni.request({
+                        url: url, // 仅为示例，并非真实接口地址。
+                        header: {
+                          'x-auth-token': _this5.$store.state.user.token },
+
+                        dataType: "json",
+                        data: body }));case 8:_yield$uni$request = _context.sent;_yield$uni$request2 = _slicedToArray(_yield$uni$request, 2);error = _yield$uni$request2[0];res = _yield$uni$request2[1];return _context.abrupt("return",
+
+                    res.data);case 13:case "end":return _context.stop();}}}, _callee);}))();
+
+        },
+        /**
+            * POST请求
+            * @param {String} url 请求地址
+            * @param {Object} data 请求参数
+            * @param {Funciton} func 回调函数，可以为空，为空则采用await返回值
+            * @return {Object} 返回请求结果
+            */
+        $post: function $post(url, data, func) {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var _yield$uni$request3, _yield$uni$request4, error, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                    url = url.replace('~/', host);if (!
+                    func) {_context2.next = 5;break;}
+                    uni.request({
+                      url: url, // 仅为示例，并非真实接口地址。
+                      method: "POST",
+                      header: {
+                        'x-auth-token': _this6.$store.state.user.token,
+                        'Content-Type': 'application/json' },
+
+                      dataType: "json",
+                      data: data,
+                      success: function success(res) {
+                        func(res.data);
+                      },
+                      error: function error(err) {
+                        func(err);
+                      } });_context2.next = 12;break;case 5:_context2.next = 7;return (
+
+
+                      uni.request({
+                        url: url, // 仅为示例，并非真实接口地址。
+                        method: "POST",
+                        header: {
+                          'x-auth-token': _this6.$store.state.user.token,
+                          'Content-Type': 'application/json' },
+
+                        dataType: "json",
+                        data: data }));case 7:_yield$uni$request3 = _context2.sent;_yield$uni$request4 = _slicedToArray(_yield$uni$request3, 2);error = _yield$uni$request4[0];res = _yield$uni$request4[1];return _context2.abrupt("return",
+
+                    res.data);case 12:case "end":return _context2.stop();}}}, _callee2);}))();
+
+        },
+        /**
+            * 上传文件
+            * @param {String} url 请求地址
+            * @param {Object} body 请求参数
+            * @param {Funciton} func 回调函数，可以为空，为空则采用await返回值
+            * @return {Object} 返回请求结果
+            */
+        $upload: function $upload(url, body, func) {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                    url = url.replace('~/', host);
+                    // 设置请求头 - 临时访问牌
+                    uni.setHeader('x-auth-token', _this7.$store.state.user.token);
+                    // 设置请求头 - 发送的内容类型
+                    uni.setHeader('Content-Type', 'multipart/form-data', ['post']);if (!
+                    func) {_context3.next = 7;break;}
+                    // 如果回调函数存在, 则采用异步
+                    uni.post(url, body).then(function (res) {
+                      func(res.data);
+                    }).catch(function (res) {
+                      func(res);
+                    });_context3.next = 11;break;case 7:_context3.next = 9;return (
+
+
+                      uni.post(url, body));case 9:res = _context3.sent;return _context3.abrupt("return",
+                    res.data);case 11:case "end":return _context3.stop();}}}, _callee3);}))();
+
+        },
+        /**
+            * 获取路径对应操作权限 鉴权
+            * @param {String} action 操作名
+            */
+        $check_action: function $check_action(path) {var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "get";
+          var o = this.$get_power(path);
+          if (o) {
+            console.log(o.user_group);
+          }
+          if (!o) {
+            return true;
+          }
+          return o[action];
+        },
+
+        /**
+            * 获取用户组权限
+            * @param {String} user_group 用户组
+            */
+        $get_auth: function $get_auth() {var _arguments = arguments,_this8 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var user_group;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:user_group = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : "游客";
+                    _this8.$get("~/api/sys/auth?", {
+                      user_group: user_group },
+                    function (json) {
+                      if (json && json.result && json.result.list) {
+                        _this8.$store.commit("set_auth", json.result.list);
+                      }
+                    });case 2:case "end":return _context4.stop();}}}, _callee4);}))();
+        },
+
+        /**
+            * 获取权限 
+            * @param {String} path 路由路径
+            */
+        $get_power: function $get_power(path) {
+          var list = this.$store.state.web.auth;
+          var obj;
+          for (var i = 0; i < list.length; i++) {
+            var o = list[i];
+            if (o.path === path) {
+              obj = o;
+              break;
+            }
+          }
+          return obj;
+        },
+
+        /**
+            * 是否有显示或操作字段的权限
+            * @param {String} action 操作名
+            * @param {String} field 查询的字段
+            */
+        $check_field: function $check_field(action, field) {
+          var o = this.$get_power(this.$route.path);
+          var auth;
+          if (o && o[action]) {
+            auth = o[action]["field_" + action];
+          }
+          if (auth) {
+            return auth.indexOf(field) !== -1;
+          }
+          return false;
+        } } });
+
+
+  } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 24:
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ 25);
+
+/***/ }),
+
+/***/ 25:
+/*!************************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+// This method of obtaining a reference to the global object needs to be
+// kept identical to the way it is obtained in runtime.js
+var g = (function() {
+  return this || (typeof self === "object" && self);
+})() || Function("return this")();
+
+// Use `getOwnPropertyNames` because not all browsers support calling
+// `hasOwnProperty` on the global `self` object in a worker. See #183.
+var hadRuntime = g.regeneratorRuntime &&
+  Object.getOwnPropertyNames(g).indexOf("regeneratorRuntime") >= 0;
+
+// Save the old regeneratorRuntime in case it needs to be restored later.
+var oldRuntime = hadRuntime && g.regeneratorRuntime;
+
+// Force reevalutation of runtime.js.
+g.regeneratorRuntime = undefined;
+
+module.exports = __webpack_require__(/*! ./runtime */ 26);
+
+if (hadRuntime) {
+  // Restore the original runtime.
+  g.regeneratorRuntime = oldRuntime;
+} else {
+  // Remove the global property added by runtime.js.
+  try {
+    delete g.regeneratorRuntime;
+  } catch(e) {
+    g.regeneratorRuntime = undefined;
+  }
+}
+
+
+/***/ }),
+
+/***/ 26:
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+!(function(global) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  var inModule = typeof module === "object";
+  var runtime = global.regeneratorRuntime;
+  if (runtime) {
+    if (inModule) {
+      // If regeneratorRuntime is defined globally and we're in a module,
+      // make the exports object identical to regeneratorRuntime.
+      module.exports = runtime;
+    }
+    // Don't bother evaluating the rest of this file if the runtime was
+    // already defined globally.
+    return;
+  }
+
+  // Define the runtime globally (as expected by generated code) as either
+  // module.exports (if we're in a module) or a new, empty object.
+  runtime = global.regeneratorRuntime = inModule ? module.exports : {};
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  runtime.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  runtime.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  runtime.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  runtime.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  runtime.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  runtime.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return runtime.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        if (delegate.iterator.return) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  runtime.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  runtime.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+})(
+  // In sloppy mode, unbound `this` refers to the global object, fallback to
+  // Function constructor if we're in global strict mode. That is sadly a form
+  // of indirect eval which violates Content Security Policy.
+  (function() {
+    return this || (typeof self === "object" && self);
+  })() || Function("return this")()
+);
+
+
+/***/ }),
+
+/***/ 27:
+/*!****************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/lang/index.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
+var _en = _interopRequireDefault(__webpack_require__(/*! ./en.js */ 28));
+var _zh = _interopRequireDefault(__webpack_require__(/*! ./zh.js */ 29));
+var _hk = _interopRequireDefault(__webpack_require__(/*! ./hk.js */ 30));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
+
+{
+  install: function install(Vue, options) {
+    Vue.prototype.$lang = {
+      en: _en.default,
+      zh: _zh.default,
+      hk: _hk.default
+      // jp,
+      // ko
+    };
+
+    Vue.mixin({
+      data: function data() {
+        return {};
+      },
+      methods: {
+        /**
+                  * 设置语言
+                  * @param {String} lang_type
+                  */
+        $set_lang: function $set_lang(lang_type) {
+          this.$store.commit('web/set_lang', lang_type);
+        },
+        /**
+            * 语言赋值
+            * @param {String} key 获取语言
+            */
+        $t: function $t(key) {
+          var lang_type = this.$store.state.web.lang_type;
+          var lang = this.$lang[lang_type];
+          var arr = key.split('.');
+          var value = lang;
+          for (var i = 0; i < arr.length; i++) {
+            value = value[arr[i]];
+            if (value === undefined) {
+              console.error("language pack error: " + key + " undefined");
+              break;
+            } else if (typeof value == "string") {
+              break;
+            }
+          }
+
+          if (typeof value == "string") {
+            for (var i = 0; i < (arguments.length <= 1 ? 0 : arguments.length - 1); i++) {
+              var reg = new RegExp("\\{" + i + "\\}", 'ig');
+              value = value.replace(reg, i + 1 < 1 || arguments.length <= i + 1 ? undefined : arguments[i + 1]);
+            }
+          }
+          return value;
+        } } });
+
+
+  } };exports.default = _default;
+
+/***/ }),
+
+/***/ 28:
+/*!*************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/lang/en.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  // public
+  common: {
+    vip: {
+      lv0: "Ordinary Member",
+      lv1: "Bronze Member",
+      lv2: "Silver Member",
+      lv3: "Gold Member",
+      lv4: "Platinum Member",
+      lv5: "Diamond Member" },
+
+    copyright: {
+      title: "Sound of Shejiang River & Freeman Network" } },
+
+
+  root_index: {
+    search: {
+      tip: "" } },
+
+
+  root_share: {
+    logo: {
+      title: "Share" },
+
+    qrcode: {
+      tip: "Scan or copy link" },
+
+    url: {
+      btn_copy: "click to copy the address" } },
+
+
+  vip_index: {
+    info: {
+      name: "Name",
+      balance: "Balance",
+      phone: "Mobile" } },
+
+
+  vip_deposit: {
+    info: {
+      account: "Current Account",
+      title: "Recharge Instructions",
+      content: "The top-up is based on the selected payment amount. After the top-up is successful, the account will be the selected denomination" },
+
+    select: {
+      desc: "Pay {0} yuan" } } };exports.default = _default;
+
+/***/ }),
+
+/***/ 29:
 /*!*************************************************!*\
   !*** E:/github/other/mm_uni/plugins/lang/zh.js ***!
   \*************************************************/
@@ -12445,7 +12709,38 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 21:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 30:
 /*!*************************************************!*\
   !*** E:/github/other/mm_uni/plugins/lang/hk.js ***!
   \*************************************************/
@@ -12516,7 +12811,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 22:
+/***/ 31:
 /*!*********************************************!*\
   !*** E:/github/other/mm_uni/store/index.js ***!
   \*********************************************/
@@ -12525,10 +12820,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 23));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 32));
 
-var _user = _interopRequireDefault(__webpack_require__(/*! ./user.js */ 24));
-var _web = _interopRequireDefault(__webpack_require__(/*! ./web.js */ 25));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _user = _interopRequireDefault(__webpack_require__(/*! ./user.js */ 33));
+var _web = _interopRequireDefault(__webpack_require__(/*! ./web.js */ 34));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 _vue.default.use(_vuex.default);
 
 var vuex = new _vuex.default.Store({
@@ -12546,7 +12841,7 @@ var _default = vuex;exports.default = _default;
 
 /***/ }),
 
-/***/ 23:
+/***/ 32:
 /*!********************************************!*\
   !*** ./node_modules/vuex/dist/vuex.esm.js ***!
   \********************************************/
@@ -13659,7 +13954,7 @@ var index = {
 
 /***/ }),
 
-/***/ 24:
+/***/ 33:
 /*!********************************************!*\
   !*** E:/github/other/mm_uni/store/user.js ***!
   \********************************************/
@@ -13690,7 +13985,13 @@ var index = {
       "avatar": "",
       "invite_code": "",
       "friends": "",
-      "state": 0 };
+      "state": 0,
+      // 姓名
+      "name": "",
+      // 性别
+      "sex": 0,
+      // 年龄
+      "age": 0 };
 
   },
   mutations: {
@@ -13719,7 +14020,7 @@ var index = {
 
 /***/ }),
 
-/***/ 25:
+/***/ 34:
 /*!*******************************************!*\
   !*** E:/github/other/mm_uni/store/web.js ***!
   \*******************************************/
@@ -13751,558 +14052,1397 @@ var index = {
 
 /***/ }),
 
-/***/ 298:
-/*!***************************************************************!*\
-  !*** E:/github/other/mm_uni/components/uni-forms/validate.js ***!
-  \***************************************************************/
+/***/ 345:
+/*!************************************************!*\
+  !*** E:/github/other/mm_uni/plugins/qrcode.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function");}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } });if (superClass) _setPrototypeOf(subClass, superClass);}function _setPrototypeOf(o, p) {_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {o.__proto__ = p;return o;};return _setPrototypeOf(o, p);}function _createSuper(Derived) {var hasNativeReflectConstruct = _isNativeReflectConstruct();return function _createSuperInternal() {var Super = _getPrototypeOf(Derived),result;if (hasNativeReflectConstruct) {var NewTarget = _getPrototypeOf(this).constructor;result = Reflect.construct(Super, arguments, NewTarget);} else {result = Super.apply(this, arguments);}return _possibleConstructorReturn(this, result);};}function _possibleConstructorReturn(self, call) {if (call && (typeof call === "object" || typeof call === "function")) {return call;}return _assertThisInitialized(self);}function _assertThisInitialized(self) {if (self === void 0) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return self;}function _isNativeReflectConstruct() {if (typeof Reflect === "undefined" || !Reflect.construct) return false;if (Reflect.construct.sham) return false;if (typeof Proxy === "function") return true;try {Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));return true;} catch (e) {return false;}}function _getPrototypeOf(o) {_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {return o.__proto__ || Object.getPrototypeOf(o);};return _getPrototypeOf(o);}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;}
-var pattern = {
-  email: /^\S+?@\S+?\.\S+?$/,
-  url: new RegExp("^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$", 'i') };
-
-
-var FORMAT_MAPPING = {
-  "int": 'number',
-  "bool": 'boolean',
-  "double": 'number',
-  "long": 'number',
-  "password": 'string' };
-
-
-function formatMessage(args, resources) {
-  var defaultMessage = ['label'];
-  defaultMessage.forEach(function (item) {
-    if (args[item] === undefined) {
-      args[item] = '';
-    }
-  });
-
-  var str = resources;
-  for (var key in args) {
-    var reg = new RegExp('{' + key + '}');
-    str = str.replace(reg, args[key]);
-  }
-  return str;
-}
-
-function isEmptyValue(value, type) {
-  if (value === undefined || value === null) {
-    return true;
-  }
-
-  if (typeof value === 'string' && !value) {
-    return true;
-  }
-
-  if (Array.isArray(value) && !value.length) {
-    return true;
-  }
-
-  if (type === 'object' && !Object.keys(value).length) {
-    return true;
-  }
-
-  return false;
-}
-
-var types = {
-  integer: function integer(value) {
-    return types.number(value) && parseInt(value, 10) === value;
-  },
-  string: function string(value) {
-    return typeof value === 'string';
-  },
-  number: function number(value) {
-    if (isNaN(value)) {
-      return false;
-    }
-    return typeof value === 'number';
-  },
-  "boolean": function boolean(value) {
-    return typeof value === 'boolean';
-  },
-  "float": function float(value) {
-    return types.number(value) && !types.integer(value);
-  },
-  array: function array(value) {
-    return Array.isArray(value);
-  },
-  object: function object(value) {
-    return typeof value === 'object' && !types.array(value);
-  },
-  date: function date(value) {
-    var v;
-    if (value instanceof Date) {
-      v = value;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var QRCode = {};
+(function () {
+  /**
+               * 获取单个字符的utf8编码
+               * unicode BMP平面约65535个字符
+               * @param {num} code
+               * return {array}
+               */
+  function unicodeFormat8(code) {
+    // 1 byte
+    var c0, c1, c2;
+    if (code < 128) {
+      return [code];
+      // 2 bytes
+    } else if (code < 2048) {
+      c0 = 192 + (code >> 6);
+      c1 = 128 + (code & 63);
+      return [c0, c1];
+      // 3 bytes
     } else {
-      v = new Date(value);
+      c0 = 224 + (code >> 12);
+      c1 = 128 + (code >> 6 & 63);
+      c2 = 128 + (code & 63);
+      return [c0, c1, c2];
     }
-    return typeof v.getTime === 'function' && typeof v.getMonth === 'function' && typeof v.getYear === 'function' && !isNaN(v.getTime());
-  },
-  timestamp: function timestamp(value) {
-    if (!this.integer(value) || Math.abs(value).toString().length > 16) {
-      return false;
-    }
-
-    return this.date(value);
-  },
-  email: function email(value) {
-    return typeof value === 'string' && !!value.match(pattern.email) && value.length < 255;
-  },
-  url: function url(value) {
-    return typeof value === 'string' && !!value.match(pattern.url);
-  },
-  pattern: function pattern(reg, value) {
-    try {
-      return new RegExp(reg).test(value);
-    } catch (e) {
-      return false;
-    }
-  },
-  method: function method(value) {
-    return typeof value === 'function';
-  } };var
-
-
-RuleValidator = /*#__PURE__*/function () {
-
-  function RuleValidator(message) {_classCallCheck(this, RuleValidator);
-    this._message = message;
-  }_createClass(RuleValidator, [{ key: "validateRule", value: function () {var _validateRule = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee(
-
-      key, value, data, allData) {var result, rules, hasRequired, message, i, rule, vt, now, resultExpr;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                result = null;
-
-                rules = key.rules;
-
-                hasRequired = rules.findIndex(function (item) {
-                  return item.required;
-                });if (!(
-                hasRequired < 0)) {_context.next = 8;break;}if (!(
-                value === null || value === undefined)) {_context.next = 6;break;}return _context.abrupt("return",
-                result);case 6:if (!(
-
-                typeof value === 'string' && !value.length)) {_context.next = 8;break;}return _context.abrupt("return",
-                result);case 8:
-
-
-
-                message = this._message;if (!(
-
-                rules === undefined)) {_context.next = 11;break;}return _context.abrupt("return",
-                message['default']);case 11:
-
-
-                i = 0;case 12:if (!(i < rules.length)) {_context.next = 35;break;}
-                rule = rules[i];
-                vt = this._getValidateType(rule);
-
-                if (key.label !== undefined) {
-                  Object.assign(rule, {
-                    label: key.label });
-
-                }if (!
-
-                RuleValidatorHelper[vt]) {_context.next = 20;break;}
-                result = RuleValidatorHelper[vt](rule, value, message);if (!(
-                result != null)) {_context.next = 20;break;}return _context.abrupt("break", 35);case 20:if (!
-
-
-
-
-                rule.validateExpr) {_context.next = 26;break;}
-                now = Date.now();
-                resultExpr = rule.validateExpr(value, allData, now);if (!(
-                resultExpr === false)) {_context.next = 26;break;}
-                result = this._getMessage(rule, rule.errorMessage || this._message['default']);return _context.abrupt("break", 35);case 26:if (!
-
-
-
-
-                rule.validateFunction) {_context.next = 32;break;}_context.next = 29;return (
-                  this.validateFunction(rule, value, data, allData, vt));case 29:result = _context.sent;if (!(
-                result !== null)) {_context.next = 32;break;}return _context.abrupt("break", 35);case 32:i++;_context.next = 12;break;case 35:return _context.abrupt("return",
-
-
-
-
-
-                result);case 36:case "end":return _context.stop();}}}, _callee, this);}));function validateRule(_x, _x2, _x3, _x4) {return _validateRule.apply(this, arguments);}return validateRule;}() }, { key: "validateFunction", value: function () {var _validateFunction = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2(
-
-
-      rule, value, data, allData, vt) {var result, callbackMessage, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                result = null;_context2.prev = 1;
-
-                callbackMessage = null;_context2.next = 5;return (
-                  rule.validateFunction(rule, value, allData || data, function (message) {
-                    callbackMessage = message;
-                  }));case 5:res = _context2.sent;
-                if (callbackMessage || typeof res === 'string' && res || res === false) {
-                  result = this._getMessage(rule, callbackMessage || res, vt);
-                }_context2.next = 12;break;case 9:_context2.prev = 9;_context2.t0 = _context2["catch"](1);
-
-                result = this._getMessage(rule, _context2.t0.message, vt);case 12:return _context2.abrupt("return",
-
-                result);case 13:case "end":return _context2.stop();}}}, _callee2, this, [[1, 9]]);}));function validateFunction(_x5, _x6, _x7, _x8, _x9) {return _validateFunction.apply(this, arguments);}return validateFunction;}() }, { key: "_getMessage", value: function _getMessage(
-
-
-    rule, message, vt) {
-      return formatMessage(rule, message || rule.errorMessage || this._message[vt] || message['default']);
-    } }, { key: "_getValidateType", value: function _getValidateType(
-
-    rule) {
-      // TODO
-      var result = '';
-      if (rule.required) {
-        result = 'required';
-      } else if (rule.format) {
-        result = 'format';
-      } else if (rule.range) {
-        result = 'range';
-      } else if (rule.maximum || rule.minimum) {
-        result = 'rangeNumber';
-      } else if (rule.maxLength || rule.minLength) {
-        result = 'rangeLength';
-      } else if (rule.pattern) {
-        result = 'pattern';
-      }
-      return result;
-    } }]);return RuleValidator;}();
-
-
-var RuleValidatorHelper = {
-  required: function required(rule, value, message) {
-    if (rule.required && isEmptyValue(value, rule.format || typeof value)) {
-      return formatMessage(rule, rule.errorMessage || message.required);
-    }
-
-    return null;
-  },
-
-  range: function range(rule, value, message) {var
-    range = rule.range,errorMessage = rule.errorMessage;
-
-    var list = new Array(range.length);
-    for (var i = 0; i < range.length; i++) {
-      var item = range[i];
-      if (types.object(item) && item.value !== undefined) {
-        list[i] = item.value;
-      } else {
-        list[i] = item;
+  }
+  /**
+     * 获取字符串的utf8编码字节串
+     * @param {string} string
+     * @return {array}
+     */
+  function getUTF8Bytes(string) {
+    var utf8codes = [];
+    for (var i = 0; i < string.length; i++) {
+      var code = string.charCodeAt(i);
+      var utf8 = unicodeFormat8(code);
+      for (var j = 0; j < utf8.length; j++) {
+        utf8codes.push(utf8[j]);
       }
     }
+    return utf8codes;
+  }
+  /**
+     * 二维码算法实现
+     * @param {string} data              要编码的信息字符串
+     * @param {num} errorCorrectLevel 纠错等级
+     */
+  function QRCodeAlg(data, errorCorrectLevel) {
+    this.typeNumber = -1; //版本
+    this.errorCorrectLevel = errorCorrectLevel;
+    this.modules = null; //二维矩阵，存放最终结果
+    this.moduleCount = 0; //矩阵大小
+    this.dataCache = null; //数据缓存
+    this.rsBlocks = null; //版本数据信息
+    this.totalDataCount = -1; //可使用的数据量
+    this.data = data;
+    this.utf8bytes = getUTF8Bytes(data);
+    this.make();
+  }
+  QRCodeAlg.prototype = {
+    constructor: QRCodeAlg,
+    /**
+                             * 获取二维码矩阵大小
+                             * @return {num} 矩阵大小
+                             */
+    getModuleCount: function getModuleCount() {
+      return this.moduleCount;
+    },
+    /**
+        * 编码
+        */
+    make: function make() {
+      this.getRightType();
+      this.dataCache = this.createData();
+      this.createQrcode();
+    },
+    /**
+        * 设置二位矩阵功能图形
+        * @param  {bool} test 表示是否在寻找最好掩膜阶段
+        * @param  {num} maskPattern 掩膜的版本
+        */
+    makeImpl: function makeImpl(maskPattern) {
+      this.moduleCount = this.typeNumber * 4 + 17;
+      this.modules = new Array(this.moduleCount);
+      for (var row = 0; row < this.moduleCount; row++) {
+        this.modules[row] = new Array(this.moduleCount);
+      }
+      this.setupPositionProbePattern(0, 0);
+      this.setupPositionProbePattern(this.moduleCount - 7, 0);
+      this.setupPositionProbePattern(0, this.moduleCount - 7);
+      this.setupPositionAdjustPattern();
+      this.setupTimingPattern();
+      this.setupTypeInfo(true, maskPattern);
+      if (this.typeNumber >= 7) {
+        this.setupTypeNumber(true);
+      }
+      this.mapData(this.dataCache, maskPattern);
+    },
+    /**
+        * 设置二维码的位置探测图形
+        * @param  {num} row 探测图形的中心横坐标
+        * @param  {num} col 探测图形的中心纵坐标
+        */
+    setupPositionProbePattern: function setupPositionProbePattern(row, col) {
+      for (var r = -1; r <= 7; r++) {
+        if (row + r <= -1 || this.moduleCount <= row + r) continue;
+        for (var c = -1; c <= 7; c++) {
+          if (col + c <= -1 || this.moduleCount <= col + c) continue;
+          if (0 <= r && r <= 6 && (c == 0 || c == 6) || 0 <= c && c <= 6 && (r == 0 || r == 6) || 2 <= r && r <= 4 && 2 <= c && c <= 4) {
+            this.modules[row + r][col + c] = true;
+          } else {
+            this.modules[row + r][col + c] = false;
+          }
+        }
+      }
+    },
+    /**
+        * 创建二维码
+        * @return {[type]} [description]
+        */
+    createQrcode: function createQrcode() {
+      var minLostPoint = 0;
+      var pattern = 0;
+      var bestModules = null;
+      for (var i = 0; i < 8; i++) {
+        this.makeImpl(i);
+        var lostPoint = QRUtil.getLostPoint(this);
+        if (i == 0 || minLostPoint > lostPoint) {
+          minLostPoint = lostPoint;
+          pattern = i;
+          bestModules = this.modules;
+        }
+      }
+      this.modules = bestModules;
+      this.setupTypeInfo(false, pattern);
+      if (this.typeNumber >= 7) {
+        this.setupTypeNumber(false);
+      }
+    },
+    /**
+        * 设置定位图形
+        * @return {[type]} [description]
+        */
+    setupTimingPattern: function setupTimingPattern() {
+      for (var r = 8; r < this.moduleCount - 8; r++) {
+        if (this.modules[r][6] != null) {
+          continue;
+        }
+        this.modules[r][6] = r % 2 == 0;
+        if (this.modules[6][r] != null) {
+          continue;
+        }
+        this.modules[6][r] = r % 2 == 0;
+      }
+    },
+    /**
+        * 设置矫正图形
+        * @return {[type]} [description]
+        */
+    setupPositionAdjustPattern: function setupPositionAdjustPattern() {
+      var pos = QRUtil.getPatternPosition(this.typeNumber);
+      for (var i = 0; i < pos.length; i++) {
+        for (var j = 0; j < pos.length; j++) {
+          var row = pos[i];
+          var col = pos[j];
+          if (this.modules[row][col] != null) {
+            continue;
+          }
+          for (var r = -2; r <= 2; r++) {
+            for (var c = -2; c <= 2; c++) {
+              if (r == -2 || r == 2 || c == -2 || c == 2 || r == 0 && c == 0) {
+                this.modules[row + r][col + c] = true;
+              } else {
+                this.modules[row + r][col + c] = false;
+              }
+            }
+          }
+        }
+      }
+    },
+    /**
+        * 设置版本信息（7以上版本才有）
+        * @param  {bool} test 是否处于判断最佳掩膜阶段
+        * @return {[type]}      [description]
+        */
+    setupTypeNumber: function setupTypeNumber(test) {
+      var bits = QRUtil.getBCHTypeNumber(this.typeNumber);
+      for (var i = 0; i < 18; i++) {
+        var mod = !test && (bits >> i & 1) == 1;
+        this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+        this.modules[i % 3 + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+      }
+    },
+    /**
+        * 设置格式信息（纠错等级和掩膜版本）
+        * @param  {bool} test
+        * @param  {num} maskPattern 掩膜版本
+        * @return {}
+        */
+    setupTypeInfo: function setupTypeInfo(test, maskPattern) {
+      var data = QRErrorCorrectLevel[this.errorCorrectLevel] << 3 | maskPattern;
+      var bits = QRUtil.getBCHTypeInfo(data);
+      // vertical
+      for (var i = 0; i < 15; i++) {
+        var mod = !test && (bits >> i & 1) == 1;
+        if (i < 6) {
+          this.modules[i][8] = mod;
+        } else if (i < 8) {
+          this.modules[i + 1][8] = mod;
+        } else {
+          this.modules[this.moduleCount - 15 + i][8] = mod;
+        }
+        // horizontal
+        var mod = !test && (bits >> i & 1) == 1;
+        if (i < 8) {
+          this.modules[8][this.moduleCount - i - 1] = mod;
+        } else if (i < 9) {
+          this.modules[8][15 - i - 1 + 1] = mod;
+        } else {
+          this.modules[8][15 - i - 1] = mod;
+        }
+      }
+      // fixed module
+      this.modules[this.moduleCount - 8][8] = !test;
+    },
+    /**
+        * 数据编码
+        * @return {[type]} [description]
+        */
+    createData: function createData() {
+      var buffer = new QRBitBuffer();
+      var lengthBits = this.typeNumber > 9 ? 16 : 8;
+      buffer.put(4, 4); //添加模式
+      buffer.put(this.utf8bytes.length, lengthBits);
+      for (var i = 0, l = this.utf8bytes.length; i < l; i++) {
+        buffer.put(this.utf8bytes[i], 8);
+      }
+      if (buffer.length + 4 <= this.totalDataCount * 8) {
+        buffer.put(0, 4);
+      }
+      // padding
+      while (buffer.length % 8 != 0) {
+        buffer.putBit(false);
+      }
+      // padding
+      while (true) {
+        if (buffer.length >= this.totalDataCount * 8) {
+          break;
+        }
+        buffer.put(QRCodeAlg.PAD0, 8);
+        if (buffer.length >= this.totalDataCount * 8) {
+          break;
+        }
+        buffer.put(QRCodeAlg.PAD1, 8);
+      }
+      return this.createBytes(buffer);
+    },
+    /**
+        * 纠错码编码
+        * @param  {buffer} buffer 数据编码
+        * @return {[type]}
+        */
+    createBytes: function createBytes(buffer) {
+      var offset = 0;
+      var maxDcCount = 0;
+      var maxEcCount = 0;
+      var length = this.rsBlock.length / 3;
+      var rsBlocks = new Array();
+      for (var i = 0; i < length; i++) {
+        var count = this.rsBlock[i * 3 + 0];
+        var totalCount = this.rsBlock[i * 3 + 1];
+        var dataCount = this.rsBlock[i * 3 + 2];
+        for (var j = 0; j < count; j++) {
+          rsBlocks.push([dataCount, totalCount]);
+        }
+      }
+      var dcdata = new Array(rsBlocks.length);
+      var ecdata = new Array(rsBlocks.length);
+      for (var r = 0; r < rsBlocks.length; r++) {
+        var dcCount = rsBlocks[r][0];
+        var ecCount = rsBlocks[r][1] - dcCount;
+        maxDcCount = Math.max(maxDcCount, dcCount);
+        maxEcCount = Math.max(maxEcCount, ecCount);
+        dcdata[r] = new Array(dcCount);
+        for (var i = 0; i < dcdata[r].length; i++) {
+          dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+        }
+        offset += dcCount;
+        var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
+        var rawPoly = new QRPolynomial(dcdata[r], rsPoly.getLength() - 1);
+        var modPoly = rawPoly.mod(rsPoly);
+        ecdata[r] = new Array(rsPoly.getLength() - 1);
+        for (var i = 0; i < ecdata[r].length; i++) {
+          var modIndex = i + modPoly.getLength() - ecdata[r].length;
+          ecdata[r][i] = modIndex >= 0 ? modPoly.get(modIndex) : 0;
+        }
+      }
+      var data = new Array(this.totalDataCount);
+      var index = 0;
+      for (var i = 0; i < maxDcCount; i++) {
+        for (var r = 0; r < rsBlocks.length; r++) {
+          if (i < dcdata[r].length) {
+            data[index++] = dcdata[r][i];
+          }
+        }
+      }
+      for (var i = 0; i < maxEcCount; i++) {
+        for (var r = 0; r < rsBlocks.length; r++) {
+          if (i < ecdata[r].length) {
+            data[index++] = ecdata[r][i];
+          }
+        }
+      }
+      return data;
 
-    var result = false;
-    if (Array.isArray(value)) {
-      result = new Set(value.concat(list)).size === list.length;
-    } else {
-      if (list.indexOf(value) > -1) {
-        result = true;
+    },
+    /**
+        * 布置模块，构建最终信息
+        * @param  {} data
+        * @param  {} maskPattern
+        * @return {}
+        */
+    mapData: function mapData(data, maskPattern) {
+      var inc = -1;
+      var row = this.moduleCount - 1;
+      var bitIndex = 7;
+      var byteIndex = 0;
+      for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+        if (col == 6) col--;
+        while (true) {
+          for (var c = 0; c < 2; c++) {
+            if (this.modules[row][col - c] == null) {
+              var dark = false;
+              if (byteIndex < data.length) {
+                dark = (data[byteIndex] >>> bitIndex & 1) == 1;
+              }
+              var mask = QRUtil.getMask(maskPattern, row, col - c);
+              if (mask) {
+                dark = !dark;
+              }
+              this.modules[row][col - c] = dark;
+              bitIndex--;
+              if (bitIndex == -1) {
+                byteIndex++;
+                bitIndex = 7;
+              }
+            }
+          }
+          row += inc;
+          if (row < 0 || this.moduleCount <= row) {
+            row -= inc;
+            inc = -inc;
+            break;
+          }
+        }
+      }
+    } };
+
+  /**
+          * 填充字段
+          */
+  QRCodeAlg.PAD0 = 0xEC;
+  QRCodeAlg.PAD1 = 0x11;
+  //---------------------------------------------------------------------
+  // 纠错等级对应的编码
+  //---------------------------------------------------------------------
+  var QRErrorCorrectLevel = [1, 0, 3, 2];
+  //---------------------------------------------------------------------
+  // 掩膜版本
+  //---------------------------------------------------------------------
+  var QRMaskPattern = {
+    PATTERN000: 0,
+    PATTERN001: 1,
+    PATTERN010: 2,
+    PATTERN011: 3,
+    PATTERN100: 4,
+    PATTERN101: 5,
+    PATTERN110: 6,
+    PATTERN111: 7 };
+
+  //---------------------------------------------------------------------
+  // 工具类
+  //---------------------------------------------------------------------
+  var QRUtil = {
+    /*
+                 每个版本矫正图形的位置
+                  */
+    PATTERN_POSITION_TABLE: [
+    [],
+    [6, 18],
+    [6, 22],
+    [6, 26],
+    [6, 30],
+    [6, 34],
+    [6, 22, 38],
+    [6, 24, 42],
+    [6, 26, 46],
+    [6, 28, 50],
+    [6, 30, 54],
+    [6, 32, 58],
+    [6, 34, 62],
+    [6, 26, 46, 66],
+    [6, 26, 48, 70],
+    [6, 26, 50, 74],
+    [6, 30, 54, 78],
+    [6, 30, 56, 82],
+    [6, 30, 58, 86],
+    [6, 34, 62, 90],
+    [6, 28, 50, 72, 94],
+    [6, 26, 50, 74, 98],
+    [6, 30, 54, 78, 102],
+    [6, 28, 54, 80, 106],
+    [6, 32, 58, 84, 110],
+    [6, 30, 58, 86, 114],
+    [6, 34, 62, 90, 118],
+    [6, 26, 50, 74, 98, 122],
+    [6, 30, 54, 78, 102, 126],
+    [6, 26, 52, 78, 104, 130],
+    [6, 30, 56, 82, 108, 134],
+    [6, 34, 60, 86, 112, 138],
+    [6, 30, 58, 86, 114, 142],
+    [6, 34, 62, 90, 118, 146],
+    [6, 30, 54, 78, 102, 126, 150],
+    [6, 24, 50, 76, 102, 128, 154],
+    [6, 28, 54, 80, 106, 132, 158],
+    [6, 32, 58, 84, 110, 136, 162],
+    [6, 26, 54, 82, 110, 138, 166],
+    [6, 30, 58, 86, 114, 142, 170]],
+
+    G15: 1 << 10 | 1 << 8 | 1 << 5 | 1 << 4 | 1 << 2 | 1 << 1 | 1 << 0,
+    G18: 1 << 12 | 1 << 11 | 1 << 10 | 1 << 9 | 1 << 8 | 1 << 5 | 1 << 2 | 1 << 0,
+    G15_MASK: 1 << 14 | 1 << 12 | 1 << 10 | 1 << 4 | 1 << 1,
+    /*
+                                                             BCH编码格式信息
+                                                              */
+    getBCHTypeInfo: function getBCHTypeInfo(data) {
+      var d = data << 10;
+      while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
+        d ^= QRUtil.G15 << QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15);
+      }
+      return (data << 10 | d) ^ QRUtil.G15_MASK;
+    },
+    /*
+       BCH编码版本信息
+        */
+    getBCHTypeNumber: function getBCHTypeNumber(data) {
+      var d = data << 12;
+      while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
+        d ^= QRUtil.G18 << QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18);
+      }
+      return data << 12 | d;
+    },
+    /*
+       获取BCH位信息
+        */
+    getBCHDigit: function getBCHDigit(data) {
+      var digit = 0;
+      while (data != 0) {
+        digit++;
+        data >>>= 1;
+      }
+      return digit;
+    },
+    /*
+       获取版本对应的矫正图形位置
+        */
+    getPatternPosition: function getPatternPosition(typeNumber) {
+      return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
+    },
+    /*
+       掩膜算法
+        */
+    getMask: function getMask(maskPattern, i, j) {
+      switch (maskPattern) {
+        case QRMaskPattern.PATTERN000:
+          return (i + j) % 2 == 0;
+        case QRMaskPattern.PATTERN001:
+          return i % 2 == 0;
+        case QRMaskPattern.PATTERN010:
+          return j % 3 == 0;
+        case QRMaskPattern.PATTERN011:
+          return (i + j) % 3 == 0;
+        case QRMaskPattern.PATTERN100:
+          return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;
+        case QRMaskPattern.PATTERN101:
+          return i * j % 2 + i * j % 3 == 0;
+        case QRMaskPattern.PATTERN110:
+          return (i * j % 2 + i * j % 3) % 2 == 0;
+        case QRMaskPattern.PATTERN111:
+          return (i * j % 3 + (i + j) % 2) % 2 == 0;
+        default:
+          throw new Error("bad maskPattern:" + maskPattern);}
+
+    },
+    /*
+       获取RS的纠错多项式
+        */
+    getErrorCorrectPolynomial: function getErrorCorrectPolynomial(errorCorrectLength) {
+      var a = new QRPolynomial([1], 0);
+      for (var i = 0; i < errorCorrectLength; i++) {
+        a = a.multiply(new QRPolynomial([1, QRMath.gexp(i)], 0));
+      }
+      return a;
+    },
+    /*
+       获取评价
+        */
+    getLostPoint: function getLostPoint(qrCode) {
+      var moduleCount = qrCode.getModuleCount(),
+      lostPoint = 0,
+      darkCount = 0;
+      for (var row = 0; row < moduleCount; row++) {
+        var sameCount = 0;
+        var head = qrCode.modules[row][0];
+        for (var col = 0; col < moduleCount; col++) {
+          var current = qrCode.modules[row][col];
+          //level 3 评价
+          if (col < moduleCount - 6) {
+            if (current && !qrCode.modules[row][col + 1] && qrCode.modules[row][col + 2] && qrCode.modules[row][col + 3] && qrCode.modules[row][col + 4] && !qrCode.modules[row][col + 5] && qrCode.modules[row][col + 6]) {
+              if (col < moduleCount - 10) {
+                if (qrCode.modules[row][col + 7] && qrCode.modules[row][col + 8] && qrCode.modules[row][col + 9] && qrCode.modules[row][col + 10]) {
+                  lostPoint += 40;
+                }
+              } else if (col > 3) {
+                if (qrCode.modules[row][col - 1] && qrCode.modules[row][col - 2] && qrCode.modules[row][col - 3] && qrCode.modules[row][col - 4]) {
+                  lostPoint += 40;
+                }
+              }
+            }
+          }
+          //level 2 评价
+          if (row < moduleCount - 1 && col < moduleCount - 1) {
+            var count = 0;
+            if (current) count++;
+            if (qrCode.modules[row + 1][col]) count++;
+            if (qrCode.modules[row][col + 1]) count++;
+            if (qrCode.modules[row + 1][col + 1]) count++;
+            if (count == 0 || count == 4) {
+              lostPoint += 3;
+            }
+          }
+          //level 1 评价
+          if (head ^ current) {
+            sameCount++;
+          } else {
+            head = current;
+            if (sameCount >= 5) {
+              lostPoint += 3 + sameCount - 5;
+            }
+            sameCount = 1;
+          }
+          //level 4 评价
+          if (current) {
+            darkCount++;
+          }
+        }
+      }
+      for (var col = 0; col < moduleCount; col++) {
+        var sameCount = 0;
+        var head = qrCode.modules[0][col];
+        for (var row = 0; row < moduleCount; row++) {
+          var current = qrCode.modules[row][col];
+          //level 3 评价
+          if (row < moduleCount - 6) {
+            if (current && !qrCode.modules[row + 1][col] && qrCode.modules[row + 2][col] && qrCode.modules[row + 3][col] && qrCode.modules[row + 4][col] && !qrCode.modules[row + 5][col] && qrCode.modules[row + 6][col]) {
+              if (row < moduleCount - 10) {
+                if (qrCode.modules[row + 7][col] && qrCode.modules[row + 8][col] && qrCode.modules[row + 9][col] && qrCode.modules[row + 10][col]) {
+                  lostPoint += 40;
+                }
+              } else if (row > 3) {
+                if (qrCode.modules[row - 1][col] && qrCode.modules[row - 2][col] && qrCode.modules[row - 3][col] && qrCode.modules[row - 4][col]) {
+                  lostPoint += 40;
+                }
+              }
+            }
+          }
+          //level 1 评价
+          if (head ^ current) {
+            sameCount++;
+          } else {
+            head = current;
+            if (sameCount >= 5) {
+              lostPoint += 3 + sameCount - 5;
+            }
+            sameCount = 1;
+          }
+        }
+      }
+      // LEVEL4
+      var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+      lostPoint += ratio * 10;
+      return lostPoint;
+    } };
+
+
+  //---------------------------------------------------------------------
+  // QRMath使用的数学工具
+  //---------------------------------------------------------------------
+  var QRMath = {
+    /*
+                 将n转化为a^m
+                  */
+    glog: function glog(n) {
+      if (n < 1) {
+        throw new Error("glog(" + n + ")");
+      }
+      return QRMath.LOG_TABLE[n];
+    },
+    /*
+       将a^m转化为n
+        */
+    gexp: function gexp(n) {
+      while (n < 0) {
+        n += 255;
+      }
+      while (n >= 256) {
+        n -= 255;
+      }
+      return QRMath.EXP_TABLE[n];
+    },
+    EXP_TABLE: new Array(256),
+    LOG_TABLE: new Array(256) };
+
+
+  for (var i = 0; i < 8; i++) {
+    QRMath.EXP_TABLE[i] = 1 << i;
+  }
+  for (var i = 8; i < 256; i++) {
+    QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
+  }
+  for (var i = 0; i < 255; i++) {
+    QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
+  }
+  //---------------------------------------------------------------------
+  // QRPolynomial 多项式
+  //---------------------------------------------------------------------
+  /**
+   * 多项式类
+   * @param {Array} num   系数
+   * @param {num} shift a^shift
+   */
+  function QRPolynomial(num, shift) {
+    if (num.length == undefined) {
+      throw new Error(num.length + "/" + shift);
+    }
+    var offset = 0;
+    while (offset < num.length && num[offset] == 0) {
+      offset++;
+    }
+    this.num = new Array(num.length - offset + shift);
+    for (var i = 0; i < num.length - offset; i++) {
+      this.num[i] = num[i + offset];
+    }
+  }
+  QRPolynomial.prototype = {
+    get: function get(index) {
+      return this.num[index];
+    },
+    getLength: function getLength() {
+      return this.num.length;
+    },
+    /**
+        * 多项式乘法
+        * @param  {QRPolynomial} e 被乘多项式
+        * @return {[type]}   [description]
+        */
+    multiply: function multiply(e) {
+      var num = new Array(this.getLength() + e.getLength() - 1);
+      for (var i = 0; i < this.getLength(); i++) {
+        for (var j = 0; j < e.getLength(); j++) {
+          num[i + j] ^= QRMath.gexp(QRMath.glog(this.get(i)) + QRMath.glog(e.get(j)));
+        }
+      }
+      return new QRPolynomial(num, 0);
+    },
+    /**
+        * 多项式模运算
+        * @param  {QRPolynomial} e 模多项式
+        * @return {}
+        */
+    mod: function mod(e) {
+      var tl = this.getLength(),
+      el = e.getLength();
+      if (tl - el < 0) {
+        return this;
+      }
+      var num = new Array(tl);
+      for (var i = 0; i < tl; i++) {
+        num[i] = this.get(i);
+      }
+      while (num.length >= el) {
+        var ratio = QRMath.glog(num[0]) - QRMath.glog(e.get(0));
+
+        for (var i = 0; i < e.getLength(); i++) {
+          num[i] ^= QRMath.gexp(QRMath.glog(e.get(i)) + ratio);
+        }
+        while (num[0] == 0) {
+          num.shift();
+        }
+      }
+      return new QRPolynomial(num, 0);
+    } };
+
+
+  //---------------------------------------------------------------------
+  // RS_BLOCK_TABLE
+  //---------------------------------------------------------------------
+  /*
+  二维码各个版本信息[块数, 每块中的数据块数, 每块中的信息块数]
+   */
+  var RS_BLOCK_TABLE = [
+  // L
+  // M
+  // Q
+  // H
+  // 1
+  [1, 26, 19],
+  [1, 26, 16],
+  [1, 26, 13],
+  [1, 26, 9],
+
+  // 2
+  [1, 44, 34],
+  [1, 44, 28],
+  [1, 44, 22],
+  [1, 44, 16],
+
+  // 3
+  [1, 70, 55],
+  [1, 70, 44],
+  [2, 35, 17],
+  [2, 35, 13],
+
+  // 4
+  [1, 100, 80],
+  [2, 50, 32],
+  [2, 50, 24],
+  [4, 25, 9],
+
+  // 5
+  [1, 134, 108],
+  [2, 67, 43],
+  [2, 33, 15, 2, 34, 16],
+  [2, 33, 11, 2, 34, 12],
+
+  // 6
+  [2, 86, 68],
+  [4, 43, 27],
+  [4, 43, 19],
+  [4, 43, 15],
+
+  // 7
+  [2, 98, 78],
+  [4, 49, 31],
+  [2, 32, 14, 4, 33, 15],
+  [4, 39, 13, 1, 40, 14],
+
+  // 8
+  [2, 121, 97],
+  [2, 60, 38, 2, 61, 39],
+  [4, 40, 18, 2, 41, 19],
+  [4, 40, 14, 2, 41, 15],
+
+  // 9
+  [2, 146, 116],
+  [3, 58, 36, 2, 59, 37],
+  [4, 36, 16, 4, 37, 17],
+  [4, 36, 12, 4, 37, 13],
+
+  // 10
+  [2, 86, 68, 2, 87, 69],
+  [4, 69, 43, 1, 70, 44],
+  [6, 43, 19, 2, 44, 20],
+  [6, 43, 15, 2, 44, 16],
+
+  // 11
+  [4, 101, 81],
+  [1, 80, 50, 4, 81, 51],
+  [4, 50, 22, 4, 51, 23],
+  [3, 36, 12, 8, 37, 13],
+
+  // 12
+  [2, 116, 92, 2, 117, 93],
+  [6, 58, 36, 2, 59, 37],
+  [4, 46, 20, 6, 47, 21],
+  [7, 42, 14, 4, 43, 15],
+
+  // 13
+  [4, 133, 107],
+  [8, 59, 37, 1, 60, 38],
+  [8, 44, 20, 4, 45, 21],
+  [12, 33, 11, 4, 34, 12],
+
+  // 14
+  [3, 145, 115, 1, 146, 116],
+  [4, 64, 40, 5, 65, 41],
+  [11, 36, 16, 5, 37, 17],
+  [11, 36, 12, 5, 37, 13],
+
+  // 15
+  [5, 109, 87, 1, 110, 88],
+  [5, 65, 41, 5, 66, 42],
+  [5, 54, 24, 7, 55, 25],
+  [11, 36, 12],
+
+  // 16
+  [5, 122, 98, 1, 123, 99],
+  [7, 73, 45, 3, 74, 46],
+  [15, 43, 19, 2, 44, 20],
+  [3, 45, 15, 13, 46, 16],
+
+  // 17
+  [1, 135, 107, 5, 136, 108],
+  [10, 74, 46, 1, 75, 47],
+  [1, 50, 22, 15, 51, 23],
+  [2, 42, 14, 17, 43, 15],
+
+  // 18
+  [5, 150, 120, 1, 151, 121],
+  [9, 69, 43, 4, 70, 44],
+  [17, 50, 22, 1, 51, 23],
+  [2, 42, 14, 19, 43, 15],
+
+  // 19
+  [3, 141, 113, 4, 142, 114],
+  [3, 70, 44, 11, 71, 45],
+  [17, 47, 21, 4, 48, 22],
+  [9, 39, 13, 16, 40, 14],
+
+  // 20
+  [3, 135, 107, 5, 136, 108],
+  [3, 67, 41, 13, 68, 42],
+  [15, 54, 24, 5, 55, 25],
+  [15, 43, 15, 10, 44, 16],
+
+  // 21
+  [4, 144, 116, 4, 145, 117],
+  [17, 68, 42],
+  [17, 50, 22, 6, 51, 23],
+  [19, 46, 16, 6, 47, 17],
+
+  // 22
+  [2, 139, 111, 7, 140, 112],
+  [17, 74, 46],
+  [7, 54, 24, 16, 55, 25],
+  [34, 37, 13],
+
+  // 23
+  [4, 151, 121, 5, 152, 122],
+  [4, 75, 47, 14, 76, 48],
+  [11, 54, 24, 14, 55, 25],
+  [16, 45, 15, 14, 46, 16],
+
+  // 24
+  [6, 147, 117, 4, 148, 118],
+  [6, 73, 45, 14, 74, 46],
+  [11, 54, 24, 16, 55, 25],
+  [30, 46, 16, 2, 47, 17],
+
+  // 25
+  [8, 132, 106, 4, 133, 107],
+  [8, 75, 47, 13, 76, 48],
+  [7, 54, 24, 22, 55, 25],
+  [22, 45, 15, 13, 46, 16],
+
+  // 26
+  [10, 142, 114, 2, 143, 115],
+  [19, 74, 46, 4, 75, 47],
+  [28, 50, 22, 6, 51, 23],
+  [33, 46, 16, 4, 47, 17],
+
+  // 27
+  [8, 152, 122, 4, 153, 123],
+  [22, 73, 45, 3, 74, 46],
+  [8, 53, 23, 26, 54, 24],
+  [12, 45, 15, 28, 46, 16],
+
+  // 28
+  [3, 147, 117, 10, 148, 118],
+  [3, 73, 45, 23, 74, 46],
+  [4, 54, 24, 31, 55, 25],
+  [11, 45, 15, 31, 46, 16],
+
+  // 29
+  [7, 146, 116, 7, 147, 117],
+  [21, 73, 45, 7, 74, 46],
+  [1, 53, 23, 37, 54, 24],
+  [19, 45, 15, 26, 46, 16],
+
+  // 30
+  [5, 145, 115, 10, 146, 116],
+  [19, 75, 47, 10, 76, 48],
+  [15, 54, 24, 25, 55, 25],
+  [23, 45, 15, 25, 46, 16],
+
+  // 31
+  [13, 145, 115, 3, 146, 116],
+  [2, 74, 46, 29, 75, 47],
+  [42, 54, 24, 1, 55, 25],
+  [23, 45, 15, 28, 46, 16],
+
+  // 32
+  [17, 145, 115],
+  [10, 74, 46, 23, 75, 47],
+  [10, 54, 24, 35, 55, 25],
+  [19, 45, 15, 35, 46, 16],
+
+  // 33
+  [17, 145, 115, 1, 146, 116],
+  [14, 74, 46, 21, 75, 47],
+  [29, 54, 24, 19, 55, 25],
+  [11, 45, 15, 46, 46, 16],
+
+  // 34
+  [13, 145, 115, 6, 146, 116],
+  [14, 74, 46, 23, 75, 47],
+  [44, 54, 24, 7, 55, 25],
+  [59, 46, 16, 1, 47, 17],
+
+  // 35
+  [12, 151, 121, 7, 152, 122],
+  [12, 75, 47, 26, 76, 48],
+  [39, 54, 24, 14, 55, 25],
+  [22, 45, 15, 41, 46, 16],
+
+  // 36
+  [6, 151, 121, 14, 152, 122],
+  [6, 75, 47, 34, 76, 48],
+  [46, 54, 24, 10, 55, 25],
+  [2, 45, 15, 64, 46, 16],
+
+  // 37
+  [17, 152, 122, 4, 153, 123],
+  [29, 74, 46, 14, 75, 47],
+  [49, 54, 24, 10, 55, 25],
+  [24, 45, 15, 46, 46, 16],
+
+  // 38
+  [4, 152, 122, 18, 153, 123],
+  [13, 74, 46, 32, 75, 47],
+  [48, 54, 24, 14, 55, 25],
+  [42, 45, 15, 32, 46, 16],
+
+  // 39
+  [20, 147, 117, 4, 148, 118],
+  [40, 75, 47, 7, 76, 48],
+  [43, 54, 24, 22, 55, 25],
+  [10, 45, 15, 67, 46, 16],
+
+  // 40
+  [19, 148, 118, 6, 149, 119],
+  [18, 75, 47, 31, 76, 48],
+  [34, 54, 24, 34, 55, 25],
+  [20, 45, 15, 61, 46, 16]];
+
+
+  /**
+                              * 根据数据获取对应版本
+                              * @return {[type]} [description]
+                              */
+  QRCodeAlg.prototype.getRightType = function () {
+    for (var typeNumber = 1; typeNumber < 41; typeNumber++) {
+      var rsBlock = RS_BLOCK_TABLE[(typeNumber - 1) * 4 + this.errorCorrectLevel];
+      if (rsBlock == undefined) {
+        throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + this.errorCorrectLevel);
+      }
+      var length = rsBlock.length / 3;
+      var totalDataCount = 0;
+      for (var i = 0; i < length; i++) {
+        var count = rsBlock[i * 3 + 0];
+        var dataCount = rsBlock[i * 3 + 2];
+        totalDataCount += dataCount * count;
+      }
+      var lengthBytes = typeNumber > 9 ? 2 : 1;
+      if (this.utf8bytes.length + lengthBytes < totalDataCount || typeNumber == 40) {
+        this.typeNumber = typeNumber;
+        this.rsBlock = rsBlock;
+        this.totalDataCount = totalDataCount;
+        break;
       }
     }
+  };
 
-    if (!result) {
-      return formatMessage(rule, errorMessage || message['enum']);
+  //---------------------------------------------------------------------
+  // QRBitBuffer
+  //---------------------------------------------------------------------
+  function QRBitBuffer() {
+    this.buffer = new Array();
+    this.length = 0;
+  }
+  QRBitBuffer.prototype = {
+    get: function get(index) {
+      var bufIndex = Math.floor(index / 8);
+      return this.buffer[bufIndex] >>> 7 - index % 8 & 1;
+    },
+    put: function put(num, length) {
+      for (var i = 0; i < length; i++) {
+        this.putBit(num >>> length - i - 1 & 1);
+      }
+    },
+    putBit: function putBit(bit) {
+      var bufIndex = Math.floor(this.length / 8);
+      if (this.buffer.length <= bufIndex) {
+        this.buffer.push(0);
+      }
+      if (bit) {
+        this.buffer[bufIndex] |= 0x80 >>> this.length % 8;
+      }
+      this.length++;
+    } };
+
+
+
+
+  // xzedit
+  var qrcodeAlgObjCache = [];
+  /**
+                               * 二维码构造函数，主要用于绘制
+                               * @param  {参数列表} opt 传递参数
+                               * @return {}
+                               */
+  QRCode = function QRCode(opt) {
+    //设置默认参数
+    this.options = {
+      text: '',
+      size: 256,
+      correctLevel: 3,
+      background: '#ffffff',
+      foreground: '#000000',
+      pdground: '#000000',
+      image: '',
+      imageSize: 30,
+      canvasId: opt.canvasId,
+      context: opt.context,
+      usingComponents: opt.usingComponents,
+      showLoading: opt.showLoading,
+      loadingText: opt.loadingText };
+
+    if (typeof opt === 'string') {// 只编码ASCII字符串
+      opt = {
+        text: opt };
+
     }
-
-    return null;
-  },
-
-  rangeNumber: function rangeNumber(rule, value, message) {
-    if (!types.number(value)) {
-      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
-    }var
-
-    minimum = rule.minimum,maximum = rule.maximum,exclusiveMinimum = rule.exclusiveMinimum,exclusiveMaximum = rule.exclusiveMaximum;
-    var min = exclusiveMinimum ? value <= minimum : value < minimum;
-    var max = exclusiveMaximum ? value >= maximum : value > maximum;
-
-    if (minimum !== undefined && min) {
-      return formatMessage(rule, rule.errorMessage || message['number'].min);
-    } else if (maximum !== undefined && max) {
-      return formatMessage(rule, rule.errorMessage || message['number'].max);
-    } else if (minimum !== undefined && maximum !== undefined && (min || max)) {
-      return formatMessage(rule, rule.errorMessage || message['number'].range);
-    }
-
-    return null;
-  },
-
-  rangeLength: function rangeLength(rule, value, message) {
-    if (!types.string(value) && !types.array(value)) {
-      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
-    }
-
-    var min = rule.minLength;
-    var max = rule.maxLength;
-    var val = value.length;
-
-    if (min !== undefined && val < min) {
-      return formatMessage(rule, rule.errorMessage || message['length'].min);
-    } else if (max !== undefined && val > max) {
-      return formatMessage(rule, rule.errorMessage || message['length'].max);
-    } else if (min !== undefined && max !== undefined && (val < min || val > max)) {
-      return formatMessage(rule, rule.errorMessage || message['length'].range);
-    }
-
-    return null;
-  },
-
-  pattern: function pattern(rule, value, message) {
-    if (!types['pattern'](rule.pattern, value)) {
-      return formatMessage(rule, rule.errorMessage || message.pattern.mismatch);
-    }
-
-    return null;
-  },
-
-  format: function format(rule, value, message) {
-    var customTypes = Object.keys(types);
-    var format = FORMAT_MAPPING[rule.format] ? FORMAT_MAPPING[rule.format] : rule.format;
-
-    if (customTypes.indexOf(format) > -1) {
-      if (!types[format](value)) {
-        return formatMessage(rule, rule.errorMessage || message.types[format]);
+    if (opt) {
+      for (var i in opt) {
+        this.options[i] = opt[i];
       }
     }
-
-    return null;
-  } };var
-
-
-SchemaValidator = /*#__PURE__*/function (_RuleValidator) {_inherits(SchemaValidator, _RuleValidator);var _super = _createSuper(SchemaValidator);
-
-  function SchemaValidator(schema, options) {var _this;_classCallCheck(this, SchemaValidator);
-    _this = _super.call(this, SchemaValidator.message);
-
-    _this._schema = schema;
-    _this._options = options || null;return _this;
-  }_createClass(SchemaValidator, [{ key: "updateSchema", value: function updateSchema(
-
-    schema) {
-      this._schema = schema;
-    } }, { key: "validate", value: function () {var _validate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3(
-
-      data, allData) {var result;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                result = this._checkFieldInSchema(data);if (
-                result) {_context3.next = 5;break;}_context3.next = 4;return (
-                  this.invokeValidate(data, false, allData));case 4:result = _context3.sent;case 5:return _context3.abrupt("return",
-
-                result.length ? result[0] : null);case 6:case "end":return _context3.stop();}}}, _callee3, this);}));function validate(_x10, _x11) {return _validate.apply(this, arguments);}return validate;}() }, { key: "validateAll", value: function () {var _validateAll = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4(
-
-
-      data, allData) {var result;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
-                result = this._checkFieldInSchema(data);if (
-                result) {_context4.next = 5;break;}_context4.next = 4;return (
-                  this.invokeValidate(data, true, allData));case 4:result = _context4.sent;case 5:return _context4.abrupt("return",
-
-                result);case 6:case "end":return _context4.stop();}}}, _callee4, this);}));function validateAll(_x12, _x13) {return _validateAll.apply(this, arguments);}return validateAll;}() }, { key: "validateUpdate", value: function () {var _validateUpdate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5(
-
-
-      data, allData) {var result;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
-                result = this._checkFieldInSchema(data);if (
-                result) {_context5.next = 5;break;}_context5.next = 4;return (
-                  this.invokeValidateUpdate(data, false, allData));case 4:result = _context5.sent;case 5:return _context5.abrupt("return",
-
-                result.length ? result[0] : null);case 6:case "end":return _context5.stop();}}}, _callee5, this);}));function validateUpdate(_x14, _x15) {return _validateUpdate.apply(this, arguments);}return validateUpdate;}() }, { key: "invokeValidate", value: function () {var _invokeValidate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6(
-
-
-      data, all, allData) {var result, schema, key, value, errorMessage;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
-                result = [];
-                schema = this._schema;_context6.t0 = _regenerator.default.keys(
-                schema);case 3:if ((_context6.t1 = _context6.t0()).done) {_context6.next = 15;break;}key = _context6.t1.value;
-                value = schema[key];_context6.next = 8;return (
-                  this.validateRule(value, data[key], data, allData));case 8:errorMessage = _context6.sent;if (!(
-                errorMessage != null)) {_context6.next = 13;break;}
-                result.push({
-                  key: key,
-                  errorMessage: errorMessage });if (
-
-                all) {_context6.next = 13;break;}return _context6.abrupt("break", 15);case 13:_context6.next = 3;break;case 15:return _context6.abrupt("return",
-
-
-                result);case 16:case "end":return _context6.stop();}}}, _callee6, this);}));function invokeValidate(_x16, _x17, _x18) {return _invokeValidate.apply(this, arguments);}return invokeValidate;}() }, { key: "invokeValidateUpdate", value: function () {var _invokeValidateUpdate = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7(
-
-
-      data, all, allData) {var result, key, errorMessage;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
-                result = [];_context7.t0 = _regenerator.default.keys(
-                data);case 2:if ((_context7.t1 = _context7.t0()).done) {_context7.next = 13;break;}key = _context7.t1.value;_context7.next = 6;return (
-                  this.validateRule(this._schema[key], data[key], data, allData));case 6:errorMessage = _context7.sent;if (!(
-                errorMessage != null)) {_context7.next = 11;break;}
-                result.push({
-                  key: key,
-                  errorMessage: errorMessage });if (
-
-                all) {_context7.next = 11;break;}return _context7.abrupt("break", 13);case 11:_context7.next = 2;break;case 13:return _context7.abrupt("return",
-
-
-                result);case 14:case "end":return _context7.stop();}}}, _callee7, this);}));function invokeValidateUpdate(_x19, _x20, _x21) {return _invokeValidateUpdate.apply(this, arguments);}return invokeValidateUpdate;}() }, { key: "_checkFieldInSchema", value: function _checkFieldInSchema(
-
-
-    data) {
-      var keys = Object.keys(data);
-      var keys2 = Object.keys(this._schema);
-      if (new Set(keys.concat(keys2)).size === keys2.length) {
-        return '';
+    //使用QRCodeAlg创建二维码结构
+    var qrCodeAlg = null;
+    for (var i = 0, l = qrcodeAlgObjCache.length; i < l; i++) {
+      if (qrcodeAlgObjCache[i].text == this.options.text && qrcodeAlgObjCache[i].text.correctLevel == this.options.correctLevel) {
+        qrCodeAlg = qrcodeAlgObjCache[i].obj;
+        break;
       }
-      return [{
-        key: 'invalid',
-        errorMessage: SchemaValidator.message['defaultInvalid'] }];
+    }
+    if (i == l) {
+      qrCodeAlg = new QRCodeAlg(this.options.text, this.options.correctLevel);
+      qrcodeAlgObjCache.push({
+        text: this.options.text,
+        correctLevel: this.options.correctLevel,
+        obj: qrCodeAlg });
 
-    } }]);return SchemaValidator;}(RuleValidator);
+    }
+    /**
+       * 计算矩阵点的前景色
+       * @param {Obj} config
+       * @param {Number} config.row 点x坐标
+       * @param {Number} config.col 点y坐标
+       * @param {Number} config.count 矩阵大小
+       * @param {Number} config.options 组件的options
+       * @return {String}
+       */
+    var getForeGround = function getForeGround(config) {
+      var options = config.options;
+      if (options.pdground && (
+      config.row > 1 && config.row < 5 && config.col > 1 && config.col < 5 ||
+      config.row > config.count - 6 && config.row < config.count - 2 && config.col > 1 && config.col < 5 ||
+      config.row > 1 && config.row < 5 && config.col > config.count - 6 && config.col < config.count - 2))
+      {
+        return options.pdground;
+      }
+      return options.foreground;
+    };
+    // 创建canvas
+    var createCanvas = function createCanvas(options) {
+      if (options.showLoading) {
+        uni.showLoading({
+          title: options.loadingText,
+          mask: true });
+
+      }
+      var ctx = uni.createCanvasContext(options.canvasId, options.context);
+      var count = qrCodeAlg.getModuleCount();
+      var ratioSize = options.size;
+      var ratioImgSize = options.imageSize;
+      //计算每个点的长宽
+      var tileW = (ratioSize / count).toPrecision(4);
+      var tileH = (ratioSize / count).toPrecision(4);
+      //绘制
+      for (var row = 0; row < count; row++) {
+        for (var col = 0; col < count; col++) {
+          var w = Math.ceil((col + 1) * tileW) - Math.floor(col * tileW);
+          var h = Math.ceil((row + 1) * tileW) - Math.floor(row * tileW);
+          var foreground = getForeGround({
+            row: row,
+            col: col,
+            count: count,
+            options: options });
+
+          ctx.setFillStyle(qrCodeAlg.modules[row][col] ? foreground : options.background);
+          ctx.fillRect(Math.round(col * tileW), Math.round(row * tileH), w, h);
+        }
+      }
+      if (options.image) {
 
 
-function Message() {
-  return {
-    default: '验证错误',
-    defaultInvalid: '字段超出范围',
-    required: '{label}必填',
-    'enum': '{label}超出范围',
-    whitespace: '{label}不能为空',
-    date: {
-      format: '{label}日期{value}格式无效',
-      parse: '{label}日期无法解析,{value}无效',
-      invalid: '{label}日期{value}无效' },
-
-    types: {
-      string: '{label}类型无效',
-      array: '{label}类型无效',
-      object: '{label}类型无效',
-      number: '{label}类型无效',
-      date: '{label}类型无效',
-      boolean: '{label}类型无效',
-      integer: '{label}类型无效',
-      float: '{label}类型无效',
-      regexp: '{label}无效',
-      email: '{label}类型无效',
-      url: '{label}类型无效' },
-
-    length: {
-      min: '{label}长度不能少于{minLength}',
-      max: '{label}长度不能超过{maxLength}',
-      range: '{label}必须介于{minLength}和{maxLength}之间' },
-
-    number: {
-      min: '{label}不能小于{minimum}',
-      max: '{label}不能大于{maximum}',
-      range: '{label}必须介于{minimum}and{maximum}之间' },
-
-    pattern: {
-      mismatch: '{label}格式不匹配' } };
 
 
-}
+        // 画圆角矩形
+        var drawRoundedRect = function drawRoundedRect(ctxi, x, y, width, height, r, lineWidth, fill, stroke) {
+          ctxi.setLineWidth(lineWidth);
+          ctxi.setFillStyle(options.background);
+          ctxi.setStrokeStyle(options.background);
+          ctxi.beginPath(); // draw top and top right corner 
+          ctxi.moveTo(x + r, y);
+          ctxi.arcTo(x + width, y, x + width, y + r, r); // draw right side and bottom right corner 
+          ctxi.arcTo(x + width, y + height, x + width - r, y + height, r); // draw bottom and bottom left corner 
+          ctxi.arcTo(x, y + height, x, y + height - r, r); // draw left and top left corner 
+          ctxi.arcTo(x, y, x + r, y, r);
+          ctxi.closePath();
+          if (fill) {
+            ctxi.fill();
+          }
+          if (stroke) {
+            ctxi.stroke();
+          }
+        };var x = Number(((ratioSize - ratioImgSize) / 2).toFixed(2));var y = Number(((ratioSize - ratioImgSize) / 2).toFixed(2));drawRoundedRect(ctx, x, y, ratioImgSize, ratioImgSize, 2, 6, true, true);ctx.drawImage(options.image, x, y, ratioImgSize, ratioImgSize);
+      }
+      setTimeout(function () {
+        ctx.draw(true, function () {
+          // 保存到临时区域
+          setTimeout(function () {
+            uni.canvasToTempFilePath({
+              width: options.width,
+              height: options.height,
+              destWidth: options.width,
+              destHeight: options.height,
+              canvasId: options.canvasId,
+              quality: Number(1),
+              success: function success(res) {
+                if (options.cbResult) {
+                  options.cbResult(res.tempFilePath);
+                }
+              },
+              fail: function fail(res) {
+                if (options.cbResult) {
+                  options.cbResult(res);
+                }
+              },
+              complete: function complete() {
+                if (options.showLoading) {
+                  uni.hideLoading();
+                }
+              } },
+            options.context);
+          }, options.text.length + 100);
+        });
+      }, options.usingComponents ? 0 : 150);
+    };
+    createCanvas(this.options);
+    // 空判定
+    var empty = function empty(v) {
+      var tp = typeof v,
+      rt = false;
+      if (tp == "number" && String(v) == "") {
+        rt = true;
+      } else if (tp == "undefined") {
+        rt = true;
+      } else if (tp == "object") {
+        if (JSON.stringify(v) == "{}" || JSON.stringify(v) == "[]" || v == null) rt = true;
+      } else if (tp == "string") {
+        if (v == "" || v == "undefined" || v == "null" || v == "{}" || v == "[]") rt = true;
+      } else if (tp == "function") {
+        rt = false;
+      }
+      return rt;
+    };
+  };
+  QRCode.prototype.clear = function (fn) {
+    var ctx = uni.createCanvasContext(this.options.canvasId, this.options.context);
+    ctx.clearRect(0, 0, this.options.size, this.options.size);
+    ctx.draw(false, function () {
+      if (fn) {
+        fn();
+      }
+    });
+  };
+})();var _default =
 
-
-SchemaValidator.message = new Message();var _default =
-
-SchemaValidator;exports.default = _default;
+QRCode;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
+/***/ 363:
+/*!************************************************!*\
+  !*** E:/github/other/mm_uni/mixins/control.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default2 = {
+  model: {
+    prop: 'value',
+    event: 'input' },
+
+  props: {
+    // 宽度
+    width: {
+      type: String,
+      default: '' },
+
+    height: {
+      type: String,
+      default: '' },
+
+    // 类型
+    type: {
+      type: String,
+      default: 'text' },
+
+    // 选项
+    options: {
+      type: Array,
+      default: function _default() {
+        return [];
+      } },
+
+    // 赋值
+    value: {
+      type: [String, Number, Boolean] },
+
+    // 回调函数
+    func: {
+      type: Function,
+      default: function _default(fun, param1, param2) {
+        return null;
+      } },
+
+    // 显示方式
+    display: {
+      type: String,
+      default: "1" },
+
+    // 显示隐藏
+    show: {
+      type: Boolean,
+      default: false },
+
+    // 标题
+    title: {
+      type: String,
+      default: "" },
+
+    // 图标
+    icon: {
+      type: String,
+      default: '' },
+
+    // 单位
+    unit: {
+      type: String,
+      default: '' },
+
+    // 描述
+    desc: {
+      type: String,
+      default: "" },
+
+    // 错误提示
+    tip: {
+      type: String,
+      default: "" },
+
+    // 最小值
+    min: {
+      type: Number,
+      default: 0 },
+
+    // 最大值
+    max: {
+      type: Number,
+      default: 0 },
+
+    // 最小长度
+    min_length: {
+      type: Number,
+      default: 0 },
+
+    // 最大长度
+    max_length: {
+      type: Number,
+      default: 65535 },
+
+    // 主键
+    field: {
+      type: String,
+      default: "value" },
+
+    disabled: {
+      type: Boolean,
+      default: false },
+
+    num: {
+      type: Number,
+      default: 5 } },
+
+
+  data: function data() {
+    return {
+      // 显示方式
+      dy: this.display,
+      // 显示隐藏
+      sw: this.show,
+      // 加载中
+      load: this.loading,
+      // 列表
+      oj: this.obj,
+      // 数量
+      nm: this.num,
+      // 文本
+      txt: this.text,
+      // 值
+      val: this.value,
+      // 禁用
+      dd: this.disabled };
+
+  },
+  methods: {
+    /// 可更改其他属性，默认绑定回调函数
+    /// fun: 函数名
+    /// param1: 参数1
+    /// param2: 参数2
+    /// param3: 参数3
+    run: function run(fun, param1, param2, param3) {
+      if (this.func) {
+        return this.func(param1, param2, param3);
+      }
+
+      return null;
+    },
+    // 删除
+    /// query: 查询条件
+    del: function del() {
+      var query = {};
+      query[this.field] = this.id;
+      this.run('del', query);
+    },
+    // 修改
+    /// query: 查询条件
+    /// obj: 修改的对象
+    set: function set(obj) {
+      var query = {};
+      query[this.field] = this.id;
+      this.run('set', query, obj);
+    } } };exports.default = _default2;
+
+/***/ }),
+
+/***/ 4:
+/*!*****************************************!*\
+  !*** E:/github/other/mm_uni/pages.json ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
 
 
 /***/ }),
 
-/***/ 313:
-/*!*****************************************************************!*\
-  !*** E:/github/other/mm_uni/components/uni-easyinput/common.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.throttle = exports.debounce = void 0; /**
-                                                                                                                          * @desc 函数防抖
-                                                                                                                          * @param func 目标函数
-                                                                                                                          * @param wait 延迟执行毫秒数
-                                                                                                                          * @param immediate true - 立即执行， false - 延迟执行
-                                                                                                                          */
-var debounce = function debounce(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;var immediate = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  var timer;
-  console.log(1);
-  return function () {
-    console.log(123);
-    var context = this,
-    args = arguments;
-    if (timer) clearTimeout(timer);
-    if (immediate) {
-      var callNow = !timer;
-      timer = setTimeout(function () {
-        timer = null;
-      }, wait);
-      if (callNow) func.apply(context, args);
-    } else {
-      timer = setTimeout(function () {
-        func.apply(context, args);
-      }, wait);
-    }
-  };
-};
-/**
-    * @desc 函数节流
-    * @param func 函数
-    * @param wait 延迟执行毫秒数
-    * @param type 1 使用表时间戳，在时间段开始的时候触发 2 使用表定时器，在时间段结束的时候触发
-    */exports.debounce = debounce;
-var throttle = function throttle(func) {var wait = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-  var previous = 0;
-  var timeout;
-  return function () {
-    var context = this;
-    var args = arguments;
-    if (type === 1) {
-      var now = Date.now();
-
-      if (now - previous > wait) {
-        func.apply(context, args);
-        previous = now;
-      }
-    } else if (type === 2) {
-      if (!timeout) {
-        timeout = setTimeout(function () {
-          timeout = null;
-          func.apply(context, args);
-        }, wait);
-      }
-    }
-  };
-};exports.throttle = throttle;
-
-/***/ }),
-
-/***/ 32:
+/***/ 41:
 /*!*********************************************!*\
   !*** E:/github/other/mm_uni/mixins/page.js ***!
   \*********************************************/
@@ -14442,11 +15582,13 @@ var throttle = function throttle(func) {var wait = arguments.length > 1 && argum
       user: this.$store.state.user,
 
       // 修改提示
-      tip_show: true };
+      tip_show: true,
+
+      // 提交成功是否跳转, false不跳转,true跳转
+      success_return: false };
 
   },
   methods: {
-
     /**
               * @description 保存对象
               * @param {String} key 键
@@ -14672,54 +15814,30 @@ var throttle = function throttle(func) {var wait = arguments.length > 1 && argum
         * 检测授权，有权限后回调函数
         * @param {Function} func 回调函数
         */
-    check_auth: function check_auth(func) {var _this2 = this;
+    check_auth: function check_auth(func) {
       // 取出权限
-      var auth = this.$store.state.web.auth;
-      // 权限长度不为空
-      if (!auth || auth.length === 0) {
-        this.$get_auth(this.user.user_group);
-      }
+      // var auth = this.$store.state.web.auth;
+      // // 权限长度不为空
+      // if (!auth || auth.length === 0) {
+      // 	// this.$get_auth(this.user.user_group);
+      // }
+      if (this.oauth.signIn) {
+        // 判断用户ID
+        if (!this.user.user_id) {
 
-      // 判断用户ID
-      if (!this.user.user_id) {
-        var token = uni.db.get("token");
-        if (token) {
-          // 存储token
-          this.$store.commit("user_set", {
-            token: token });
-
-          // 获取登录态
-          this.$get_user(function () {
-            // 判断
-            if (_this2.oauth.signIn) {
-              if (_this2.user.user_id) {
-                // 执行获取权限并存储
-                _this2.$get_auth(_this2.user.user_group);
-                func();
-              } else {
-                uni.navigateTo({
-                  url: "/pages/account/login" });
-
-              }
-            }
-          });
-        } else {
-          // 前往登录页
-          if (this.oauth.signIn) {
-            uni.navigateTo({
-              url: "/pages/account/login" });
-
-          } else {
+          this.wxlogin(function () {
             func();
-          }
-        }
-      } else if (this.oauth.signIn) {
-        if (this.user.user_id) {
-          func();
-        } else {
-          uni.navigateTo({
-            url: "/pages/account/login" });
+          });
 
+
+
+
+
+
+
+        } else
+        {
+          func();
         }
       } else {
         func();
@@ -15212,9 +16330,11 @@ var throttle = function throttle(func) {var wait = arguments.length > 1 && argum
       if (func) {
         func(json);
       }
-      uni.navigateBack({
-        delta: 2 });
+      if (this.success_return) {
+        uni.navigateBack({
+          delta: 2 });
 
+      }
     },
 
     /**
@@ -15239,8 +16359,6 @@ var throttle = function throttle(func) {var wait = arguments.length > 1 && argum
       var query = this.query;
       var p = query.page;
       query.page = page;
-      uni.navigateTo({
-        url: "?" + this.toUrl(query) });
 
       if (this.page_count !== 0) {
         if (p + 1 == page) {
@@ -15612,51 +16730,89 @@ var throttle = function throttle(func) {var wait = arguments.length > 1 && argum
     selectionChange: function selectionChange(val) {
       this.selection = val;
     },
-
-    select_tpl_home: function select_tpl_home() {
-
-    },
-
-    select_tpl_admin: function select_tpl_admin() {
-
-    },
     get_form: function get_form(key) {
       var form = uni.db.get("form_" + key);
       if (Object.keys(this.form).length > 0) {
         uni.push(this.form, form);
       }
-    } },
+    },
+    wxlogin: function wxlogin() {
+      var _this = this;
+      uni.showLoading({
+        title: '登录中...' });
 
+
+      uni.login({
+        provider: 'weixin',
+        success: function success(loginRes) {
+          var code = loginRes.code;
+          var query = {};
+          var url = "~/api/user/oauth/wechat_mini/code_to_token?";
+          var body = {
+            appid: "wx34cb431441caabac",
+            code: code };
+
+          _this.$get(url, body, function (json) {
+            if (json.result) {
+              // 请求成功
+              uni.hideLoading();
+              uni.db.set('openid', json.result.openid);
+              // console.log(json.result.openid);
+              if (json.result.user_id) {
+                // _this.$toast("登录成功");
+                // 缓存token
+                uni.db.set('token', json.result.token);
+                _this.$store.commit('user_set', json.result);
+                _this.$nav('/pages/root/index');
+              } else {
+                _this.$toast("未绑定账号");
+                _this.$nav('/pages/account/login');
+              }
+            } else if (json.error) {
+              // 请求失败
+              _this.$toast(json.error.message);
+              uni.hideLoading();
+            } else {
+              uni.hideLoading();
+              _this.$toast('服务器连接失败！');
+            }
+          });
+        } });
+
+    } },
 
   computed: {
     /**
                * 分页数量
                */
     page_count: function page_count() {
-      // return Math.ceil(this.count / this.query.size);
-      return;
+      if (this.query.size) {
+        return this.count / this.query.size;
+      }
+      return 1;
     } },
 
-
-  onLoad: function onLoad() {var _this3 = this;
+  onLoad: function onLoad(query) {var _this2 = this;
     this.get_form();
     this.showing = 0;
-    var routes = getCurrentPages();
-    var query = routes[routes.length - 1].options;
+    console.log("onLoad");
     this.check_auth(function () {
-      _this3.init(query);
+      _this2.init(query);
     });
   },
 
-  onShow: function onShow() {var _this4 = this;
+  onShow: function onShow() {var _this3 = this;
     this.showing = 100;
     var routes = getCurrentPages();
     var query = routes[routes.length - 1].options;
     this.check_auth(function () {
-      _this4.init(query);
+      console.log("onShow");
+      _this3.init(query);
     });
   },
 
+  // },
+  // onShow() {},
   onHide: function onHide() {
     this.events('end_before');
   } };exports.default = _default;
@@ -15664,1466 +16820,32 @@ var throttle = function throttle(func) {var wait = arguments.length > 1 && argum
 
 /***/ }),
 
-/***/ 321:
-/*!************************************************************!*\
-  !*** E:/github/other/mm_uni/components/uni-icons/icons.js ***!
-  \************************************************************/
+/***/ 8:
+/*!**************************************************************************************!*\
+  !*** E:/github/other/mm_uni/static/css/mm_base.css?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  "pulldown": "\uE588",
-  "refreshempty": "\uE461",
-  "back": "\uE471",
-  "forward": "\uE470",
-  "more": "\uE507",
-  "more-filled": "\uE537",
-  "scan": "\uE612",
-  "qq": "\uE264",
-  "weibo": "\uE260",
-  "weixin": "\uE261",
-  "pengyouquan": "\uE262",
-  "loop": "\uE565",
-  "refresh": "\uE407",
-  "refresh-filled": "\uE437",
-  "arrowthindown": "\uE585",
-  "arrowthinleft": "\uE586",
-  "arrowthinright": "\uE587",
-  "arrowthinup": "\uE584",
-  "undo-filled": "\uE7D6",
-  "undo": "\uE406",
-  "redo": "\uE405",
-  "redo-filled": "\uE7D9",
-  "bars": "\uE563",
-  "chatboxes": "\uE203",
-  "camera": "\uE301",
-  "chatboxes-filled": "\uE233",
-  "camera-filled": "\uE7EF",
-  "cart-filled": "\uE7F4",
-  "cart": "\uE7F5",
-  "checkbox-filled": "\uE442",
-  "checkbox": "\uE7FA",
-  "arrowleft": "\uE582",
-  "arrowdown": "\uE581",
-  "arrowright": "\uE583",
-  "smallcircle-filled": "\uE801",
-  "arrowup": "\uE580",
-  "circle": "\uE411",
-  "eye-filled": "\uE568",
-  "eye-slash-filled": "\uE822",
-  "eye-slash": "\uE823",
-  "eye": "\uE824",
-  "flag-filled": "\uE825",
-  "flag": "\uE508",
-  "gear-filled": "\uE532",
-  "reload": "\uE462",
-  "gear": "\uE502",
-  "hand-thumbsdown-filled": "\uE83B",
-  "hand-thumbsdown": "\uE83C",
-  "hand-thumbsup-filled": "\uE83D",
-  "heart-filled": "\uE83E",
-  "hand-thumbsup": "\uE83F",
-  "heart": "\uE840",
-  "home": "\uE500",
-  "info": "\uE504",
-  "home-filled": "\uE530",
-  "info-filled": "\uE534",
-  "circle-filled": "\uE441",
-  "chat-filled": "\uE847",
-  "chat": "\uE263",
-  "mail-open-filled": "\uE84D",
-  "email-filled": "\uE231",
-  "mail-open": "\uE84E",
-  "email": "\uE201",
-  "checkmarkempty": "\uE472",
-  "list": "\uE562",
-  "locked-filled": "\uE856",
-  "locked": "\uE506",
-  "map-filled": "\uE85C",
-  "map-pin": "\uE85E",
-  "map-pin-ellipse": "\uE864",
-  "map": "\uE364",
-  "minus-filled": "\uE440",
-  "mic-filled": "\uE332",
-  "minus": "\uE410",
-  "micoff": "\uE360",
-  "mic": "\uE302",
-  "clear": "\uE434",
-  "smallcircle": "\uE868",
-  "close": "\uE404",
-  "closeempty": "\uE460",
-  "paperclip": "\uE567",
-  "paperplane": "\uE503",
-  "paperplane-filled": "\uE86E",
-  "person-filled": "\uE131",
-  "contact-filled": "\uE130",
-  "person": "\uE101",
-  "contact": "\uE100",
-  "images-filled": "\uE87A",
-  "phone": "\uE200",
-  "images": "\uE87B",
-  "image": "\uE363",
-  "image-filled": "\uE877",
-  "location-filled": "\uE333",
-  "location": "\uE303",
-  "plus-filled": "\uE439",
-  "plus": "\uE409",
-  "plusempty": "\uE468",
-  "help-filled": "\uE535",
-  "help": "\uE505",
-  "navigate-filled": "\uE884",
-  "navigate": "\uE501",
-  "mic-slash-filled": "\uE892",
-  "search": "\uE466",
-  "settings": "\uE560",
-  "sound": "\uE590",
-  "sound-filled": "\uE8A1",
-  "spinner-cycle": "\uE465",
-  "download-filled": "\uE8A4",
-  "personadd-filled": "\uE132",
-  "videocam-filled": "\uE8AF",
-  "personadd": "\uE102",
-  "upload": "\uE402",
-  "upload-filled": "\uE8B1",
-  "starhalf": "\uE463",
-  "star-filled": "\uE438",
-  "star": "\uE408",
-  "trash": "\uE401",
-  "phone-filled": "\uE230",
-  "compose": "\uE400",
-  "videocam": "\uE300",
-  "trash-filled": "\uE8DC",
-  "download": "\uE403",
-  "chatbubble-filled": "\uE232",
-  "chatbubble": "\uE202",
-  "cloud-download": "\uE8E4",
-  "cloud-upload-filled": "\uE8E5",
-  "cloud-upload": "\uE8E6",
-  "cloud-download-filled": "\uE8E9",
-  "headphones": "\uE8BF",
-  "shop": "\uE609" };exports.default = _default;
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_base_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./mm_base.css?vue&type=style&index=0&lang=css& */ 9);
+/* harmony import */ var _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_base_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_base_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_base_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_base_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_D_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_D_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_dist_cjs_js_ref_6_oneOf_1_1_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_stylePostLoader_js_D_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_2_D_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_mm_base_css_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ 376:
-/*!**************************************************!*\
-  !*** E:/github/other/mm_uni/mixins/component.js ***!
-  \**************************************************/
+/***/ 9:
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!E:/github/other/mm_uni/static/css/mm_base.css?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default2 = {
-  props: {
-    /**
-            * 回调函数(中控)
-            * @param {String} name 函数名
-            * @param {Object} param1
-            * @param {Object} param2
-            * @param {Object} param3
-            * @return {Object} 任意值
-            */
-    func: {
-      type: Function,
-      default: function func(name, param1, param2, param3) {} },
-
-    query: {
-      type: Object,
-      default: function _default() {
-        return {
-          page: 1,
-          size: 10 };
-
-      } },
-
-    list: {
-      type: Array,
-      default: function _default() {
-        return [];
-      } },
-
-    col: {
-      type: Number,
-      default: 0 },
-
-    vm: {
-      type: Object,
-      default: function _default() {
-        return {
-          // 当前ID
-          id: 'id',
-          // 上级ID
-          fid: 'fid',
-          // 用户名
-          username: 'username',
-          // 用户id
-          user_id: 'user_id',
-          // 图片
-          img: 'img',
-          // 图标
-          icon: 'icon',
-          // 标题
-          title: 'title',
-          // 子项
-          sub: 'sub',
-          // 描述
-          description: 'description',
-          // 关键词
-          keywords: 'keywords',
-          // 图片
-          image: 'image',
-          // 内容
-          content: 'content',
-          // 时间
-          time: 'time',
-          // 创建时间
-          create_time: "create_time",
-          // 链接
-          url: 'url',
-          // 方式
-          mode: 'mode',
-          // 来源
-          source: 'source',
-          // 来源地址
-          source_url: 'source_url',
-          // 标签
-          label: 'label',
-          // 名称
-          name: 'name',
-          // 值
-          value: 'value',
-          // 提示
-          tip: 'tip',
-          // 热度
-          hot: 'hot',
-          // 原价
-          price_ago: 'price_ago',
-          // 价格
-          price: 'price',
-          // 总价
-          total: 'total',
-          // 评论
-          num_comment: 'num_comment',
-          // 点赞数
-          num_praise: 'num_praise',
-          // 访问数
-          num_see: 'num_see',
-          // 总量
-          count: 'count',
-          // 数量
-          num: 'num',
-          // 作者
-          author: 'author',
-          // 收藏量
-          collect: 'collect',
-          // 标签
-          tag: 'tag' };
-
-      } },
-
-    css: {
-      type: String,
-      default: "" },
-
-    func_lang: {
-      type: Function,
-      default: null } },
-
-
-  data: function data() {
-    return {
-      // 地址
-      url: "",
-
-      // 添加地址
-      url_add: "",
-
-      // 删除地址
-      url_del: "",
-
-      // 修改地址
-      url_set: "",
-
-      // 查询对象地址
-      url_get_obj: "",
-
-      // 查询列表地址
-      url_get_list: "",
-
-      // 表单提交地址
-      url_submit: "",
-
-      // 上传提交地址
-      url_upload: "",
-
-      // 导入数据地址
-      url_import: "",
-
-      // 导出数据地址
-      url_export: "",
-
-      // 配置
-      config: {
-        // 默认当前页面
-        page: 1,
-        // 默认页面大小
-        size: 10 },
-
-
-      // 加载进度
-      loading: 0,
-
-      // 显示进度
-      showing: 0,
-
-      // 提交进度
-      posting: 0,
-
-      // 查询结果匹配数统计
-      count: 0,
-
-      // 显示隐藏，true显示，false隐藏
-      show: false,
-
-      // 响应成功或失败
-      bl: false,
-
-      // 显示方式
-      display: "",
-
-      // 关键字段
-      field: "",
-
-      // 响应提示
-      tip: "",
-
-      // 默认请求方式
-      mode: "list",
-
-      // 清除列表
-      clear_list: true,
-
-      // 响应错误消息
-      message: "",
-
-      // 选中项
-      select: -1,
-
-      // 选中集
-      selects: "",
-
-      // 当前页, 用于跳转页面
-      page_now: 1,
-
-      // 选择项状态
-      select_state: false,
-
-      // 排序键，用于拖拽修改排序
-      sort_key: "display",
-
-      // 修改条件
-      query_set: {},
-
-      // 上级ID: father_id
-      father_id: "father_id",
-
-      // 选中集合
-      selection: [],
-
-      // 登录权限
-      oauth: {
-        "signIn": true,
-        "gm": 0,
-        "user_admin": [] },
-
-
-      // 用户信息
-      user: this.$store.state.user,
-
-      // 修改提示
-      tip_show: true };
-
-  },
-  methods: {
-    /**
-              * 语言转换
-              * @param {String} keyword
-              * @return {String} 返回转换后的语言
-              */
-    to_lang: function to_lang(keyword) {
-      if (this.func_lang) {
-        return this.func_lang(keyword);
-      } else {
-        return keyword;
-      }
-    },
-    /**
-        * @description 保存对象
-        * @param {String} key 键
-        * @param {String} obj 值
-        */
-    save_obj: function save_obj(key, obj) {
-      uni.db.set(key, obj);
-    },
-    /**
-        * @description 查询对象
-        * @param {String} key 键
-        * @return {Object} 值
-        */
-    load_obj: function load_obj(key) {
-      return uni.db.get(key);
-    },
-    /**
-        * @description 事件管理, 用于管理函数
-        * @param {String} name 事件名
-        * @param {Object} param1 参数1
-        * @param {Object} param2 参数2
-        * @param {Object} param3 参数3
-        * @return {Object} 返回事件特定值
-        */
-    events: function events(name, param1, param2, param3) {
-      if (this[name]) {
-        if (param3) {
-          return this[name](param1, param2, param3);
-        } else {
-          return this[name](param1, param2);
-        }
-      } else {
-        return null;
-      }
-    },
-
-    /**
-        * @description 添加数据
-        * @param {Object} param 要添加的数据
-        * @param {Function} func 回调函数
-        */
-    add: function add(param, func) {
-      if (!param) {
-        param = this.obj;
-      }
-      var pm = this.events("add_before", Object.assign({}, param)) || param;
-      var msg = this.events("add_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("add_main", pm, func);
-      }
-      return ret;
-    },
-    /**
-        * @description 删除数据
-        * @param {Object} param 查询条件
-        */
-    del: function del(param, func) {
-      if (!param) {
-        param = this.query;
-      }
-      var pm = this.events("del_before", Object.assign({}, param)) || param;
-      var msg = this.events("del_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("del_main", pm, func);
-      }
-      return ret;
-    },
-    del_show: function del_show(o, id) {
-      var _this = this;
-      uni.confirm('删除后将无法回复!<br/>是否确定要删除?', function () {
-        // console.log('确定删除!');
-        var query = {};
-        query[id] = o[id];
-        _this.del(query, function () {
-          _this.list.del(query);
-          _this.count -= 1;
-        });
-      }, function () {
-        // console.log('取消删除!')
-      });
-    },
-    /**
-        * @description 修改数据
-        * @param {Object} param 修改项
-        * @param {String} query 查询条件
-        * @param {Boolean} includeZero 是否包括0
-        */
-    set: function set(param, query, func, includeZero) {
-      if (!param) {
-        param = this.obj;
-      }
-      if (query) {
-        this.query_set = query;
-      } else {
-        this.query_set = Object.assign({}, this.query);
-      }
-      var pm = this.events("set_before", Object.assign({}, param), includeZero) || param;
-      var msg = this.events("set_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("set_main", pm, func);
-      }
-      return ret;
-    },
-    /**
-        * 修改前事件
-        * @param {Object} param
-        * @param {Boolean} includeZero 是否删除0值项
-        * @param {Object} 返回新的参数
-        */
-    set_before: function set_before(param, includeZero) {
-      var pm = uni.delete(param, includeZero);
-      for (var k in pm) {
-        if (k.toLocaleLowerCase().indexOf('time') !== -1 && pm[k].indexOf('T') !== -1) {
-          pm[k] = new Date(pm[k]).toStr('yyyy-MM-dd 00:00:00');
-        }
-      }
-      return pm;
-    },
-    /**
-        * 批量修改
-        */
-    batchSet: function batchSet() {
-      var _this = this;
-      uni.confirm('批量修改数据无法挽回<br/>确定要操作吗?', function () {
-        var q = Object.assign({}, _this.query, _this.query_set);
-        q[_this.field] = _this.selects;
-        delete q.page;
-        delete q.size;
-        delete q.orderby;
-        _this.set(_this.form, q, function (json) {
-          if (json.result) {
-            _this.show = false;
-            _this.get();
-          }
-        }, true);
-      });
-    },
-    /**
-        * @description 查询多条数据
-        * @param {Object} query 查询条件
-        * @param {Function} func 回调函数
-        */
-    get_list: function get_list(param, func) {
-      if (!param) {
-        param = this.query;
-      }
-      var pm = this.events("get_list_before", Object.assign({}, param)) || param;
-      var msg = this.events("get_list_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("get_list_main", pm, func);
-      }
-      return ret;
-    },
-    /**
-        * @description 查询一条数据
-        * @param {Object} query 查询条件
-        * @func {Function} 回调函数
-        */
-    get_obj: function get_obj(param, func) {
-      if (!param) {
-        param = this.query;
-      }
-      var pm = this.events("get_obj_before", Object.assign({}, param)) || param;
-      var msg = this.events("get_obj_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("get_obj_main", pm, func);
-      } else if (func) {
-        func();
-      }
-      return ret;
-    },
-    sort: function sort(param, func) {
-      var pm = this.events("sort_before", Object.assign({}, param)) || param;
-      var msg = this.events("sort_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("sort_main", pm, func);
-      }
-      return ret;
-    },
-    /**
-        * 初始化
-        * @param {Object} param 参数
-        * @param {Function} func 回调函数
-        */
-    init: function init(param, func) {
-      var pm = this.events("init_before", Object.assign({}, param)) || param;
-      var msg = this.events("init_check", pm);
-      var ret;
-      if (!msg) {
-        ret = this.events("init_main", pm, func);
-      } else if (func) {
-        func();
-      }
-      return ret;
-    },
-    submit: function submit(param, func) {
-      if (!param) {
-        param = this.form;
-      }
-      var pm = this.events("submit_before", Object.assign({}, param)) || param;
-      var msg = this.events("submit_check", pm);
-      var ret;
-      if (msg) {
-        this.$toast(msg, 'danger');
-      } else {
-        ret = this.events("submit_main", pm, func);
-      }
-      return ret;
-    },
-    /**
-        * 提交前事件
-        * @param {Object} param 提交参数
-        */
-    submit_before: function submit_before(param) {
-      return param;
-    },
-    upload: function upload(param, func) {
-      var pm = this.events("upload_before", Object.assign({}, param)) || param;
-      var msg = this.events("upload_check", pm);
-      var ret;
-      if (msg) {
-        this.$toast(msg, 'danger');
-      } else {
-        ret = this.events("upload_main", pm, func);
-      }
-      return ret;
-    },
-    /**
-        * @description 添加数据
-        * @param {Object} value 要添加的数据
-        */
-    add_main: function add_main(value, func) {
-      var url = this.url ? this.url + "method=add" : this.url_add;
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.$post(url, value, function (json) {
-        _this.events("add_after", json, func);
-        if (json.result) {
-          _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
-        } else if (json.error) {
-          _this.$toast(json.error.message, 'danger');
-        } else {
-          _this.$toast('添加失败! 原因:是服务器连接失败!', "danger");
-        }
-      });
-    },
-    /**
-        * @description 删除数据
-        * @param {Object} query 查询条件
-        * @param {Function} func 删除回调函数函数
-        */
-    del_main: function del_main(query, func) {
-      var url = this.url ? this.url + "method=del" : this.url_del;
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.$get(url, query, function (json) {
-        _this.events("del_after", json, func);
-        if (json.result) {
-          _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
-        } else if (json.error) {
-          _this.$toast(json.error.message, 'danger');
-        } else {
-          _this.$toast('删除失败! 原因:是服务器连接失败!', "danger");
-        }
-      });
-    },
-    /**
-        * 删除之后事件
-        * @param {Object} json 返回的结果
-        * @param {Object} func 回调函数
-        */
-    del_after: function del_after(json, func) {
-      if (func) {
-        func();
-      }
-    },
-    /**
-        * @description 修改数据
-        * @param {Object} value 要修改的数据
-        * @param {Object} value 修改项
-        */
-    set_main: function set_main(value, func) {
-      var url = this.url ? this.url + "method=set" : this.url_set;
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.$post(this.toUrl(this.query_set, url), value, function (json, status) {
-        _this.events("set_after", json, func);
-        if (json.result) {
-          if (json.result.bl) {
-            if (_this.tip_show) {
-              _this.$toast(json.result.tip.replace('修改', '更新'), "success");
-            }
-          } else {
-            _this.$toast(json.result.tip.replace('修改', '更新'), "danger");
-          }
-        } else if (json.error) {
-          _this.$toast(json.error.message, "danger");
-        } else {
-          _this.$toast('修改失败! 原因:是服务器连接失败!', "danger");
-        }
-      });
-    },
-    /**
-        * 修改成功时执行
-        * @param {Object} json 结果
-        * @param {Object} func 回调函数
-        */
-    set_after: function set_after(json, func) {
-      if (func) {
-        func(json);
-      }
-    },
-    /**
-        * @description 查询数据
-        * @param {Object} query 查询参数
-        * @param {Function} func 回调函数
-        */
-    get: function get(query, func) {
-      this.get_main(query, func);
-    },
-    /**
-        * @description 查询数据(主程序)
-        * @param {Object} query 查询参数
-        * @param {Function} func 回调函数
-        */
-    get_main: function get_main(query, func) {
-      var url = this.url_get_obj ? this.url_get_obj : this.url;
-      if (url) {
-        var _this = this;
-        this.get_obj(query, function () {
-          _this.get_create(query, func);
-        });
-      } else {
-        this.get_create(query, func);
-      }
-    },
-    /**
-        * 验证请求
-        * @param {Object} param 请求参数
-        */
-    get_obj_check: function get_obj_check(param) {
-      var bl = false;
-      for (var k in param) {
-        if (param[k]) {
-          bl = true;
-          break;
-        };
-      }
-      if (bl) {
-        return null;
-      } else {
-        return "缺少查询条件";
-      }
-    },
-    /**
-        * @description 查询一条数据(主程序)
-        * @param {Object} query 查询条件
-        * @param {Function} func 回调函数
-        */
-    get_obj_main: function get_obj_main(query, func) {
-      // console.log("get_obj_main");
-      var url = this.url_get_obj ? this.url_get_obj : this.url + "method=get_obj";
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.$get(this.toUrl(query, url), null, function (json, status) {
-        _this.events("get_obj_after", json, func);
-        var res = json.result;
-        if (res) {
-          var obj;
-          if (res.obj) {
-            obj = res.obj;
-            delete res.obj;
-          } else {
-            var list = res.list;
-            if (list && list.length > 0) {
-              obj = list[0];
-            } else {
-              obj = res;
-            }
-          }
-          uni.push(_this, res, true);
-          if (obj) {
-            if (!_this.obj || Object.keys(_this.obj).length === 0) {
-              _this.obj = obj;
-            } else {
-              uni.push(_this.obj, obj);
-            }
-            var o = _this.obj;
-            for (var k in o) {
-              if (k.indexOf('time') !== -1) {
-                var val = o[k];
-                if (val && val.indexOf('T') !== -1) {
-                  var v = new Date(o[k]);
-                  o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-                }
-              }
-            }
-            if (!_this.form || Object.keys(_this.form).length === 0) {
-              _this.form = Object.assign({}, _this.obj);
-            } else {
-              uni.push(_this.form, Object.assign({}, _this.obj));
-            }
-          }
-        } else if (json.error) {
-          console.log(json.error.message);
-        } else {
-          _this.$toast("服务器连接失败！", "danger");
-        }
-      });
-    },
-    /**
-        * @description 获取到对象后事件
-        * @param {Object} json 响应结果
-        */
-    get_obj_after: function get_obj_after(json, func) {
-      if (func) {
-        func(json);
-      }
-    },
-    /**
-        * @description 查询多条数据(主程序)
-        * @param {Object} query 查询条件
-        * @param {Function} func 回调函数
-        */
-    get_list_main: function get_list_main(query, func) {
-      var url = this.url_get_list ? this.url_get_list : this.url;
-      if (!url) {
-        return;
-      }
-      var _this = this;
-      this.loading = 0;
-      this.$get(this.toUrl(query, url), null, function (json, status) {
-        _this.loading = 100;
-        if (_this.clear_list) {
-          _this.list.clear();
-        }
-        _this.events("get_list_after", json, func, url);
-        var res = json.result;
-        if (res) {
-          _this.page_now = _this.query.page;
-          _this.list.addList(res.list);
-          if (res.count !== undefined) {
-            _this.count = res.count;
-          }
-        } else if (json.error) {
-          // 非法访问或未登录
-          _this.$store.commit('sign_out');
-          console.log(json.error.message);
-        } else {
-          _this.$toast("服务器连接失败！", "danger");
-        }
-      });
-    },
-    /**
-        * @description 获取到列表事件
-        * @param {Object} res 响应结果
-        */
-    get_list_after: function get_list_after(res, func, url) {
-      if (func) {
-        func(res, url);
-      }
-    },
-    /**
-        * 搜索
-        * @param {Object} query 查询条件
-        * @param {Boolean} bl 是否重置再搜索
-        */
-    search: function search(query, func) {
-      if (query) {
-        uni.push(this.query, query);
-      }
-      var url = this.url_get_list ? this.url_get_list : this.url;
-      if (url) {
-        this.query.page = 1;
-        this.count = 0;
-        uni.route.push("?" + this.toUrl(this.query));
-        this.first(query, func);
-      }
-    },
-    get_create: function get_create(query, func) {
-      if (query) {
-        uni.push(this.query, query);
-      }
-      var url = this.url_get_list ? this.url_get_list : this.url;
-      if (url) {
-        this.count = 0;
-        // uni.route.push("?" + this.toUrl(this.query));
-        this.first(query, func);
-      }
-    },
-    /**
-        * @description 查询多条数据 (首次)
-        * @param {Object} query 查询条件
-        * @param {Function} func 回调函数
-        */
-    first: function first(query, func) {
-      var _this = this;
-
-      if (!this.count) {
-        var qy = Object.assign({}, this.query);
-        this.get_list(qy, func);
-      } else {
-        this.get_list(query, func);
-      }
-    },
-    /**
-        * @description 查询下一页数据
-        * @param {Function} func 回调函数
-        */
-    next: function next(query, func) {
-      console.log("next");
-      var _this = this;
-      _this.get_list(query, function (json, url) {
-        if (json.result) {
-          var list = json.result.list;
-          if (list.length > 0) {
-            var qy = Object.assign({}, query, {
-              page: query.page + 1 });
-
-            if (qy.page <= _this.page_count) {
-              delete qy.count_ret;
-              _this.$get(_this.toUrl(qy, url));
-            }
-          }
-        }
-        if (func) {
-          func(json);
-        }
-      });
-    },
-    /**
-        * @description 查询上一页数据
-        * @param {Function} func 回调函数
-        */
-    prev: function prev(query, func) {
-      console.log("prev");
-      var _this = this;
-      this.get_list(query, function (json, url) {
-        if (json.result) {
-          var list = json.result.list;
-          if (list.length > 0) {
-            var qy = Object.assign({}, query, {
-              page: query.page - 1 });
-
-            if (qy.page >= 1) {
-              delete qy.count_ret;
-              _this.$get(_this.toUrl(qy, url));
-            }
-          }
-        }
-        if (func) {
-          func(res);
-        }
-      });
-    },
-    /**
-        * 清除数据
-        * @param {Object} query
-        */
-    clear: function clear(query) {
-      uni.clear(query);
-    },
-    /**
-        * 重置
-        */
-    reset: function reset() {
-      uni.clear(this.query);
-      uni.push(this.query, this.config);
-    },
-
-    /**
-        * 提交表单
-        */
-    submit_main: function submit_main(param, func) {
-      var url = this.url;
-      if (url) {
-        if (this.field) {
-          var id = param[this.field];
-          if (id) {
-            var q = {
-              method: 'set' };
-
-            q[this.field] = id;
-            url = this.toUrl(q, url);
-          } else {
-            url += "method=add";
-          }
-        } else {
-          url += "method=submit";
-        }
-      } else if (this.url_submit) {
-        url = this.url_submit;
-      } else if (this.field) {
-        var id = param[this.field];
-        if (id) {
-          url = this.url_set;
-        } else {
-          url = this.url_add;
-        }
-      }
-
-      // console.log('提交', url);
-      if (url) {
-        var _this = this;
-        this.$post(this.$toUrl(this.query, url), param, function (json, status) {
-          if (json.result) {
-            _this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
-            _this.events("submit_after", json, func);
-          } else if (json.error) {
-            _this.$toast(json.error.message, 'danger');
-          } else {
-            _this.$toast("服务器连接失败！", "danger");
-          }
-        });
-      }
-    },
-    /**
-        * 提交前验证事件
-        * @param {Object} 请求参数
-        * @return {String} 验证成功返回null, 失败返回错误提示
-        */
-    submit_check: function submit_check(param) {
-      return null;
-    },
-    /**
-        * @description 获取到对象后事件
-        * @param {Object} json 响应结果
-        * @param {Function} func 回调函数
-        */
-    submit_after: function submit_after(json, func) {
-      if (func) {
-        func(json);
-      }
-      uni.navigateBack({
-        delta: 2 });
-
-    },
-    /**
-        * 上下翻页
-        * @param {Number} n 加减页码
-        */
-    go: function go(n) {
-      var page = this.query.page + n;
-      this.goTo(page);
-    },
-    /**
-        * 跳转指定页
-        * @param {Number} page 页码
-        */
-    goTo: function goTo(page) {
-      if (page < 1) {
-        page = 1;
-      } else if (page > this.page_count) {
-        page = this.page_count;
-      }
-      var query = this.query;
-      var p = query.page;
-      query.page = page;
-      uni.navigateTo({
-        url: "?" + this.toUrl(query) });
-
-      if (this.page_count !== 0) {
-        if (p + 1 == page) {
-          this.next(query);
-        } else if (p - 1 == page) {
-          this.prev(query);
-        } else {
-          this.first(query);
-        }
-      } else {
-        this.first(query);
-      }
-    },
-    /**
-        * @description 转查询参数
-        * @param {Object} obj 被转换的对象
-        * @param {String} url 请求地址
-        * @return {String} url字符串
-        */
-    toUrl: function toUrl(obj, url) {
-      return uni.toUrl(obj, url);
-    },
-    /**
-        * 初始化前函数
-        */
-    init_before: function init_before(query) {
-      if (!query) {
-        query = this.config;
-      }
-      return query;
-    },
-    /**
-        * 初始化
-        */
-    init_main: function init_main(query) {
-      var _this = this;
-      uni.push(this.query, query);
-      _this.init_after(function () {
-        _this.get(_this.query);
-      });
-    },
-    /**
-        * 初始化后函数
-        */
-    init_after: function init_after(func) {
-      if (func) {
-        func();
-      }
-    },
-    /**
-        * @description 上传文件
-        * @param {Function} func 回调函数
-        */
-    upload_main: function upload_main(func) {
-      var url = "";
-      if (this.url) {
-        url = this.url + "method=upload";
-      } else {
-        url = this.url_upload;
-      }
-
-      if (!param) {
-        param = this.form;
-      }
-      if (msg) {
-        this.$toast(msg, 'danger');
-      } else {
-        this.uploading = 0;
-        var _this = this;
-        this.$upload(url, param, function (json, status) {
-          _this.uploading = 100;
-          _this.events("upload_after", json, func);
-        });
-      }
-    },
-    /**
-        * @description 上传完成时
-        * @param {Object} json 响应结果
-        * @param {Function} func
-        */
-    upload_after: function upload_after(json, func) {
-      if (json.result) {
-        this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
-      } else if (json.error) {
-        this.$toast(json.error.message, 'danger');
-      } else {
-        this.$toast("服务器连接失败！", "danger");
-      }
-      if (func) {
-        func();
-      }
-    },
-    /**
-        * 结束前
-        * @param {Object} param 参数
-        */
-    end_before: function end_before(param) {
-      // this.reset();
-    },
-    /**
-        * 选择项全改
-        */
-    select_all: function select_all() {
-      var bl = !this.select_state;
-      if (!bl) {
-        this.selects = '';
-      } else {
-        var s = '';
-        var list = this.list;
-        for (var i = 0; i < list.length; i++) {
-          s += '|' + list[i][this.field];
-        }
-        this.selects = s.replace('|', '');
-      }
-      this.select_state = bl;
-    },
-    /**
-        * 选择项改变
-        * @param {String|Number} id 选择的ID
-        */
-    select_change: function select_change(id) {
-      var has = false;
-      var arr = this.selects.split('|');
-      for (var i = 0; i < arr.length; i++) {
-        var o = arr[i];
-        if (id == o) {
-          arr.splice(i, 1);
-          has = true;
-          break;
-        }
-      }
-      if (!has) {
-        arr.push(id);
-      }
-      var s = arr.join('|');
-      if (s.indexOf('|') == 0) {
-        this.selects = s.substring(1);
-      } else {
-        this.selects = s;
-      }
-    },
-    /**
-        * 选择项含有
-        * @param {String|Number} id 选择的ID
-        */
-    select_has: function select_has(id) {
-      var ids = '|' + this.selects + '|';
-      return ids.indexOf('|' + id + '|') !== -1;
-    },
-    /**
-        * 选中
-        * @param {Number} index 项目索引
-        * @param {Object} obj 选中的对象
-        */
-    selected: function selected(index, obj) {
-      this.select = index;
-      if (this.obj & obj) {
-        uni.push(this.obj, obj);
-      }
-      uni.db.set('select', index, 120);
-    },
-    /**
-        * 页面改变时
-        * @param {Object} e 事件
-        */
-    page_change: function page_change(e) {
-      var n = Number(e.target.value);
-      if (isNaN(n)) {
-        n = 1;
-      }
-      if (n < 1) {
-        n = 1;
-      } else if (n > this.page_count) {
-        n = this.page_count;
-      }
-      this.page_now = n;
-    },
-    /**
-        * 获取名称
-        * @param {Array} list 用来取名的列表
-        * @param {String} arr_str id集合
-        * @param {String} key 键
-        * @param {String} name 名
-        * @param {String} span 分隔符
-        */
-    get_name: function get_name(list, arr_str, key, name, span) {
-      if (!name) {
-        name = "name";
-      }
-      var value = "";
-      if (arr_str) {
-        if (typeof arr_str == 'string') {
-          if (!span) {
-            span = ',';
-          }
-          var arr = arr_str.split(span);
-          var id = Number(arr[0]);
-
-          for (var i = 0; i < list.length; i++) {
-            var o = list[i];
-            if (o[key] == id) {
-              value += '|' + o[name];
-            }
-          }
-        } else {
-          var id = arr_str;
-          for (var i = 0; i < list.length; i++) {
-            var o = list[i];
-            if (o[key] == id) {
-              value = o[name];
-              break;
-            }
-          }
-        }
-      }
-      return value.replace('|', '');
-    },
-    /**
-        * 取消并返回
-        */
-    cancel: function cancel() {
-      uni.navigateBack({
-        delta: 2 });
-
-    },
-    /**
-        * 导入数据
-        * @param {Object} file 文件
-        */
-    import_db: function import_db(file) {
-      if (file) {
-        var _this = this;
-        uni.confirm("是否导入 " + file.name, "导入数据", function () {
-          uni.http.upload(_this.url_import, file, function (json) {
-            if (json.result) {
-              uni.confirm(json.result.tip, function () {
-                _this.get();
-              });
-            } else if (json.error) {
-              uni.confirm(json.error.message);
-            } else {
-              _this.$toast("服务器连接失败！", "danger");
-            }
-          });
-        });
-      }
-    },
-    /**
-        * 导出数据
-        */
-    export_db: function export_db() {
-      var _this = this;
-      if (this.selects) {
-        var query = {};
-        query[this.field] = this.selects;
-        this.$get(_this.url_export, query, function (json) {
-          var res = json.result;
-          if (res && res.bl) {
-            window.location.href = res.url;
-          }
-        });
-      } else {
-        this.$get(_this.url_export, this.query, function (json) {
-          var res = json.result;
-          if (res && res.bl) {
-            window.location.href = res.url;
-          }
-        });
-      }
-    },
-    /**
-        * 判断是否有下级
-        * @param {Number} id 字段ID
-        * @param {Object} list 数据列表
-        * @return {Number} 返回级别
-        */
-    opens_has_sub: function opens_has_sub(id, list) {
-      if (!list) {
-        list = this.list;
-      }
-      var bl = false;
-      var father_id = this.father_id;
-      for (var i = 0; i < list.length; i++) {
-        var o = list[i];
-        if (o[father_id] === id) {
-          bl = true;
-          break;
-        }
-      }
-      return bl;
-    },
-    /**
-        * 改变展开项
-        * @param {Number} id 唯一主键
-        */
-    opens_change: function opens_change(id) {
-      var index = this.opens.indexOf(id);
-      if (index !== -1) {
-        this.opens.splice(index, 1);
-      } else {
-        var bl = this.opens_has_sub(id);
-        if (bl) {
-          this.opens.push(id);
-        }
-      }
-      uni.db.set('opens', this.opens);
-    },
-    /**
-        * 判断是否存在
-        * @param {Number} id 唯一主键
-        * @return {Boolean} 存在返回true, 否则返回false
-        */
-    opens_has: function opens_has(id) {
-      return this.opens.indexOf(id) !== -1;
-    },
-    /**
-        * 判断子孙级别, 最大支持5次分叉
-        * @param {Number} fid 祖辈ID
-        * @param {Object} list 数据列表
-        * @return {Number} 返回级别
-        */
-    opens_lv: function opens_lv(fid, list) {
-      if (!list) {
-        list = this.list;
-      }
-      var lv = 0;
-      var father_id = this.father_id;
-      var id = this.field;
-      var num = fid;
-      for (var n = 0; n < 5; n++) {
-        if (num === 0) {
-          break;
-        }
-        for (var i = 0; i < list.length; i++) {
-          var o = list[i];
-          if (o[id] === num) {
-            lv++;
-            num = o[father_id];
-            if (num === 0) {
-              break;
-            }
-          }
-        }
-      }
-      return lv;
-    },
-    selectionChange: function selectionChange(val) {
-      this.selection = val;
-    },
-    select_tpl_home: function select_tpl_home() {
-
-    },
-    select_tpl_admin: function select_tpl_admin() {
-
-    } },
-
-  computed: {
-    /**
-               * 分页数量
-               */
-    page_count: function page_count() {
-      return Math.ceil(this.count / this.query.size);
-    },
-    /**
-        * 列数
-        */
-    cols: function cols() {
-      return this.col ? "list-" + this.col : "";
-    } },
-
-  onLoad: function onLoad(query) {
-    this.init(query);
-    this.showing = 0;
-  },
-  onShow: function onShow() {
-    this.showing = 100;
-  },
-  onUnload: function onUnload() {
-    this.events('end_before');
-  } };exports.default = _default2;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 4:
-/*!*****************************************!*\
-  !*** E:/github/other/mm_uni/pages.json ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
 
 /***/ })
 

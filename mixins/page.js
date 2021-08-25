@@ -1,5 +1,5 @@
 export default {
-	data: function data() {
+	data() {
 		return {
 			// 标题
 			title: "",
@@ -130,17 +130,19 @@ export default {
 			user: this.$store.state.user,
 
 			// 修改提示
-			tip_show: true
+			tip_show: true,
+			
+			// 提交成功是否跳转, false不跳转,true跳转
+			success_return: false
 		};
 	},
 	methods: {
-
 		/**
 		 * @description 保存对象
 		 * @param {String} key 键
 		 * @param {String} obj 值
 		 */
-		save_obj: function save_obj(key, obj) {
+		save_obj(key, obj) {
 			uni.setStorageSync(key, obj)
 		},
 
@@ -149,7 +151,7 @@ export default {
 		 * @param {String} key 键
 		 * @return {Object} 值
 		 */
-		load_obj: function load_obj(key) {
+		load_obj(key) {
 			return uni.getStorageSync(key)
 		},
 
@@ -161,7 +163,7 @@ export default {
 		 * @param {Object} param3 参数3
 		 * @return {Object} 返回事件特定值
 		 */
-		events: function events(name, param1, param2, param3) {
+		events(name, param1, param2, param3) {
 			if (this[name]) {
 				if (param3) {
 					return this[name](param1, param2, param3);
@@ -181,7 +183,7 @@ export default {
 		 * @param {Object} param3
 		 * @return {Object} 任意值
 		 */
-		func: function func(name, param1, param2, param3) {
+		func(name, param1, param2, param3) {
 			var f = this[name];
 			if (f) {
 				if (param1 === undefined) {
@@ -203,7 +205,7 @@ export default {
 		 * @param {Object} param 要添加的数据
 		 * @param {Function} func 回调函数
 		 */
-		add: function add(param, func) {
+		add(param, func) {
 			if (!param) {
 				param = this.obj;
 			}
@@ -220,7 +222,7 @@ export default {
 		 * @description 删除数据
 		 * @param {Object} param 查询条件
 		 */
-		del: function del(param, func) {
+		del(param, func) {
 			if (!param) {
 				param = this.query;
 			}
@@ -233,7 +235,7 @@ export default {
 			return ret;
 		},
 
-		del_show: function(o, id) {
+		del_show(o, id) {
 			var _this = this;
 			uni.confirm('删除后将无法回复!<br/>是否确定要删除?', function() {
 				// console.log('确定删除!');
@@ -254,7 +256,7 @@ export default {
 		 * @param {String} query 查询条件
 		 * @param {Boolean} includeZero 是否包括0
 		 */
-		set: function set(param, query, func, includeZero) {
+		set(param, query, func, includeZero) {
 			if (!param) {
 				param = this.obj;
 			}
@@ -278,7 +280,7 @@ export default {
 		 * @param {Boolean} includeZero 是否删除0值项
 		 * @param {Object} 返回新的参数
 		 */
-		set_before: function set_before(param, includeZero) {
+		set_before(param, includeZero) {
 			var pm = uni.delete(param, includeZero);
 			for (var k in pm) {
 				if (k.toLocaleLowerCase().indexOf('time') !== -1 && pm[k].indexOf('T') !== -1) {
@@ -291,7 +293,7 @@ export default {
 		/**
 		 * 批量修改
 		 */
-		batchSet: function batchSet() {
+		batchSet() {
 			var _this = this;
 			uni.confirm('批量修改数据无法挽回<br/>确定要操作吗?', function() {
 				var q = Object.assign({}, _this.query, _this.query_set);
@@ -331,7 +333,7 @@ export default {
 		 * @param {Object} query 查询条件
 		 * @func {Function} 回调函数
 		 */
-		get_obj: function get_obj(param, func) {
+		get_obj(param, func) {
 			if (!param) {
 				param = this.query;
 			}
@@ -346,7 +348,7 @@ export default {
 			return ret;
 		},
 
-		sort: function sort(param, func) {
+		sort(param, func) {
 			var pm = this.events("sort_before", Object.assign({}, param)) || param;
 			var msg = this.events("sort_check", pm);
 			var ret;
@@ -360,57 +362,33 @@ export default {
 		 * 检测授权，有权限后回调函数
 		 * @param {Function} func 回调函数
 		 */
-		check_auth: function check_auth(func) {
+		check_auth(func) {
 			// 取出权限
-			var auth = this.$store.state.web.auth;
-			// 权限长度不为空
-			if (!auth || auth.length === 0) {
-				this.$get_auth(this.user.user_group);
-			}
-			
-			// 判断用户ID
-			if (!this.user.user_id) {
-				var token = uni.db.get("token");
-				if (token) {
-					// 存储token
-					this.$store.commit("user_set", {
-						token
+			// var auth = this.$store.state.web.auth;
+			// // 权限长度不为空
+			// if (!auth || auth.length === 0) {
+			// 	// this.$get_auth(this.user.user_group);
+			// }
+			if (this.oauth.signIn) {
+				// 判断用户ID
+				if (!this.user.user_id) {
+					//#ifdef MP-WEIXIN
+					this.wxlogin(() => {
+						func();
 					});
-					// 获取登录态
-					this.$get_user(() => {
-						// 判断
-						if (this.oauth.signIn) {
-							if (this.user.user_id) {
-								// 执行获取权限并存储
-								this.$get_auth(this.user.user_group)
-								func();
-							} else {
-								uni.navigateTo({
-									url: "/pages/account/login"
-								})
-							}
-						}
-					});
-				} else {
-					// 前往登录页
-					if (this.oauth.signIn) {
-						uni.navigateTo({
-							url: "/pages/account/login"
-						})
-					} else {
-						func()
-					}
-				}
-			} else if (this.oauth.signIn) {
-				if (this.user.user_id) {
-					func();
-				} else {
-					uni.navigateTo({
+					//#endif
+
+					//#ifdef H5 
+					uni.redirectTo({
 						url: "/pages/account/login"
 					})
+					//#endif
+				}
+				else {
+					func();
 				}
 			} else {
-				func()
+				func();
 			}
 		},
 
@@ -419,7 +397,7 @@ export default {
 		 * @param {Object} param 参数
 		 * @param {Function} func 回调函数
 		 */
-		init: function init(param, func) {
+		init(param, func) {
 			var pm = this.events("init_before", Object.assign({}, param)) || param;
 			var msg = this.events("init_check", pm);
 			var ret;
@@ -431,7 +409,7 @@ export default {
 			return ret;
 		},
 
-		submit: function submit(param, func) {
+		submit(param, func) {
 			if (!param) {
 				param = this.form;
 			}
@@ -450,11 +428,11 @@ export default {
 		 * 提交前事件
 		 * @param {Object} param 提交参数
 		 */
-		submit_before: function(param) {
+		submit_before(param) {
 			return param;
 		},
 
-		upload: function upload(param, func) {
+		upload(param, func) {
 			var pm = this.events("upload_before", Object.assign({}, param)) || param;
 			var msg = this.events("upload_check", pm);
 			var ret;
@@ -470,7 +448,7 @@ export default {
 		 * @description 添加数据
 		 * @param {Object} value 要添加的数据
 		 */
-		add_main: function add_main(value, func) {
+		add_main(value, func) {
 			var url = this.url ? this.url + "method=add" : this.url_add;
 			if (!url) {
 				return;
@@ -493,7 +471,7 @@ export default {
 		 * @param {Object} query 查询条件
 		 * @param {Function} func 删除回调函数函数
 		 */
-		del_main: function del_main(query, func) {
+		del_main(query, func) {
 			var url = this.url ? this.url + "method=del" : this.url_del;
 			if (!url) {
 				return;
@@ -516,7 +494,7 @@ export default {
 		 * @param {Object} json 返回的结果
 		 * @param {Object} func 回调函数
 		 */
-		del_after: function del_after(json, func) {
+		del_after(json, func) {
 			if (func) {
 				func();
 			}
@@ -527,7 +505,7 @@ export default {
 		 * @param {Object} value 要修改的数据
 		 * @param {Object} value 修改项
 		 */
-		set_main: function set_main(value, func) {
+		set_main(value, func) {
 			var url = this.url ? this.url + "method=set" : this.url_set;
 			if (!url) {
 				return;
@@ -556,7 +534,7 @@ export default {
 		 * @param {Object} json 结果
 		 * @param {Object} func 回调函数
 		 */
-		set_after: function set_after(json, func) {
+		set_after(json, func) {
 			if (func) {
 				func(json);
 			}
@@ -567,7 +545,7 @@ export default {
 		 * @param {Object} query 查询参数
 		 * @param {Function} func 回调函数
 		 */
-		get: function get(query, func) {
+		get(query, func) {
 			this.get_main(query, func);
 		},
 
@@ -576,7 +554,7 @@ export default {
 		 * @param {Object} query 查询参数
 		 * @param {Function} func 回调函数
 		 */
-		get_main: function get_main(query, func) {
+		get_main(query, func) {
 			var url = this.url_get_obj ? this.url_get_obj : this.url;
 			if (url) {
 				var _this = this;
@@ -592,7 +570,7 @@ export default {
 		 * 验证请求
 		 * @param {Object} param 请求参数
 		 */
-		get_obj_check: function get_obj_check(param) {
+		get_obj_check(param) {
 			var bl = false;
 			for (var k in param) {
 				if (param[k]) {
@@ -612,7 +590,7 @@ export default {
 		 * @param {Object} query 查询条件
 		 * @param {Function} func 回调函数
 		 */
-		get_obj_main: function get_obj_main(query, func) {
+		get_obj_main(query, func) {
 			// console.log("get_obj_main");
 			var url = this.url_get_obj ? this.url_get_obj : this.url + "method=get_obj";
 			if (!url) {
@@ -670,7 +648,7 @@ export default {
 		 * @description 获取到对象后事件
 		 * @param {Object} json 响应结果
 		 */
-		get_obj_after: function get_obj_after(json, func) {
+		get_obj_after(json, func) {
 			if (func) {
 				func(json);
 			}
@@ -681,7 +659,7 @@ export default {
 		 * @param {Object} query 查询条件
 		 * @param {Function} func 回调函数
 		 */
-		get_list_main: function get_list_main(query, func) {
+		get_list_main(query, func) {
 			var url = this.url_get_list ? this.url_get_list : this.url;
 			if (!url) {
 				return;
@@ -715,7 +693,7 @@ export default {
 		 * @description 获取到列表事件
 		 * @param {Object} res 响应结果
 		 */
-		get_list_after: function get_list_after(res, func, url) {
+		get_list_after(res, func, url) {
 			if (func) {
 				func(res, url);
 			}
@@ -726,7 +704,7 @@ export default {
 		 * @param {Object} query 查询条件
 		 * @param {Boolean} bl 是否重置再搜索
 		 */
-		search: function search(query, func) {
+		search(query, func) {
 			if (query) {
 				uni.push(this.query, query);
 			}
@@ -739,7 +717,7 @@ export default {
 			}
 		},
 
-		get_create: function get_create(query, func) {
+		get_create(query, func) {
 			if (query) {
 				uni.push(this.query, query);
 			}
@@ -756,7 +734,7 @@ export default {
 		 * @param {Object} query 查询条件
 		 * @param {Function} func 回调函数
 		 */
-		first: function first(query, func) {
+		first(query, func) {
 			var _this = this;
 
 			if (!this.count) {
@@ -771,7 +749,7 @@ export default {
 		 * @description 查询下一页数据
 		 * @param {Function} func 回调函数
 		 */
-		next: function next(query, func) {
+		next(query, func) {
 			console.log("next");
 			var _this = this;
 			_this.get_list(query, function(json, url) {
@@ -797,7 +775,7 @@ export default {
 		 * @description 查询上一页数据
 		 * @param {Function} func 回调函数
 		 */
-		prev: function prev(query, func) {
+		prev(query, func) {
 			console.log("prev");
 			var _this = this;
 			this.get_list(query, function(json, url) {
@@ -823,14 +801,14 @@ export default {
 		 * 清除数据
 		 * @param {Object} query
 		 */
-		clear: function clear(query) {
+		clear(query) {
 			uni.clear(query);
 		},
 
 		/**
 		 * 重置
 		 */
-		reset: function reset() {
+		reset() {
 			uni.clear(this.query);
 			uni.push(this.query, this.config);
 		},
@@ -838,7 +816,7 @@ export default {
 		/**
 		 * 提交表单
 		 */
-		submit_main: function submit_main(param, func) {
+		submit_main(param, func) {
 			var url = this.url;
 			if (url) {
 				if (this.field) {
@@ -887,7 +865,7 @@ export default {
 		 * @param {Object} 请求参数
 		 * @return {String} 验证成功返回null, 失败返回错误提示
 		 */
-		submit_check: function submit_check(param) {
+		submit_check(param) {
 			return null;
 		},
 
@@ -896,20 +874,22 @@ export default {
 		 * @param {Object} json 响应结果
 		 * @param {Function} func 回调函数
 		 */
-		submit_after: function submit_after(json, func) {
+		submit_after(json, func) {
 			if (func) {
 				func(json);
 			}
-			uni.navigateBack({
-				delta: 2
-			});
+			if(this.success_return){
+				uni.navigateBack({
+					delta: 2
+				});
+			}
 		},
 
 		/**
 		 * 上下翻页
 		 * @param {Number} n 加减页码
 		 */
-		go: function go(n) {
+		go(n) {
 			var page = this.query.page + n;
 			this.goTo(page);
 		},
@@ -918,7 +898,7 @@ export default {
 		 * 跳转指定页
 		 * @param {Number} page 页码
 		 */
-		goTo: function goTo(page) {
+		goTo(page) {
 			if (page < 1) {
 				page = 1;
 			} else if (page > this.page_count) {
@@ -927,9 +907,7 @@ export default {
 			var query = this.query;
 			var p = query.page;
 			query.page = page;
-			uni.navigateTo({
-				url: "?" + this.toUrl(query)
-			});
+
 			if (this.page_count !== 0) {
 				if (p + 1 == page) {
 					this.next(query);
@@ -949,14 +927,14 @@ export default {
 		 * @param {String} url 请求地址
 		 * @return {String} url字符串
 		 */
-		toUrl: function toUrl(obj, url) {
+		toUrl(obj, url) {
 			return uni.toUrl(obj, url);
 		},
 
 		/**
 		 * 初始化前函数
 		 */
-		init_before: function init_before(query) {
+		init_before(query) {
 			if (!query) {
 				query = this.config;
 			}
@@ -966,7 +944,7 @@ export default {
 		/**
 		 * 初始化
 		 */
-		init_main: function init_main(query) {
+		init_main(query) {
 			var _this = this;
 			uni.push(this.query, query);
 			_this.init_after(function() {
@@ -977,7 +955,7 @@ export default {
 		/**
 		 * 初始化后函数
 		 */
-		init_after: function init_after(func) {
+		init_after(func) {
 			if (func) {
 				func();
 			}
@@ -987,7 +965,7 @@ export default {
 		 * @description 上传文件
 		 * @param {Function} func 回调函数
 		 */
-		upload_main: function upload_main(func) {
+		upload_main(func) {
 			var url = "";
 			if (this.url) {
 				url = this.url + "method=upload";
@@ -1015,7 +993,7 @@ export default {
 		 * @param {Object} json 响应结果
 		 * @param {Function} func
 		 */
-		upload_after: function upload_after(json, func) {
+		upload_after(json, func) {
 			if (json.result) {
 				this.$toast(json.result.tip, json.result.bl ? 'success' : 'danger');
 			} else if (json.error) {
@@ -1032,14 +1010,14 @@ export default {
 		 * 结束前
 		 * @param {Object} param 参数
 		 */
-		end_before: function end_before(param) {
+		end_before(param) {
 			// this.reset();
 		},
 
 		/**
 		 * 选择项全改
 		 */
-		select_all: function select_all() {
+		select_all() {
 			var bl = !this.select_state;
 			if (!bl) {
 				this.selects = '';
@@ -1058,7 +1036,7 @@ export default {
 		 * 选择项改变
 		 * @param {String|Number} id 选择的ID
 		 */
-		select_change: function select_change(id) {
+		select_change(id) {
 			var has = false
 			var arr = this.selects.split('|');
 			for (var i = 0; i < arr.length; i++) {
@@ -1084,7 +1062,7 @@ export default {
 		 * 选择项含有
 		 * @param {String|Number} id 选择的ID
 		 */
-		select_has: function select_has(id) {
+		select_has(id) {
 			var ids = '|' + this.selects + '|';
 			return ids.indexOf('|' + id + '|') !== -1;
 		},
@@ -1093,7 +1071,7 @@ export default {
 		 * 选中
 		 * @param {Number} index 项目索引
 		 */
-		selected: function selected(index) {
+		selected(index) {
 			this.select = index;
 			uni.db.set('select', index, 120);
 		},
@@ -1102,7 +1080,7 @@ export default {
 		 * 页面改变时
 		 * @param {Object} e 事件
 		 */
-		page_change: function page_change(e) {
+		page_change(e) {
 			var n = Number(e.current);
 			if (isNaN(n)) {
 				n = 1;
@@ -1159,7 +1137,7 @@ export default {
 		/**
 		 * 取消并返回
 		 */
-		cancel: function cancel() {
+		cancel() {
 			uni.navigateBack({
 				delta: 2
 			});
@@ -1169,7 +1147,7 @@ export default {
 		 * 导入数据
 		 * @param {Object} file 文件
 		 */
-		import_db: function import_db(file) {
+		import_db(file) {
 			if (file) {
 				var _this = this;
 				uni.confirm("是否导入 " + file.name, "导入数据", function() {
@@ -1191,7 +1169,7 @@ export default {
 		/**
 		 * 导出数据
 		 */
-		export_db: function export_db() {
+		export_db() {
 			var _this = this;
 			if (this.selects) {
 				var query = {};
@@ -1218,7 +1196,7 @@ export default {
 		 * @param {Object} list 数据列表
 		 * @return {Number} 返回级别
 		 */
-		opens_has_sub: function(id, list) {
+		opens_has_sub(id, list) {
 			if (!list) {
 				list = this.list;
 			}
@@ -1238,7 +1216,7 @@ export default {
 		 * 改变展开项
 		 * @param {Number} id 唯一主键
 		 */
-		opens_change: function opens_change(id) {
+		opens_change(id) {
 			var index = this.opens.indexOf(id);
 			if (index !== -1) {
 				this.opens.splice(index, 1);
@@ -1256,7 +1234,7 @@ export default {
 		 * @param {Number} id 唯一主键
 		 * @return {Boolean} 存在返回true, 否则返回false
 		 */
-		opens_has: function opens_has(id) {
+		opens_has(id) {
 			return this.opens.indexOf(id) !== -1;
 		},
 
@@ -1266,7 +1244,7 @@ export default {
 		 * @param {Object} list 数据列表
 		 * @return {Number} 返回级别
 		 */
-		opens_lv: function opens_lv(fid, list) {
+		opens_lv(fid, list) {
 			if (!list) {
 				list = this.list;
 			}
@@ -1291,60 +1269,98 @@ export default {
 			}
 			return lv;
 		},
-		
-		to_form(url,key){
-			uni.db.set("form_" + key,this.obj);
+
+		to_form(url, key) {
+			uni.db.set("form_" + key, this.obj);
 			this.$nav(url);
 		},
-		
+
 		selectionChange(val) {
 			this.selection = val;
 		},
-
-		select_tpl_home() {
-
-		},
-
-		select_tpl_admin() {
-
-		},
-		get_form(key){
+		get_form(key) {
 			var form = uni.db.get("form_" + key);
-			if(Object.keys(this.form).length > 0){
+			if (Object.keys(this.form).length > 0) {
 				uni.push(this.form, form);
 			}
+		},
+		wxlogin() {
+			var _this = this;
+			uni.showLoading({
+				title: '登录中...'
+			});
+
+			uni.login({
+				provider: 'weixin',
+				success: function(loginRes) {
+					let code = loginRes.code;
+					var query = {};
+					var url = "~/api/user/oauth/wechat_mini/code_to_token?";
+					var body = {
+						appid: "wx34cb431441caabac",
+						code
+					};
+					_this.$get(url, body, (json) => {
+						if (json.result) {
+							// 请求成功
+							uni.hideLoading();
+							uni.db.set('openid', json.result.openid);
+							// console.log(json.result.openid);
+							if (json.result.user_id) {
+								// _this.$toast("登录成功");
+								// 缓存token
+								uni.db.set('token', json.result.token);
+								_this.$store.commit('user_set', json.result);
+								_this.$nav('/pages/root/index')
+							} else {
+								_this.$toast("未绑定账号");
+								_this.$nav('/pages/account/login')
+							}
+						} else if (json.error) {
+							// 请求失败
+							_this.$toast(json.error.message);
+							uni.hideLoading();
+						} else {
+							uni.hideLoading();
+							_this.$toast('服务器连接失败！');
+						}
+					});
+				},
+			});
 		}
 	},
-
 	computed: {
 		/**
 		 * 分页数量
 		 */
-		page_count: function page_count() {
-			// return Math.ceil(this.count / this.query.size);
-			return
+		page_count() {
+			if(this.query.size){
+				return this.count / this.query.size
+			}
+			return 1
 		}
 	},
-
-	onLoad() {
+	onLoad(query) {
 		this.get_form();
 		this.showing = 0;
-		var routes = getCurrentPages();
-		var query = routes[routes.length - 1].options
+			console.log("onLoad");
 		this.check_auth(() => {
 			this.init(query);
 		})
 	},
-
+	
 	onShow() {
 		this.showing = 100;
 		var routes = getCurrentPages();
 		var query = routes[routes.length - 1].options
 		this.check_auth(() => {
+			console.log("onShow");
 			this.init(query);
 		})
 	},
 
+	// },
+	// onShow() {},
 	onHide() {
 		this.events('end_before');
 	}

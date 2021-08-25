@@ -4,11 +4,15 @@
     "configurations": [{
      	"default" : 
      	{
-     		"launchtype" : "remote"
+     		"launchtype" : "local"
      	},
      	"h5" : 
      	{
-     		"launchtype" : "remote"
+     		"launchtype" : "local"
+     	},
+     	"mp-weixin" : 
+     	{
+     		"launchtype" : "local"
      	},
      	"type" : "uniCloud"
      }

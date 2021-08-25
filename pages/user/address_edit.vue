@@ -6,7 +6,6 @@
 				<mm_row>
 					<mm_col>
 						<mm_view class="">
-							<form_address :form="obj"></form_address>
 						</mm_view>
 					</mm_col>
 				</mm_row>
@@ -17,14 +16,12 @@
 </template>
 
 <script>
-	import form_address from "@/components/diy/form_address.vue";
 
 	import mixin from "@/mixins/page.js";
 
 	export default {
 		mixins: [mixin],
 		components: {
-			form_address
 		},
 		data() {
 			return {

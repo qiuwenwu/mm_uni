@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "mm_list": "/components/mm_uni_ui/base/mm_list",
+    "mm_item": "/components/mm_uni_ui/base/mm_item",
+    "mm_icon": "/components/mm_uni_ui/base/mm_icon"
+  },
+  "component": true
+}

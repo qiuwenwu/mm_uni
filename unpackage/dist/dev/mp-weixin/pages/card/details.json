@@ -8,6 +8,6 @@
     "mm_row": "/components/mm_uni_ui/base/mm_row",
     "mm_col": "/components/mm_uni_ui/base/mm_col",
     "mm_view": "/components/mm_uni_ui/base/mm_view",
-    "mm_card": "/components/mm_uni_ui/base/mm_card"
+    "expand_qrcode": "/components/mm_uni_ui/expand/expand_qrcode"
   }
 }

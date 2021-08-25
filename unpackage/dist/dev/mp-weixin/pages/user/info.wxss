@@ -1,3 +1,35 @@
 
-#root_info #id_name {}
+#user_info .head_pic {
+	width: 100%;
+	height: 100%;
+	margin: 2rem auto;
+	text-align: center;
+}
+#user_info .head_pic image{
+	width: 4.5rem;
+	height: 4.5rem;
+}
+#user_info .nickname{
+	text-align: center;
+	margin: 0 7rem 1rem 7rem;
+	border-bottom: 1px solid #DBDBDB ;
+}
+#user_info .card_item{
+	position: relative;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding-right: 1.75rem;
+}
+#user_info .binded{
+	color: #E4C5B0;
+}
+
+
 

@@ -1,0 +1,6 @@
+
+.article_details .time {
+	font-size: 0.875rem;
+	color: #666;
+}
+

@@ -1,3 +1,40 @@
 
-#user_phone #id_name {}
+#user_phone {
+	background-color: #fff;
+	position: fixed;
+	height: 100%;
+	width: 100%;
+}
+#user_phone .bind{
+	box-shadow: 0rem 0.19rem 0.38rem rgba(0, 0, 0, 0.16);
+}
+#user_phone .bind .bind_number{
+	color: #0F0E0C;
+	font-size: 1rem;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	padding: .75rem 0;
+	margin-left: 1rem;
+	border-bottom: 1px solid #DBDBDB;
+}
+#user_phone .phone_number .send_code{
+	color: #805441;
+	font-size: 1rem;
+	font-family: Arial;
+	font-weight: 400;
+	line-height: 1.25rem;
+	margin: 0 .5rem;
+}
+#user_phone .bind .verification{
+	border: none;
+}
+#user_phone .bind input{
+	margin-left: .5rem;
+	/* border: 1px solid #000; */
+	width: 11rem;
+}
+#user_phone .verification input{
+	margin-left:1.5rem
+}
 

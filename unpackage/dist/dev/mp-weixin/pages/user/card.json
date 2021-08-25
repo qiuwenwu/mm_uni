@@ -7,7 +7,8 @@
     "mm_container": "/components/mm_uni_ui/base/mm_container",
     "mm_row": "/components/mm_uni_ui/base/mm_row",
     "mm_col": "/components/mm_uni_ui/base/mm_col",
-    "mm_view": "/components/mm_uni_ui/base/mm_view",
-    "mm_card": "/components/mm_uni_ui/base/mm_card"
+    "mm_form": "/components/mm_uni_ui/base/mm_form",
+    "control_switch": "/components/mm_uni_ui/control/control_switch",
+    "mm_view": "/components/mm_uni_ui/base/mm_view"
   }
 }

@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/root/index",
+    "pages/article/list",
+    "pages/article/details",
     "pages/card/details",
     "pages/web/index",
     "pages/media/music",
@@ -71,7 +73,7 @@
   },
   "permission": {
     "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序定位到你所在位置和搜寻附近服务人员"
+      "desc": "需要获取您的地理位置，请确认授权"
     }
   },
   "usingComponents": {}

@@ -1,0 +1,21 @@
+
+.expand_qrcode {
+	position: relative;
+	margin: auto;
+}
+.expand_qrcode-canvas {
+	position: fixed;
+	top: -99999rpx;
+	left: -99999rpx;
+	z-index: -99999;
+}
+.expand_qrcode canvas {
+	margin: auto;
+}
+.expand_qrcode image {
+	margin: auto;
+}
+.expand_qrcode {
+	text-align: center;
+}
+

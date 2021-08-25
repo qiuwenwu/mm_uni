@@ -4,7 +4,7 @@
  * @version 1.0
  */
 
-var host = "http://localhost:8000/";
+var host = "http://192.168.31.99:8000/";
 
 export default {
 	/**
@@ -18,54 +18,372 @@ export default {
 		}
 
 		var redirect_url = "";
+		
+		/**
+		 * 转为键值
+		 * @param {Object} arr 数组
+		 * @param {String} key 键
+		 * @param {String} name 名称
+		 * @param {String} value 默认值
+		 */
+		Vue.prototype.$to_kv = function(arr, key, name, value) {
+			if (value === undefined) {
+				value = '';
+			}
+			var list = [];
+			if (arr.length > 0) {
+				if (key) {
+					var n = name ? name : 'name';
+					for (var i = 0; i < arr.length; i++) {
+						var o = arr[i];
+						list.push({
+							name: o[n],
+							value: o[key]
+						});
+					}
+					if (arr[0].name !== '') {
+						list.unshift({
+							name: '',
+							value: value
+						});
+					} else {
+						list[0].value = value;
+					}
+				} else if (arr.length && typeof(arr[0]) === "object") {
+					list = arr;
+					if (arr[0].name !== '') {
+						list.unshift({
+							name: '',
+							value: value
+						});
+					}
+				} else {
+					for (var i = 0; i < arr.length; i++) {
+						var o = arr[i];
+						list.push({
+							name: o,
+							value: i
+						})
+					}
+					if (arr[0] !== '') {
+						list.unshift({
+							name: '',
+							value: value
+						});
+					} else {
+						list[0].value = value;
+					}
+				}
+			}
+			return list;
+		};
+		
+		/**
+		 * 转换时间
+		 * @param {String} timeStr 时间字符串
+		 * @param {String} format 转换格式
+		 * @return {String} 返回转换后的结果
+		 */
+		Vue.prototype.$to_time = function(timeStr, format) {
+			var time = timeStr.toTime();
+			if (format) {
+				return time.toStr(format);
+			} else {
+				var date = time.toStr("yyyy-MM-dd");
+				var now = new Date();
+				if (date == now.toStr("yyyy-MM-dd")) {
+					return time.toStr("hh:mm")
+				} else if (date == now.addDays(-1).toStr("yyyy-MM-dd")) {
+					return "昨天" + time.toStr("hh:mm")
+				} else if (time.toStr("yyyy") == now.toStr("yyyy")) {
+					return time.toStr("MM-dd");
+				} else {
+					return date;
+				}
+			}
+		};
+
+
+		// 开始
+		/**
+		 * @description 提示框
+		 * @param {String} text 提示内容
+		 * @param {String} type 显示类型
+		 */
+		Vue.prototype.$toast = function(text, type = 'dark') {
+			uni.showToast({
+				title: text,
+				icon: "none",
+				duration: 2000
+			});
+		};
+
+		/**
+		 * @description 过滤数组
+		 * @param {Array} arr 被过滤的数组
+		 * @param {String} key 判断的键
+		 * @param {Object} value 判断的值
+		 * @return {Array} 返回过滤后的数组
+		 */
+		Vue.prototype.$filter = function(arr, key, value) {
+			var ar = [];
+			for (var i = 0; i < arr.length; i++) {
+				var o = arr[i];
+				if (o[key] === value) {
+					ar.push(o);
+				}
+			}
+			return ar;
+		};
+
+		/**
+		 *  改变对象属性时间
+		 * @param {Object} o 被改变的对象
+		 */
+		Vue.prototype.$changeTime = function(o) {
+			for (var k in o) {
+				if (k.indexOf('time') !== -1) {
+					if (typeof(k) == 'string') {
+						var val = o[k];
+						if (val || val.indexOf('T') !== -1) {
+							var v = new Date(o[k]);
+							o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+						} else if (/\d+/.test(val)) {
+							if (o[k].length == 10) {
+								var v = new Date(o[k] * 1000);
+								o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+							} else if (o[k].length == 13) {
+								var v = new Date(o[k] * 1000);
+								o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+							}
+						} else if (typeof(k) == 'number') {
+							var v = new Date(o[k]);
+							o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
+						}
+					}
+				}
+			}
+		};
+
+		/**
+		 * 转为大写
+		 * @param {String} word 单词
+		 */
+		Vue.prototype.$to_up = function(word) {
+			return word.toUpperCase()
+		};
+
+		/**
+		 * 显示小数位
+		 * @param {Number} num 数值
+		 * @param {Number} len 小数位
+		 */
+		Vue.prototype.$to_fixed = function(num, len = 4) {
+			if (typeof(num) === 'number') {
+				return num.toFixed(len);
+			} else if (num) {
+				var n = Number(num);
+				return n.toFixed(len);
+			} else {
+				num = 0;
+				return num.toFixed(len);
+			}
+		};
+
+		/**
+		 * 跳转地址
+		 * @param {String} url
+		 */
+		Vue.prototype.$redirect = function(url) {
+			if (url) {
+				redirect_url = url;
+			} else {
+				return redirect_url;
+			}
+		};
+
+		/**
+		 * @description 转url字符串
+		 * @param {Object} obj 被转换的对象
+		 * @param {String} url 请求地址
+		 * @return {String} url参数格式字符串
+		 */
+		Vue.prototype.$toUrl = function(obj, url) {
+			var queryStr = "";
+			for (var key in obj) {
+				var value = obj[key];
+				if (typeof(value) === 'number') {
+					if (value > 0) {
+						queryStr += "&" + key + "=" + obj[key];
+					}
+				} else if (value) {
+					queryStr += "&" + key + "=" + encodeURI(value);
+				}
+			}
+			if (url) {
+				if (url.endWith('?') || url.endWith('&')) {
+					return url + queryStr.replace('&', '');
+				} else if (url.indexOf('?') === -1) {
+					return url + queryStr.replace('&', '?');
+				} else {
+					return url + queryStr;
+				}
+			} else {
+				return queryStr.replace('&', '');
+			}
+		};
+
+		/**
+		 * 转换名称
+		 * @param {Array} list 数组
+		 */
+		Vue.prototype.$toName = function(list, value, value_key = 'name', key = 'value') {
+			var ret = "";
+			for (var i = 0; i < list.length; i++) {
+				var o = list[i];
+				if (o[key] === value) {
+					ret = o[value_key];
+				}
+			}
+			return ret;
+		};
+
+		/**
+		 * 补全请求url
+		 * @param {String} url 现地址
+		 * @return {String} 新地址
+		 */
+		Vue.prototype.$fullUrl = function(url) {
+			var url_new = "";
+			if (url) {
+				if (url.indexOf("~/") === 0) {
+					url_new = url.replace('~/', host);
+				} else if (url.indexOf("/") === 0) {
+					url_new = url.replace('/', host);
+				} else {
+					url_new = url;
+				}
+			}
+			return url_new;
+		};
+
+		/**
+		 * 补全请求url
+		 * @param {String} url 现地址
+		 * @return {String} 新地址
+		 */
+		Vue.prototype.$fullImgUrl = function(url) {
+			if (url) {
+				return this.$fullUrl(url);
+			} else {
+				return "/static/img/logo.png"
+			}
+		};
+
+		/**
+		 * 跳转导航
+		 * @param {String} url 跳转地址
+		 */
+		Vue.prototype.$nav = function(url) {
+			if (url.indexOf("//") === 0) {
+				uni.switchTab({
+					url
+				});
+			} else if (url.indexOf("/") === 0) {
+				uni.navigateTo({
+					url
+				});
+			} else {
+				uni.navigateBack({
+					delta: 1
+				});
+			}
+		};
+
+		// 结束
 		Vue.mixin({
 			data() {
-				return {}
+				return {
+					phone_lock: 0
+				}
 			},
 			methods: {
 				/**
-				 *  快速获取列表
+				 * 锁定
+				 */
+				$lock(type = "phone") {
+					var key = type + "_lock";
+					this[key] = 60;
+					var timer = setInterval(() => {
+						this[key] -= 1;
+						if (this[key] == 0) {
+							clearInterval(this.timer)
+							this[key] == 60
+						}
+					}, 1000)
+				},
+				/**
+				 * 拨打电话
+				 */
+				$call_phone(tel, title = "拨号") {
+					// #ifdef H5
+					uni.showModal({
+						title: title,
+						content: tel,
+						success: function(res) {
+							if (res.confirm) {
+								uni.makePhoneCall({
+									phoneNumber: tel
+								});
+								this.$lock("phone");
+							} else if (res.cancel) {
+
+							}
+						}
+					});
+					// #endif
+
+					// #ifndef H5
+					uni.makePhoneCall({
+						phoneNumber: tel,
+						// 成功回调
+						success: (res) => {
+							this.$lock("phone");
+						},
+						// 失败回调
+						fail: (res) => {
+							this.$call_phone(); //重复调用一次
+						}
+					});
+					// #endif
+				},
+				/**
+				 * 快速获取列表
+				 * @param {String} key
+				 * @param {String} url
 				 */
 				$getList(key, url) {
 					this.$get(url, {}, (json) => {
-						if (json.default) {
-							this[key] = json.default.list;
+						if (json.result) {
+							this[key] = json.result.list;
 						}
 					});
 				},
 				/**
-				 *  改变时间
+				 * 翻译
+				 * @param {String} word 要翻译的单词
+				 * @param {Object} func 回调函数
 				 */
-				$changeTime(o) {
-					for (var k in o) {
-						if (k.indexOf('time') !== -1) {
-							if (typeof(k) == 'string') {
-								var val = o[k];
-								if (val || val.indexOf('T') !== -1) {
-									var v = new Date(o[k]);
-									o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-								} else if (/\d+/.test(val)) {
-									if (o[k].length == 10) {
-										var v = new Date(o[k] * 1000);
-										o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-									} else if (o[k].length == 13) {
-										var v = new Date(o[k] * 1000);
-										o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-									}
-								} else if (typeof(k) == 'number') {
-									var v = new Date(o[k]);
-									o[k] = v.toStr('yyyy-MM-dd hh:mm:ss');
-								}
-							}
+				$translate(word, func) {
+					var _this = this;
+					this.$get("~/api/service/translate?word=" + word, {}, function(json) {
+						if (json.result) {
+							func(json.result);
+						} else if (json.error) {
+							_this.$toast(json.error.message, 'danger');
+						} else {
+							_this.$toast('服务端连接错误！', 'danger');
 						}
-					}
-				},
-
-				$message(content, type = "none") {
-					uni.showToast({
-						title: content,
-						icon: type,
-						duration: 2000
 					});
 				},
 				/**
@@ -96,32 +414,28 @@ export default {
 				 * 导航跳转
 				 * @param {String} url 链接地址
 				 */
-				$nav(url) {
-					if (url.indexOf("/") === 0) {
-						uni.navigateTo({
-							url
-						})
-						uni.switchTab({
-							url
-						});
-					} else {
-						uni.navigateBack({
-							delta: 1
-						});
-					}
-				},
+
 				/**
 				 * @description 获取用户信息
 				 * @param {Function} func 回调函数
 				 */
 				$get_user(func) {
 					var _this = this;
-
+					
+					var token = uni.db.get("token");
+					if(token){
+						// 存储token
+						this.$store.commit("user_set", {
+							token
+						});
+					}
+					
 					this.$get('~/api/user/state', null, function(json, status) {
 						if (json.result && json.result.obj) {
-							_this.$store.commit('user_set', json.result.obj);
+							var user = json.result.obj;
+							_this.$store.commit('user_set', user);
 							if (func) {
-								func();
+								func(user);
 							}
 						} else if (json.error) {
 							// 非法访问或未登录
@@ -130,129 +444,6 @@ export default {
 							_this.$toast('服务器连接失败！');
 						}
 					});
-				},
-				/**
-				 * 跳转地址
-				 * @param {String} url
-				 */
-				$redirect(url) {
-					if (url) {
-						redirect_url = url;
-					} else {
-						return redirect_url;
-					}
-				},
-				/**
-				 * @description 提示框
-				 * @param {String} text 提示内容
-				 * @param {String} type 显示类型
-				 */
-				$toast(text, type = 'dark') {
-					uni.showToast({
-						title: text,
-						icon: "none",
-						duration: 2000
-					});
-				},
-				/**
-				 * 转换时间格式
-				 * @param {String} time 时间字符串
-				 * @param {String} format 格式
-				 */
-				$toTime(time, format) {
-					return time.toTime().toStr(format);
-				},
-				/**
-				 * @description 过滤数组
-				 * @param {Array} arr 被过滤的数组
-				 * @param {String} key 判断的键
-				 * @param {Object} value 判断的值
-				 * @return {Array} 返回过滤后的数组
-				 */
-				$filter(arr, key, value) {
-					var ar = [];
-					for (var i = 0; i < arr.length; i++) {
-						var o = arr[i];
-						if (o[key] === value) {
-							ar.push(o);
-						}
-					}
-					return ar;
-				},
-
-				/**
-				 * @description 转url字符串
-				 * @param {Object} obj 被转换的对象
-				 * @param {String} url 请求地址
-				 * @return {String} url参数格式字符串
-				 */
-				$toUrl(obj, url) {
-					var queryStr = "";
-					for (var key in obj) {
-						var value = obj[key];
-						if (typeof(value) === 'number') {
-							if (value > 0) {
-								queryStr += "&" + key + "=" + obj[key];
-							}
-						} else if (value) {
-							queryStr += "&" + key + "=" + encodeURI(value);
-						}
-					}
-					if (url) {
-						if (url.endWith('?') || url.endWith('&')) {
-							return url + queryStr.replace('&', '');
-						} else if (url.indexOf('?') === -1) {
-							return url + queryStr.replace('&', '?');
-						} else {
-							return url + queryStr;
-						}
-					} else {
-						return queryStr.replace('&', '');
-					}
-				},
-				/**
-				 * 转换名称
-				 * @param {Array} list 数组
-				 */
-				$toName(list, value, value_key = 'name', key = 'value') {
-					var ret = "";
-					for (var i = 0; i < list.length; i++) {
-						var o = list[i];
-						if (o[key] === value) {
-							ret = o[value_key];
-						}
-					}
-					return ret;
-				},
-				/**
-				 * 补全请求url
-				 * @param {String} url 现地址
-				 * @return {String} 新地址
-				 */
-				$fullUrl(url) {
-					var url_new = "";
-					if (url) {
-						if (url.indexOf("~/") === 0) {
-							url_new = url.replace('~/', host);
-						} else if (url.indexOf("/") === 0) {
-							url_new = url.replace('/', host);
-						} else {
-							url_new = url;
-						}
-					}
-					return url_new;
-				},
-				/**
-				 * 补全请求url
-				 * @param {String} url 现地址
-				 * @return {String} 新地址
-				 */
-				$fullImgUrl(url) {
-					if (url) {
-						return this.$fullUrl(url)
-					} else {
-						return "/static/img/logo.png"
-					}
 				},
 
 				/**

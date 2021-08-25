@@ -1,43 +1,29 @@
 <template>
 	<mm_page class="page_news" id="news_details">
 		<mm_main>
-			<!-- 详情(开始) -->
-			<mm_warp id="details">
+			<!-- 文章详情(开始) -->
+			<mm_warp id="article">
 				<mm_container>
 					<mm_row>
 						<mm_col class="col-12 col-sm-6 col-md-4">
-							<mm_view class="yyy">
-								
-							</mm_view>
-						</mm_col>
-					</mm_row>
-				</mm_container>
-			</mm_warp>
-			<!-- 详情(结束) -->
-			
-			<!-- 评论列表(开始) -->
-			<mm_warp id="name_card">
-				<mm_container>
-					<mm_row>
-						<mm_col class="col-12 col-sm-6 col-md-4">
-							<!-- 评论(开始) -->
-							<mm_card class="name_card">
-								<view class="card_head">
-									
+							<!-- 文章(开始) -->
+							<mm_card class="article">
+								<view class="card_head center">
+									<view class="title"><text>{{ obj.title }}</text></view>
+									<view class="time"><text>{{ obj.time_update }}</text></view>
 								</view>
 								<view class="card_body">
-									
+									<rich-text :nodes="obj.content"></rich-text>
 								</view>
 								<view class="card_foot">
-									
 								</view>
 							</mm_card>
-							<!-- 评论(结束) -->
+							<!-- 文章(结束) -->
 						</mm_col>
 					</mm_row>
 				</mm_container>
 			</mm_warp>
-			<!-- 评论列表(结束) -->
+			<!-- 文章详情(结束) -->
 		</mm_main>
 	</mm_page>
 </template>
@@ -56,7 +42,7 @@
 				// 请求链接
 				url: "",
 				// 获取单条数据链接
-				url_get_obj: "",
+				url_get_obj: "~/api/city/news?method=get_obj&",
 				// 获取列表链接
 				url_get_list: "",
 				// 查询条件

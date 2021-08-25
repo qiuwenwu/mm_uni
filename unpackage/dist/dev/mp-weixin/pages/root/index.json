@@ -8,6 +8,9 @@
     "mm_row": "/components/mm_uni_ui/base/mm_row",
     "mm_col": "/components/mm_uni_ui/base/mm_col",
     "mm_view": "/components/mm_uni_ui/base/mm_view",
-    "mm_card": "/components/mm_uni_ui/base/mm_card"
+    "mm_list": "/components/mm_uni_ui/base/mm_list",
+    "mm_item": "/components/mm_uni_ui/base/mm_item",
+    "swiper_image": "/components/mm_uni_ui/swiper/swiper_image",
+    "nav_menu": "/components/mm_uni_ui/nav/nav_menu"
   }
 }

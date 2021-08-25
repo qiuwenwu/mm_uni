@@ -1,3 +1,10 @@
 
-#info_edit #id_name {}
+#info_edit .input_num {
+	text-align: center;
+	border: 1px solid #DBDBDB;
+	width: 4rem;
+	display: inline-block;
+	border-radius: 0.25rem;
+	font-size: 0.875rem;
+}
 

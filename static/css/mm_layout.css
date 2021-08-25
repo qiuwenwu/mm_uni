@@ -229,8 +229,8 @@ footer.hide-x {
 	justify-content: flex-start;
 }
 
-.mm_list>*,
-.mm_info>* {
+.mm_list .mm_item,
+.mm_info .mm_item {
 	display: block;
 	float: left;
 	list-style: none;
@@ -364,7 +364,10 @@ ol.mm_list li::before {
 	padding-right: 1px;
 }
 
-.mm_group>* {
+.mm_group button,
+.mm_group input,
+.mm_group text,
+.mm_group select {
 	margin-right: -1px;
 	flex: 1;
 	float: left;
@@ -380,9 +383,9 @@ ol.mm_list li::before {
 	margin-left: -1px;
 }
 
-.mm_group>span,
-.mm_group>.unit,
-.mm_group>.title {
+.mm_group text,
+.mm_group .unit,
+.mm_group .title {
 	flex: inherit;
 	padding-left: var(--padding_base);
 	padding-right: var(--padding_base);
@@ -640,6 +643,7 @@ ol.mm_list li::before {
 	width: fit-content;
 	line-height: 1;
 }
+
 .mm_icon .img {
 	position: relative;
 	top: -0.125rem;
@@ -677,6 +681,7 @@ ol.mm_list li::before {
 }
 
 @media (min-width:576px) {
+
 	.mm_side~header,
 	.mm_side~footer {
 		width: calc(100% - 12rem);

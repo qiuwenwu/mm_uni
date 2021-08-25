@@ -1,3 +1,14 @@
 
-#user_card #id_name {}
+#user_card .switch {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: end;
+	-webkit-justify-content: flex-end;
+	        justify-content: flex-end;
+}
+#user_card .business {}
+#user_card .business .text_box {
+	padding-top: .25rem;
+}
 

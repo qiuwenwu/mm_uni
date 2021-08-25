@@ -1,3 +1,88 @@
 
-#user_index #id_name {}
+#user_index {
+	background-color: #fff;
+}
+#user_index #header_block .header{
+	position: relative;
+}
+#user_index #header_block .card {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	position: relative;
+	padding: 1rem 0;
+	padding-left: 2rem;
+}
+#user_index .header .title {
+	padding-top: .75rem;
+	margin-left: 1rem;
+}
+#user_index .title .name {
+	margin-left: .5rem;
+}
+#user_index .title .account {
+	font-size: 0.65rem;
+	color: #666666;
+	font-family: Arial;
+	font-weight: 400;
+	line-height: 1.25rem;
+}
+#user_index .header .qrcode{
+	width: -webkit-fit-content;
+	width: fit-content;
+	height: -webkit-fit-content;
+	height: fit-content;
+	position: absolute;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	right: 1.75rem;
+	top: 2.25rem;
+}
+#user_index .header  .qrcode image {
+	width: .88rem;
+	height: .88rem;
+}
+#user_index .header .qrcode::after {
+	content: "";
+	position: absolute;
+	right: -.625rem;
+	top: .45rem;
+	-webkit-transform: translateY(-50%) rotate(-45deg);
+	transform: translateY(-50%) rotate(-45deg);
+	content: "";
+	padding: 4px;
+	display: block;
+	border: 1px solid #999;
+	border-width: 0 2px 2px 0;
+	-webkit-transition: all 0.2s;
+	transition: all 0.2s;
+}
+#user_index .header .user_name {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+#user_index .head_pic,
+#user_index .head_pic image {
+	width: 4.5rem;
+	height: 4.5rem;
+}
+#user_index .title .vip,
+#user_index .title .vip image {
+	width: .75rem;
+	height: .65rem;
+}
+#user_index .infomation,
+#user_index .record {
+	padding: .75rem 0;
+	margin-left: 1rem;
+	border-bottom: 1px solid #DBDBDB;
+	position: relative;
+}
+#user_index .base_info,
+#user_index .system {
+	border: none;
+}
+
 

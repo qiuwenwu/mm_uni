@@ -1,33 +1,32 @@
 <template>
 	<mm_page class="page_user" id="user_message">
 		<mm_main>
-			<!-- 编辑表单(开始) -->
-			<mm_warp id="menu">
+			<!-- 资讯列表(开始) -->
+			<mm_warp id="name_card">
 				<mm_container>
 					<mm_row>
 						<mm_col class="col-12 col-sm-6 col-md-4">
-							<mm_view class="yyy">
-			
+							<!-- 资讯(开始) -->
+							<mm_view v-for="(o, i) in list" :key="i">
+								<view class="card" @click="'/pages/info/details?info_id=' + o.info_id">
+									<view class="card_head">
+										<view class="title"><text>{{ o.title }}</text>
+										</view>
+										<view class="time"><text>{{ $to_time(o.time_create) }}</text></view>
+									</view>
+									<view class="card_body">
+										<view class="doc">
+											<rich-text class="content" :nodes="o.content"></rich-text>
+										</view>
+									</view>
+								</view>
 							</mm_view>
+							<!-- 资讯(结束) -->
 						</mm_col>
 					</mm_row>
 				</mm_container>
 			</mm_warp>
-			<!-- 编辑表单(结束) -->
-			
-			<!-- 按钮列表(开始) -->
-			<mm_warp id="buttons">
-				<mm_container>
-					<mm_row>
-						<mm_col class="col-12">
-							<mm_view>
-								<button>立 即 发 布</button>
-							</mm_view>
-						</mm_col>
-					</mm_row>
-				</mm_container>
-			</mm_warp>
-			<!-- 按钮列表(结束) -->
+			<!-- 资讯列表(结束) -->
 		</mm_main>
 	</mm_page>
 </template>
@@ -40,6 +39,11 @@
 		],
 		data() {
 			return {
+				// 登录权限
+				oauth: {
+					"signIn": true,
+					"user_group": []
+				},
 				message: 'Hello',
 				// 定时器
 				timer: null,
@@ -48,7 +52,7 @@
 				// 获取单条数据链接
 				url_get_obj: "",
 				// 获取列表链接
-				url_get_list: "",
+				url_get_list:  "",
 				// 查询条件
 				query: {},
 				// 表的主字段

@@ -1,7 +1,5 @@
 <template>
 	<view class="page_message" id="message_index">
-		
-		
 		<!-- message表单模块(开始) -->
 		<mm_warp>
 			<mm_container class="container">

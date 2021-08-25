@@ -4,13 +4,12 @@
  * @version 1.0
  */
 import sdk from './mm_sdk.js';
-import expand from './expand.js';
-import component from './core.js';
+import core from './core.js';
 import lang from './lang/index.js'
 
 export default {
 	install(Vue, options) {
-		Vue.use(component, options);
+		Vue.use(core, options);
 		Vue.use(lang, options);
 	}
 }

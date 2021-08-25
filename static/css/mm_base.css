@@ -207,13 +207,6 @@
 }
 
 /* ===  基础样式  === */
-@font-face {
-	font-family: "Helvetica Neue";
-	font-style: normal;
-	font-weight: 400;
-	src: url(/static/fonts/HelveticaNeue.eot) format(embedded-opentype), url(/static/fonts/HelveticaNeue.woff2) format(woff2), url(/static/fonts/HelveticaNeue.woff) format(woff), url(/static/fonts/HelveticaNeue.ttf) format(truetype), url(/static/fonts/HelveticaNeue.svg) format(svg);
-}
-
 * {
 	margin: 0;
 	padding: 0;

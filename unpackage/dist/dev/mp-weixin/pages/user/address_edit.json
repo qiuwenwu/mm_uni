@@ -5,7 +5,6 @@
     "mm_container": "/components/mm_uni_ui/base/mm_container",
     "mm_row": "/components/mm_uni_ui/base/mm_row",
     "mm_col": "/components/mm_uni_ui/base/mm_col",
-    "mm_view": "/components/mm_uni_ui/base/mm_view",
-    "form_address": "/components/diy/form_address"
+    "mm_view": "/components/mm_uni_ui/base/mm_view"
   }
 }

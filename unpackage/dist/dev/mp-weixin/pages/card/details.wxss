@@ -1,3 +1,36 @@
 
-#card_details #id_name {}
+.user_info .title {
+	font-weight: 600;
+	margin-top: 0.25rem;
+}
+.user_info .vip {
+	width: 0.75rem;
+	height: 100%;
+	margin-right: 0.25rem;
+}
+.user_info .desc {
+	font-size: 0.75rem;
+	margin-top: 0.25rem;
+	color: #666;
+}
+.user_info .doc {
+	overflow: hidden;
+	padding-left: 1rem;
+}
+.user_info .label {
+	margin-right: 0.25rem;
+}
+.buttons {
+	text-align: center;
+}
+.buttons .btn_call {
+	display: inline-block;
+	margin: auto;
+	padding: 0.25rem 2rem;
+	border: 1px solid #E4C5B0;
+	background-color: #E4C5B0;
+	font-size: 0.875rem;
+	line-height: 2;
+	border-radius: 2rem !important;
+}
 
