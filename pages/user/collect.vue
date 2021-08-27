@@ -59,7 +59,7 @@
 											<rich-text class="content" :nodes="o.description"></rich-text>
 										</view>
 									</view>
-									<view class="btn_delete" @click="event_delete(o)">
+									<view class="btn_delete" @click="del(o.collect_id)">
 										<text>删除</text>
 									</view>
 								</view>
@@ -70,6 +70,7 @@
 				</mm_container>
 			</mm_warp>
 			<!-- 资讯列表(结束) -->
+
 		</mm_main>
 	</mm_page>
 </template>
@@ -87,22 +88,21 @@
 					"signIn": true,
 					"user_group": []
 				},
-				message: 'Hello',
-				toTime: null,
 				// 获取列表链接
 				url_get_list: "~/api/city/user_collect?",
+				// 删除收藏
+				url_get_list: "~/api/city/user_collect?method=del&",
+				// 数据主键
+				field: "collect_id",
 				// 查询条件
 				query: {
+					// 筛选关键词
+					keyword: "",
 					source_table: "info",
 					source_field: "info_id",
 					user_id: 0,
 				},
-				// 获取到的列表
-				list: [],
-				// 筛选关键词
-				keyword: "",
-				list_type: [
-					{
+				list_type: [{
 						source_table: "info",
 						source_field: "info_id",
 						name: "资讯"
@@ -121,32 +121,11 @@
 				this.query.source_field = o.source_field;
 				this.search();
 			},
-			
-			get_list_before(param){
+
+			get_list_before(param) {
 				param.user_id = this.user.user_id;
 				return param;
-			},
-			event_delete(o){
-				
 			}
-		},
-		/**
-		 * 加载页面时
-		 */
-		onLoad() {
-
-		},
-		/**
-		 * 页面显示时
-		 */
-		onShow() {
-			// 添加动画
-		},
-		/**
-		 * 页面销毁时
-		 */
-		onUnload() {
-
 		}
 	}
 </script>
@@ -155,15 +134,17 @@
 	#user_collect .card_head {
 		display: flex;
 	}
-	#user_collect .bar_type{
+
+	#user_collect .bar_type {
 		display: flex;
 		justify-content: center;
 	}
-	#user_collect .title{
+
+	#user_collect .title {
 		width: 80%;
 	}
 
-	#user_collect .btn_delete{
+	#user_collect .btn_delete {
 		display: flex;
 		float: right;
 		width: fit-content;
@@ -174,5 +155,4 @@
 		padding: .125rem 1.5rem;
 		margin: 0 1rem 1rem 0;
 	}
-	
 </style>

@@ -117,7 +117,7 @@ try {
       return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_form */ "components/mm_uni_ui/base/mm_form").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_form.vue */ 348))
     },
     control_switch: function() {
-      return Promise.all(/*! import() | components/mm_uni_ui/control/control_switch */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/mm_uni_ui/control/control_switch")]).then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/control/control_switch.vue */ 399))
+      return Promise.all(/*! import() | components/mm_uni_ui/control/control_switch */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/mm_uni_ui/control/control_switch")]).then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/control/control_switch.vue */ 358))
     },
     mm_view: function() {
       return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_view */ "components/mm_uni_ui/base/mm_view").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_view.vue */ 308))

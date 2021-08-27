@@ -4,7 +4,7 @@
 	display: -webkit-flex;
 	display: flex;
 }
-#user_collect .bar_type{
+#user_collect .bar_type {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -12,10 +12,10 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-#user_collect .title{
+#user_collect .title {
 	width: 80%;
 }
-#user_collect .btn_delete{
+#user_collect .btn_delete {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -29,5 +29,4 @@
 	padding: .125rem 1.5rem;
 	margin: 0 1rem 1rem 0;
 }
-
 

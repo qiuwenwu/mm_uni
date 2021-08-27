@@ -30,7 +30,9 @@
     "pages/user/collect",
     "pages/user/publish",
     "pages/user/address",
-    "pages/user/address_edit"
+    "pages/user/address_edit",
+    "pages/goods/index",
+    "pages/goods/view"
   ],
   "subPackages": [],
   "window": {

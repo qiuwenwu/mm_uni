@@ -266,95 +266,57 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-var _page = _interopRequireDefault(__webpack_require__(/*! @/mixins/page.js */ 41));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { mixins: [_page.default], data: function data() {return { // 登录权限
-      oauth: { "signIn": true, "user_group": [] }, message: 'Hello', toTime: null, // 获取列表链接
-      url_get_list: "~/api/city/user_collect?", // 查询条件
-      query: { source_table: "info", source_field: "info_id", user_id: 0 }, // 获取到的列表
-      list: [], // 筛选关键词
-      keyword: "", list_type: [{ source_table: "info", source_field: "info_id", name: "资讯" }, { source_table: "news", source_field: "news_id", name: "新闻" }] };}, methods: { select_type: function select_type(o) {this.query.source_table = o.source_table;this.query.source_field = o.source_field;this.search();}, get_list_before: function get_list_before(param) {param.user_id = this.user.user_id;return param;}, event_delete: function event_delete(o) {} }, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * 加载页面时
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */onLoad: function onLoad() {}, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         * 页面显示时
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         */onShow: function onShow() {// 添加动画
-  }, /**
-      * 页面销毁时
-      */onUnload: function onUnload() {} };exports.default = _default;
+
+var _page = _interopRequireDefault(__webpack_require__(/*! @/mixins/page.js */ 41));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+{
+  mixins: [
+  _page.default],
+
+  data: function data() {var _ref;
+    return _ref = {
+      // 登录权限
+      oauth: {
+        "signIn": true,
+        "user_group": [] },
+
+      // 获取列表链接
+      url_get_list: "~/api/city/user_collect?" }, _defineProperty(_ref, "url_get_list",
+
+    "~/api/city/user_collect?method=del&"), _defineProperty(_ref, "field",
+
+    "collect_id"), _defineProperty(_ref, "query",
+
+    {
+      // 筛选关键词
+      keyword: "",
+      source_table: "info",
+      source_field: "info_id",
+      user_id: 0 }), _defineProperty(_ref, "list_type",
+
+    [{
+      source_table: "info",
+      source_field: "info_id",
+      name: "资讯" },
+
+    {
+      source_table: "news",
+      source_field: "news_id",
+      name: "新闻" }]), _ref;
+
+
+
+  },
+  methods: {
+    select_type: function select_type(o) {
+      this.query.source_table = o.source_table;
+      this.query.source_field = o.source_field;
+      this.search();
+    },
+
+    get_list_before: function get_list_before(param) {
+      param.user_id = this.user.user_id;
+      return param;
+    } } };exports.default = _default;
 
 /***/ }),
 

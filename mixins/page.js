@@ -1311,10 +1311,10 @@ export default {
 								// 缓存token
 								uni.db.set('token', json.result.token);
 								_this.$store.commit('user_set', json.result);
-								_this.$nav('/pages/root/index')
+								// _this.$nav(_this.$redirect() || '/pages/root/index');
 							} else {
 								_this.$toast("未绑定账号");
-								_this.$nav('/pages/account/login')
+								_this.$nav('/pages/account/login');
 							}
 						} else if (json.error) {
 							// 请求失败

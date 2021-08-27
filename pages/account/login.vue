@@ -1,34 +1,21 @@
 <template>
 	<view class="page_account" id="account_login">
+		<header>
+			<image src=""></image>
+		</header>
 		<!-- 登录模块(开始) -->
 		<mm_warp>
 			<mm_container>
 				<mm_row class="row">
 					<mm_col class="col-12 col-sm-6 col-xl-3">
-						<mm_view class="login_view">
-							<uni-forms class="form_login" :rules="rules" :value="form" ref="form"
-								validate-trigger="bind" err-show-type="undertext">
-								<view class="title">
-									<text>登录</text>
-								</view>
-
-								<uni-forms-item name="username" required label="用户名">
-									<uni-easyinput type="text" :inputBorder="true" v-model="form.username"
-										placeholder="请输入用户名"></uni-easyinput>
-								</uni-forms-item>
-
-								<uni-forms-item name="password" required label="密码">
-									<uni-easyinput type="password" :inputBorder="true" v-model="form.password"
-										placeholder="请输入密码"></uni-easyinput>
-								</uni-forms-item>
-
-								<view class="btn_login" @click="login()">登录</view>
-								<view class="btns-link">
-									<navigator url="./register" class="link_register">注册账号</navigator>
-									<navigator url="./forgot" class="link_forgot">忘记密码</navigator>
-								</view>
-							</uni-forms>
-						</mm_view>
+						<mm_form class="login_view">
+							
+							<view class="btn_login" @click="login()">登录</view>
+							<view class="btns-link">
+								<navigator url="./register" class="link_register">注册账号</navigator>
+								<navigator url="./forgot" class="link_forgot">忘记密码</navigator>
+							</view>
+						</mm_form>
 					</mm_col>
 				</mm_row>
 			</mm_container>

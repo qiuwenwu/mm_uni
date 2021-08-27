@@ -107,8 +107,8 @@ try {
     mm_col: function() {
       return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_col */ "components/mm_uni_ui/base/mm_col").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_col.vue */ 303))
     },
-    mm_view: function() {
-      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_view */ "components/mm_uni_ui/base/mm_view").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_view.vue */ 308))
+    mm_form: function() {
+      return __webpack_require__.e(/*! import() | components/mm_uni_ui/base/mm_form */ "components/mm_uni_ui/base/mm_form").then(__webpack_require__.bind(null, /*! @/components/mm_uni_ui/base/mm_form.vue */ 348))
     }
   }
 } catch (e) {
@@ -193,19 +193,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _page = _interopRequireDefault(__webpack_require__(/*! @/mixins/page.js */ 41));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} //
 //
 //
@@ -233,23 +220,23 @@ var _page = _interopRequireDefault(__webpack_require__(/*! @/mixins/page.js */ 4
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { mixins: [_page.default], data: function data() {return { form: { username: '', password: '' }, rules: { username: { rules: [{ required: true, errorMessage: '请输入用户名' }, { minLength: 5, maxLength: 16, errorMessage: '用户名长度在 {minLength} 到 {maxLength} 个字符' }] }, password: { rules: [{ required: true, errorMessage: '请输入密码' }, { minLength: 5, maxLength: 16, errorMessage: '密码长度在 {minLength} 到 {maxLength} 个字符' }] } } };}, methods: { /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                             * 手动提交
-                                                                                                                                                                                                                                                                                                                                                                                                                                                             * @param {Object} form
-                                                                                                                                                                                                                                                                                                                                                                                                                                                             */login: function login() {var _this = this;
+var _default = { mixins: [_page.default], data: function data() {return { form: { username: '', password: '' }, rules: { username: { rules: [{ required: true, errorMessage: '请输入用户名' }, { minLength: 5, maxLength: 16, errorMessage: '用户名长度在 {minLength} 到 {maxLength} 个字符' }] }, password: { rules: [{ required: true, errorMessage: '请输入密码' },
+          {
+            minLength: 5,
+            maxLength: 16,
+            errorMessage: '密码长度在 {minLength} 到 {maxLength} 个字符' }] } } };
+
+
+
+
+
+  },
+  methods: {
+    /**
+              * 手动提交
+              * @param {Object} form
+              */
+    login: function login() {var _this = this;
       var param = Object.assign({}, this.form);
       param.password = param.password.md5();
 
